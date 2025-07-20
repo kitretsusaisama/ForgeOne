@@ -1,0 +1,156 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="1200" height="1000" viewBox="0 0 1200 1000">
+  <!-- Styles -->
+  <style>
+    .actor { fill: #3498db; stroke: #2980b9; stroke-width: 2; }
+    .lifeline { stroke: #7f8c8d; stroke-width: 1; stroke-dasharray: 5,5; }
+    .activation { fill: #3498db; stroke: #2980b9; stroke-width: 1; }
+    .message { stroke: #2c3e50; stroke-width: 1.5; marker-end: url(#arrowhead); }
+    .return-message { stroke: #2c3e50; stroke-width: 1.5; stroke-dasharray: 5,3; marker-end: url(#arrowhead); }
+    .note { fill: #f1c40f; stroke: #f39c12; stroke-width: 1; }
+    .actor-label { font-family: Arial; font-size: 14px; fill: #ffffff; font-weight: bold; }
+    .message-label { font-family: Arial; font-size: 12px; fill: #2c3e50; }
+    .note-label { font-family: Arial; font-size: 12px; fill: #7f8c8d; }
+    .header { font-family: Arial; font-size: 24px; fill: #2c3e50; font-weight: bold; }
+    .subheader { font-family: Arial; font-size: 18px; fill: #7f8c8d; }
+  </style>
+  
+  <!-- Markers -->
+  <defs>
+    <marker id="arrowhead" markerWidth="10" markerHeight="7" refX="9" refY="3.5" orient="auto">
+      <polygon points="0 0, 10 3.5, 0 7" fill="#2c3e50" />
+    </marker>
+  </defs>
+  
+  <!-- Title -->
+  <text x="600" y="40" text-anchor="middle" class="header">ForgeOne Syscall Sequence Diagram</text>
+  <text x="600" y="70" text-anchor="middle" class="subheader">Zero Trust Architecture Syscall Evaluation Flow</text>
+  
+  <!-- Actors -->
+  <rect x="100" y="100" width="120" height="50" rx="5" ry="5" class="actor" />
+  <text x="160" y="130" text-anchor="middle" class="actor-label">User Process</text>
+  
+  <rect x="300" y="100" width="120" height="50" rx="5" ry="5" class="actor" />
+  <text x="360" y="130" text-anchor="middle" class="actor-label">Syscall Handler</text>
+  
+  <rect x="500" y="100" width="120" height="50" rx="5" ry="5" class="actor" />
+  <text x="560" y="130" text-anchor="middle" class="actor-label">Trust Evaluator</text>
+  
+  <rect x="700" y="100" width="120" height="50" rx="5" ry="5" class="actor" />
+  <text x="760" y="130" text-anchor="middle" class="actor-label">Syscall Enforcer</text>
+  
+  <rect x="900" y="100" width="120" height="50" rx="5" ry="5" class="actor" />
+  <text x="960" y="130" text-anchor="middle" class="actor-label">Observer</text>
+  
+  <!-- Lifelines -->
+  <line x1="160" y1="150" x2="160" y2="900" class="lifeline" />
+  <line x1="360" y1="150" x2="360" y2="900" class="lifeline" />
+  <line x1="560" y1="150" x2="560" y2="900" class="lifeline" />
+  <line x1="760" y1="150" x2="760" y2="900" class="lifeline" />
+  <line x1="960" y1="150" x2="960" y2="900" class="lifeline" />
+  
+  <!-- Activations -->
+  <!-- User Process Activation -->
+  <rect x="155" y="200" width="10" height="650" class="activation" />
+  
+  <!-- Syscall Handler Activations -->
+  <rect x="355" y="250" width="10" height="550" class="activation" />
+  
+  <!-- Trust Evaluator Activations -->
+  <rect x="555" y="300" width="10" height="200" class="activation" />
+  
+  <!-- Syscall Enforcer Activations -->
+  <rect x="755" y="550" width="10" height="150" class="activation" />
+  
+  <!-- Observer Activations -->
+  <rect x="955" y="350" width="10" height="100" class="activation" />
+  <rect x="955" y="750" width="10" height="50" class="activation" />
+  
+  <!-- Messages -->
+  <!-- Initial Syscall Request -->
+  <line x1="165" y1="250" x2="355" y2="250" class="message" />
+  <text x="260" y="240" text-anchor="middle" class="message-label">1. Syscall Request</text>
+  
+  <!-- Create Syscall Context -->
+  <path d="M 365 270 C 400 270 400 290 365 290" class="message" />
+  <text x="420" y="280" text-anchor="middle" class="message-label">2. Create Syscall Context</text>
+  
+  <!-- Evaluate Trust -->
+  <line x1="365" y1="300" x2="555" y2="300" class="message" />
+  <text x="460" y="290" text-anchor="middle" class="message-label">3. Evaluate Trust</text>
+  
+  <!-- Get Identity Context -->
+  <path d="M 565 320 C 600 320 600 340 565 340" class="message" />
+  <text x="620" y="330" text-anchor="middle" class="message-label">4. Get Identity Context</text>
+  
+  <!-- Observe Evaluation -->
+  <line x1="565" y1="350" x2="955" y2="350" class="message" />
+  <text x="760" y="340" text-anchor="middle" class="message-label">5. Start Evaluation Span</text>
+  
+  <!-- Evaluate Policy -->
+  <path d="M 565 400 C 600 400 600 420 565 420" class="message" />
+  <text x="620" y="410" text-anchor="middle" class="message-label">6. Evaluate Policy</text>
+  
+  <!-- Observer Return -->
+  <line x1="955" y1="450" x2="565" y2="450" class="return-message" />
+  <text x="760" y="440" text-anchor="middle" class="message-label">7. Evaluation Span</text>
+  
+  <!-- Trust Evaluation Result -->
+  <line x1="555" y1="500" x2="365" y2="500" class="return-message" />
+  <text x="460" y="490" text-anchor="middle" class="message-label">8. Trust Decision</text>
+  
+  <!-- Enforce Syscall -->
+  <line x1="365" y1="550" x2="755" y2="550" class="message" />
+  <text x="560" y="540" text-anchor="middle" class="message-label">9. Enforce Syscall</text>
+  
+  <!-- Decision Process -->
+  <path d="M 765 570 C 800 570 800 590 765 590" class="message" />
+  <text x="820" y="580" text-anchor="middle" class="message-label">10. Process Decision</text>
+  
+  <!-- Enforcement Result -->
+  <line x1="755" y1="650" x2="365" y2="650" class="return-message" />
+  <text x="560" y="640" text-anchor="middle" class="message-label">11. Enforcement Result</text>
+  
+  <!-- Execute Syscall (if allowed) -->
+  <path d="M 365 700 C 400 700 400 720 365 720" class="message" />
+  <text x="420" y="710" text-anchor="middle" class="message-label">12. Execute Syscall (if allowed)</text>
+  
+  <!-- Record Execution -->
+  <line x1="365" y1="750" x2="955" y2="750" class="message" />
+  <text x="660" y="740" text-anchor="middle" class="message-label">13. Record Execution</text>
+  
+  <!-- Return Result to User -->
+  <line x1="355" y1="800" x2="165" y2="800" class="return-message" />
+  <text x="260" y="790" text-anchor="middle" class="message-label">14. Syscall Result</text>
+  
+  <!-- Notes -->
+  <!-- Trust Evaluation Note -->
+  <rect x="580" y="370" width="200" height="60" rx="5" ry="5" class="note" />
+  <text x="680" y="395" text-anchor="middle" class="note-label">Evaluates identity context</text>
+  <text x="680" y="415" text-anchor="middle" class="note-label">against ZTA policy graph</text>
+  
+  <!-- Enforcement Note -->
+  <rect x="780" y="600" width="200" height="60" rx="5" ry="5" class="note" />
+  <text x="880" y="625" text-anchor="middle" class="note-label">Decides: Allow, Block,</text>
+  <text x="880" y="645" text-anchor="middle" class="note-label">Quarantine, or Warn</text>
+  
+  <!-- Execution Note -->
+  <rect x="380" y="670" width="200" height="60" rx="5" ry="5" class="note" />
+  <text x="480" y="695" text-anchor="middle" class="note-label">Only executes if</text>
+  <text x="480" y="715" text-anchor="middle" class="note-label">enforcement allows</text>
+  
+  <!-- Actor Repetition at Bottom -->
+  <rect x="100" y="900" width="120" height="50" rx="5" ry="5" class="actor" />
+  <text x="160" y="930" text-anchor="middle" class="actor-label">User Process</text>
+  
+  <rect x="300" y="900" width="120" height="50" rx="5" ry="5" class="actor" />
+  <text x="360" y="930" text-anchor="middle" class="actor-label">Syscall Handler</text>
+  
+  <rect x="500" y="900" width="120" height="50" rx="5" ry="5" class="actor" />
+  <text x="560" y="930" text-anchor="middle" class="actor-label">Trust Evaluator</text>
+  
+  <rect x="700" y="900" width="120" height="50" rx="5" ry="5" class="actor" />
+  <text x="760" y="930" text-anchor="middle" class="actor-label">Syscall Enforcer</text>
+  
+  <rect x="900" y="900" width="120" height="50" rx="5" ry="5" class="actor" />
+  <text x="960" y="930" text-anchor="middle" class="actor-label">Observer</text>
+</svg>

@@ -1,0 +1,107 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1000" height="800" viewBox="0 0 1000 800">
+  <!-- Background and Title -->
+  <rect width="1000" height="800" fill="#f8f9fa" />
+  <text x="500" y="40" font-family="Arial" font-size="24" font-weight="bold" text-anchor="middle" fill="#333">ForgeOne Microkernel Architecture</text>
+  
+  <!-- Main Container -->
+  <rect x="50" y="70" width="900" height="680" rx="10" ry="10" fill="#fff" stroke="#ddd" stroke-width="2" />
+  
+  <!-- Interface Layer -->
+  <rect x="100" y="100" width="800" height="80" rx="5" ry="5" fill="#e6f7ff" stroke="#1890ff" stroke-width="2" />
+  <text x="500" y="145" font-family="Arial" font-size="18" font-weight="bold" text-anchor="middle" fill="#333">Interface</text>
+  <text x="200" y="145" font-family="Arial" font-size="14" text-anchor="middle" fill="#333">API</text>
+  <text x="400" y="145" font-family="Arial" font-size="14" text-anchor="middle" fill="#333">Prelude</text>
+  <text x="600" y="145" font-family="Arial" font-size="14" text-anchor="middle" fill="#333">External Bindings</text>
+  <text x="800" y="145" font-family="Arial" font-size="14" text-anchor="middle" fill="#333">Config</text>
+  
+  <!-- Core Layer -->
+  <rect x="100" y="200" width="800" height="100" rx="5" ry="5" fill="#f6ffed" stroke="#52c41a" stroke-width="2" />
+  <text x="500" y="230" font-family="Arial" font-size="18" font-weight="bold" text-anchor="middle" fill="#333">Core</text>
+  <rect x="150" y="250" width="200" height="30" rx="5" ry="5" fill="#d9f7be" stroke="#52c41a" stroke-width="1" />
+  <text x="250" y="270" font-family="Arial" font-size="14" text-anchor="middle" fill="#333">Boot</text>
+  <rect x="400" y="250" width="200" height="30" rx="5" ry="5" fill="#d9f7be" stroke="#52c41a" stroke-width="1" />
+  <text x="500" y="270" font-family="Arial" font-size="14" text-anchor="middle" fill="#333">Runtime</text>
+  <rect x="650" y="250" width="200" height="30" rx="5" ry="5" fill="#d9f7be" stroke="#52c41a" stroke-width="1" />
+  <text x="750" y="270" font-family="Arial" font-size="14" text-anchor="middle" fill="#333">Scheduler</text>
+  
+  <!-- Execution Layer -->
+  <rect x="100" y="320" width="380" height="100" rx="5" ry="5" fill="#fff7e6" stroke="#fa8c16" stroke-width="2" />
+  <text x="290" y="350" font-family="Arial" font-size="18" font-weight="bold" text-anchor="middle" fill="#333">Execution</text>
+  <rect x="120" y="370" width="100" height="30" rx="5" ry="5" fill="#ffe7ba" stroke="#fa8c16" stroke-width="1" />
+  <text x="170" y="390" font-family="Arial" font-size="14" text-anchor="middle" fill="#333">WASM Host</text>
+  <rect x="240" y="370" width="100" height="30" rx="5" ry="5" fill="#ffe7ba" stroke="#fa8c16" stroke-width="1" />
+  <text x="290" y="390" font-family="Arial" font-size="14" text-anchor="middle" fill="#333">Plugin Host</text>
+  <rect x="360" y="370" width="100" height="30" rx="5" ry="5" fill="#ffe7ba" stroke="#fa8c16" stroke-width="1" />
+  <text x="410" y="390" font-family="Arial" font-size="14" text-anchor="middle" fill="#333">Syscall</text>
+  
+  <!-- Trust Layer -->
+  <rect x="520" y="320" width="380" height="100" rx="5" ry="5" fill="#f9f0ff" stroke="#722ed1" stroke-width="2" />
+  <text x="710" y="350" font-family="Arial" font-size="18" font-weight="bold" text-anchor="middle" fill="#333">Trust</text>
+  <rect x="540" y="370" width="100" height="30" rx="5" ry="5" fill="#efdbff" stroke="#722ed1" stroke-width="1" />
+  <text x="590" y="390" font-family="Arial" font-size="14" text-anchor="middle" fill="#333">ZTA Policy</text>
+  <rect x="660" y="370" width="100" height="30" rx="5" ry="5" fill="#efdbff" stroke="#722ed1" stroke-width="1" />
+  <text x="710" y="390" font-family="Arial" font-size="14" text-anchor="middle" fill="#333">Syscall Enforcer</text>
+  <rect x="780" y="370" width="100" height="30" rx="5" ry="5" fill="#efdbff" stroke="#722ed1" stroke-width="1" />
+  <text x="830" y="390" font-family="Arial" font-size="14" text-anchor="middle" fill="#333">Redzone</text>
+  
+  <!-- Observer Layer -->
+  <rect x="100" y="440" width="380" height="100" rx="5" ry="5" fill="#e6fffb" stroke="#13c2c2" stroke-width="2" />
+  <text x="290" y="470" font-family="Arial" font-size="18" font-weight="bold" text-anchor="middle" fill="#333">Observer</text>
+  <rect x="120" y="490" width="100" height="30" rx="5" ry="5" fill="#b5f5ec" stroke="#13c2c2" stroke-width="1" />
+  <text x="170" y="510" font-family="Arial" font-size="14" text-anchor="middle" fill="#333">Trace</text>
+  <rect x="240" y="490" width="100" height="30" rx="5" ry="5" fill="#b5f5ec" stroke="#13c2c2" stroke-width="1" />
+  <text x="290" y="510" font-family="Arial" font-size="14" text-anchor="middle" fill="#333">Forensic</text>
+  <rect x="360" y="490" width="100" height="30" rx="5" ry="5" fill="#b5f5ec" stroke="#13c2c2" stroke-width="1" />
+  <text x="410" y="510" font-family="Arial" font-size="14" text-anchor="middle" fill="#333">Snapshot</text>
+  
+  <!-- Crypto Layer -->
+  <rect x="520" y="440" width="380" height="100" rx="5" ry="5" fill="#fff0f6" stroke="#eb2f96" stroke-width="2" />
+  <text x="710" y="470" font-family="Arial" font-size="18" font-weight="bold" text-anchor="middle" fill="#333">Crypto</text>
+  <rect x="580" y="490" width="100" height="30" rx="5" ry="5" fill="#ffd6e7" stroke="#eb2f96" stroke-width="1" />
+  <text x="630" y="510" font-family="Arial" font-size="14" text-anchor="middle" fill="#333">Signature</text>
+  <rect x="740" y="490" width="100" height="30" rx="5" ry="5" fill="#ffd6e7" stroke="#eb2f96" stroke-width="1" />
+  <text x="790" y="510" font-family="Arial" font-size="14" text-anchor="middle" fill="#333">ForgePkg</text>
+  
+  <!-- Diagnostics Layer -->
+  <rect x="100" y="560" width="800" height="100" rx="5" ry="5" fill="#fcffe6" stroke="#a0d911" stroke-width="2" />
+  <text x="500" y="590" font-family="Arial" font-size="18" font-weight="bold" text-anchor="middle" fill="#333">Diagnostics</text>
+  <rect x="300" y="610" width="150" height="30" rx="5" ry="5" fill="#f4ffb8" stroke="#a0d911" stroke-width="1" />
+  <text x="375" y="630" font-family="Arial" font-size="14" text-anchor="middle" fill="#333">Self-Test</text>
+  <rect x="550" y="610" width="150" height="30" rx="5" ry="5" fill="#f4ffb8" stroke="#a0d911" stroke-width="1" />
+  <text x="625" y="630" font-family="Arial" font-size="14" text-anchor="middle" fill="#333">Anomaly</text>
+  
+  <!-- Common Integration -->
+  <rect x="100" y="680" width="800" height="50" rx="5" ry="5" fill="#f0f5ff" stroke="#2f54eb" stroke-width="2" />
+  <text x="500" y="710" font-family="Arial" font-size="16" font-weight="bold" text-anchor="middle" fill="#333">Common Module Integration</text>
+  
+  <!-- Connecting Lines -->
+  <!-- Interface to Core -->
+  <line x1="500" y1="180" x2="500" y2="200" stroke="#333" stroke-width="2" />
+  
+  <!-- Core to Execution and Trust -->
+  <line x1="290" y1="300" x2="290" y2="320" stroke="#333" stroke-width="2" />
+  <line x1="710" y1="300" x2="710" y2="320" stroke="#333" stroke-width="2" />
+  
+  <!-- Execution to Observer, Trust to Crypto -->
+  <line x1="290" y1="420" x2="290" y2="440" stroke="#333" stroke-width="2" />
+  <line x1="710" y1="420" x2="710" y2="440" stroke="#333" stroke-width="2" />
+  
+  <!-- Observer and Crypto to Diagnostics -->
+  <line x1="290" y1="540" x2="290" y2="560" stroke="#333" stroke-width="2" />
+  <line x1="710" y1="540" x2="710" y2="560" stroke="#333" stroke-width="2" />
+  
+  <!-- Diagnostics to Common -->
+  <line x1="500" y1="660" x2="500" y2="680" stroke="#333" stroke-width="2" />
+  
+  <!-- Cross-connections -->
+  <path d="M 290 370 Q 400 350 500 370" fill="none" stroke="#333" stroke-width="1" stroke-dasharray="5,5" />
+  <path d="M 500 370 Q 600 350 710 370" fill="none" stroke="#333" stroke-width="1" stroke-dasharray="5,5" />
+  <path d="M 290 490 Q 400 470 500 490" fill="none" stroke="#333" stroke-width="1" stroke-dasharray="5,5" />
+  <path d="M 500 490 Q 600 470 710 490" fill="none" stroke="#333" stroke-width="1" stroke-dasharray="5,5" />
+  
+  <!-- Key Features -->
+  <rect x="50" y="750" width="900" height="30" rx="5" ry="5" fill="none" />
+  <text x="500" y="770" font-family="Arial" font-size="14" text-anchor="middle" fill="#333">
+    Key Features: Sentient Execution Brain | Zero-Trust Policy Engine | Execution DNA | Quantum ForgePkg Validation | Self-Awareness
+  </text>
+</svg>

@@ -1,0 +1,81 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="800" height="600" viewBox="0 0 800 600">
+  <!-- Background -->
+  <rect width="800" height="600" fill="#f8f9fa" />
+  
+  <!-- Title -->
+  <text x="400" y="30" font-family="Arial" font-size="24" text-anchor="middle" font-weight="bold">ForgeOne Microkernel Architecture</text>
+  
+  <!-- Application Layer -->
+  <rect x="100" y="60" width="600" height="60" rx="5" ry="5" fill="#e9ecef" stroke="#495057" stroke-width="2" />
+  <text x="400" y="95" font-family="Arial" font-size="18" text-anchor="middle" font-weight="bold">Application Layer</text>
+  
+  <!-- Common Crate -->
+  <rect x="100" y="150" width="600" height="120" rx="5" ry="5" fill="#dee2e6" stroke="#495057" stroke-width="2" />
+  <text x="400" y="175" font-family="Arial" font-size="18" text-anchor="middle" font-weight="bold">Common Crate</text>
+  
+  <!-- SyscallAPI Trait -->
+  <rect x="130" y="190" width="250" height="60" rx="5" ry="5" fill="#adb5bd" stroke="#495057" stroke-width="2" />
+  <text x="255" y="225" font-family="Arial" font-size="14" text-anchor="middle">SyscallAPI Trait</text>
+  
+  <!-- SyscallClient -->
+  <rect x="420" y="190" width="250" height="60" rx="5" ry="5" fill="#adb5bd" stroke="#495057" stroke-width="2" />
+  <text x="545" y="225" font-family="Arial" font-size="14" text-anchor="middle">SyscallClient</text>
+  
+  <!-- Syscall Bridge -->
+  <rect x="100" y="300" width="600" height="80" rx="5" ry="5" fill="#ced4da" stroke="#495057" stroke-width="2" />
+  <text x="400" y="325" font-family="Arial" font-size="18" text-anchor="middle" font-weight="bold">Syscall Bridge</text>
+  
+  <!-- ActiveSyscall -->
+  <rect x="200" y="340" width="400" height="30" rx="5" ry="5" fill="#adb5bd" stroke="#495057" stroke-width="2" />
+  <text x="400" y="360" font-family="Arial" font-size="14" text-anchor="middle">ActiveSyscall</text>
+  
+  <!-- Microkernel -->
+  <rect x="100" y="410" width="600" height="150" rx="5" ry="5" fill="#c1d3fe" stroke="#495057" stroke-width="2" />
+  <text x="400" y="435" font-family="Arial" font-size="18" text-anchor="middle" font-weight="bold">Microkernel</text>
+  
+  <!-- SyscallEngine -->
+  <rect x="130" y="450" width="250" height="60" rx="5" ry="5" fill="#a5c8ff" stroke="#495057" stroke-width="2" />
+  <text x="255" y="485" font-family="Arial" font-size="14" text-anchor="middle">SyscallEngine</text>
+  
+  <!-- secure_syscall -->
+  <rect x="420" y="450" width="250" height="60" rx="5" ry="5" fill="#a5c8ff" stroke="#495057" stroke-width="2" />
+  <text x="545" y="485" font-family="Arial" font-size="14" text-anchor="middle">secure_syscall()</text>
+  
+  <!-- ZTA Policy -->
+  <rect x="130" y="520" width="540" height="30" rx="5" ry="5" fill="#a5c8ff" stroke="#495057" stroke-width="2" />
+  <text x="400" y="540" font-family="Arial" font-size="14" text-anchor="middle">Zero Trust Architecture Policy Enforcement</text>
+  
+  <!-- Arrows -->
+  <!-- App to Common -->
+  <line x1="400" y1="120" x2="400" y2="150" stroke="#495057" stroke-width="2" />
+  <polygon points="400,150 395,140 405,140" fill="#495057" />
+  
+  <!-- SyscallAPI to SyscallClient -->
+  <line x1="380" y1="220" x2="420" y2="220" stroke="#495057" stroke-width="2" />
+  <polygon points="420,220 410,215 410,225" fill="#495057" />
+  
+  <!-- Common to Bridge -->
+  <line x1="400" y1="270" x2="400" y2="300" stroke="#495057" stroke-width="2" />
+  <polygon points="400,300 395,290 405,290" fill="#495057" />
+  
+  <!-- Bridge to Microkernel -->
+  <line x1="400" y1="380" x2="400" y2="410" stroke="#495057" stroke-width="2" />
+  <polygon points="400,410 395,400 405,400" fill="#495057" />
+  
+  <!-- SyscallEngine to secure_syscall -->
+  <line x1="380" y1="480" x2="420" y2="480" stroke="#495057" stroke-width="2" />
+  <polygon points="420,480 410,475 410,485" fill="#495057" />
+  
+  <!-- Feature Flag Labels -->
+  <rect x="600" y="280" width="90" height="20" rx="5" ry="5" fill="#ffc107" stroke="#495057" stroke-width="1" />
+  <text x="645" y="294" font-family="Arial" font-size="10" text-anchor="middle">#[cfg(feature)]</text>
+  
+  <!-- Legend -->
+  <rect x="600" y="560" width="180" height="30" rx="5" ry="5" fill="#f8f9fa" stroke="#495057" stroke-width="1" />
+  <text x="690" y="580" font-family="Arial" font-size="12" text-anchor="middle">Hard Boundary Enforcement</text>
+  <line x1="620" y1="575" x2="650" y2="575" stroke="#495057" stroke-width="3" stroke-dasharray="5,3" />
+  
+  <!-- Hard Boundary Line -->
+  <line x1="100" y1="390" x2="700" y2="390" stroke="#dc3545" stroke-width="3" stroke-dasharray="10,5" />
+  <text x="720" y="390" font-family="Arial" font-size="14" text-anchor="middle" fill="#dc3545" font-weight="bold">Hard Boundary</text>
+</svg>

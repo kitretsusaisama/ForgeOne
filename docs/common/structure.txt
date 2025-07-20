@@ -1,0 +1,83 @@
+# ForgeOne Database Schema (Redb, Atomic Storage-Manager, DMCOA)
+
+## 1. Atomic Module Reference
+- **Storage Manager:** [modules/storage-manager-l6.txt]
+- **Common Types/Config:** [modules/common-l1.txt]
+
+## 2. Responsibilities
+- **Redb**: Hyper-compressed, ACID-compliant, sharded key-value store for logs, blobs, events, and snapshots.
+- **Vault**: Encrypted secrets and config storage.
+- **Backups**: Automated, cross-region, encrypted, with DR drills.
+- **Compliance**: SOC2, ISO 27001, GDPR, immutable audit logs, evidence collection.
+
+## 3. Key Docs
+- [Backups](./backups.md)
+- [Storage-Manager Module](../../modules/storage-manager-l6.txt)
+- [Common Module](../../modules/common-l1.txt)
+
+## 4. Redb Logical Schema
+
+### **System Database**
+- `system.redb`
+  - `metadata`: System-wide metadata (key-value)
+  - `snapshots`: Snapshot metadata (key-value)
+  - `metrics`: System metrics (key-value)
+  - `settings`: Config and feature flags (key-value)
+
+### **Logs Database (Sharded)**
+- `logs_shard_N.redb` (N = 0..shard_count-1)
+  - `logs`: Log entries (id → serialized LogEntry)
+  - `log_index`: Index for fast search (topic, timestamp)
+  - `checkpoints`: Checkpoint markers for replay
+
+### **Blobs Database (Sharded)**
+- `blobs_shard_N.redb`
+  - `blob_metadata`: Blob metadata (id → serialized BlobMetadata)
+  - `blob_chunks`: Chunked blob data (id+chunk → bytes)
+  - `blob_index`: Index for fast lookup
+
+### **Events Database (Sharded)**
+- `events_shard_N.redb`
+  - `events`: Event entries (id → serialized EventMessage)
+  - `event_index`: Index for fast search (topic, timestamp)
+  - `topics`: Topic metadata
+
+## 5. Data Models (see code: `common/src/db/redb.rs`)
+- **LogEntry**: id, topic, timestamp, severity, message, metadata, checkpoint_marker, content_hash
+- **BlobMetadata**: id, name, content_type, size, created_at, created_by, checksum, encrypted, compressed, chunk_count, metadata
+- **BlobChunk**: blob_id, chunk_index, data, checksum
+- **EventMessage**: id, topic, timestamp, priority, payload, metadata, checkpoint_marker
+
+## 6. Features
+- **Sharding**: Horizontal scaling, up to 16 shards per type.
+- **Encryption**: AES-GCM, key rotation, field-level encryption.
+- **Compression**: Zstd, deduplication (BLAKE3).
+- **Snapshots**: Fast, atomic, DNA-hash validated.
+- **Audit**: All changes tracked, immutable logs.
+
+## 7. Migration & DR
+- Schema and migrations managed by storage-manager.
+- Backups, WAL archiving, and DR as per [backups.md].
+
+# ForgeOne Backups (Redb, Atomic Storage-Manager, DMCOA)
+
+## 1. Atomic Module Reference
+- [modules/storage-manager-l6.txt]: Backup/restore logic, DR, snapshotting
+- [modules/common-l1.txt]: Config, error handling
+
+## 2. Procedures
+- Automated, scheduled backups (Redb, Vault, config)
+- Sharded, cross-region, encrypted backup storage (AES-GCM, Zstd)
+- DR drills, restore validation, snapshot DNA verification
+- Immutable, auditable backup logs (SOC2, ISO 27001, GDPR)
+
+## 3. Compliance
+- All backups are logged, signed, and auditable.
+- Evidence collection for audits, automated compliance reporting.
+
+## 4. CLI/DevOps
+- `forge backup create --all`
+- `forge backup restore --target=logs_shard_0.redb`
+- `forge snapshot create --db=system.redb`
+
+

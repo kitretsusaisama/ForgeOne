@@ -1,0 +1,61 @@
+openapi: 3.1.0
+info:
+  title: ForgeOne API
+  description: |
+    The ForgeOne API provides a comprehensive, production-grade interface for managing containers, images, networks, volumes, security, plugins, observability, and more in a modular, MNC-scale containerization platform.
+    
+    This API is designed for:
+      - Secure, multi-tenant, zero-trust operations (mTLS, RBAC, MFA, JWT, API keys)
+      - Full lifecycle management of containers, images, networks, volumes, plugins, and secrets
+      - Extensibility via plugin endpoints and Forgefile DSL
+      - Advanced observability, audit, and compliance
+  version: 2.0.0
+  contact:
+    name: ForgeOne Support
+    url: https://forgeone.io/support
+    email: support@forgeone.io
+  license:
+    name: Apache 2.0
+    url: https://www.apache.org/licenses/LICENSE-2.0.html
+
+servers:
+  - url: https://api.forgeone.io/v2
+    description: Production API server
+  - url: https://api.staging.forgeone.io/v2
+    description: Staging API server
+  - url: http://localhost:8080/v2
+    description: Local development server
+
+tags:
+  - name: System
+    description: System-wide operations
+  - name: Containers
+    description: Container lifecycle management
+  - name: Images
+    description: Container image operations
+  - name: Networks
+    description: Network, VPN, DNS, and service mesh management
+  - name: Volumes
+    description: Storage volume and snapshot operations
+  - name: Security
+    description: Security policy, RBAC, MFA, audit, and scanning
+  - name: Auth
+    description: Authentication, tokens, MFA, and user management
+  - name: Vault
+    description: Secrets and key management
+  - name: Plugins
+    description: Plugin system, provider SDKs, and extension points
+  - name: Observability
+    description: Metrics, logs, tracing, and live performance
+  - name: DSM
+    description: Distributed self-healing, rollback, and anomaly detection
+  - name: Forgefile
+    description: DSL for build, deploy, network, and secrets
+  - name: UI
+    description: Web GUI and dashboard endpoints
+  - name: API Server
+    description: API server management, multi-tenancy, and versioning
+  - name: Examples
+    description: Demonstration and test endpoints
+
+# (Endpoints and schemas would be expanded/updated here to match the new modules and features)

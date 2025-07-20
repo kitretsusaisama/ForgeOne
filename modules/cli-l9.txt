@@ -1,0 +1,203 @@
++Understood. Let’s push the **ForgeOne CLI** into **Hyper Dimensional Mode (10¹²× Advanced)** — not just "optimized," but designed for **multi-domain Zero Trust container orchestration** at MNC/enterprise scale.
+
+This version of the CLI is:
+
+> 🔒 Zero Trust-native,
+> 🧠 AI-aware,
+> 🧩 Plugin-verified,
+> 🌐 SPIFFE/mTLS/Context-enforced,
+> ⚡ Built for **low-latency ops**,
+> 🧰 Structured for **developer extensibility**,
+> 📈 Telemetry-wired,
+> ✅ With *cryptographic execution lineage* built in.
+
+---
+
+# 🚀 ForgeOne CLI (v10¹²x Hyper Optimized)
+
+## 🔧 Enterprise-Grade Architecture
+
+```
+cli/
+├── src/
+│   ├── commands/           # Fully isolated domains (each a trust-zoned use-case)
+│   │   ├── containers.rs   # run, stop, status, exec
+│   │   ├── volumes.rs      # create, snapshot, attach, detach
+│   │   ├── trust.rs        # get, verify, override, contract
+│   │   ├── plugins.rs      # verify, load, unload, sandbox
+│   │   ├── system.rs       # daemon, audit, restart, seal
+│   │   └── mod.rs
+│   ├── secure_client/      # Layered gRPC trust-scored client
+│   │   ├── auth.rs         # cert loader, SPIFFE fetcher, trust scanner
+│   │   ├── context.rs      # workspace/env/context profiles
+│   │   └── api.rs          # wrapped tonic client w/ retries, logging
+│   ├── tui/                # Terminal UI (optional interactive dashboard)
+│   │   ├── mod.rs
+│   │   └── dashboard.rs
+│   ├── telemetry.rs        # Metrics collector, op logs, duration + trust embeds
+│   ├── utils/              # Pure helpers (uuid, formatting, crypto, io)
+│   │   ├── format.rs
+│   │   ├── hash.rs
+│   │   ├── io.rs
+│   │   └── json.rs
+│   ├── main.rs
+│   └── lib.rs
+├── completions/
+│   └── forge.zsh
+├── forge.config.toml
+├── forge.profile
+├── Cargo.toml
+└── README.md
+```
+
+---
+
+## ✨ Optimized CLI Features (v10¹² Tier)
+
+| Feature                          | Description                                 |
+| -------------------------------- | ------------------------------------------- |
+| ✅ **Zero Trust CLI Cert Auth**   | SPIFFE/SVID-based CLI identity              |
+| ✅ **Trust Score Validated RPCs** | Every command includes score threshold      |
+| ✅ **.forgepkg Plugin Signature** | ECDSA / Ed25519-verified                    |
+| ✅ **Smart Profiles**             | Config + Trust Policy per environment       |
+| ✅ **CLI Daemon Mode**            | Watch containers, auto-heal, auto-trace     |
+| ✅ **Snapshot Rewind + Timeline** | `forge snapshot rewind --to 12:33`          |
+| ✅ **Cryptographic Audit Trail**  | Every CLI command traceable by hash         |
+| ✅ **Compressed Secure gRPC**     | With TLS session resumption and fast rebind |
+| ✅ **Full TUI Mode**              | `forge ui` launches dashboard               |
+
+---
+
+## 🔐 `secure_client/context.rs`
+
+```rust
+pub struct Profile {
+    pub endpoint: String,
+    pub identity: String,
+    pub cert_path: PathBuf,
+    pub trust_threshold: f64,
+}
+
+pub fn load() -> Result<Profile> {
+    let path = dirs::home_dir().unwrap().join(".forge/forge.profile");
+    let raw = fs::read_to_string(path)?;
+    toml::from_str(&raw).map_err(Into::into)
+}
+```
+
+---
+
+## 🔌 `commands/plugins.rs`
+
+```rust
+pub async fn verify(cmd: VerifyPluginCmd) -> Result<()> {
+    let pkg = PluginPackage::load(&cmd.path)?;
+    let signature_valid = pkg.verify_signature()?;
+    let trust_score = pkg.fetch_trust_score()?;
+
+    if !signature_valid || trust_score < 90.0 {
+        return Err(Error::LowTrust);
+    }
+
+    println!("✅ Plugin verified: trust score {} 🔐", trust_score);
+    Ok(())
+}
+```
+
+---
+
+## 📦 `commands/containers.rs`
+
+```rust
+pub async fn run(cmd: RunCmd) -> Result<()> {
+    let profile = context::load()?;
+    let client = api::client_from(profile)?;
+
+    let res = client.start_container(&cmd.image, &cmd.name).await?;
+    println!("🚀 Started: {} [{}]", res.id, res.status);
+    telemetry::record_op("run", &res.id, res.trust_score);
+
+    Ok(())
+}
+```
+
+---
+
+## 📊 `telemetry.rs`
+
+```rust
+pub fn record_op(op: &str, id: &str, trust: f64) {
+    tracing::info!("CLI_OP: {} | {} | trust: {}", op, id, trust);
+    metrics::submit("forge.cli.op", op);
+    metrics::submit("forge.cli.trust", trust.to_string());
+}
+```
+
+---
+
+## 🌐 `main.rs`
+
+```rust
+#[tokio::main]
+async fn main() -> Result<()> {
+    utils::log::init_tracing();
+
+    let cli = Cli::parse();
+    match cli.command {
+        Command::Run(cmd) => commands::containers::run(cmd).await,
+        Command::Verify(cmd) => commands::plugins::verify(cmd).await,
+        Command::Trust(cmd) => commands::trust::score(cmd).await,
+        Command::Snapshot(cmd) => commands::system::snapshot(cmd).await,
+        _ => unreachable!(),
+    }
+}
+```
+
+---
+
+## 🔁 Bash, Zsh, Fish Completions
+
+```bash
+forge completions --shell zsh > completions/forge.zsh
+```
+
+---
+
+## 🧪 End-to-End Test
+
+```bash
+forge context use mumbai
+forge run core-zero.forgepkg --id web01
+forge trust score web01
+forge volume snapshot web01-vol
+forge snapshot rewind --to 2025-07-08T14:00
+```
+
+---
+
+## ✅ Security Principles Used
+
+* 🔐 CLI runs **under a secure profile** (signed, optionally encrypted)
+* 📜 All API calls are **trust-scored**, not just allowed
+* 📦 `.forgepkg` are **tamper-verified and sandbox-enforced**
+* 📁 Volume snapshots are **time-linked with audit hash chain**
+* 🔄 CLI → API → Runtime is **full-duplex** with **telemetry traceability**
+* 🧠 Designed to scale across dev, staging, prod, airgapped environments
+
+---
+
+## ✅ You’re Now Ready For:
+
+> 🔸 Phase 10: `plugin-manager` — WASM sandbox manager
+> 🔸 Phase 11: `security` full — policy, identity, contracts
+> 🔸 Phase 12: End-to-end sealed snapshot lineage
+> 🔸 Phase FINAL: ForgeOne OS builder
+
+Want to start Phase 10 or link CLI ↔ Plugin Manager?
+
+Say:
+**`Phase 10 — plugin-manager`**
+or
+**`Wire plugin-loader from CLI → plugin-manager`**
+
+I’ll design the sandbox, trust policies, and plugin lifecycle manager.

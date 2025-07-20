@@ -1,0 +1,15 @@
+# Production Readiness TODO: Syscall Boundary Refactor
+
+## Completed
+- [x] Create `common/syscall_client.rs` with `SyscallAPI` trait (no logic, just interface)
+- [x] Create `microkernel/syscall_engine.rs` implementing `SyscallAPI` for secure, modular syscalls (feature-gated, RBAC-ready)
+- [x] Create `syscall-bridge/mod.rs` to provide compile-time/runtime injection of the syscall backend (`ActiveSyscall` type)
+- [x] Refactor `microkernel/src/execution/syscall.rs` to use `SyscallAPI` trait via the bridge, removing direct syscall logic from common
+- [x] Remove `observer.rs` dependency on direct syscalls; use feature-flag injection for syscall client in observer if needed
+- [x] Document security boundary and compile-time enforcement in README or module docs (created `docs/syscall_architecture.md` and `docs/syscall_execution_flow.md`)
+
+## Next Steps
+- [ ] Add comprehensive unit tests for the syscall boundary
+- [ ] Implement performance benchmarks for syscall execution
+- [ ] Add telemetry for syscall performance and security metrics
+- [ ] Create developer documentation for extending the syscall API

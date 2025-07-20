@@ -1,0 +1,3644 @@
+<!DOCTYPE html>
+<html lang='en'>
+<head>
+  <meta charset='UTF-8'>
+  <meta name='viewport' content='width=device-width, initial-scale=1.0'>
+  <title>Rust Error Analysis Report</title>
+  <style>
+    body { font-family: Arial, sans-serif; line-height: 1.6; margin: 0; padding: 20px; color: #333; }
+    h1, h2, h3 { color: #333; }
+    .container { max-width: 1200px; margin: 0 auto; }
+    .summary { background-color: #f8f9fa; border-radius: 5px; padding: 15px; margin-bottom: 20px; }
+    .error { background-color: #fff; border-left: 4px solid #dc3545; padding: 10px; margin-bottom: 10px; }
+    .warning { background-color: #fff; border-left: 4px solid #ffc107; padding: 10px; margin-bottom: 10px; }
+    .note { background-color: #fff; border-left: 4px solid #17a2b8; padding: 10px; margin-bottom: 10px; }
+    .suggestion { background-color: #f8f9fa; border-radius: 5px; padding: 10px; margin-top: 10px; }
+    code { font-family: 'Courier New', monospace; background-color: #f8f9fa; padding: 2px 4px; border-radius: 3px; }
+    pre { background-color: #f8f9fa; padding: 10px; border-radius: 5px; overflow-x: auto; }
+    .tabs { display: flex; border-bottom: 1px solid #dee2e6; margin-bottom: 15px; }
+    .tab { padding: 10px 15px; cursor: pointer; }
+    .tab.active { border-bottom: 2px solid #007bff; color: #007bff; }
+    .tab-content { display: none; }
+    .tab-content.active { display: block; }
+    .chart { width: 100%; height: 300px; margin: 20px 0; }
+  </style>
+</head>
+<body>
+  <div class='container'>
+    <h1>Rust Error Analysis Report</h1>
+    <p>Generated on 2025-07-19 16:25:02</p>
+    <div class='summary'>
+      <h2>Summary</h2>
+      <p><strong>Total Errors:</strong> 106</p>
+      <p><strong>Total Warnings:</strong> 0</p>
+      <p><strong>Total Notes:</strong> 0</p>
+      <p><strong>Files with Issues:</strong> 13</p>
+      <p><strong>Unique Error Types:</strong> 15</p>
+    </div>
+    <div class='tabs'>
+      <div class='tab active' onclick='switchTab("files")'>By File</div>
+      <div class='tab' onclick='switchTab("types")'>By Error Type</div>
+      <div class='tab' onclick='switchTab("categories")'>By Category</div>
+    </div>
+    <div id='files' class='tab-content active'>
+      <h2>Errors by File</h2>
+      <h3>microkernel\src\lib.rs (17 issues)</h3>
+      <div class='error'>
+        <p><strong>Line 27:1</strong> - ERROR
+ [E0583]
+ <a href='https://doc.rust-lang.org/error_codes/E0583.html' target='_blank'>(Rust Docs)</a>
+</p>
+        <p>file not found for module `observer`</p>
+        <pre><code>
+27: pub mod observer;
+</code></pre>
+        <p><em>Help: to create the module `observer`, create file 
+"microkernel\src\observer.rs" or "microkernel\src\observer\mod.rs"</em></p>
+        <div class='suggestion'><strong>Rust suggests:</strong> to create the module `observer`, create file 
+"microkernel\src\observer.rs" or "microkernel\src\observer\mod.rs"</div>
+        <div class='suggestion'><strong>AI suggests:</strong> AI suggestion unavailable. Check your Gemini API key.</div>
+      </div>
+      <div class='error'>
+        <p><strong>Line 28:1</strong> - ERROR
+ [E0583]
+ <a href='https://doc.rust-lang.org/error_codes/E0583.html' target='_blank'>(Rust Docs)</a>
+</p>
+        <p>file not found for module `crypto`</p>
+        <pre><code>
+28: pub mod crypto;
+</code></pre>
+        <p><em>Help: to create the module `crypto`, create file 
+"microkernel\src\crypto.rs" or "microkernel\src\crypto\mod.rs"</em></p>
+        <div class='suggestion'><strong>Rust suggests:</strong> to create the module `crypto`, create file 
+"microkernel\src\crypto.rs" or "microkernel\src\crypto\mod.rs"</div>
+        <div class='suggestion'><strong>AI suggests:</strong> AI suggestion unavailable. Check your Gemini API key.</div>
+      </div>
+      <div class='error'>
+        <p><strong>Line 29:1</strong> - ERROR
+ [E0583]
+ <a href='https://doc.rust-lang.org/error_codes/E0583.html' target='_blank'>(Rust Docs)</a>
+</p>
+        <p>file not found for module `diagnostics`</p>
+        <pre><code>
+29: pub mod diagnostics;
+</code></pre>
+        <p><em>Help: to create the module `diagnostics`, create file 
+"microkernel\src\diagnostics.rs" or "microkernel\src\diagnostics\mod.rs"</em></p>
+        <div class='suggestion'><strong>Rust suggests:</strong> to create the module `diagnostics`, create file 
+"microkernel\src\diagnostics.rs" or "microkernel\src\diagnostics\mod.rs"</div>
+        <div class='suggestion'><strong>AI suggests:</strong> AI suggestion unavailable. Check your Gemini API key.</div>
+      </div>
+      <div class='error'>
+        <p><strong>Line 30:1</strong> - ERROR
+ [E0583]
+ <a href='https://doc.rust-lang.org/error_codes/E0583.html' target='_blank'>(Rust Docs)</a>
+</p>
+        <p>file not found for module `interface`</p>
+        <pre><code>
+30: pub mod interface;
+</code></pre>
+        <p><em>Help: to create the module `interface`, create file 
+"microkernel\src\interface.rs" or "microkernel\src\interface\mod.rs"</em></p>
+        <div class='suggestion'><strong>Rust suggests:</strong> to create the module `interface`, create file 
+"microkernel\src\interface.rs" or "microkernel\src\interface\mod.rs"</div>
+        <div class='suggestion'><strong>AI suggests:</strong> AI suggestion unavailable. Check your Gemini API key.</div>
+      </div>
+      <div class='error'>
+        <p><strong>Line 31:1</strong> - ERROR
+ [E0583]
+ <a href='https://doc.rust-lang.org/error_codes/E0583.html' target='_blank'>(Rust Docs)</a>
+</p>
+        <p>file not found for module `config`</p>
+        <pre><code>
+31: pub mod config;
+</code></pre>
+        <p><em>Help: to create the module `config`, create file 
+"microkernel\src\config.rs" or "microkernel\src\config\mod.rs"</em></p>
+        <div class='suggestion'><strong>Rust suggests:</strong> to create the module `config`, create file 
+"microkernel\src\config.rs" or "microkernel\src\config\mod.rs"</div>
+        <div class='suggestion'><strong>AI suggests:</strong> AI suggestion unavailable. Check your Gemini API key.</div>
+      </div>
+      <div class='error'>
+        <p><strong>Line 99:43</strong> - ERROR
+ [E0433]
+ <a href='https://doc.rust-lang.org/error_codes/E0433.html' target='_blank'>(Rust Docs)</a>
+</p>
+        <p>failed to resolve: could not find `container` in `execution`</p>
+        <pre><code>
+99: let container_id = 
+execution::container::get_current_container_id()
+</code></pre>
+        <div class='suggestion'><strong>AI suggests:</strong> AI suggestion unavailable. Check your Gemini API key.</div>
+      </div>
+      <div class='error'>
+        <p><strong>Line 124:25</strong> - ERROR
+ [E0603]
+ <a href='https://doc.rust-lang.org/error_codes/E0603.html' target='_blank'>(Rust Docs)</a>
+</p>
+        <p>function `execute_syscall` is private</p>
+        <pre><code>
+124: execution::syscall::execute_syscall(syscall, args, identity, &mut 
+span)
+170: fn execute_syscall(syscall: &str, args: &[&str]) -&gt; Result&lt;()&gt; {
+8: use common::error::{ForgeError, Result};
+11: pub use boot::*;
+12: pub use runtime::*;
+13: pub use scheduler::*;
+11: pub use boot::*;
+12: pub use runtime::*;
+13: pub use scheduler::*;
+11: pub use boot::*;
+12: pub use runtime::*;
+13: pub use scheduler::*;
+12: pub use runtime::*;
+13: pub use scheduler::*;
+14: use wasmtime::{Engine, Module, Store, Instance, Linker};
+6: use std::collections::HashMap;
+10: use uuid::Uuid;
+9: use uuid::Uuid;
+11: use crate::execution::syscall::{SyscallContext, SyscallResult};
+</code></pre>
+        <p><em>Help: `#[warn(unused_imports)]` on by default
+
+warning: ambiguous glob re-exports
+  --> microkernel\src\core\mod.rs:11:9
+   |
+11 | pub use boot::*;
+   |         ^^^^^^^ the name `init` in the value namespace is first 
+re-exported here
+12 | pub use runtime::*;
+13 | pub use scheduler::*;
+   |         ------------ but the name `init` in the value namespace is also 
+re-exported here
+   |</em></p>
+        <div class='suggestion'><strong>Rust suggests:</strong> `#[warn(unused_imports)]` on by default
+
+warning: ambiguous glob re-exports
+  --> microkernel\src\core\mod.rs:11:9
+   |
+11 | pub use boot::*;
+   |         ^^^^^^^ the name `init` in the value namespace is first 
+re-exported here
+12 | pub use runtime::*;
+13 | pub use scheduler::*;
+   |         ------------ but the name `init` in the value namespace is also 
+re-exported here
+   |</div>
+        <div class='suggestion'><strong>AI suggests:</strong> AI suggestion unavailable. Check your Gemini API key.</div>
+      </div>
+      <div class='error'>
+        <p><strong>Line 58:5</strong> - ERROR
+ [E0061]
+ <a href='https://doc.rust-lang.org/error_codes/E0061.html' target='_blank'>(Rust Docs)</a>
+</p>
+        <p>this enum variant takes 1 argument but 0 arguments were supplied</p>
+        <pre><code>
+532: Ok(#[stable(feature = "rust1", since = "1.0.0")] T),
+</code></pre>
+        <div class='suggestion'><strong>AI suggests:</strong> AI suggestion unavailable. Check your Gemini API key.</div>
+      </div>
+      <div class='error'>
+        <p><strong>Line 75:34</strong> - ERROR
+ [E0599]
+ <a href='https://doc.rust-lang.org/error_codes/E0599.html' target='_blank'>(Rust Docs)</a>
+</p>
+        <p>no variant or associated item named `TrustViolation` found for 
+enum `ForgeError` in the current scope</p>
+        <pre><code>
+75: .map_err(|e| ForgeError::TrustViolation(e))?;
+</code></pre>
+        <div class='suggestion'><strong>AI suggests:</strong> AI suggestion unavailable. Check your Gemini API key.</div>
+      </div>
+      <div class='error'>
+        <p><strong>Line 82:36</strong> - ERROR
+ [E0599]
+ <a href='https://doc.rust-lang.org/error_codes/E0599.html' target='_blank'>(Rust Docs)</a>
+</p>
+        <p>no variant or associated item named `TrustViolation` found for 
+enum `ForgeError` in the current scope</p>
+        <pre><code>
+82: return Err(ForgeError::TrustViolation(format!("Syscall '{}' 
+blocked by ZTA policy", syscall)));
+</code></pre>
+        <div class='suggestion'><strong>AI suggests:</strong> AI suggestion unavailable. Check your Gemini API key.</div>
+      </div>
+      <div class='error'>
+        <p><strong>Line 90:17</strong> - ERROR
+ [E0560]
+ <a href='https://doc.rust-lang.org/error_codes/E0560.html' target='_blank'>(Rust Docs)</a>
+</p>
+        <p>struct `SyscallTrace` has no field named `id`</p>
+        <pre><code>
+90: id: uuid::Uuid::new_v4(),
+</code></pre>
+        <p><em>Help: available fields are: `syscall`, `trust_score`, `allowed`, `reason`</em></p>
+        <div class='suggestion'><strong>Rust suggests:</strong> available fields are: `syscall`, `trust_score`, `allowed`, `reason`</div>
+        <div class='suggestion'><strong>AI suggests:</strong> AI suggestion unavailable. Check your Gemini API key.</div>
+      </div>
+      <div class='error'>
+        <p><strong>Line 91:17</strong> - ERROR
+ [E0560]
+ <a href='https://doc.rust-lang.org/error_codes/E0560.html' target='_blank'>(Rust Docs)</a>
+</p>
+        <p>struct `SyscallTrace` has no field named `syscall_name`</p>
+        <pre><code>
+91: syscall_name: syscall.to_string(),
+</code></pre>
+        <p><em>Help: available fields are: `syscall`, `trust_score`, `allowed`, `reason`</em></p>
+        <div class='suggestion'><strong>Rust suggests:</strong> available fields are: `syscall`, `trust_score`, `allowed`, `reason`</div>
+        <div class='suggestion'><strong>AI suggests:</strong> AI suggestion unavailable. Check your Gemini API key.</div>
+      </div>
+      <div class='error'>
+        <p><strong>Line 95:17</strong> - ERROR
+ [E0560]
+ <a href='https://doc.rust-lang.org/error_codes/E0560.html' target='_blank'>(Rust Docs)</a>
+</p>
+        <p>struct `SyscallTrace` has no field named `result`</p>
+        <pre><code>
+95: result: "QUARANTINED".to_string(),
+</code></pre>
+        <p><em>Help: available fields are: `syscall`, `trust_score`, `allowed`, `reason`</em></p>
+        <div class='suggestion'><strong>Rust suggests:</strong> available fields are: `syscall`, `trust_score`, `allowed`, `reason`</div>
+        <div class='suggestion'><strong>AI suggests:</strong> AI suggestion unavailable. Check your Gemini API key.</div>
+      </div>
+      <div class='error'>
+        <p><strong>Line 100:30</strong> - ERROR
+ [E0533]
+ <a href='https://doc.rust-lang.org/error_codes/E0533.html' target='_blank'>(Rust Docs)</a>
+</p>
+        <p>expected value, found struct variant `ForgeError::ExecutionError`</p>
+        <pre><code>
+100: .map_err(|e| ForgeError::ExecutionError(e))?;
+</code></pre>
+        <div class='suggestion'><strong>AI suggests:</strong> AI suggestion unavailable. Check your Gemini API key.</div>
+      </div>
+      <div class='error'>
+        <p><strong>Line 107:39</strong> - ERROR
+ [E0599]
+ <a href='https://doc.rust-lang.org/error_codes/E0599.html' target='_blank'>(Rust Docs)</a>
+</p>
+        <p>no variant or associated item named `TrustViolation` found for 
+enum `ForgeError` in the current scope</p>
+        <pre><code>
+107: ).map_err(|e| ForgeError::TrustViolation(e))?;
+</code></pre>
+        <div class='suggestion'><strong>AI suggests:</strong> AI suggestion unavailable. Check your Gemini API key.</div>
+      </div>
+      <div class='error'>
+        <p><strong>Line 109:36</strong> - ERROR
+ [E0599]
+ <a href='https://doc.rust-lang.org/error_codes/E0599.html' target='_blank'>(Rust Docs)</a>
+</p>
+        <p>no variant or associated item named `TrustViolation` found for 
+enum `ForgeError` in the current scope</p>
+        <pre><code>
+109: return Err(ForgeError::TrustViolation(format!("Process 
+quarantined due to syscall '{}' violation", syscall)));
+</code></pre>
+        <div class='suggestion'><strong>AI suggests:</strong> AI suggestion unavailable. Check your Gemini API key.</div>
+      </div>
+      <div class='error'>
+        <p><strong>Line 124:5</strong> - ERROR
+ [E0061]
+ <a href='https://doc.rust-lang.org/error_codes/E0061.html' target='_blank'>(Rust Docs)</a>
+</p>
+        <p>this function takes 2 arguments but 4 arguments were supplied</p>
+        <pre><code>
+124: execution::syscall::execute_syscall(syscall, args, identity, &mut 
+span)
+170: fn execute_syscall(syscall: &str, args: &[&str]) -&gt; Result&lt;()&gt; {
+249: let runtime_context = get_runtime_context()?;
+164: let mut state = WasmHostState::Running;
+164: let mut state = WasmHostState::Running;
+199: fn execute_file_open(args: &[&str]) -&gt; Result&lt;()&gt; {
+204: fn execute_file_read(args: &[&str]) -&gt; Result&lt;()&gt; {
+209: fn execute_file_write(args: &[&str]) -&gt; Result&lt;()&gt; {
+214: fn execute_file_close(args: &[&str]) -&gt; Result&lt;()&gt; {
+219: fn execute_net_connect(args: &[&str]) -&gt; Result&lt;()&gt; {
+224: fn execute_net_send(args: &[&str]) -&gt; Result&lt;()&gt; {
+229: fn execute_net_recv(args: &[&str]) -&gt; Result&lt;()&gt; {
+234: fn execute_net_close(args: &[&str]) -&gt; Result&lt;()&gt; {
+239: fn execute_proc_create(args: &[&str]) -&gt; Result&lt;()&gt; {
+244: fn execute_proc_kill(args: &[&str]) -&gt; Result&lt;()&gt; {
+249: fn execute_mem_alloc(args: &[&str]) -&gt; Result&lt;()&gt; {
+254: fn execute_mem_free(args: &[&str]) -&gt; Result&lt;()&gt; {
+259: fn execute_ipc_send(args: &[&str]) -&gt; Result&lt;()&gt; {
+264: fn execute_ipc_recv(args: &[&str]) -&gt; Result&lt;()&gt; {
+269: fn execute_time_get(args: &[&str]) -&gt; Result&lt;()&gt; {
+274: fn execute_time_sleep(args: &[&str]) -&gt; Result&lt;()&gt; {
+279: fn execute_crypto_hash(args: &[&str]) -&gt; Result&lt;()&gt; {
+284: fn execute_crypto_sign(args: &[&str]) -&gt; Result&lt;()&gt; {
+289: fn execute_crypto_verify(args: &[&str]) -&gt; Result&lt;()&gt; {
+294: fn execute_sys_info(args: &[&str]) -&gt; Result&lt;()&gt; {
+315: fn calculate_behavioral_score(&self, context_id: Uuid) -&gt; f64 {
+322: fn calculate_environmental_score(&self, context_id: Uuid) -&gt; f64 {
+329: fn calculate_policy_adjustments(&self, context_id: Uuid) -&gt; f64 {
+386: let context = self.get_context(context_id)?;
+383: trust_score: f64,
+</code></pre>
+        <p><em>Help: `#[warn(unused_variables)]` on by default
+
+warning: unused variable: `state`
+   --> microkernel\src\execution\wasm.rs:164:13
+    |
+164 |     let mut state = WasmHostState::Running;
+    |             ^^^^^ help: if this is intentional, prefix it with an 
+underscore: `_state`
+
+warning: variable does not need to be mutable
+   --> microkernel\src\execution\wasm.rs:164:9
+    |
+164 |     let mut state = WasmHostState::Running;
+    |         ----^^^^^
+    |         |
+    |         help: remove this `mut`
+    |</em></p>
+        <div class='suggestion'><strong>Rust suggests:</strong> `#[warn(unused_variables)]` on by default
+
+warning: unused variable: `state`
+   --> microkernel\src\execution\wasm.rs:164:13
+    |
+164 |     let mut state = WasmHostState::Running;
+    |             ^^^^^ help: if this is intentional, prefix it with an 
+underscore: `_state`
+
+warning: variable does not need to be mutable
+   --> microkernel\src\execution\wasm.rs:164:9
+    |
+164 |     let mut state = WasmHostState::Running;
+    |         ----^^^^^
+    |         |
+    |         help: remove this `mut`
+    |</div>
+        <div class='suggestion'><strong>AI suggests:</strong> AI suggestion unavailable. Check your Gemini API key.</div>
+      </div>
+      <h3>microkernel\src\trust\attestation.rs (6 issues)</h3>
+      <div class='error'>
+        <p><strong>Line 13:22</strong> - ERROR
+ [E0432]
+ <a href='https://doc.rust-lang.org/error_codes/E0432.html' target='_blank'>(Rust Docs)</a>
+</p>
+        <p>unresolved imports `common::crypto::Hash`, 
+`common::crypto::PublicKey`</p>
+        <pre><code>
+13: use common::crypto::{Hash, Signature, PublicKey};
+</code></pre>
+        <p><em>Help: consider importing one of these items instead:
+           std::hash::Hash
+           common::db::IndexType::Hash</em></p>
+        <div class='suggestion'><strong>Rust suggests:</strong> consider importing one of these items instead:
+           std::hash::Hash
+           common::db::IndexType::Hash</div>
+        <div class='suggestion'><strong>AI suggests:</strong> AI suggestion unavailable. Check your Gemini API key.</div>
+      </div>
+      <div class='error'>
+        <p><strong>Line 150:9</strong> - ERROR
+ [E0433]
+ <a href='https://doc.rust-lang.org/error_codes/E0433.html' target='_blank'>(Rust Docs)</a>
+</p>
+        <p>failed to resolve: use of unresolved module or unlinked crate 
+`log`</p>
+        <pre><code>
+150: log::info!(
+</code></pre>
+        <div class='suggestion'><strong>AI suggests:</strong> AI suggestion unavailable. Check your Gemini API key.</div>
+      </div>
+      <div class='error'>
+        <p><strong>Line 226:9</strong> - ERROR
+ [E0433]
+ <a href='https://doc.rust-lang.org/error_codes/E0433.html' target='_blank'>(Rust Docs)</a>
+</p>
+        <p>failed to resolve: use of unresolved module or unlinked crate 
+`log`</p>
+        <pre><code>
+226: log::info!(
+</code></pre>
+        <div class='suggestion'><strong>AI suggests:</strong> AI suggestion unavailable. Check your Gemini API key.</div>
+      </div>
+      <div class='error'>
+        <p><strong>Line 340:9</strong> - ERROR
+ [E0433]
+ <a href='https://doc.rust-lang.org/error_codes/E0433.html' target='_blank'>(Rust Docs)</a>
+</p>
+        <p>failed to resolve: use of unresolved module or unlinked crate 
+`log`</p>
+        <pre><code>
+340: log::info!("Trusted key added: {}", key_id);
+</code></pre>
+        <div class='suggestion'><strong>AI suggests:</strong> AI suggestion unavailable. Check your Gemini API key.</div>
+      </div>
+      <div class='error'>
+        <p><strong>Line 356:9</strong> - ERROR
+ [E0433]
+ <a href='https://doc.rust-lang.org/error_codes/E0433.html' target='_blank'>(Rust Docs)</a>
+</p>
+        <p>failed to resolve: use of unresolved module or unlinked crate 
+`log`</p>
+        <pre><code>
+356: log::info!("Trusted key removed: {}", key_id);
+</code></pre>
+        <div class='suggestion'><strong>AI suggests:</strong> AI suggestion unavailable. Check your Gemini API key.</div>
+      </div>
+      <div class='error'>
+        <p><strong>Line 13:28</strong> - ERROR
+ [E0603]
+ <a href='https://doc.rust-lang.org/error_codes/E0603.html' target='_blank'>(Rust Docs)</a>
+</p>
+        <p>struct `Signature` is private</p>
+        <pre><code>
+13: use common::crypto::{Hash, Signature, PublicKey};
+21: use ed25519_dalek::{SigningKey, VerifyingKey, Signature, Signer, 
+Verifier};
+13: use common::crypto::{Hash, ed25519::Signature, PublicKey};
+</code></pre>
+        <div class='suggestion'><strong>AI suggests:</strong> AI suggestion unavailable. Check your Gemini API key.</div>
+      </div>
+      <h3>microkernel\src\execution\syscall.rs (4 issues)</h3>
+      <div class='error'>
+        <p><strong>Line 10:5</strong> - ERROR
+ [E0432]
+ <a href='https://doc.rust-lang.org/error_codes/E0432.html' target='_blank'>(Rust Docs)</a>
+</p>
+        <p>unresolved import `crate::trust::zta_policy::PolicyGraph`</p>
+        <pre><code>
+10: use crate::trust::zta_policy::PolicyGraph;
+</code></pre>
+        <div class='suggestion'><strong>AI suggests:</strong> AI suggestion unavailable. Check your Gemini API key.</div>
+      </div>
+      <div class='error'>
+        <p><strong>Line 101:32</strong> - ERROR
+ [E0599]
+ <a href='https://doc.rust-lang.org/error_codes/E0599.html' target='_blank'>(Rust Docs)</a>
+</p>
+        <p>no variant or associated item named `Trust` found for enum 
+`ForgeError` in the current scope</p>
+        <pre><code>
+101: return Err(ForgeError::Trust(format!("Syscall {} denied by ZTA 
+policy", syscall)));
+</code></pre>
+        <div class='suggestion'><strong>AI suggests:</strong> AI suggestion unavailable. Check your Gemini API key.</div>
+      </div>
+      <div class='error'>
+        <p><strong>Line 150:25</strong> - ERROR
+ [E0599]
+ <a href='https://doc.rust-lang.org/error_codes/E0599.html' target='_blank'>(Rust Docs)</a>
+</p>
+        <p>no variant or associated item named `Execution` found for enum 
+`ForgeError` in the current scope</p>
+        <pre><code>
+150: Err(ForgeError::Execution(format!("Unknown syscall type: {}", 
+syscall)))
+</code></pre>
+        <div class='suggestion'><strong>AI suggests:</strong> AI suggestion unavailable. Check your Gemini API key.</div>
+      </div>
+      <div class='error'>
+        <p><strong>Line 193:30</strong> - ERROR
+ [E0599]
+ <a href='https://doc.rust-lang.org/error_codes/E0599.html' target='_blank'>(Rust Docs)</a>
+</p>
+        <p>no variant or associated item named `Execution` found for enum 
+`ForgeError` in the current scope</p>
+        <pre><code>
+193: _ =&gt; Err(ForgeError::Execution(format!("Unknown syscall: {}", 
+syscall))),
+</code></pre>
+        <div class='suggestion'><strong>AI suggests:</strong> AI suggestion unavailable. Check your Gemini API key.</div>
+      </div>
+      <h3>microkernel\src\trust\syscall_enforcer.rs (7 issues)</h3>
+      <div class='error'>
+        <p><strong>Line 78:9</strong> - ERROR
+ [E0433]
+ <a href='https://doc.rust-lang.org/error_codes/E0433.html' target='_blank'>(Rust Docs)</a>
+</p>
+        <p>failed to resolve: use of unresolved module or unlinked crate 
+`log`</p>
+        <pre><code>
+78: log::warn!(
+</code></pre>
+        <div class='suggestion'><strong>AI suggests:</strong> AI suggestion unavailable. Check your Gemini API key.</div>
+      </div>
+      <div class='error'>
+        <p><strong>Line 151:26</strong> - ERROR
+ [E0609]
+ <a href='https://doc.rust-lang.org/error_codes/E0609.html' target='_blank'>(Rust Docs)</a>
+</p>
+        <p>no field `syscall` on type `&SyscallContext`</p>
+        <pre><code>
+151: &context.syscall,
+</code></pre>
+        <p><em>Help: available fields are: `name`, `syscall_type`, `args`, `identity`, 
+`policy_decisions` ... and 2 others</em></p>
+        <div class='suggestion'><strong>Rust suggests:</strong> available fields are: `name`, `syscall_type`, `args`, `identity`, 
+`policy_decisions` ... and 2 others</div>
+        <div class='suggestion'><strong>AI suggests:</strong> AI suggestion unavailable. Check your Gemini API key.</div>
+      </div>
+      <div class='error'>
+        <p><strong>Line 162:54</strong> - ERROR
+ [E0609]
+ <a href='https://doc.rust-lang.org/error_codes/E0609.html' target='_blank'>(Rust Docs)</a>
+</p>
+        <p>no field `syscall` on type `&SyscallContext`</p>
+        <pre><code>
+162: let policy = 
+graph.policies.get(&context.syscall).unwrap_or_else(|| {
+</code></pre>
+        <p><em>Help: available fields are: `name`, `syscall_type`, `args`, `identity`, 
+`policy_decisions` ... and 2 others</em></p>
+        <div class='suggestion'><strong>Rust suggests:</strong> available fields are: `name`, `syscall_type`, `args`, `identity`, 
+`policy_decisions` ... and 2 others</div>
+        <div class='suggestion'><strong>AI suggests:</strong> AI suggestion unavailable. Check your Gemini API key.</div>
+      </div>
+      <div class='error'>
+        <p><strong>Line 163:68</strong> - ERROR
+ [E0609]
+ <a href='https://doc.rust-lang.org/error_codes/E0609.html' target='_blank'>(Rust Docs)</a>
+</p>
+        <p>no field `syscall` on type `&SyscallContext`</p>
+        <pre><code>
+163: panic!("Policy not found for syscall: {}", 
+context.syscall)
+</code></pre>
+        <p><em>Help: available fields are: `name`, `syscall_type`, `args`, `identity`, 
+`policy_decisions` ... and 2 others</em></p>
+        <div class='suggestion'><strong>Rust suggests:</strong> available fields are: `name`, `syscall_type`, `args`, `identity`, 
+`policy_decisions` ... and 2 others</div>
+        <div class='suggestion'><strong>AI suggests:</strong> AI suggestion unavailable. Check your Gemini API key.</div>
+      </div>
+      <div class='error'>
+        <p><strong>Line 209:9</strong> - ERROR
+ [E0560]
+ <a href='https://doc.rust-lang.org/error_codes/E0560.html' target='_blank'>(Rust Docs)</a>
+</p>
+        <p>struct `SyscallContext` has no field named `syscall`</p>
+        <pre><code>
+209: syscall: syscall.to_string(),
+</code></pre>
+        <p><em>Help: available fields are: `name`, `syscall_type`, `policy_decisions`, 
+`execution_time_us`, `result`</em></p>
+        <div class='suggestion'><strong>Rust suggests:</strong> available fields are: `name`, `syscall_type`, `policy_decisions`, 
+`execution_time_us`, `result`</div>
+        <div class='suggestion'><strong>AI suggests:</strong> AI suggestion unavailable. Check your Gemini API key.</div>
+      </div>
+      <div class='error'>
+        <p><strong>Line 212:9</strong> - ERROR
+ [E0560]
+ <a href='https://doc.rust-lang.org/error_codes/E0560.html' target='_blank'>(Rust Docs)</a>
+</p>
+        <p>struct `SyscallContext` has no field named `execution_dna`</p>
+        <pre><code>
+212: execution_dna: None,
+</code></pre>
+        <p><em>Help: available fields are: `name`, `syscall_type`, `policy_decisions`, 
+`execution_time_us`, `result`</em></p>
+        <div class='suggestion'><strong>Rust suggests:</strong> available fields are: `name`, `syscall_type`, `policy_decisions`, 
+`execution_time_us`, `result`</div>
+        <div class='suggestion'><strong>AI suggests:</strong> AI suggestion unavailable. Check your Gemini API key.</div>
+      </div>
+      <div class='error'>
+        <p><strong>Line 213:9</strong> - ERROR
+ [E0560]
+ <a href='https://doc.rust-lang.org/error_codes/E0560.html' target='_blank'>(Rust Docs)</a>
+</p>
+        <p>struct `SyscallContext` has no field named `timestamp`</p>
+        <pre><code>
+213: timestamp: Utc::now(),
+</code></pre>
+        <p><em>Help: available fields are: `name`, `syscall_type`, `policy_decisions`, 
+`execution_time_us`, `result`</em></p>
+        <div class='suggestion'><strong>Rust suggests:</strong> available fields are: `name`, `syscall_type`, `policy_decisions`, 
+`execution_time_us`, `result`</div>
+        <div class='suggestion'><strong>AI suggests:</strong> AI suggestion unavailable. Check your Gemini API key.</div>
+      </div>
+      <h3>microkernel\src\trust\redzone.rs (12 issues)</h3>
+      <div class='error'>
+        <p><strong>Line 185:9</strong> - ERROR
+ [E0433]
+ <a href='https://doc.rust-lang.org/error_codes/E0433.html' target='_blank'>(Rust Docs)</a>
+</p>
+        <p>failed to resolve: use of unresolved module or unlinked crate 
+`log`</p>
+        <pre><code>
+185: log::warn!(
+</code></pre>
+        <div class='suggestion'><strong>AI suggests:</strong> AI suggestion unavailable. Check your Gemini API key.</div>
+      </div>
+      <div class='error'>
+        <p><strong>Line 208:17</strong> - ERROR
+ [E0433]
+ <a href='https://doc.rust-lang.org/error_codes/E0433.html' target='_blank'>(Rust Docs)</a>
+</p>
+        <p>failed to resolve: use of unresolved module or unlinked crate 
+`log`</p>
+        <pre><code>
+208: log::info!("Applying full isolation to process {}", 
+process_id);
+</code></pre>
+        <div class='suggestion'><strong>AI suggests:</strong> AI suggestion unavailable. Check your Gemini API key.</div>
+      </div>
+      <div class='error'>
+        <p><strong>Line 213:17</strong> - ERROR
+ [E0433]
+ <a href='https://doc.rust-lang.org/error_codes/E0433.html' target='_blank'>(Rust Docs)</a>
+</p>
+        <p>failed to resolve: use of unresolved module or unlinked crate 
+`log`</p>
+        <pre><code>
+213: log::info!("Applying network isolation to process {}", 
+process_id);
+</code></pre>
+        <div class='suggestion'><strong>AI suggests:</strong> AI suggestion unavailable. Check your Gemini API key.</div>
+      </div>
+      <div class='error'>
+        <p><strong>Line 218:17</strong> - ERROR
+ [E0433]
+ <a href='https://doc.rust-lang.org/error_codes/E0433.html' target='_blank'>(Rust Docs)</a>
+</p>
+        <p>failed to resolve: use of unresolved module or unlinked crate 
+`log`</p>
+        <pre><code>
+218: log::info!("Applying filesystem isolation to process 
+{}", process_id);
+</code></pre>
+        <div class='suggestion'><strong>AI suggests:</strong> AI suggestion unavailable. Check your Gemini API key.</div>
+      </div>
+      <div class='error'>
+        <p><strong>Line 223:17</strong> - ERROR
+ [E0433]
+ <a href='https://doc.rust-lang.org/error_codes/E0433.html' target='_blank'>(Rust Docs)</a>
+</p>
+        <p>failed to resolve: use of unresolved module or unlinked crate 
+`log`</p>
+        <pre><code>
+223: log::info!(
+</code></pre>
+        <div class='suggestion'><strong>AI suggests:</strong> AI suggestion unavailable. Check your Gemini API key.</div>
+      </div>
+      <div class='error'>
+        <p><strong>Line 248:17</strong> - ERROR
+ [E0433]
+ <a href='https://doc.rust-lang.org/error_codes/E0433.html' target='_blank'>(Rust Docs)</a>
+</p>
+        <p>failed to resolve: use of unresolved module or unlinked crate 
+`log`</p>
+        <pre><code>
+248: log::info!("No forensic data collection for process {}", 
+process_id);
+</code></pre>
+        <div class='suggestion'><strong>AI suggests:</strong> AI suggestion unavailable. Check your Gemini API key.</div>
+      </div>
+      <div class='error'>
+        <p><strong>Line 252:17</strong> - ERROR
+ [E0433]
+ <a href='https://doc.rust-lang.org/error_codes/E0433.html' target='_blank'>(Rust Docs)</a>
+</p>
+        <p>failed to resolve: use of unresolved module or unlinked crate 
+`log`</p>
+        <pre><code>
+252: log::info!("Collecting metadata for process {}", 
+process_id);
+</code></pre>
+        <div class='suggestion'><strong>AI suggests:</strong> AI suggestion unavailable. Check your Gemini API key.</div>
+      </div>
+      <div class='error'>
+        <p><strong>Line 257:17</strong> - ERROR
+ [E0433]
+ <a href='https://doc.rust-lang.org/error_codes/E0433.html' target='_blank'>(Rust Docs)</a>
+</p>
+        <p>failed to resolve: use of unresolved module or unlinked crate 
+`log`</p>
+        <pre><code>
+257: log::info!("Collecting full forensic data for process 
+{}", process_id);
+</code></pre>
+        <div class='suggestion'><strong>AI suggests:</strong> AI suggestion unavailable. Check your Gemini API key.</div>
+      </div>
+      <div class='error'>
+        <p><strong>Line 283:9</strong> - ERROR
+ [E0433]
+ <a href='https://doc.rust-lang.org/error_codes/E0433.html' target='_blank'>(Rust Docs)</a>
+</p>
+        <p>failed to resolve: use of unresolved module or unlinked crate 
+`log`</p>
+        <pre><code>
+283: log::info!("Analyzing quarantined process {}", process_id);
+</code></pre>
+        <div class='suggestion'><strong>AI suggests:</strong> AI suggestion unavailable. Check your Gemini API key.</div>
+      </div>
+      <div class='error'>
+        <p><strong>Line 309:9</strong> - ERROR
+ [E0433]
+ <a href='https://doc.rust-lang.org/error_codes/E0433.html' target='_blank'>(Rust Docs)</a>
+</p>
+        <p>failed to resolve: use of unresolved module or unlinked crate 
+`log`</p>
+        <pre><code>
+309: log::info!("Terminating quarantined process {}", process_id);
+</code></pre>
+        <div class='suggestion'><strong>AI suggests:</strong> AI suggestion unavailable. Check your Gemini API key.</div>
+      </div>
+      <div class='error'>
+        <p><strong>Line 326:9</strong> - ERROR
+ [E0433]
+ <a href='https://doc.rust-lang.org/error_codes/E0433.html' target='_blank'>(Rust Docs)</a>
+</p>
+        <p>failed to resolve: use of unresolved module or unlinked crate 
+`log`</p>
+        <pre><code>
+326: log::info!("Recovering quarantined process {}", process_id);
+</code></pre>
+        <div class='suggestion'><strong>AI suggests:</strong> AI suggestion unavailable. Check your Gemini API key.</div>
+      </div>
+      <div class='error'>
+        <p><strong>Line 346:9</strong> - ERROR
+ [E0433]
+ <a href='https://doc.rust-lang.org/error_codes/E0433.html' target='_blank'>(Rust Docs)</a>
+</p>
+        <p>failed to resolve: use of unresolved module or unlinked crate 
+`log`</p>
+        <pre><code>
+346: log::info!("Removed process {} from quarantine", process_id);
+</code></pre>
+        <div class='suggestion'><strong>AI suggests:</strong> AI suggestion unavailable. Check your Gemini API key.</div>
+      </div>
+      <h3>microkernel\src\trust\evaluation.rs (8 issues)</h3>
+      <div class='error'>
+        <p><strong>Line 147:9</strong> - ERROR
+ [E0433]
+ <a href='https://doc.rust-lang.org/error_codes/E0433.html' target='_blank'>(Rust Docs)</a>
+</p>
+        <p>failed to resolve: use of unresolved module or unlinked crate 
+`log`</p>
+        <pre><code>
+147: log::info!("Trust evaluation context created: {}", context_id);
+</code></pre>
+        <div class='suggestion'><strong>AI suggests:</strong> AI suggestion unavailable. Check your Gemini API key.</div>
+      </div>
+      <div class='error'>
+        <p><strong>Line 191:9</strong> - ERROR
+ [E0433]
+ <a href='https://doc.rust-lang.org/error_codes/E0433.html' target='_blank'>(Rust Docs)</a>
+</p>
+        <p>failed to resolve: use of unresolved module or unlinked crate 
+`log`</p>
+        <pre><code>
+191: log::info!(
+</code></pre>
+        <div class='suggestion'><strong>AI suggests:</strong> AI suggestion unavailable. Check your Gemini API key.</div>
+      </div>
+      <div class='error'>
+        <p><strong>Line 418:9</strong> - ERROR
+ [E0433]
+ <a href='https://doc.rust-lang.org/error_codes/E0433.html' target='_blank'>(Rust Docs)</a>
+</p>
+        <p>failed to resolve: use of unresolved module or unlinked crate 
+`log`</p>
+        <pre><code>
+418: log::info!("Trust threshold set: {} = {}", name, threshold);
+</code></pre>
+        <div class='suggestion'><strong>AI suggests:</strong> AI suggestion unavailable. Check your Gemini API key.</div>
+      </div>
+      <div class='error'>
+        <p><strong>Line 238:13</strong> - ERROR
+ [E0532]
+ <a href='https://doc.rust-lang.org/error_codes/E0532.html' target='_blank'>(Rust Docs)</a>
+</p>
+        <p>expected unit struct, unit variant or constant, found tuple 
+variant `TrustVector::Signed`</p>
+        <pre><code>
+238: TrustVector::Signed =&gt; 0.8,
+</code></pre>
+        <div class='suggestion'><strong>AI suggests:</strong> AI suggestion unavailable. Check your Gemini API key.</div>
+      </div>
+      <div class='error'>
+        <p><strong>Line 117:52</strong> - ERROR
+ [E0599]
+ <a href='https://doc.rust-lang.org/error_codes/E0599.html' target='_blank'>(Rust Docs)</a>
+</p>
+        <p>no function or associated item named `new` found for struct 
+`zta_policy::ZtaPolicyGraph` in the current scope</p>
+        <pre><code>
+117: let policy_graph = ZtaPolicyGraph::new();
+</code></pre>
+        <p><em>Help: items from traits can only be used if the trait is implemented and 
+in scope</em></p>
+        <div class='suggestion'><strong>Rust suggests:</strong> items from traits can only be used if the trait is implemented and 
+in scope</div>
+        <div class='suggestion'><strong>AI suggests:</strong> AI suggestion unavailable. Check your Gemini API key.</div>
+      </div>
+      <div class='error'>
+        <p><strong>Line 249:29</strong> - ERROR
+ [E0599]
+ <a href='https://doc.rust-lang.org/error_codes/E0599.html' target='_blank'>(Rust Docs)</a>
+</p>
+        <p>no method named `is_some` found for struct `std::string::String` 
+in the current scope</p>
+        <pre><code>
+249: if identity.user_id.is_some() {
+</code></pre>
+        <div class='suggestion'><strong>AI suggests:</strong> AI suggestion unavailable. Check your Gemini API key.</div>
+      </div>
+      <div class='error'>
+        <p><strong>Line 274:36</strong> - ERROR
+ [E0689]
+ <a href='https://doc.rust-lang.org/error_codes/E0689.html' target='_blank'>(Rust Docs)</a>
+</p>
+        <p>can't call method `min` on ambiguous numeric type `{float}`</p>
+        <pre><code>
+274: (base_score + adjustments).min(1.0).max(0.0)
+</code></pre>
+        <div class='suggestion'><strong>AI suggests:</strong> AI suggestion unavailable. Check your Gemini API key.</div>
+      </div>
+      <div class='error'>
+        <p><strong>Line 369:13</strong> - ERROR
+ [E0308]
+ <a href='https://doc.rust-lang.org/error_codes/E0308.html' target='_blank'>(Rust Docs)</a>
+</p>
+        <p>mismatched types</p>
+        <pre><code>
+357: fn determine_trust_vector(&self, trust_score: f64, context: 
+&TrustEvaluationContext) -&gt; TrustVector {
+369: TrustVector::Signed
+369: TrustVector::Signed(/* std::string::String */)
+</code></pre>
+        <p><em>Help: expected enum `common::identity::TrustVector`
+            found enum constructor `fn(std::string::String) -> 
+common::identity::TrustVector {Signed}`
+help: use parentheses to construct this tuple variant
+    |
+369 |             TrustVector::Signed(/* std::string::String */)
+    |                                +++++++++++++++++++++++++++</em></p>
+        <div class='suggestion'><strong>Rust suggests:</strong> expected enum `common::identity::TrustVector`
+            found enum constructor `fn(std::string::String) -> 
+common::identity::TrustVector {Signed}`
+help: use parentheses to construct this tuple variant
+    |
+369 |             TrustVector::Signed(/* std::string::String */)
+    |                                +++++++++++++++++++++++++++</div>
+        <div class='suggestion'><strong>AI suggests:</strong> AI suggestion unavailable. Check your Gemini API key.</div>
+      </div>
+      <h3>microkernel\src\trust\mod.rs (5 issues)</h3>
+      <div class='error'>
+        <p><strong>Line 39:5</strong> - ERROR
+ [E0433]
+ <a href='https://doc.rust-lang.org/error_codes/E0433.html' target='_blank'>(Rust Docs)</a>
+</p>
+        <p>failed to resolve: use of unresolved module or unlinked crate 
+`log`</p>
+        <pre><code>
+39: log::info!("Trust module initialized");
+</code></pre>
+        <div class='suggestion'><strong>AI suggests:</strong> AI suggestion unavailable. Check your Gemini API key.</div>
+      </div>
+      <div class='error'>
+        <p><strong>Line 47:5</strong> - ERROR
+ [E0433]
+ <a href='https://doc.rust-lang.org/error_codes/E0433.html' target='_blank'>(Rust Docs)</a>
+</p>
+        <p>failed to resolve: use of unresolved module or unlinked crate 
+`log`</p>
+        <pre><code>
+47: log::info!("Trust module shutdown");
+</code></pre>
+        <div class='suggestion'><strong>AI suggests:</strong> AI suggestion unavailable. Check your Gemini API key.</div>
+      </div>
+      <div class='error'>
+        <p><strong>Line 28:23</strong> - ERROR
+ [E0425]
+ <a href='https://doc.rust-lang.org/error_codes/E0425.html' target='_blank'>(Rust Docs)</a>
+</p>
+        <p>cannot find function `init` in module `syscall_enforcer`</p>
+        <pre><code>
+28: syscall_enforcer::init(policy_graph.clone())?;
+</code></pre>
+        <div class='suggestion'><strong>AI suggests:</strong> AI suggestion unavailable. Check your Gemini API key.</div>
+      </div>
+      <div class='error'>
+        <p><strong>Line 59:38</strong> - ERROR
+ [E0425]
+ <a href='https://doc.rust-lang.org/error_codes/E0425.html' target='_blank'>(Rust Docs)</a>
+</p>
+        <p>cannot find function `get_syscall_enforcer` in module 
+`syscall_enforcer`</p>
+        <pre><code>
+59: let enforcer = syscall_enforcer::get_syscall_enforcer();
+</code></pre>
+        <div class='suggestion'><strong>AI suggests:</strong> AI suggestion unavailable. Check your Gemini API key.</div>
+      </div>
+      <div class='error'>
+        <p><strong>Line 37:22</strong> - ERROR
+ [E0308]
+ <a href='https://doc.rust-lang.org/error_codes/E0308.html' target='_blank'>(Rust Docs)</a>
+</p>
+        <p>mismatched types</p>
+        <pre><code>
+37: evaluation::init(policy_graph)?;
+85: pub fn init(policy_graph: ZtaPolicyGraph) -&gt; Result&lt;(), String&gt; {
+</code></pre>
+        <div class='suggestion'><strong>AI suggests:</strong> AI suggestion unavailable. Check your Gemini API key.</div>
+      </div>
+      <h3>microkernel\src\core\boot.rs (2 issues)</h3>
+      <div class='error'>
+        <p><strong>Line 81:20</strong> - ERROR
+ [E0308]
+ <a href='https://doc.rust-lang.org/error_codes/E0308.html' target='_blank'>(Rust Docs)</a>
+</p>
+        <p>arguments to this function are incorrect</p>
+        <pre><code>
+81: let identity = IdentityContext::new("system", "boot");
+51: pub fn new(tenant_id: String, user_id: String) -&gt; Self {
+81: let identity = IdentityContext::new("system".to_string(), "boot");
+81: let identity = IdentityContext::new("system", "boot".to_string());
+</code></pre>
+        <div class='suggestion'><strong>AI suggests:</strong> AI suggestion unavailable. Check your Gemini API key.</div>
+      </div>
+      <div class='error'>
+        <p><strong>Line 158:5</strong> - ERROR
+ [E0061]
+ <a href='https://doc.rust-lang.org/error_codes/E0061.html' target='_blank'>(Rust Docs)</a>
+</p>
+        <p>this enum variant takes 1 argument but 0 arguments were supplied</p>
+        <pre><code>
+158: Ok()
+532: Ok(#[stable(feature = "rust1", since = "1.0.0")] T),
+158: Ok(())
+</code></pre>
+        <div class='suggestion'><strong>AI suggests:</strong> AI suggestion unavailable. Check your Gemini API key.</div>
+      </div>
+      <h3>microkernel\src\core\runtime.rs (9 issues)</h3>
+      <div class='error'>
+        <p><strong>Line 171:5</strong> - ERROR
+ [E0061]
+ <a href='https://doc.rust-lang.org/error_codes/E0061.html' target='_blank'>(Rust Docs)</a>
+</p>
+        <p>this enum variant takes 1 argument but 0 arguments were supplied</p>
+        <pre><code>
+171: Ok()
+532: Ok(#[stable(feature = "rust1", since = "1.0.0")] T),
+171: Ok(())
+</code></pre>
+        <div class='suggestion'><strong>AI suggests:</strong> AI suggestion unavailable. Check your Gemini API key.</div>
+      </div>
+      <div class='error'>
+        <p><strong>Line 205:5</strong> - ERROR
+ [E0061]
+ <a href='https://doc.rust-lang.org/error_codes/E0061.html' target='_blank'>(Rust Docs)</a>
+</p>
+        <p>this enum variant takes 1 argument but 0 arguments were supplied</p>
+        <pre><code>
+205: Ok()
+532: Ok(#[stable(feature = "rust1", since = "1.0.0")] T),
+205: Ok(())
+</code></pre>
+        <div class='suggestion'><strong>AI suggests:</strong> AI suggestion unavailable. Check your Gemini API key.</div>
+      </div>
+      <div class='error'>
+        <p><strong>Line 235:5</strong> - ERROR
+ [E0061]
+ <a href='https://doc.rust-lang.org/error_codes/E0061.html' target='_blank'>(Rust Docs)</a>
+</p>
+        <p>this enum variant takes 1 argument but 0 arguments were supplied</p>
+        <pre><code>
+235: Ok()
+532: Ok(#[stable(feature = "rust1", since = "1.0.0")] T),
+235: Ok(())
+</code></pre>
+        <div class='suggestion'><strong>AI suggests:</strong> AI suggestion unavailable. Check your Gemini API key.</div>
+      </div>
+      <div class='error'>
+        <p><strong>Line 242:25</strong> - ERROR
+ [E0599]
+ <a href='https://doc.rust-lang.org/error_codes/E0599.html' target='_blank'>(Rust Docs)</a>
+</p>
+        <p>no variant or associated item named `Runtime` found for enum 
+`ForgeError` in the current scope</p>
+        <pre><code>
+242: ForgeError::Runtime("Runtime context not 
+initialized".to_string())
+</code></pre>
+        <div class='suggestion'><strong>AI suggests:</strong> AI suggestion unavailable. Check your Gemini API key.</div>
+      </div>
+      <div class='error'>
+        <p><strong>Line 297:25</strong> - ERROR
+ [E0599]
+ <a href='https://doc.rust-lang.org/error_codes/E0599.html' target='_blank'>(Rust Docs)</a>
+</p>
+        <p>no variant or associated item named `Runtime` found for enum 
+`ForgeError` in the current scope</p>
+        <pre><code>
+297: ForgeError::Runtime(format!("Container {} not found", 
+container_id))
+</code></pre>
+        <div class='suggestion'><strong>AI suggests:</strong> AI suggestion unavailable. Check your Gemini API key.</div>
+      </div>
+      <div class='error'>
+        <p><strong>Line 312:5</strong> - ERROR
+ [E0061]
+ <a href='https://doc.rust-lang.org/error_codes/E0061.html' target='_blank'>(Rust Docs)</a>
+</p>
+        <p>this enum variant takes 1 argument but 0 arguments were supplied</p>
+        <pre><code>
+312: Ok()
+532: Ok(#[stable(feature = "rust1", since = "1.0.0")] T),
+312: Ok(())
+</code></pre>
+        <div class='suggestion'><strong>AI suggests:</strong> AI suggestion unavailable. Check your Gemini API key.</div>
+      </div>
+      <div class='error'>
+        <p><strong>Line 323:25</strong> - ERROR
+ [E0599]
+ <a href='https://doc.rust-lang.org/error_codes/E0599.html' target='_blank'>(Rust Docs)</a>
+</p>
+        <p>no variant or associated item named `Runtime` found for enum 
+`ForgeError` in the current scope</p>
+        <pre><code>
+323: ForgeError::Runtime(format!("Container {} not found", 
+container_id))
+</code></pre>
+        <div class='suggestion'><strong>AI suggests:</strong> AI suggestion unavailable. Check your Gemini API key.</div>
+      </div>
+      <div class='error'>
+        <p><strong>Line 357:5</strong> - ERROR
+ [E0061]
+ <a href='https://doc.rust-lang.org/error_codes/E0061.html' target='_blank'>(Rust Docs)</a>
+</p>
+        <p>this enum variant takes 1 argument but 0 arguments were supplied</p>
+        <pre><code>
+357: Ok()
+532: Ok(#[stable(feature = "rust1", since = "1.0.0")] T),
+357: Ok(())
+</code></pre>
+        <div class='suggestion'><strong>AI suggests:</strong> AI suggestion unavailable. Check your Gemini API key.</div>
+      </div>
+      <div class='error'>
+        <p><strong>Line 366:21</strong> - ERROR
+ [E0599]
+ <a href='https://doc.rust-lang.org/error_codes/E0599.html' target='_blank'>(Rust Docs)</a>
+</p>
+        <p>no variant or associated item named `Runtime` found for enum 
+`ForgeError` in the current scope</p>
+        <pre><code>
+366: ForgeError::Runtime(format!("Container {} not found", 
+container_id))
+</code></pre>
+        <div class='suggestion'><strong>AI suggests:</strong> AI suggestion unavailable. Check your Gemini API key.</div>
+      </div>
+      <h3>microkernel\src\core\scheduler.rs (6 issues)</h3>
+      <div class='error'>
+        <p><strong>Line 116:5</strong> - ERROR
+ [E0061]
+ <a href='https://doc.rust-lang.org/error_codes/E0061.html' target='_blank'>(Rust Docs)</a>
+</p>
+        <p>this enum variant takes 1 argument but 0 arguments were supplied</p>
+        <pre><code>
+116: Ok()
+532: Ok(#[stable(feature = "rust1", since = "1.0.0")] T),
+116: Ok(())
+</code></pre>
+        <div class='suggestion'><strong>AI suggests:</strong> AI suggestion unavailable. Check your Gemini API key.</div>
+      </div>
+      <div class='error'>
+        <p><strong>Line 156:5</strong> - ERROR
+ [E0061]
+ <a href='https://doc.rust-lang.org/error_codes/E0061.html' target='_blank'>(Rust Docs)</a>
+</p>
+        <p>this enum variant takes 1 argument but 0 arguments were supplied</p>
+        <pre><code>
+156: Ok()
+532: Ok(#[stable(feature = "rust1", since = "1.0.0")] T),
+156: Ok(())
+</code></pre>
+        <div class='suggestion'><strong>AI suggests:</strong> AI suggestion unavailable. Check your Gemini API key.</div>
+      </div>
+      <div class='error'>
+        <p><strong>Line 184:5</strong> - ERROR
+ [E0061]
+ <a href='https://doc.rust-lang.org/error_codes/E0061.html' target='_blank'>(Rust Docs)</a>
+</p>
+        <p>this enum variant takes 1 argument but 0 arguments were supplied</p>
+        <pre><code>
+184: Ok()
+532: Ok(#[stable(feature = "rust1", since = "1.0.0")] T),
+184: Ok(())
+</code></pre>
+        <div class='suggestion'><strong>AI suggests:</strong> AI suggestion unavailable. Check your Gemini API key.</div>
+      </div>
+      <div class='error'>
+        <p><strong>Line 191:25</strong> - ERROR
+ [E0599]
+ <a href='https://doc.rust-lang.org/error_codes/E0599.html' target='_blank'>(Rust Docs)</a>
+</p>
+        <p>no variant or associated item named `Runtime` found for enum 
+`ForgeError` in the current scope</p>
+        <pre><code>
+191: ForgeError::Runtime("Scheduler context not 
+initialized".to_string())
+</code></pre>
+        <div class='suggestion'><strong>AI suggests:</strong> AI suggestion unavailable. Check your Gemini API key.</div>
+      </div>
+      <div class='error'>
+        <p><strong>Line 220:5</strong> - ERROR
+ [E0061]
+ <a href='https://doc.rust-lang.org/error_codes/E0061.html' target='_blank'>(Rust Docs)</a>
+</p>
+        <p>this enum variant takes 1 argument but 0 arguments were supplied</p>
+        <pre><code>
+220: Ok()
+532: Ok(#[stable(feature = "rust1", since = "1.0.0")] T),
+220: Ok(())
+</code></pre>
+        <div class='suggestion'><strong>AI suggests:</strong> AI suggestion unavailable. Check your Gemini API key.</div>
+      </div>
+      <div class='error'>
+        <p><strong>Line 243:5</strong> - ERROR
+ [E0061]
+ <a href='https://doc.rust-lang.org/error_codes/E0061.html' target='_blank'>(Rust Docs)</a>
+</p>
+        <p>this enum variant takes 1 argument but 0 arguments were supplied</p>
+        <pre><code>
+243: Ok()
+532: Ok(#[stable(feature = "rust1", since = "1.0.0")] T),
+243: Ok(())
+</code></pre>
+        <div class='suggestion'><strong>AI suggests:</strong> AI suggestion unavailable. Check your Gemini API key.</div>
+      </div>
+      <h3>microkernel\src\execution\wasm.rs (9 issues)</h3>
+      <div class='error'>
+        <p><strong>Line 57:5</strong> - ERROR
+ [E0277]
+ <a href='https://doc.rust-lang.org/error_codes/E0277.html' target='_blank'>(Rust Docs)</a>
+</p>
+        <p>`Module` doesn't implement `std::fmt::Debug`</p>
+        <pre><code>
+37: #[derive(Debug)]
+57: pub wasmtime_module: Option&lt;wasmtime::Module&gt;,
+</code></pre>
+        <p><em>Help: the trait `std::fmt::Debug` is not implemented for `Module`</em></p>
+        <div class='suggestion'><strong>Rust suggests:</strong> the trait `std::fmt::Debug` is not implemented for `Module`</div>
+        <div class='suggestion'><strong>AI suggests:</strong> AI suggestion unavailable. Check your Gemini API key.</div>
+      </div>
+      <div class='error'>
+        <p><strong>Line 191:21</strong> - ERROR
+ [E0599]
+ <a href='https://doc.rust-lang.org/error_codes/E0599.html' target='_blank'>(Rust Docs)</a>
+</p>
+        <p>no variant or associated item named `Execution` found for enum 
+`ForgeError` in the current scope</p>
+        <pre><code>
+191: ForgeError::Execution(format!("Failed to read module file: {}", 
+e))
+</code></pre>
+        <div class='suggestion'><strong>AI suggests:</strong> AI suggestion unavailable. Check your Gemini API key.</div>
+      </div>
+      <div class='error'>
+        <p><strong>Line 195:48</strong> - ERROR
+ [E0599]
+ <a href='https://doc.rust-lang.org/error_codes/E0599.html' target='_blank'>(Rust Docs)</a>
+</p>
+        <p>no function or associated item named `digest` found for struct 
+`CoreWrapper` in the current scope</p>
+        <pre><code>
+195: let hash = format!("{:x}", sha3::Sha3_256::digest(&module_bytes));
+</code></pre>
+        <p><em>Help: items from traits can only be used if the trait is in scope
+help: trait `Digest` which provides `digest` is implemented but not in scope; 
+perhaps you want to import it
+    |
+6   + use sha3::Digest;
+    |</em></p>
+        <div class='suggestion'><strong>Rust suggests:</strong> items from traits can only be used if the trait is in scope
+help: trait `Digest` which provides `digest` is implemented but not in scope; 
+perhaps you want to import it
+    |
+6   + use sha3::Digest;
+    |</div>
+        <div class='suggestion'><strong>AI suggests:</strong> AI suggestion unavailable. Check your Gemini API key.</div>
+      </div>
+      <div class='error'>
+        <p><strong>Line 218:25</strong> - ERROR
+ [E0599]
+ <a href='https://doc.rust-lang.org/error_codes/E0599.html' target='_blank'>(Rust Docs)</a>
+</p>
+        <p>no variant or associated item named `Execution` found for enum 
+`ForgeError` in the current scope</p>
+        <pre><code>
+218: ForgeError::Execution(format!("Failed to compile module: 
+{}", e))
+</code></pre>
+        <div class='suggestion'><strong>AI suggests:</strong> AI suggestion unavailable. Check your Gemini API key.</div>
+      </div>
+      <div class='error'>
+        <p><strong>Line 282:25</strong> - ERROR
+ [E0599]
+ <a href='https://doc.rust-lang.org/error_codes/E0599.html' target='_blank'>(Rust Docs)</a>
+</p>
+        <p>no variant or associated item named `Execution` found for enum 
+`ForgeError` in the current scope</p>
+        <pre><code>
+282: ForgeError::Execution(format!("Module {} not found", 
+module_name))
+</code></pre>
+        <div class='suggestion'><strong>AI suggests:</strong> AI suggestion unavailable. Check your Gemini API key.</div>
+      </div>
+      <div class='error'>
+        <p><strong>Line 332:25</strong> - ERROR
+ [E0599]
+ <a href='https://doc.rust-lang.org/error_codes/E0599.html' target='_blank'>(Rust Docs)</a>
+</p>
+        <p>no variant or associated item named `Execution` found for enum 
+`ForgeError` in the current scope</p>
+        <pre><code>
+332: ForgeError::Execution(format!("Instance {} not found", 
+instance_id))
+</code></pre>
+        <div class='suggestion'><strong>AI suggests:</strong> AI suggestion unavailable. Check your Gemini API key.</div>
+      </div>
+      <div class='error'>
+        <p><strong>Line 338:32</strong> - ERROR
+ [E0599]
+ <a href='https://doc.rust-lang.org/error_codes/E0599.html' target='_blank'>(Rust Docs)</a>
+</p>
+        <p>no variant or associated item named `Execution` found for enum 
+`ForgeError` in the current scope</p>
+        <pre><code>
+338: return Err(ForgeError::Execution(format!("Function {} not found 
+in instance {}", function_name, instance_id)));
+</code></pre>
+        <div class='suggestion'><strong>AI suggests:</strong> AI suggestion unavailable. Check your Gemini API key.</div>
+      </div>
+      <div class='error'>
+        <p><strong>Line 369:25</strong> - ERROR
+ [E0599]
+ <a href='https://doc.rust-lang.org/error_codes/E0599.html' target='_blank'>(Rust Docs)</a>
+</p>
+        <p>no variant or associated item named `Execution` found for enum 
+`ForgeError` in the current scope</p>
+        <pre><code>
+369: ForgeError::Execution(format!("Instance {} not found", 
+instance_id))
+</code></pre>
+        <div class='suggestion'><strong>AI suggests:</strong> AI suggestion unavailable. Check your Gemini API key.</div>
+      </div>
+      <div class='error'>
+        <p><strong>Line 382:5</strong> - ERROR
+ [E0061]
+ <a href='https://doc.rust-lang.org/error_codes/E0061.html' target='_blank'>(Rust Docs)</a>
+</p>
+        <p>this enum variant takes 1 argument but 0 arguments were supplied</p>
+        <pre><code>
+382: Ok()
+532: Ok(#[stable(feature = "rust1", since = "1.0.0")] T),
+382: Ok(())
+</code></pre>
+        <div class='suggestion'><strong>AI suggests:</strong> AI suggestion unavailable. Check your Gemini API key.</div>
+      </div>
+      <h3>microkernel\src\execution\sandbox.rs (5 issues)</h3>
+      <div class='error'>
+        <p><strong>Line 175:32</strong> - ERROR
+ [E0599]
+ <a href='https://doc.rust-lang.org/error_codes/E0599.html' target='_blank'>(Rust Docs)</a>
+</p>
+        <p>no variant or associated item named `Execution` found for enum 
+`ForgeError` in the current scope</p>
+        <pre><code>
+175: return Err(ForgeError::Execution(format!("Sandbox {} is not in a 
+valid state to start", sandbox.id)));
+</code></pre>
+        <div class='suggestion'><strong>AI suggests:</strong> AI suggestion unavailable. Check your Gemini API key.</div>
+      </div>
+      <div class='error'>
+        <p><strong>Line 210:32</strong> - ERROR
+ [E0599]
+ <a href='https://doc.rust-lang.org/error_codes/E0599.html' target='_blank'>(Rust Docs)</a>
+</p>
+        <p>no variant or associated item named `Execution` found for enum 
+`ForgeError` in the current scope</p>
+        <pre><code>
+210: return Err(ForgeError::Execution(format!("Sandbox {} is not in a 
+valid state to stop", sandbox.id)));
+</code></pre>
+        <div class='suggestion'><strong>AI suggests:</strong> AI suggestion unavailable. Check your Gemini API key.</div>
+      </div>
+      <div class='error'>
+        <p><strong>Line 248:32</strong> - ERROR
+ [E0599]
+ <a href='https://doc.rust-lang.org/error_codes/E0599.html' target='_blank'>(Rust Docs)</a>
+</p>
+        <p>no variant or associated item named `Execution` found for enum 
+`ForgeError` in the current scope</p>
+        <pre><code>
+248: return Err(ForgeError::Execution(format!("Sandbox {} is not in a 
+valid state to pause", sandbox.id)));
+</code></pre>
+        <div class='suggestion'><strong>AI suggests:</strong> AI suggestion unavailable. Check your Gemini API key.</div>
+      </div>
+      <div class='error'>
+        <p><strong>Line 283:32</strong> - ERROR
+ [E0599]
+ <a href='https://doc.rust-lang.org/error_codes/E0599.html' target='_blank'>(Rust Docs)</a>
+</p>
+        <p>no variant or associated item named `Execution` found for enum 
+`ForgeError` in the current scope</p>
+        <pre><code>
+283: return Err(ForgeError::Execution(format!("Sandbox {} is not in a 
+valid state to resume", sandbox.id)));
+</code></pre>
+        <div class='suggestion'><strong>AI suggests:</strong> AI suggestion unavailable. Check your Gemini API key.</div>
+      </div>
+      <div class='error'>
+        <p><strong>Line 322:32</strong> - ERROR
+ [E0599]
+ <a href='https://doc.rust-lang.org/error_codes/E0599.html' target='_blank'>(Rust Docs)</a>
+</p>
+        <p>no variant or associated item named `Execution` found for enum 
+`ForgeError` in the current scope</p>
+        <pre><code>
+322: return Err(ForgeError::Execution(format!("Sandbox {} is not in a 
+valid state to execute commands", sandbox.id)));
+</code></pre>
+        <div class='suggestion'><strong>AI suggests:</strong> AI suggestion unavailable. Check your Gemini API key.</div>
+      </div>
+      <h3>microkernel\src\trust\zta_policy.rs (15 issues)</h3>
+      <div class='error'>
+        <p><strong>Line 258:55</strong> - ERROR
+ [E0609]
+ <a href='https://doc.rust-lang.org/error_codes/E0609.html' target='_blank'>(Rust Docs)</a>
+</p>
+        <p>no field `syscall` on type `&SyscallContext`</p>
+        <pre><code>
+258: let policy = match self.policies.get(&context.syscall) {
+</code></pre>
+        <p><em>Help: available fields are: `name`, `syscall_type`, `args`, `identity`, 
+`policy_decisions` ... and 2 others</em></p>
+        <div class='suggestion'><strong>Rust suggests:</strong> available fields are: `name`, `syscall_type`, `args`, `identity`, 
+`policy_decisions` ... and 2 others</div>
+        <div class='suggestion'><strong>AI suggests:</strong> AI suggestion unavailable. Check your Gemini API key.</div>
+      </div>
+      <div class='error'>
+        <p><strong>Line 263:85</strong> - ERROR
+ [E0609]
+ <a href='https://doc.rust-lang.org/error_codes/E0609.html' target='_blank'>(Rust Docs)</a>
+</p>
+        <p>no field `syscall` on type `&SyscallContext`</p>
+        <pre><code>
+263: reason: Some(format!("No policy found for syscall: 
+{}", context.syscall)),
+</code></pre>
+        <p><em>Help: available fields are: `name`, `syscall_type`, `args`, `identity`, 
+`policy_decisions` ... and 2 others</em></p>
+        <div class='suggestion'><strong>Rust suggests:</strong> available fields are: `name`, `syscall_type`, `args`, `identity`, 
+`policy_decisions` ... and 2 others</div>
+        <div class='suggestion'><strong>AI suggests:</strong> AI suggestion unavailable. Check your Gemini API key.</div>
+      </div>
+      <div class='error'>
+        <p><strong>Line 299:71</strong> - ERROR
+ [E0609]
+ <a href='https://doc.rust-lang.org/error_codes/E0609.html' target='_blank'>(Rust Docs)</a>
+</p>
+        <p>no field `syscall` on type `&SyscallContext`</p>
+        <pre><code>
+299: Some(patterns) =&gt; patterns.iter().any(|p| 
+context.syscall.contains(p)),
+</code></pre>
+        <p><em>Help: available fields are: `name`, `syscall_type`, `args`, `identity`, 
+`policy_decisions` ... and 2 others</em></p>
+        <div class='suggestion'><strong>Rust suggests:</strong> available fields are: `name`, `syscall_type`, `args`, `identity`, 
+`policy_decisions` ... and 2 others</div>
+        <div class='suggestion'><strong>AI suggests:</strong> AI suggestion unavailable. Check your Gemini API key.</div>
+      </div>
+      <div class='error'>
+        <p><strong>Line 397:9</strong> - ERROR
+ [E0560]
+ <a href='https://doc.rust-lang.org/error_codes/E0560.html' target='_blank'>(Rust Docs)</a>
+</p>
+        <p>struct `SyscallContext` has no field named `syscall`</p>
+        <pre><code>
+397: syscall: syscall.to_string(),
+</code></pre>
+        <p><em>Help: available fields are: `name`, `syscall_type`, `policy_decisions`, 
+`execution_time_us`, `result`</em></p>
+        <div class='suggestion'><strong>Rust suggests:</strong> available fields are: `name`, `syscall_type`, `policy_decisions`, 
+`execution_time_us`, `result`</div>
+        <div class='suggestion'><strong>AI suggests:</strong> AI suggestion unavailable. Check your Gemini API key.</div>
+      </div>
+      <div class='error'>
+        <p><strong>Line 400:9</strong> - ERROR
+ [E0560]
+ <a href='https://doc.rust-lang.org/error_codes/E0560.html' target='_blank'>(Rust Docs)</a>
+</p>
+        <p>struct `SyscallContext` has no field named `execution_dna`</p>
+        <pre><code>
+400: execution_dna: None,
+</code></pre>
+        <p><em>Help: available fields are: `name`, `syscall_type`, `policy_decisions`, 
+`execution_time_us`, `result`</em></p>
+        <div class='suggestion'><strong>Rust suggests:</strong> available fields are: `name`, `syscall_type`, `policy_decisions`, 
+`execution_time_us`, `result`</div>
+        <div class='suggestion'><strong>AI suggests:</strong> AI suggestion unavailable. Check your Gemini API key.</div>
+      </div>
+      <div class='error'>
+        <p><strong>Line 401:9</strong> - ERROR
+ [E0560]
+ <a href='https://doc.rust-lang.org/error_codes/E0560.html' target='_blank'>(Rust Docs)</a>
+</p>
+        <p>struct `SyscallContext` has no field named `timestamp`</p>
+        <pre><code>
+401: timestamp: Utc::now(),
+</code></pre>
+        <p><em>Help: available fields are: `name`, `syscall_type`, `policy_decisions`, 
+`execution_time_us`, `result`</em></p>
+        <div class='suggestion'><strong>Rust suggests:</strong> available fields are: `name`, `syscall_type`, `policy_decisions`, 
+`execution_time_us`, `result`</div>
+        <div class='suggestion'><strong>AI suggests:</strong> AI suggestion unavailable. Check your Gemini API key.</div>
+      </div>
+      <div class='error'>
+        <p><strong>Line 177:46</strong> - ERROR
+</p>
+        <p>unknown character escape: `.`</p>
+        <pre><code>
+177: constraints.insert(0, 
+"^((?!(127\.0\.0\.1|0\.0\.0\.0|10\.0\.0\.0/8)).)*$".to_string()); // Restrict 
+local network
+177: constraints.insert(0, 
+r"^((?!(127\.0\.0\.1|0\.0\.0\.0|10\.0\.0\.0/8)).)*$".to_string()); // Restrict 
+local network
+</code></pre>
+        <p><em>Help: for more information, visit 
+<https://doc.rust-lang.org/reference/tokens.html#literals>
+help: if you meant to write a literal backslash (perhaps escaping in a regular 
+expression), consider a raw string literal
+    |
+177 |             constraints.insert(0, 
+r"^((?!(127\.0\.0\.1|0\.0\.0\.0|10\.0\.0\.0/8)).)*$".to_string()); // Restrict 
+local network
+    |                                   +</em></p>
+        <div class='suggestion'><strong>Rust suggests:</strong> for more information, visit 
+<https://doc.rust-lang.org/reference/tokens.html#literals>
+help: if you meant to write a literal backslash (perhaps escaping in a regular 
+expression), consider a raw string literal
+    |
+177 |             constraints.insert(0, 
+r"^((?!(127\.0\.0\.1|0\.0\.0\.0|10\.0\.0\.0/8)).)*$".to_string()); // Restrict 
+local network
+    |                                   +</div>
+        <div class='suggestion'><strong>AI suggests:</strong> AI suggestion unavailable. Check your Gemini API key.</div>
+      </div>
+      <div class='error'>
+        <p><strong>Line 177:49</strong> - ERROR
+</p>
+        <p>unknown character escape: `.`</p>
+        <pre><code>
+177: constraints.insert(0, 
+"^((?!(127\.0\.0\.1|0\.0\.0\.0|10\.0\.0\.0/8)).)*$".to_string()); // Restrict 
+local network
+177: constraints.insert(0, 
+r"^((?!(127\.0\.0\.1|0\.0\.0\.0|10\.0\.0\.0/8)).)*$".to_string()); // Restrict 
+local network
+</code></pre>
+        <p><em>Help: for more information, visit 
+<https://doc.rust-lang.org/reference/tokens.html#literals>
+help: if you meant to write a literal backslash (perhaps escaping in a regular 
+expression), consider a raw string literal
+    |
+177 |             constraints.insert(0, 
+r"^((?!(127\.0\.0\.1|0\.0\.0\.0|10\.0\.0\.0/8)).)*$".to_string()); // Restrict 
+local network
+    |                                   +</em></p>
+        <div class='suggestion'><strong>Rust suggests:</strong> for more information, visit 
+<https://doc.rust-lang.org/reference/tokens.html#literals>
+help: if you meant to write a literal backslash (perhaps escaping in a regular 
+expression), consider a raw string literal
+    |
+177 |             constraints.insert(0, 
+r"^((?!(127\.0\.0\.1|0\.0\.0\.0|10\.0\.0\.0/8)).)*$".to_string()); // Restrict 
+local network
+    |                                   +</div>
+        <div class='suggestion'><strong>AI suggests:</strong> AI suggestion unavailable. Check your Gemini API key.</div>
+      </div>
+      <div class='error'>
+        <p><strong>Line 177:52</strong> - ERROR
+</p>
+        <p>unknown character escape: `.`</p>
+        <pre><code>
+177: constraints.insert(0, 
+"^((?!(127\.0\.0\.1|0\.0\.0\.0|10\.0\.0\.0/8)).)*$".to_string()); // Restrict 
+local network
+177: constraints.insert(0, 
+r"^((?!(127\.0\.0\.1|0\.0\.0\.0|10\.0\.0\.0/8)).)*$".to_string()); // Restrict 
+local network
+</code></pre>
+        <p><em>Help: for more information, visit 
+<https://doc.rust-lang.org/reference/tokens.html#literals>
+help: if you meant to write a literal backslash (perhaps escaping in a regular 
+expression), consider a raw string literal
+    |
+177 |             constraints.insert(0, 
+r"^((?!(127\.0\.0\.1|0\.0\.0\.0|10\.0\.0\.0/8)).)*$".to_string()); // Restrict 
+local network
+    |                                   +</em></p>
+        <div class='suggestion'><strong>Rust suggests:</strong> for more information, visit 
+<https://doc.rust-lang.org/reference/tokens.html#literals>
+help: if you meant to write a literal backslash (perhaps escaping in a regular 
+expression), consider a raw string literal
+    |
+177 |             constraints.insert(0, 
+r"^((?!(127\.0\.0\.1|0\.0\.0\.0|10\.0\.0\.0/8)).)*$".to_string()); // Restrict 
+local network
+    |                                   +</div>
+        <div class='suggestion'><strong>AI suggests:</strong> AI suggestion unavailable. Check your Gemini API key.</div>
+      </div>
+      <div class='error'>
+        <p><strong>Line 177:57</strong> - ERROR
+</p>
+        <p>unknown character escape: `.`</p>
+        <pre><code>
+177: constraints.insert(0, 
+"^((?!(127\.0\.0\.1|0\.0\.0\.0|10\.0\.0\.0/8)).)*$".to_string()); // Restrict 
+local network
+177: constraints.insert(0, 
+r"^((?!(127\.0\.0\.1|0\.0\.0\.0|10\.0\.0\.0/8)).)*$".to_string()); // Restrict 
+local network
+</code></pre>
+        <p><em>Help: for more information, visit 
+<https://doc.rust-lang.org/reference/tokens.html#literals>
+help: if you meant to write a literal backslash (perhaps escaping in a regular 
+expression), consider a raw string literal
+    |
+177 |             constraints.insert(0, 
+r"^((?!(127\.0\.0\.1|0\.0\.0\.0|10\.0\.0\.0/8)).)*$".to_string()); // Restrict 
+local network
+    |                                   +</em></p>
+        <div class='suggestion'><strong>Rust suggests:</strong> for more information, visit 
+<https://doc.rust-lang.org/reference/tokens.html#literals>
+help: if you meant to write a literal backslash (perhaps escaping in a regular 
+expression), consider a raw string literal
+    |
+177 |             constraints.insert(0, 
+r"^((?!(127\.0\.0\.1|0\.0\.0\.0|10\.0\.0\.0/8)).)*$".to_string()); // Restrict 
+local network
+    |                                   +</div>
+        <div class='suggestion'><strong>AI suggests:</strong> AI suggestion unavailable. Check your Gemini API key.</div>
+      </div>
+      <div class='error'>
+        <p><strong>Line 177:60</strong> - ERROR
+</p>
+        <p>unknown character escape: `.`</p>
+        <pre><code>
+177: constraints.insert(0, 
+"^((?!(127\.0\.0\.1|0\.0\.0\.0|10\.0\.0\.0/8)).)*$".to_string()); // Restrict 
+local network
+177: constraints.insert(0, 
+r"^((?!(127\.0\.0\.1|0\.0\.0\.0|10\.0\.0\.0/8)).)*$".to_string()); // Restrict 
+local network
+</code></pre>
+        <p><em>Help: for more information, visit 
+<https://doc.rust-lang.org/reference/tokens.html#literals>
+help: if you meant to write a literal backslash (perhaps escaping in a regular 
+expression), consider a raw string literal
+    |
+177 |             constraints.insert(0, 
+r"^((?!(127\.0\.0\.1|0\.0\.0\.0|10\.0\.0\.0/8)).)*$".to_string()); // Restrict 
+local network
+    |                                   +</em></p>
+        <div class='suggestion'><strong>Rust suggests:</strong> for more information, visit 
+<https://doc.rust-lang.org/reference/tokens.html#literals>
+help: if you meant to write a literal backslash (perhaps escaping in a regular 
+expression), consider a raw string literal
+    |
+177 |             constraints.insert(0, 
+r"^((?!(127\.0\.0\.1|0\.0\.0\.0|10\.0\.0\.0/8)).)*$".to_string()); // Restrict 
+local network
+    |                                   +</div>
+        <div class='suggestion'><strong>AI suggests:</strong> AI suggestion unavailable. Check your Gemini API key.</div>
+      </div>
+      <div class='error'>
+        <p><strong>Line 177:63</strong> - ERROR
+</p>
+        <p>unknown character escape: `.`</p>
+        <pre><code>
+177: constraints.insert(0, 
+"^((?!(127\.0\.0\.1|0\.0\.0\.0|10\.0\.0\.0/8)).)*$".to_string()); // Restrict 
+local network
+177: constraints.insert(0, 
+r"^((?!(127\.0\.0\.1|0\.0\.0\.0|10\.0\.0\.0/8)).)*$".to_string()); // Restrict 
+local network
+</code></pre>
+        <p><em>Help: for more information, visit 
+<https://doc.rust-lang.org/reference/tokens.html#literals>
+help: if you meant to write a literal backslash (perhaps escaping in a regular 
+expression), consider a raw string literal
+    |
+177 |             constraints.insert(0, 
+r"^((?!(127\.0\.0\.1|0\.0\.0\.0|10\.0\.0\.0/8)).)*$".to_string()); // Restrict 
+local network
+    |                                   +</em></p>
+        <div class='suggestion'><strong>Rust suggests:</strong> for more information, visit 
+<https://doc.rust-lang.org/reference/tokens.html#literals>
+help: if you meant to write a literal backslash (perhaps escaping in a regular 
+expression), consider a raw string literal
+    |
+177 |             constraints.insert(0, 
+r"^((?!(127\.0\.0\.1|0\.0\.0\.0|10\.0\.0\.0/8)).)*$".to_string()); // Restrict 
+local network
+    |                                   +</div>
+        <div class='suggestion'><strong>AI suggests:</strong> AI suggestion unavailable. Check your Gemini API key.</div>
+      </div>
+      <div class='error'>
+        <p><strong>Line 177:69</strong> - ERROR
+</p>
+        <p>unknown character escape: `.`</p>
+        <pre><code>
+177: constraints.insert(0, 
+"^((?!(127\.0\.0\.1|0\.0\.0\.0|10\.0\.0\.0/8)).)*$".to_string()); // Restrict 
+local network
+177: constraints.insert(0, 
+r"^((?!(127\.0\.0\.1|0\.0\.0\.0|10\.0\.0\.0/8)).)*$".to_string()); // Restrict 
+local network
+</code></pre>
+        <p><em>Help: for more information, visit 
+<https://doc.rust-lang.org/reference/tokens.html#literals>
+help: if you meant to write a literal backslash (perhaps escaping in a regular 
+expression), consider a raw string literal
+    |
+177 |             constraints.insert(0, 
+r"^((?!(127\.0\.0\.1|0\.0\.0\.0|10\.0\.0\.0/8)).)*$".to_string()); // Restrict 
+local network
+    |                                   +</em></p>
+        <div class='suggestion'><strong>Rust suggests:</strong> for more information, visit 
+<https://doc.rust-lang.org/reference/tokens.html#literals>
+help: if you meant to write a literal backslash (perhaps escaping in a regular 
+expression), consider a raw string literal
+    |
+177 |             constraints.insert(0, 
+r"^((?!(127\.0\.0\.1|0\.0\.0\.0|10\.0\.0\.0/8)).)*$".to_string()); // Restrict 
+local network
+    |                                   +</div>
+        <div class='suggestion'><strong>AI suggests:</strong> AI suggestion unavailable. Check your Gemini API key.</div>
+      </div>
+      <div class='error'>
+        <p><strong>Line 177:72</strong> - ERROR
+</p>
+        <p>unknown character escape: `.`</p>
+        <pre><code>
+177: constraints.insert(0, 
+"^((?!(127\.0\.0\.1|0\.0\.0\.0|10\.0\.0\.0/8)).)*$".to_string()); // Restrict 
+local network
+177: constraints.insert(0, 
+r"^((?!(127\.0\.0\.1|0\.0\.0\.0|10\.0\.0\.0/8)).)*$".to_string()); // Restrict 
+local network
+</code></pre>
+        <p><em>Help: for more information, visit 
+<https://doc.rust-lang.org/reference/tokens.html#literals>
+help: if you meant to write a literal backslash (perhaps escaping in a regular 
+expression), consider a raw string literal
+    |
+177 |             constraints.insert(0, 
+r"^((?!(127\.0\.0\.1|0\.0\.0\.0|10\.0\.0\.0/8)).)*$".to_string()); // Restrict 
+local network
+    |                                   +</em></p>
+        <div class='suggestion'><strong>Rust suggests:</strong> for more information, visit 
+<https://doc.rust-lang.org/reference/tokens.html#literals>
+help: if you meant to write a literal backslash (perhaps escaping in a regular 
+expression), consider a raw string literal
+    |
+177 |             constraints.insert(0, 
+r"^((?!(127\.0\.0\.1|0\.0\.0\.0|10\.0\.0\.0/8)).)*$".to_string()); // Restrict 
+local network
+    |                                   +</div>
+        <div class='suggestion'><strong>AI suggests:</strong> AI suggestion unavailable. Check your Gemini API key.</div>
+      </div>
+      <div class='error'>
+        <p><strong>Line 177:75</strong> - ERROR
+</p>
+        <p>unknown character escape: `.`</p>
+        <pre><code>
+177: constraints.insert(0, 
+"^((?!(127\.0\.0\.1|0\.0\.0\.0|10\.0\.0\.0/8)).)*$".to_string()); // Restrict 
+local network
+177: constraints.insert(0, 
+r"^((?!(127\.0\.0\.1|0\.0\.0\.0|10\.0\.0\.0/8)).)*$".to_string()); // Restrict 
+local network
+</code></pre>
+        <p><em>Help: for more information, visit 
+<https://doc.rust-lang.org/reference/tokens.html#literals>
+help: if you meant to write a literal backslash (perhaps escaping in a regular 
+expression), consider a raw string literal
+    |
+177 |             constraints.insert(0, 
+r"^((?!(127\.0\.0\.1|0\.0\.0\.0|10\.0\.0\.0/8)).)*$".to_string()); // Restrict 
+local network
+    |                                   +</em></p>
+        <div class='suggestion'><strong>Rust suggests:</strong> for more information, visit 
+<https://doc.rust-lang.org/reference/tokens.html#literals>
+help: if you meant to write a literal backslash (perhaps escaping in a regular 
+expression), consider a raw string literal
+    |
+177 |             constraints.insert(0, 
+r"^((?!(127\.0\.0\.1|0\.0\.0\.0|10\.0\.0\.0/8)).)*$".to_string()); // Restrict 
+local network
+    |                                   +</div>
+        <div class='suggestion'><strong>AI suggests:</strong> AI suggestion unavailable. Check your Gemini API key.</div>
+      </div>
+    </div>
+    <div id='types' class='tab-content'>
+      <h2>Errors by Type</h2>
+      <h3>Error [E0583]
+ <a href='https://doc.rust-lang.org/error_codes/E0583.html' target='_blank'>(Rust Docs)</a>
+ - 5 occurrences</h3>
+      <div class='error'>
+        <p><strong>microkernel\src\lib.rs:27</strong> - ERROR</p>
+        <p>file not found for module `observer`</p>
+        <pre><code>
+27: pub mod observer;
+</code></pre>
+        <div class='suggestion'><strong>AI suggests:</strong> AI suggestion unavailable. Check your Gemini API key.</div>
+      </div>
+      <div class='error'>
+        <p><strong>microkernel\src\lib.rs:28</strong> - ERROR</p>
+        <p>file not found for module `crypto`</p>
+        <pre><code>
+28: pub mod crypto;
+</code></pre>
+        <div class='suggestion'><strong>AI suggests:</strong> AI suggestion unavailable. Check your Gemini API key.</div>
+      </div>
+      <div class='error'>
+        <p><strong>microkernel\src\lib.rs:29</strong> - ERROR</p>
+        <p>file not found for module `diagnostics`</p>
+        <pre><code>
+29: pub mod diagnostics;
+</code></pre>
+        <div class='suggestion'><strong>AI suggests:</strong> AI suggestion unavailable. Check your Gemini API key.</div>
+      </div>
+      <div class='error'>
+        <p><strong>microkernel\src\lib.rs:30</strong> - ERROR</p>
+        <p>file not found for module `interface`</p>
+        <pre><code>
+30: pub mod interface;
+</code></pre>
+        <div class='suggestion'><strong>AI suggests:</strong> AI suggestion unavailable. Check your Gemini API key.</div>
+      </div>
+      <div class='error'>
+        <p><strong>microkernel\src\lib.rs:31</strong> - ERROR</p>
+        <p>file not found for module `config`</p>
+        <pre><code>
+31: pub mod config;
+</code></pre>
+        <div class='suggestion'><strong>AI suggests:</strong> AI suggestion unavailable. Check your Gemini API key.</div>
+      </div>
+      <h3>Error [E0432]
+ <a href='https://doc.rust-lang.org/error_codes/E0432.html' target='_blank'>(Rust Docs)</a>
+ - 2 occurrences</h3>
+      <div class='error'>
+        <p><strong>microkernel\src\trust\attestation.rs:13</strong> - ERROR</p>
+        <p>unresolved imports `common::crypto::Hash`, 
+`common::crypto::PublicKey`</p>
+        <pre><code>
+13: use common::crypto::{Hash, Signature, PublicKey};
+</code></pre>
+        <div class='suggestion'><strong>AI suggests:</strong> AI suggestion unavailable. Check your Gemini API key.</div>
+      </div>
+      <div class='error'>
+        <p><strong>microkernel\src\execution\syscall.rs:10</strong> - ERROR</p>
+        <p>unresolved import `crate::trust::zta_policy::PolicyGraph`</p>
+        <pre><code>
+10: use crate::trust::zta_policy::PolicyGraph;
+</code></pre>
+        <div class='suggestion'><strong>AI suggests:</strong> AI suggestion unavailable. Check your Gemini API key.</div>
+      </div>
+      <h3>Error [E0433]
+ <a href='https://doc.rust-lang.org/error_codes/E0433.html' target='_blank'>(Rust Docs)</a>
+ - 23 occurrences</h3>
+      <div class='error'>
+        <p><strong>microkernel\src\trust\syscall_enforcer.rs:78</strong> - ERROR</p>
+        <p>failed to resolve: use of unresolved module or unlinked crate 
+`log`</p>
+        <pre><code>
+78: log::warn!(
+</code></pre>
+        <div class='suggestion'><strong>AI suggests:</strong> AI suggestion unavailable. Check your Gemini API key.</div>
+      </div>
+      <div class='error'>
+        <p><strong>microkernel\src\trust\redzone.rs:185</strong> - ERROR</p>
+        <p>failed to resolve: use of unresolved module or unlinked crate 
+`log`</p>
+        <pre><code>
+185: log::warn!(
+</code></pre>
+        <div class='suggestion'><strong>AI suggests:</strong> AI suggestion unavailable. Check your Gemini API key.</div>
+      </div>
+      <div class='error'>
+        <p><strong>microkernel\src\trust\redzone.rs:208</strong> - ERROR</p>
+        <p>failed to resolve: use of unresolved module or unlinked crate 
+`log`</p>
+        <pre><code>
+208: log::info!("Applying full isolation to process {}", 
+process_id);
+</code></pre>
+        <div class='suggestion'><strong>AI suggests:</strong> AI suggestion unavailable. Check your Gemini API key.</div>
+      </div>
+      <div class='error'>
+        <p><strong>microkernel\src\trust\redzone.rs:213</strong> - ERROR</p>
+        <p>failed to resolve: use of unresolved module or unlinked crate 
+`log`</p>
+        <pre><code>
+213: log::info!("Applying network isolation to process {}", 
+process_id);
+</code></pre>
+        <div class='suggestion'><strong>AI suggests:</strong> AI suggestion unavailable. Check your Gemini API key.</div>
+      </div>
+      <div class='error'>
+        <p><strong>microkernel\src\trust\redzone.rs:218</strong> - ERROR</p>
+        <p>failed to resolve: use of unresolved module or unlinked crate 
+`log`</p>
+        <pre><code>
+218: log::info!("Applying filesystem isolation to process 
+{}", process_id);
+</code></pre>
+        <div class='suggestion'><strong>AI suggests:</strong> AI suggestion unavailable. Check your Gemini API key.</div>
+      </div>
+      <div class='error'>
+        <p><strong>microkernel\src\trust\redzone.rs:223</strong> - ERROR</p>
+        <p>failed to resolve: use of unresolved module or unlinked crate 
+`log`</p>
+        <pre><code>
+223: log::info!(
+</code></pre>
+        <div class='suggestion'><strong>AI suggests:</strong> AI suggestion unavailable. Check your Gemini API key.</div>
+      </div>
+      <div class='error'>
+        <p><strong>microkernel\src\trust\redzone.rs:248</strong> - ERROR</p>
+        <p>failed to resolve: use of unresolved module or unlinked crate 
+`log`</p>
+        <pre><code>
+248: log::info!("No forensic data collection for process {}", 
+process_id);
+</code></pre>
+        <div class='suggestion'><strong>AI suggests:</strong> AI suggestion unavailable. Check your Gemini API key.</div>
+      </div>
+      <div class='error'>
+        <p><strong>microkernel\src\trust\redzone.rs:252</strong> - ERROR</p>
+        <p>failed to resolve: use of unresolved module or unlinked crate 
+`log`</p>
+        <pre><code>
+252: log::info!("Collecting metadata for process {}", 
+process_id);
+</code></pre>
+        <div class='suggestion'><strong>AI suggests:</strong> AI suggestion unavailable. Check your Gemini API key.</div>
+      </div>
+      <div class='error'>
+        <p><strong>microkernel\src\trust\redzone.rs:257</strong> - ERROR</p>
+        <p>failed to resolve: use of unresolved module or unlinked crate 
+`log`</p>
+        <pre><code>
+257: log::info!("Collecting full forensic data for process 
+{}", process_id);
+</code></pre>
+        <div class='suggestion'><strong>AI suggests:</strong> AI suggestion unavailable. Check your Gemini API key.</div>
+      </div>
+      <div class='error'>
+        <p><strong>microkernel\src\trust\redzone.rs:283</strong> - ERROR</p>
+        <p>failed to resolve: use of unresolved module or unlinked crate 
+`log`</p>
+        <pre><code>
+283: log::info!("Analyzing quarantined process {}", process_id);
+</code></pre>
+        <div class='suggestion'><strong>AI suggests:</strong> AI suggestion unavailable. Check your Gemini API key.</div>
+      </div>
+      <div class='error'>
+        <p><strong>microkernel\src\trust\redzone.rs:309</strong> - ERROR</p>
+        <p>failed to resolve: use of unresolved module or unlinked crate 
+`log`</p>
+        <pre><code>
+309: log::info!("Terminating quarantined process {}", process_id);
+</code></pre>
+        <div class='suggestion'><strong>AI suggests:</strong> AI suggestion unavailable. Check your Gemini API key.</div>
+      </div>
+      <div class='error'>
+        <p><strong>microkernel\src\trust\redzone.rs:326</strong> - ERROR</p>
+        <p>failed to resolve: use of unresolved module or unlinked crate 
+`log`</p>
+        <pre><code>
+326: log::info!("Recovering quarantined process {}", process_id);
+</code></pre>
+        <div class='suggestion'><strong>AI suggests:</strong> AI suggestion unavailable. Check your Gemini API key.</div>
+      </div>
+      <div class='error'>
+        <p><strong>microkernel\src\trust\redzone.rs:346</strong> - ERROR</p>
+        <p>failed to resolve: use of unresolved module or unlinked crate 
+`log`</p>
+        <pre><code>
+346: log::info!("Removed process {} from quarantine", process_id);
+</code></pre>
+        <div class='suggestion'><strong>AI suggests:</strong> AI suggestion unavailable. Check your Gemini API key.</div>
+      </div>
+      <div class='error'>
+        <p><strong>microkernel\src\trust\attestation.rs:150</strong> - ERROR</p>
+        <p>failed to resolve: use of unresolved module or unlinked crate 
+`log`</p>
+        <pre><code>
+150: log::info!(
+</code></pre>
+        <div class='suggestion'><strong>AI suggests:</strong> AI suggestion unavailable. Check your Gemini API key.</div>
+      </div>
+      <div class='error'>
+        <p><strong>microkernel\src\trust\attestation.rs:226</strong> - ERROR</p>
+        <p>failed to resolve: use of unresolved module or unlinked crate 
+`log`</p>
+        <pre><code>
+226: log::info!(
+</code></pre>
+        <div class='suggestion'><strong>AI suggests:</strong> AI suggestion unavailable. Check your Gemini API key.</div>
+      </div>
+      <div class='error'>
+        <p><strong>microkernel\src\trust\attestation.rs:340</strong> - ERROR</p>
+        <p>failed to resolve: use of unresolved module or unlinked crate 
+`log`</p>
+        <pre><code>
+340: log::info!("Trusted key added: {}", key_id);
+</code></pre>
+        <div class='suggestion'><strong>AI suggests:</strong> AI suggestion unavailable. Check your Gemini API key.</div>
+      </div>
+      <div class='error'>
+        <p><strong>microkernel\src\trust\attestation.rs:356</strong> - ERROR</p>
+        <p>failed to resolve: use of unresolved module or unlinked crate 
+`log`</p>
+        <pre><code>
+356: log::info!("Trusted key removed: {}", key_id);
+</code></pre>
+        <div class='suggestion'><strong>AI suggests:</strong> AI suggestion unavailable. Check your Gemini API key.</div>
+      </div>
+      <div class='error'>
+        <p><strong>microkernel\src\trust\evaluation.rs:147</strong> - ERROR</p>
+        <p>failed to resolve: use of unresolved module or unlinked crate 
+`log`</p>
+        <pre><code>
+147: log::info!("Trust evaluation context created: {}", context_id);
+</code></pre>
+        <div class='suggestion'><strong>AI suggests:</strong> AI suggestion unavailable. Check your Gemini API key.</div>
+      </div>
+      <div class='error'>
+        <p><strong>microkernel\src\trust\evaluation.rs:191</strong> - ERROR</p>
+        <p>failed to resolve: use of unresolved module or unlinked crate 
+`log`</p>
+        <pre><code>
+191: log::info!(
+</code></pre>
+        <div class='suggestion'><strong>AI suggests:</strong> AI suggestion unavailable. Check your Gemini API key.</div>
+      </div>
+      <div class='error'>
+        <p><strong>microkernel\src\trust\evaluation.rs:418</strong> - ERROR</p>
+        <p>failed to resolve: use of unresolved module or unlinked crate 
+`log`</p>
+        <pre><code>
+418: log::info!("Trust threshold set: {} = {}", name, threshold);
+</code></pre>
+        <div class='suggestion'><strong>AI suggests:</strong> AI suggestion unavailable. Check your Gemini API key.</div>
+      </div>
+      <div class='error'>
+        <p><strong>microkernel\src\trust\mod.rs:39</strong> - ERROR</p>
+        <p>failed to resolve: use of unresolved module or unlinked crate 
+`log`</p>
+        <pre><code>
+39: log::info!("Trust module initialized");
+</code></pre>
+        <div class='suggestion'><strong>AI suggests:</strong> AI suggestion unavailable. Check your Gemini API key.</div>
+      </div>
+      <div class='error'>
+        <p><strong>microkernel\src\trust\mod.rs:47</strong> - ERROR</p>
+        <p>failed to resolve: use of unresolved module or unlinked crate 
+`log`</p>
+        <pre><code>
+47: log::info!("Trust module shutdown");
+</code></pre>
+        <div class='suggestion'><strong>AI suggests:</strong> AI suggestion unavailable. Check your Gemini API key.</div>
+      </div>
+      <div class='error'>
+        <p><strong>microkernel\src\lib.rs:99</strong> - ERROR</p>
+        <p>failed to resolve: could not find `container` in `execution`</p>
+        <pre><code>
+99: let container_id = 
+execution::container::get_current_container_id()
+</code></pre>
+        <div class='suggestion'><strong>AI suggests:</strong> AI suggestion unavailable. Check your Gemini API key.</div>
+      </div>
+      <h3>Error [E0532]
+ <a href='https://doc.rust-lang.org/error_codes/E0532.html' target='_blank'>(Rust Docs)</a>
+ - 1 occurrences</h3>
+      <div class='error'>
+        <p><strong>microkernel\src\trust\evaluation.rs:238</strong> - ERROR</p>
+        <p>expected unit struct, unit variant or constant, found tuple 
+variant `TrustVector::Signed`</p>
+        <pre><code>
+238: TrustVector::Signed =&gt; 0.8,
+</code></pre>
+        <div class='suggestion'><strong>AI suggests:</strong> AI suggestion unavailable. Check your Gemini API key.</div>
+      </div>
+      <h3>Error [E0425]
+ <a href='https://doc.rust-lang.org/error_codes/E0425.html' target='_blank'>(Rust Docs)</a>
+ - 2 occurrences</h3>
+      <div class='error'>
+        <p><strong>microkernel\src\trust\mod.rs:28</strong> - ERROR</p>
+        <p>cannot find function `init` in module `syscall_enforcer`</p>
+        <pre><code>
+28: syscall_enforcer::init(policy_graph.clone())?;
+</code></pre>
+        <div class='suggestion'><strong>AI suggests:</strong> AI suggestion unavailable. Check your Gemini API key.</div>
+      </div>
+      <div class='error'>
+        <p><strong>microkernel\src\trust\mod.rs:59</strong> - ERROR</p>
+        <p>cannot find function `get_syscall_enforcer` in module 
+`syscall_enforcer`</p>
+        <pre><code>
+59: let enforcer = syscall_enforcer::get_syscall_enforcer();
+</code></pre>
+        <div class='suggestion'><strong>AI suggests:</strong> AI suggestion unavailable. Check your Gemini API key.</div>
+      </div>
+      <h3>Error [E0603]
+ <a href='https://doc.rust-lang.org/error_codes/E0603.html' target='_blank'>(Rust Docs)</a>
+ - 2 occurrences</h3>
+      <div class='error'>
+        <p><strong>microkernel\src\trust\attestation.rs:13</strong> - ERROR</p>
+        <p>struct `Signature` is private</p>
+        <pre><code>
+13: use common::crypto::{Hash, Signature, PublicKey};
+21: use ed25519_dalek::{SigningKey, VerifyingKey, Signature, Signer, 
+Verifier};
+13: use common::crypto::{Hash, ed25519::Signature, PublicKey};
+</code></pre>
+        <div class='suggestion'><strong>AI suggests:</strong> AI suggestion unavailable. Check your Gemini API key.</div>
+      </div>
+      <div class='error'>
+        <p><strong>microkernel\src\lib.rs:124</strong> - ERROR</p>
+        <p>function `execute_syscall` is private</p>
+        <pre><code>
+124: execution::syscall::execute_syscall(syscall, args, identity, &mut 
+span)
+170: fn execute_syscall(syscall: &str, args: &[&str]) -&gt; Result&lt;()&gt; {
+8: use common::error::{ForgeError, Result};
+11: pub use boot::*;
+12: pub use runtime::*;
+13: pub use scheduler::*;
+11: pub use boot::*;
+12: pub use runtime::*;
+13: pub use scheduler::*;
+11: pub use boot::*;
+12: pub use runtime::*;
+13: pub use scheduler::*;
+12: pub use runtime::*;
+13: pub use scheduler::*;
+14: use wasmtime::{Engine, Module, Store, Instance, Linker};
+6: use std::collections::HashMap;
+10: use uuid::Uuid;
+9: use uuid::Uuid;
+11: use crate::execution::syscall::{SyscallContext, SyscallResult};
+</code></pre>
+        <div class='suggestion'><strong>AI suggests:</strong> AI suggestion unavailable. Check your Gemini API key.</div>
+      </div>
+      <h3>Error [E0308]
+ <a href='https://doc.rust-lang.org/error_codes/E0308.html' target='_blank'>(Rust Docs)</a>
+ - 3 occurrences</h3>
+      <div class='error'>
+        <p><strong>microkernel\src\core\boot.rs:81</strong> - ERROR</p>
+        <p>arguments to this function are incorrect</p>
+        <pre><code>
+81: let identity = IdentityContext::new("system", "boot");
+51: pub fn new(tenant_id: String, user_id: String) -&gt; Self {
+81: let identity = IdentityContext::new("system".to_string(), "boot");
+81: let identity = IdentityContext::new("system", "boot".to_string());
+</code></pre>
+        <div class='suggestion'><strong>AI suggests:</strong> AI suggestion unavailable. Check your Gemini API key.</div>
+      </div>
+      <div class='error'>
+        <p><strong>microkernel\src\trust\evaluation.rs:369</strong> - ERROR</p>
+        <p>mismatched types</p>
+        <pre><code>
+357: fn determine_trust_vector(&self, trust_score: f64, context: 
+&TrustEvaluationContext) -&gt; TrustVector {
+369: TrustVector::Signed
+369: TrustVector::Signed(/* std::string::String */)
+</code></pre>
+        <div class='suggestion'><strong>AI suggests:</strong> AI suggestion unavailable. Check your Gemini API key.</div>
+      </div>
+      <div class='error'>
+        <p><strong>microkernel\src\trust\mod.rs:37</strong> - ERROR</p>
+        <p>mismatched types</p>
+        <pre><code>
+37: evaluation::init(policy_graph)?;
+85: pub fn init(policy_graph: ZtaPolicyGraph) -&gt; Result&lt;(), String&gt; {
+</code></pre>
+        <div class='suggestion'><strong>AI suggests:</strong> AI suggestion unavailable. Check your Gemini API key.</div>
+      </div>
+      <h3>Error [E0061]
+ <a href='https://doc.rust-lang.org/error_codes/E0061.html' target='_blank'>(Rust Docs)</a>
+ - 14 occurrences</h3>
+      <div class='error'>
+        <p><strong>microkernel\src\core\boot.rs:158</strong> - ERROR</p>
+        <p>this enum variant takes 1 argument but 0 arguments were supplied</p>
+        <pre><code>
+158: Ok()
+532: Ok(#[stable(feature = "rust1", since = "1.0.0")] T),
+158: Ok(())
+</code></pre>
+        <div class='suggestion'><strong>AI suggests:</strong> AI suggestion unavailable. Check your Gemini API key.</div>
+      </div>
+      <div class='error'>
+        <p><strong>microkernel\src\core\runtime.rs:171</strong> - ERROR</p>
+        <p>this enum variant takes 1 argument but 0 arguments were supplied</p>
+        <pre><code>
+171: Ok()
+532: Ok(#[stable(feature = "rust1", since = "1.0.0")] T),
+171: Ok(())
+</code></pre>
+        <div class='suggestion'><strong>AI suggests:</strong> AI suggestion unavailable. Check your Gemini API key.</div>
+      </div>
+      <div class='error'>
+        <p><strong>microkernel\src\core\runtime.rs:205</strong> - ERROR</p>
+        <p>this enum variant takes 1 argument but 0 arguments were supplied</p>
+        <pre><code>
+205: Ok()
+532: Ok(#[stable(feature = "rust1", since = "1.0.0")] T),
+205: Ok(())
+</code></pre>
+        <div class='suggestion'><strong>AI suggests:</strong> AI suggestion unavailable. Check your Gemini API key.</div>
+      </div>
+      <div class='error'>
+        <p><strong>microkernel\src\core\runtime.rs:235</strong> - ERROR</p>
+        <p>this enum variant takes 1 argument but 0 arguments were supplied</p>
+        <pre><code>
+235: Ok()
+532: Ok(#[stable(feature = "rust1", since = "1.0.0")] T),
+235: Ok(())
+</code></pre>
+        <div class='suggestion'><strong>AI suggests:</strong> AI suggestion unavailable. Check your Gemini API key.</div>
+      </div>
+      <div class='error'>
+        <p><strong>microkernel\src\core\runtime.rs:312</strong> - ERROR</p>
+        <p>this enum variant takes 1 argument but 0 arguments were supplied</p>
+        <pre><code>
+312: Ok()
+532: Ok(#[stable(feature = "rust1", since = "1.0.0")] T),
+312: Ok(())
+</code></pre>
+        <div class='suggestion'><strong>AI suggests:</strong> AI suggestion unavailable. Check your Gemini API key.</div>
+      </div>
+      <div class='error'>
+        <p><strong>microkernel\src\core\runtime.rs:357</strong> - ERROR</p>
+        <p>this enum variant takes 1 argument but 0 arguments were supplied</p>
+        <pre><code>
+357: Ok()
+532: Ok(#[stable(feature = "rust1", since = "1.0.0")] T),
+357: Ok(())
+</code></pre>
+        <div class='suggestion'><strong>AI suggests:</strong> AI suggestion unavailable. Check your Gemini API key.</div>
+      </div>
+      <div class='error'>
+        <p><strong>microkernel\src\core\scheduler.rs:116</strong> - ERROR</p>
+        <p>this enum variant takes 1 argument but 0 arguments were supplied</p>
+        <pre><code>
+116: Ok()
+532: Ok(#[stable(feature = "rust1", since = "1.0.0")] T),
+116: Ok(())
+</code></pre>
+        <div class='suggestion'><strong>AI suggests:</strong> AI suggestion unavailable. Check your Gemini API key.</div>
+      </div>
+      <div class='error'>
+        <p><strong>microkernel\src\core\scheduler.rs:156</strong> - ERROR</p>
+        <p>this enum variant takes 1 argument but 0 arguments were supplied</p>
+        <pre><code>
+156: Ok()
+532: Ok(#[stable(feature = "rust1", since = "1.0.0")] T),
+156: Ok(())
+</code></pre>
+        <div class='suggestion'><strong>AI suggests:</strong> AI suggestion unavailable. Check your Gemini API key.</div>
+      </div>
+      <div class='error'>
+        <p><strong>microkernel\src\core\scheduler.rs:184</strong> - ERROR</p>
+        <p>this enum variant takes 1 argument but 0 arguments were supplied</p>
+        <pre><code>
+184: Ok()
+532: Ok(#[stable(feature = "rust1", since = "1.0.0")] T),
+184: Ok(())
+</code></pre>
+        <div class='suggestion'><strong>AI suggests:</strong> AI suggestion unavailable. Check your Gemini API key.</div>
+      </div>
+      <div class='error'>
+        <p><strong>microkernel\src\core\scheduler.rs:220</strong> - ERROR</p>
+        <p>this enum variant takes 1 argument but 0 arguments were supplied</p>
+        <pre><code>
+220: Ok()
+532: Ok(#[stable(feature = "rust1", since = "1.0.0")] T),
+220: Ok(())
+</code></pre>
+        <div class='suggestion'><strong>AI suggests:</strong> AI suggestion unavailable. Check your Gemini API key.</div>
+      </div>
+      <div class='error'>
+        <p><strong>microkernel\src\core\scheduler.rs:243</strong> - ERROR</p>
+        <p>this enum variant takes 1 argument but 0 arguments were supplied</p>
+        <pre><code>
+243: Ok()
+532: Ok(#[stable(feature = "rust1", since = "1.0.0")] T),
+243: Ok(())
+</code></pre>
+        <div class='suggestion'><strong>AI suggests:</strong> AI suggestion unavailable. Check your Gemini API key.</div>
+      </div>
+      <div class='error'>
+        <p><strong>microkernel\src\execution\wasm.rs:382</strong> - ERROR</p>
+        <p>this enum variant takes 1 argument but 0 arguments were supplied</p>
+        <pre><code>
+382: Ok()
+532: Ok(#[stable(feature = "rust1", since = "1.0.0")] T),
+382: Ok(())
+</code></pre>
+        <div class='suggestion'><strong>AI suggests:</strong> AI suggestion unavailable. Check your Gemini API key.</div>
+      </div>
+      <div class='error'>
+        <p><strong>microkernel\src\lib.rs:58</strong> - ERROR</p>
+        <p>this enum variant takes 1 argument but 0 arguments were supplied</p>
+        <pre><code>
+532: Ok(#[stable(feature = "rust1", since = "1.0.0")] T),
+</code></pre>
+        <div class='suggestion'><strong>AI suggests:</strong> AI suggestion unavailable. Check your Gemini API key.</div>
+      </div>
+      <div class='error'>
+        <p><strong>microkernel\src\lib.rs:124</strong> - ERROR</p>
+        <p>this function takes 2 arguments but 4 arguments were supplied</p>
+        <pre><code>
+124: execution::syscall::execute_syscall(syscall, args, identity, &mut 
+span)
+170: fn execute_syscall(syscall: &str, args: &[&str]) -&gt; Result&lt;()&gt; {
+249: let runtime_context = get_runtime_context()?;
+164: let mut state = WasmHostState::Running;
+164: let mut state = WasmHostState::Running;
+199: fn execute_file_open(args: &[&str]) -&gt; Result&lt;()&gt; {
+204: fn execute_file_read(args: &[&str]) -&gt; Result&lt;()&gt; {
+209: fn execute_file_write(args: &[&str]) -&gt; Result&lt;()&gt; {
+214: fn execute_file_close(args: &[&str]) -&gt; Result&lt;()&gt; {
+219: fn execute_net_connect(args: &[&str]) -&gt; Result&lt;()&gt; {
+224: fn execute_net_send(args: &[&str]) -&gt; Result&lt;()&gt; {
+229: fn execute_net_recv(args: &[&str]) -&gt; Result&lt;()&gt; {
+234: fn execute_net_close(args: &[&str]) -&gt; Result&lt;()&gt; {
+239: fn execute_proc_create(args: &[&str]) -&gt; Result&lt;()&gt; {
+244: fn execute_proc_kill(args: &[&str]) -&gt; Result&lt;()&gt; {
+249: fn execute_mem_alloc(args: &[&str]) -&gt; Result&lt;()&gt; {
+254: fn execute_mem_free(args: &[&str]) -&gt; Result&lt;()&gt; {
+259: fn execute_ipc_send(args: &[&str]) -&gt; Result&lt;()&gt; {
+264: fn execute_ipc_recv(args: &[&str]) -&gt; Result&lt;()&gt; {
+269: fn execute_time_get(args: &[&str]) -&gt; Result&lt;()&gt; {
+274: fn execute_time_sleep(args: &[&str]) -&gt; Result&lt;()&gt; {
+279: fn execute_crypto_hash(args: &[&str]) -&gt; Result&lt;()&gt; {
+284: fn execute_crypto_sign(args: &[&str]) -&gt; Result&lt;()&gt; {
+289: fn execute_crypto_verify(args: &[&str]) -&gt; Result&lt;()&gt; {
+294: fn execute_sys_info(args: &[&str]) -&gt; Result&lt;()&gt; {
+315: fn calculate_behavioral_score(&self, context_id: Uuid) -&gt; f64 {
+322: fn calculate_environmental_score(&self, context_id: Uuid) -&gt; f64 {
+329: fn calculate_policy_adjustments(&self, context_id: Uuid) -&gt; f64 {
+386: let context = self.get_context(context_id)?;
+383: trust_score: f64,
+</code></pre>
+        <div class='suggestion'><strong>AI suggests:</strong> AI suggestion unavailable. Check your Gemini API key.</div>
+      </div>
+      <h3>Error [E0599]
+ <a href='https://doc.rust-lang.org/error_codes/E0599.html' target='_blank'>(Rust Docs)</a>
+ - 26 occurrences</h3>
+      <div class='error'>
+        <p><strong>microkernel\src\core\runtime.rs:242</strong> - ERROR</p>
+        <p>no variant or associated item named `Runtime` found for enum 
+`ForgeError` in the current scope</p>
+        <pre><code>
+242: ForgeError::Runtime("Runtime context not 
+initialized".to_string())
+</code></pre>
+        <div class='suggestion'><strong>AI suggests:</strong> AI suggestion unavailable. Check your Gemini API key.</div>
+      </div>
+      <div class='error'>
+        <p><strong>microkernel\src\core\runtime.rs:297</strong> - ERROR</p>
+        <p>no variant or associated item named `Runtime` found for enum 
+`ForgeError` in the current scope</p>
+        <pre><code>
+297: ForgeError::Runtime(format!("Container {} not found", 
+container_id))
+</code></pre>
+        <div class='suggestion'><strong>AI suggests:</strong> AI suggestion unavailable. Check your Gemini API key.</div>
+      </div>
+      <div class='error'>
+        <p><strong>microkernel\src\core\runtime.rs:323</strong> - ERROR</p>
+        <p>no variant or associated item named `Runtime` found for enum 
+`ForgeError` in the current scope</p>
+        <pre><code>
+323: ForgeError::Runtime(format!("Container {} not found", 
+container_id))
+</code></pre>
+        <div class='suggestion'><strong>AI suggests:</strong> AI suggestion unavailable. Check your Gemini API key.</div>
+      </div>
+      <div class='error'>
+        <p><strong>microkernel\src\core\runtime.rs:366</strong> - ERROR</p>
+        <p>no variant or associated item named `Runtime` found for enum 
+`ForgeError` in the current scope</p>
+        <pre><code>
+366: ForgeError::Runtime(format!("Container {} not found", 
+container_id))
+</code></pre>
+        <div class='suggestion'><strong>AI suggests:</strong> AI suggestion unavailable. Check your Gemini API key.</div>
+      </div>
+      <div class='error'>
+        <p><strong>microkernel\src\core\scheduler.rs:191</strong> - ERROR</p>
+        <p>no variant or associated item named `Runtime` found for enum 
+`ForgeError` in the current scope</p>
+        <pre><code>
+191: ForgeError::Runtime("Scheduler context not 
+initialized".to_string())
+</code></pre>
+        <div class='suggestion'><strong>AI suggests:</strong> AI suggestion unavailable. Check your Gemini API key.</div>
+      </div>
+      <div class='error'>
+        <p><strong>microkernel\src\execution\wasm.rs:191</strong> - ERROR</p>
+        <p>no variant or associated item named `Execution` found for enum 
+`ForgeError` in the current scope</p>
+        <pre><code>
+191: ForgeError::Execution(format!("Failed to read module file: {}", 
+e))
+</code></pre>
+        <div class='suggestion'><strong>AI suggests:</strong> AI suggestion unavailable. Check your Gemini API key.</div>
+      </div>
+      <div class='error'>
+        <p><strong>microkernel\src\execution\wasm.rs:195</strong> - ERROR</p>
+        <p>no function or associated item named `digest` found for struct 
+`CoreWrapper` in the current scope</p>
+        <pre><code>
+195: let hash = format!("{:x}", sha3::Sha3_256::digest(&module_bytes));
+</code></pre>
+        <div class='suggestion'><strong>AI suggests:</strong> AI suggestion unavailable. Check your Gemini API key.</div>
+      </div>
+      <div class='error'>
+        <p><strong>microkernel\src\execution\wasm.rs:218</strong> - ERROR</p>
+        <p>no variant or associated item named `Execution` found for enum 
+`ForgeError` in the current scope</p>
+        <pre><code>
+218: ForgeError::Execution(format!("Failed to compile module: 
+{}", e))
+</code></pre>
+        <div class='suggestion'><strong>AI suggests:</strong> AI suggestion unavailable. Check your Gemini API key.</div>
+      </div>
+      <div class='error'>
+        <p><strong>microkernel\src\execution\wasm.rs:282</strong> - ERROR</p>
+        <p>no variant or associated item named `Execution` found for enum 
+`ForgeError` in the current scope</p>
+        <pre><code>
+282: ForgeError::Execution(format!("Module {} not found", 
+module_name))
+</code></pre>
+        <div class='suggestion'><strong>AI suggests:</strong> AI suggestion unavailable. Check your Gemini API key.</div>
+      </div>
+      <div class='error'>
+        <p><strong>microkernel\src\execution\wasm.rs:332</strong> - ERROR</p>
+        <p>no variant or associated item named `Execution` found for enum 
+`ForgeError` in the current scope</p>
+        <pre><code>
+332: ForgeError::Execution(format!("Instance {} not found", 
+instance_id))
+</code></pre>
+        <div class='suggestion'><strong>AI suggests:</strong> AI suggestion unavailable. Check your Gemini API key.</div>
+      </div>
+      <div class='error'>
+        <p><strong>microkernel\src\execution\wasm.rs:338</strong> - ERROR</p>
+        <p>no variant or associated item named `Execution` found for enum 
+`ForgeError` in the current scope</p>
+        <pre><code>
+338: return Err(ForgeError::Execution(format!("Function {} not found 
+in instance {}", function_name, instance_id)));
+</code></pre>
+        <div class='suggestion'><strong>AI suggests:</strong> AI suggestion unavailable. Check your Gemini API key.</div>
+      </div>
+      <div class='error'>
+        <p><strong>microkernel\src\execution\wasm.rs:369</strong> - ERROR</p>
+        <p>no variant or associated item named `Execution` found for enum 
+`ForgeError` in the current scope</p>
+        <pre><code>
+369: ForgeError::Execution(format!("Instance {} not found", 
+instance_id))
+</code></pre>
+        <div class='suggestion'><strong>AI suggests:</strong> AI suggestion unavailable. Check your Gemini API key.</div>
+      </div>
+      <div class='error'>
+        <p><strong>microkernel\src\execution\syscall.rs:101</strong> - ERROR</p>
+        <p>no variant or associated item named `Trust` found for enum 
+`ForgeError` in the current scope</p>
+        <pre><code>
+101: return Err(ForgeError::Trust(format!("Syscall {} denied by ZTA 
+policy", syscall)));
+</code></pre>
+        <div class='suggestion'><strong>AI suggests:</strong> AI suggestion unavailable. Check your Gemini API key.</div>
+      </div>
+      <div class='error'>
+        <p><strong>microkernel\src\execution\syscall.rs:150</strong> - ERROR</p>
+        <p>no variant or associated item named `Execution` found for enum 
+`ForgeError` in the current scope</p>
+        <pre><code>
+150: Err(ForgeError::Execution(format!("Unknown syscall type: {}", 
+syscall)))
+</code></pre>
+        <div class='suggestion'><strong>AI suggests:</strong> AI suggestion unavailable. Check your Gemini API key.</div>
+      </div>
+      <div class='error'>
+        <p><strong>microkernel\src\execution\syscall.rs:193</strong> - ERROR</p>
+        <p>no variant or associated item named `Execution` found for enum 
+`ForgeError` in the current scope</p>
+        <pre><code>
+193: _ =&gt; Err(ForgeError::Execution(format!("Unknown syscall: {}", 
+syscall))),
+</code></pre>
+        <div class='suggestion'><strong>AI suggests:</strong> AI suggestion unavailable. Check your Gemini API key.</div>
+      </div>
+      <div class='error'>
+        <p><strong>microkernel\src\execution\sandbox.rs:175</strong> - ERROR</p>
+        <p>no variant or associated item named `Execution` found for enum 
+`ForgeError` in the current scope</p>
+        <pre><code>
+175: return Err(ForgeError::Execution(format!("Sandbox {} is not in a 
+valid state to start", sandbox.id)));
+</code></pre>
+        <div class='suggestion'><strong>AI suggests:</strong> AI suggestion unavailable. Check your Gemini API key.</div>
+      </div>
+      <div class='error'>
+        <p><strong>microkernel\src\execution\sandbox.rs:210</strong> - ERROR</p>
+        <p>no variant or associated item named `Execution` found for enum 
+`ForgeError` in the current scope</p>
+        <pre><code>
+210: return Err(ForgeError::Execution(format!("Sandbox {} is not in a 
+valid state to stop", sandbox.id)));
+</code></pre>
+        <div class='suggestion'><strong>AI suggests:</strong> AI suggestion unavailable. Check your Gemini API key.</div>
+      </div>
+      <div class='error'>
+        <p><strong>microkernel\src\execution\sandbox.rs:248</strong> - ERROR</p>
+        <p>no variant or associated item named `Execution` found for enum 
+`ForgeError` in the current scope</p>
+        <pre><code>
+248: return Err(ForgeError::Execution(format!("Sandbox {} is not in a 
+valid state to pause", sandbox.id)));
+</code></pre>
+        <div class='suggestion'><strong>AI suggests:</strong> AI suggestion unavailable. Check your Gemini API key.</div>
+      </div>
+      <div class='error'>
+        <p><strong>microkernel\src\execution\sandbox.rs:283</strong> - ERROR</p>
+        <p>no variant or associated item named `Execution` found for enum 
+`ForgeError` in the current scope</p>
+        <pre><code>
+283: return Err(ForgeError::Execution(format!("Sandbox {} is not in a 
+valid state to resume", sandbox.id)));
+</code></pre>
+        <div class='suggestion'><strong>AI suggests:</strong> AI suggestion unavailable. Check your Gemini API key.</div>
+      </div>
+      <div class='error'>
+        <p><strong>microkernel\src\execution\sandbox.rs:322</strong> - ERROR</p>
+        <p>no variant or associated item named `Execution` found for enum 
+`ForgeError` in the current scope</p>
+        <pre><code>
+322: return Err(ForgeError::Execution(format!("Sandbox {} is not in a 
+valid state to execute commands", sandbox.id)));
+</code></pre>
+        <div class='suggestion'><strong>AI suggests:</strong> AI suggestion unavailable. Check your Gemini API key.</div>
+      </div>
+      <div class='error'>
+        <p><strong>microkernel\src\trust\evaluation.rs:117</strong> - ERROR</p>
+        <p>no function or associated item named `new` found for struct 
+`zta_policy::ZtaPolicyGraph` in the current scope</p>
+        <pre><code>
+117: let policy_graph = ZtaPolicyGraph::new();
+</code></pre>
+        <div class='suggestion'><strong>AI suggests:</strong> AI suggestion unavailable. Check your Gemini API key.</div>
+      </div>
+      <div class='error'>
+        <p><strong>microkernel\src\trust\evaluation.rs:249</strong> - ERROR</p>
+        <p>no method named `is_some` found for struct `std::string::String` 
+in the current scope</p>
+        <pre><code>
+249: if identity.user_id.is_some() {
+</code></pre>
+        <div class='suggestion'><strong>AI suggests:</strong> AI suggestion unavailable. Check your Gemini API key.</div>
+      </div>
+      <div class='error'>
+        <p><strong>microkernel\src\lib.rs:75</strong> - ERROR</p>
+        <p>no variant or associated item named `TrustViolation` found for 
+enum `ForgeError` in the current scope</p>
+        <pre><code>
+75: .map_err(|e| ForgeError::TrustViolation(e))?;
+</code></pre>
+        <div class='suggestion'><strong>AI suggests:</strong> AI suggestion unavailable. Check your Gemini API key.</div>
+      </div>
+      <div class='error'>
+        <p><strong>microkernel\src\lib.rs:82</strong> - ERROR</p>
+        <p>no variant or associated item named `TrustViolation` found for 
+enum `ForgeError` in the current scope</p>
+        <pre><code>
+82: return Err(ForgeError::TrustViolation(format!("Syscall '{}' 
+blocked by ZTA policy", syscall)));
+</code></pre>
+        <div class='suggestion'><strong>AI suggests:</strong> AI suggestion unavailable. Check your Gemini API key.</div>
+      </div>
+      <div class='error'>
+        <p><strong>microkernel\src\lib.rs:107</strong> - ERROR</p>
+        <p>no variant or associated item named `TrustViolation` found for 
+enum `ForgeError` in the current scope</p>
+        <pre><code>
+107: ).map_err(|e| ForgeError::TrustViolation(e))?;
+</code></pre>
+        <div class='suggestion'><strong>AI suggests:</strong> AI suggestion unavailable. Check your Gemini API key.</div>
+      </div>
+      <div class='error'>
+        <p><strong>microkernel\src\lib.rs:109</strong> - ERROR</p>
+        <p>no variant or associated item named `TrustViolation` found for 
+enum `ForgeError` in the current scope</p>
+        <pre><code>
+109: return Err(ForgeError::TrustViolation(format!("Process 
+quarantined due to syscall '{}' violation", syscall)));
+</code></pre>
+        <div class='suggestion'><strong>AI suggests:</strong> AI suggestion unavailable. Check your Gemini API key.</div>
+      </div>
+      <h3>Error [E0277]
+ <a href='https://doc.rust-lang.org/error_codes/E0277.html' target='_blank'>(Rust Docs)</a>
+ - 1 occurrences</h3>
+      <div class='error'>
+        <p><strong>microkernel\src\execution\wasm.rs:57</strong> - ERROR</p>
+        <p>`Module` doesn't implement `std::fmt::Debug`</p>
+        <pre><code>
+37: #[derive(Debug)]
+57: pub wasmtime_module: Option&lt;wasmtime::Module&gt;,
+</code></pre>
+        <div class='suggestion'><strong>AI suggests:</strong> AI suggestion unavailable. Check your Gemini API key.</div>
+      </div>
+      <h3>Error [E0609]
+ <a href='https://doc.rust-lang.org/error_codes/E0609.html' target='_blank'>(Rust Docs)</a>
+ - 6 occurrences</h3>
+      <div class='error'>
+        <p><strong>microkernel\src\trust\zta_policy.rs:258</strong> - ERROR</p>
+        <p>no field `syscall` on type `&SyscallContext`</p>
+        <pre><code>
+258: let policy = match self.policies.get(&context.syscall) {
+</code></pre>
+        <div class='suggestion'><strong>AI suggests:</strong> AI suggestion unavailable. Check your Gemini API key.</div>
+      </div>
+      <div class='error'>
+        <p><strong>microkernel\src\trust\zta_policy.rs:263</strong> - ERROR</p>
+        <p>no field `syscall` on type `&SyscallContext`</p>
+        <pre><code>
+263: reason: Some(format!("No policy found for syscall: 
+{}", context.syscall)),
+</code></pre>
+        <div class='suggestion'><strong>AI suggests:</strong> AI suggestion unavailable. Check your Gemini API key.</div>
+      </div>
+      <div class='error'>
+        <p><strong>microkernel\src\trust\zta_policy.rs:299</strong> - ERROR</p>
+        <p>no field `syscall` on type `&SyscallContext`</p>
+        <pre><code>
+299: Some(patterns) =&gt; patterns.iter().any(|p| 
+context.syscall.contains(p)),
+</code></pre>
+        <div class='suggestion'><strong>AI suggests:</strong> AI suggestion unavailable. Check your Gemini API key.</div>
+      </div>
+      <div class='error'>
+        <p><strong>microkernel\src\trust\syscall_enforcer.rs:151</strong> - ERROR</p>
+        <p>no field `syscall` on type `&SyscallContext`</p>
+        <pre><code>
+151: &context.syscall,
+</code></pre>
+        <div class='suggestion'><strong>AI suggests:</strong> AI suggestion unavailable. Check your Gemini API key.</div>
+      </div>
+      <div class='error'>
+        <p><strong>microkernel\src\trust\syscall_enforcer.rs:162</strong> - ERROR</p>
+        <p>no field `syscall` on type `&SyscallContext`</p>
+        <pre><code>
+162: let policy = 
+graph.policies.get(&context.syscall).unwrap_or_else(|| {
+</code></pre>
+        <div class='suggestion'><strong>AI suggests:</strong> AI suggestion unavailable. Check your Gemini API key.</div>
+      </div>
+      <div class='error'>
+        <p><strong>microkernel\src\trust\syscall_enforcer.rs:163</strong> - ERROR</p>
+        <p>no field `syscall` on type `&SyscallContext`</p>
+        <pre><code>
+163: panic!("Policy not found for syscall: {}", 
+context.syscall)
+</code></pre>
+        <div class='suggestion'><strong>AI suggests:</strong> AI suggestion unavailable. Check your Gemini API key.</div>
+      </div>
+      <h3>Error [E0560]
+ <a href='https://doc.rust-lang.org/error_codes/E0560.html' target='_blank'>(Rust Docs)</a>
+ - 9 occurrences</h3>
+      <div class='error'>
+        <p><strong>microkernel\src\trust\zta_policy.rs:397</strong> - ERROR</p>
+        <p>struct `SyscallContext` has no field named `syscall`</p>
+        <pre><code>
+397: syscall: syscall.to_string(),
+</code></pre>
+        <div class='suggestion'><strong>AI suggests:</strong> AI suggestion unavailable. Check your Gemini API key.</div>
+      </div>
+      <div class='error'>
+        <p><strong>microkernel\src\trust\zta_policy.rs:400</strong> - ERROR</p>
+        <p>struct `SyscallContext` has no field named `execution_dna`</p>
+        <pre><code>
+400: execution_dna: None,
+</code></pre>
+        <div class='suggestion'><strong>AI suggests:</strong> AI suggestion unavailable. Check your Gemini API key.</div>
+      </div>
+      <div class='error'>
+        <p><strong>microkernel\src\trust\zta_policy.rs:401</strong> - ERROR</p>
+        <p>struct `SyscallContext` has no field named `timestamp`</p>
+        <pre><code>
+401: timestamp: Utc::now(),
+</code></pre>
+        <div class='suggestion'><strong>AI suggests:</strong> AI suggestion unavailable. Check your Gemini API key.</div>
+      </div>
+      <div class='error'>
+        <p><strong>microkernel\src\trust\syscall_enforcer.rs:209</strong> - ERROR</p>
+        <p>struct `SyscallContext` has no field named `syscall`</p>
+        <pre><code>
+209: syscall: syscall.to_string(),
+</code></pre>
+        <div class='suggestion'><strong>AI suggests:</strong> AI suggestion unavailable. Check your Gemini API key.</div>
+      </div>
+      <div class='error'>
+        <p><strong>microkernel\src\trust\syscall_enforcer.rs:212</strong> - ERROR</p>
+        <p>struct `SyscallContext` has no field named `execution_dna`</p>
+        <pre><code>
+212: execution_dna: None,
+</code></pre>
+        <div class='suggestion'><strong>AI suggests:</strong> AI suggestion unavailable. Check your Gemini API key.</div>
+      </div>
+      <div class='error'>
+        <p><strong>microkernel\src\trust\syscall_enforcer.rs:213</strong> - ERROR</p>
+        <p>struct `SyscallContext` has no field named `timestamp`</p>
+        <pre><code>
+213: timestamp: Utc::now(),
+</code></pre>
+        <div class='suggestion'><strong>AI suggests:</strong> AI suggestion unavailable. Check your Gemini API key.</div>
+      </div>
+      <div class='error'>
+        <p><strong>microkernel\src\lib.rs:90</strong> - ERROR</p>
+        <p>struct `SyscallTrace` has no field named `id`</p>
+        <pre><code>
+90: id: uuid::Uuid::new_v4(),
+</code></pre>
+        <div class='suggestion'><strong>AI suggests:</strong> AI suggestion unavailable. Check your Gemini API key.</div>
+      </div>
+      <div class='error'>
+        <p><strong>microkernel\src\lib.rs:91</strong> - ERROR</p>
+        <p>struct `SyscallTrace` has no field named `syscall_name`</p>
+        <pre><code>
+91: syscall_name: syscall.to_string(),
+</code></pre>
+        <div class='suggestion'><strong>AI suggests:</strong> AI suggestion unavailable. Check your Gemini API key.</div>
+      </div>
+      <div class='error'>
+        <p><strong>microkernel\src\lib.rs:95</strong> - ERROR</p>
+        <p>struct `SyscallTrace` has no field named `result`</p>
+        <pre><code>
+95: result: "QUARANTINED".to_string(),
+</code></pre>
+        <div class='suggestion'><strong>AI suggests:</strong> AI suggestion unavailable. Check your Gemini API key.</div>
+      </div>
+      <h3>Error [E0689]
+ <a href='https://doc.rust-lang.org/error_codes/E0689.html' target='_blank'>(Rust Docs)</a>
+ - 1 occurrences</h3>
+      <div class='error'>
+        <p><strong>microkernel\src\trust\evaluation.rs:274</strong> - ERROR</p>
+        <p>can't call method `min` on ambiguous numeric type `{float}`</p>
+        <pre><code>
+274: (base_score + adjustments).min(1.0).max(0.0)
+</code></pre>
+        <div class='suggestion'><strong>AI suggests:</strong> AI suggestion unavailable. Check your Gemini API key.</div>
+      </div>
+      <h3>Error [E0533]
+ <a href='https://doc.rust-lang.org/error_codes/E0533.html' target='_blank'>(Rust Docs)</a>
+ - 1 occurrences</h3>
+      <div class='error'>
+        <p><strong>microkernel\src\lib.rs:100</strong> - ERROR</p>
+        <p>expected value, found struct variant `ForgeError::ExecutionError`</p>
+        <pre><code>
+100: .map_err(|e| ForgeError::ExecutionError(e))?;
+</code></pre>
+        <div class='suggestion'><strong>AI suggests:</strong> AI suggestion unavailable. Check your Gemini API key.</div>
+      </div>
+      <h3>Error [Unknown]
+ - 9 occurrences</h3>
+      <div class='error'>
+        <p><strong>microkernel\src\trust\zta_policy.rs:177</strong> - ERROR</p>
+        <p>unknown character escape: `.`</p>
+        <pre><code>
+177: constraints.insert(0, 
+"^((?!(127\.0\.0\.1|0\.0\.0\.0|10\.0\.0\.0/8)).)*$".to_string()); // Restrict 
+local network
+177: constraints.insert(0, 
+r"^((?!(127\.0\.0\.1|0\.0\.0\.0|10\.0\.0\.0/8)).)*$".to_string()); // Restrict 
+local network
+</code></pre>
+        <div class='suggestion'><strong>AI suggests:</strong> AI suggestion unavailable. Check your Gemini API key.</div>
+      </div>
+      <div class='error'>
+        <p><strong>microkernel\src\trust\zta_policy.rs:177</strong> - ERROR</p>
+        <p>unknown character escape: `.`</p>
+        <pre><code>
+177: constraints.insert(0, 
+"^((?!(127\.0\.0\.1|0\.0\.0\.0|10\.0\.0\.0/8)).)*$".to_string()); // Restrict 
+local network
+177: constraints.insert(0, 
+r"^((?!(127\.0\.0\.1|0\.0\.0\.0|10\.0\.0\.0/8)).)*$".to_string()); // Restrict 
+local network
+</code></pre>
+        <div class='suggestion'><strong>AI suggests:</strong> AI suggestion unavailable. Check your Gemini API key.</div>
+      </div>
+      <div class='error'>
+        <p><strong>microkernel\src\trust\zta_policy.rs:177</strong> - ERROR</p>
+        <p>unknown character escape: `.`</p>
+        <pre><code>
+177: constraints.insert(0, 
+"^((?!(127\.0\.0\.1|0\.0\.0\.0|10\.0\.0\.0/8)).)*$".to_string()); // Restrict 
+local network
+177: constraints.insert(0, 
+r"^((?!(127\.0\.0\.1|0\.0\.0\.0|10\.0\.0\.0/8)).)*$".to_string()); // Restrict 
+local network
+</code></pre>
+        <div class='suggestion'><strong>AI suggests:</strong> AI suggestion unavailable. Check your Gemini API key.</div>
+      </div>
+      <div class='error'>
+        <p><strong>microkernel\src\trust\zta_policy.rs:177</strong> - ERROR</p>
+        <p>unknown character escape: `.`</p>
+        <pre><code>
+177: constraints.insert(0, 
+"^((?!(127\.0\.0\.1|0\.0\.0\.0|10\.0\.0\.0/8)).)*$".to_string()); // Restrict 
+local network
+177: constraints.insert(0, 
+r"^((?!(127\.0\.0\.1|0\.0\.0\.0|10\.0\.0\.0/8)).)*$".to_string()); // Restrict 
+local network
+</code></pre>
+        <div class='suggestion'><strong>AI suggests:</strong> AI suggestion unavailable. Check your Gemini API key.</div>
+      </div>
+      <div class='error'>
+        <p><strong>microkernel\src\trust\zta_policy.rs:177</strong> - ERROR</p>
+        <p>unknown character escape: `.`</p>
+        <pre><code>
+177: constraints.insert(0, 
+"^((?!(127\.0\.0\.1|0\.0\.0\.0|10\.0\.0\.0/8)).)*$".to_string()); // Restrict 
+local network
+177: constraints.insert(0, 
+r"^((?!(127\.0\.0\.1|0\.0\.0\.0|10\.0\.0\.0/8)).)*$".to_string()); // Restrict 
+local network
+</code></pre>
+        <div class='suggestion'><strong>AI suggests:</strong> AI suggestion unavailable. Check your Gemini API key.</div>
+      </div>
+      <div class='error'>
+        <p><strong>microkernel\src\trust\zta_policy.rs:177</strong> - ERROR</p>
+        <p>unknown character escape: `.`</p>
+        <pre><code>
+177: constraints.insert(0, 
+"^((?!(127\.0\.0\.1|0\.0\.0\.0|10\.0\.0\.0/8)).)*$".to_string()); // Restrict 
+local network
+177: constraints.insert(0, 
+r"^((?!(127\.0\.0\.1|0\.0\.0\.0|10\.0\.0\.0/8)).)*$".to_string()); // Restrict 
+local network
+</code></pre>
+        <div class='suggestion'><strong>AI suggests:</strong> AI suggestion unavailable. Check your Gemini API key.</div>
+      </div>
+      <div class='error'>
+        <p><strong>microkernel\src\trust\zta_policy.rs:177</strong> - ERROR</p>
+        <p>unknown character escape: `.`</p>
+        <pre><code>
+177: constraints.insert(0, 
+"^((?!(127\.0\.0\.1|0\.0\.0\.0|10\.0\.0\.0/8)).)*$".to_string()); // Restrict 
+local network
+177: constraints.insert(0, 
+r"^((?!(127\.0\.0\.1|0\.0\.0\.0|10\.0\.0\.0/8)).)*$".to_string()); // Restrict 
+local network
+</code></pre>
+        <div class='suggestion'><strong>AI suggests:</strong> AI suggestion unavailable. Check your Gemini API key.</div>
+      </div>
+      <div class='error'>
+        <p><strong>microkernel\src\trust\zta_policy.rs:177</strong> - ERROR</p>
+        <p>unknown character escape: `.`</p>
+        <pre><code>
+177: constraints.insert(0, 
+"^((?!(127\.0\.0\.1|0\.0\.0\.0|10\.0\.0\.0/8)).)*$".to_string()); // Restrict 
+local network
+177: constraints.insert(0, 
+r"^((?!(127\.0\.0\.1|0\.0\.0\.0|10\.0\.0\.0/8)).)*$".to_string()); // Restrict 
+local network
+</code></pre>
+        <div class='suggestion'><strong>AI suggests:</strong> AI suggestion unavailable. Check your Gemini API key.</div>
+      </div>
+      <div class='error'>
+        <p><strong>microkernel\src\trust\zta_policy.rs:177</strong> - ERROR</p>
+        <p>unknown character escape: `.`</p>
+        <pre><code>
+177: constraints.insert(0, 
+"^((?!(127\.0\.0\.1|0\.0\.0\.0|10\.0\.0\.0/8)).)*$".to_string()); // Restrict 
+local network
+177: constraints.insert(0, 
+r"^((?!(127\.0\.0\.1|0\.0\.0\.0|10\.0\.0\.0/8)).)*$".to_string()); // Restrict 
+local network
+</code></pre>
+        <div class='suggestion'><strong>AI suggests:</strong> AI suggestion unavailable. Check your Gemini API key.</div>
+      </div>
+    </div>
+    <div id='categories' class='tab-content'>
+      <h2>Errors by Category</h2>
+      <h3>General (72 issues)</h3>
+      <div class='error'>
+        <p><strong>microkernel\src\lib.rs:27</strong> - ERROR
+ [E0583]
+</p>
+        <p>file not found for module `observer`</p>
+        <div class='suggestion'><strong>Solution:</strong> AI suggestion unavailable. Check your Gemini API key.</div>
+      </div>
+      <div class='error'>
+        <p><strong>microkernel\src\lib.rs:28</strong> - ERROR
+ [E0583]
+</p>
+        <p>file not found for module `crypto`</p>
+        <div class='suggestion'><strong>Solution:</strong> AI suggestion unavailable. Check your Gemini API key.</div>
+      </div>
+      <div class='error'>
+        <p><strong>microkernel\src\lib.rs:29</strong> - ERROR
+ [E0583]
+</p>
+        <p>file not found for module `diagnostics`</p>
+        <div class='suggestion'><strong>Solution:</strong> AI suggestion unavailable. Check your Gemini API key.</div>
+      </div>
+      <div class='error'>
+        <p><strong>microkernel\src\lib.rs:30</strong> - ERROR
+ [E0583]
+</p>
+        <p>file not found for module `interface`</p>
+        <div class='suggestion'><strong>Solution:</strong> AI suggestion unavailable. Check your Gemini API key.</div>
+      </div>
+      <div class='error'>
+        <p><strong>microkernel\src\lib.rs:31</strong> - ERROR
+ [E0583]
+</p>
+        <p>file not found for module `config`</p>
+        <div class='suggestion'><strong>Solution:</strong> AI suggestion unavailable. Check your Gemini API key.</div>
+      </div>
+      <div class='error'>
+        <p><strong>microkernel\src\trust\evaluation.rs:238</strong> - ERROR
+ [E0532]
+</p>
+        <p>expected unit struct, unit variant or constant, found tuple 
+variant `TrustVector::Signed`</p>
+        <div class='suggestion'><strong>Solution:</strong> AI suggestion unavailable. Check your Gemini API key.</div>
+      </div>
+      <div class='error'>
+        <p><strong>microkernel\src\core\boot.rs:158</strong> - ERROR
+ [E0061]
+</p>
+        <p>this enum variant takes 1 argument but 0 arguments were supplied</p>
+        <div class='suggestion'><strong>Solution:</strong> AI suggestion unavailable. Check your Gemini API key.</div>
+      </div>
+      <div class='error'>
+        <p><strong>microkernel\src\core\runtime.rs:171</strong> - ERROR
+ [E0061]
+</p>
+        <p>this enum variant takes 1 argument but 0 arguments were supplied</p>
+        <div class='suggestion'><strong>Solution:</strong> AI suggestion unavailable. Check your Gemini API key.</div>
+      </div>
+      <div class='error'>
+        <p><strong>microkernel\src\core\runtime.rs:205</strong> - ERROR
+ [E0061]
+</p>
+        <p>this enum variant takes 1 argument but 0 arguments were supplied</p>
+        <div class='suggestion'><strong>Solution:</strong> AI suggestion unavailable. Check your Gemini API key.</div>
+      </div>
+      <div class='error'>
+        <p><strong>microkernel\src\core\runtime.rs:235</strong> - ERROR
+ [E0061]
+</p>
+        <p>this enum variant takes 1 argument but 0 arguments were supplied</p>
+        <div class='suggestion'><strong>Solution:</strong> AI suggestion unavailable. Check your Gemini API key.</div>
+      </div>
+      <div class='error'>
+        <p><strong>microkernel\src\core\runtime.rs:242</strong> - ERROR
+ [E0599]
+</p>
+        <p>no variant or associated item named `Runtime` found for enum 
+`ForgeError` in the current scope</p>
+        <div class='suggestion'><strong>Solution:</strong> AI suggestion unavailable. Check your Gemini API key.</div>
+      </div>
+      <div class='error'>
+        <p><strong>microkernel\src\core\runtime.rs:297</strong> - ERROR
+ [E0599]
+</p>
+        <p>no variant or associated item named `Runtime` found for enum 
+`ForgeError` in the current scope</p>
+        <div class='suggestion'><strong>Solution:</strong> AI suggestion unavailable. Check your Gemini API key.</div>
+      </div>
+      <div class='error'>
+        <p><strong>microkernel\src\core\runtime.rs:312</strong> - ERROR
+ [E0061]
+</p>
+        <p>this enum variant takes 1 argument but 0 arguments were supplied</p>
+        <div class='suggestion'><strong>Solution:</strong> AI suggestion unavailable. Check your Gemini API key.</div>
+      </div>
+      <div class='error'>
+        <p><strong>microkernel\src\core\runtime.rs:323</strong> - ERROR
+ [E0599]
+</p>
+        <p>no variant or associated item named `Runtime` found for enum 
+`ForgeError` in the current scope</p>
+        <div class='suggestion'><strong>Solution:</strong> AI suggestion unavailable. Check your Gemini API key.</div>
+      </div>
+      <div class='error'>
+        <p><strong>microkernel\src\core\runtime.rs:357</strong> - ERROR
+ [E0061]
+</p>
+        <p>this enum variant takes 1 argument but 0 arguments were supplied</p>
+        <div class='suggestion'><strong>Solution:</strong> AI suggestion unavailable. Check your Gemini API key.</div>
+      </div>
+      <div class='error'>
+        <p><strong>microkernel\src\core\runtime.rs:366</strong> - ERROR
+ [E0599]
+</p>
+        <p>no variant or associated item named `Runtime` found for enum 
+`ForgeError` in the current scope</p>
+        <div class='suggestion'><strong>Solution:</strong> AI suggestion unavailable. Check your Gemini API key.</div>
+      </div>
+      <div class='error'>
+        <p><strong>microkernel\src\core\scheduler.rs:116</strong> - ERROR
+ [E0061]
+</p>
+        <p>this enum variant takes 1 argument but 0 arguments were supplied</p>
+        <div class='suggestion'><strong>Solution:</strong> AI suggestion unavailable. Check your Gemini API key.</div>
+      </div>
+      <div class='error'>
+        <p><strong>microkernel\src\core\scheduler.rs:156</strong> - ERROR
+ [E0061]
+</p>
+        <p>this enum variant takes 1 argument but 0 arguments were supplied</p>
+        <div class='suggestion'><strong>Solution:</strong> AI suggestion unavailable. Check your Gemini API key.</div>
+      </div>
+      <div class='error'>
+        <p><strong>microkernel\src\core\scheduler.rs:184</strong> - ERROR
+ [E0061]
+</p>
+        <p>this enum variant takes 1 argument but 0 arguments were supplied</p>
+        <div class='suggestion'><strong>Solution:</strong> AI suggestion unavailable. Check your Gemini API key.</div>
+      </div>
+      <div class='error'>
+        <p><strong>microkernel\src\core\scheduler.rs:191</strong> - ERROR
+ [E0599]
+</p>
+        <p>no variant or associated item named `Runtime` found for enum 
+`ForgeError` in the current scope</p>
+        <div class='suggestion'><strong>Solution:</strong> AI suggestion unavailable. Check your Gemini API key.</div>
+      </div>
+      <div class='error'>
+        <p><strong>microkernel\src\core\scheduler.rs:220</strong> - ERROR
+ [E0061]
+</p>
+        <p>this enum variant takes 1 argument but 0 arguments were supplied</p>
+        <div class='suggestion'><strong>Solution:</strong> AI suggestion unavailable. Check your Gemini API key.</div>
+      </div>
+      <div class='error'>
+        <p><strong>microkernel\src\core\scheduler.rs:243</strong> - ERROR
+ [E0061]
+</p>
+        <p>this enum variant takes 1 argument but 0 arguments were supplied</p>
+        <div class='suggestion'><strong>Solution:</strong> AI suggestion unavailable. Check your Gemini API key.</div>
+      </div>
+      <div class='error'>
+        <p><strong>microkernel\src\execution\wasm.rs:191</strong> - ERROR
+ [E0599]
+</p>
+        <p>no variant or associated item named `Execution` found for enum 
+`ForgeError` in the current scope</p>
+        <div class='suggestion'><strong>Solution:</strong> AI suggestion unavailable. Check your Gemini API key.</div>
+      </div>
+      <div class='error'>
+        <p><strong>microkernel\src\execution\wasm.rs:195</strong> - ERROR
+ [E0599]
+</p>
+        <p>no function or associated item named `digest` found for struct 
+`CoreWrapper` in the current scope</p>
+        <div class='suggestion'><strong>Solution:</strong> AI suggestion unavailable. Check your Gemini API key.</div>
+      </div>
+      <div class='error'>
+        <p><strong>microkernel\src\execution\wasm.rs:218</strong> - ERROR
+ [E0599]
+</p>
+        <p>no variant or associated item named `Execution` found for enum 
+`ForgeError` in the current scope</p>
+        <div class='suggestion'><strong>Solution:</strong> AI suggestion unavailable. Check your Gemini API key.</div>
+      </div>
+      <div class='error'>
+        <p><strong>microkernel\src\execution\wasm.rs:282</strong> - ERROR
+ [E0599]
+</p>
+        <p>no variant or associated item named `Execution` found for enum 
+`ForgeError` in the current scope</p>
+        <div class='suggestion'><strong>Solution:</strong> AI suggestion unavailable. Check your Gemini API key.</div>
+      </div>
+      <div class='error'>
+        <p><strong>microkernel\src\execution\wasm.rs:332</strong> - ERROR
+ [E0599]
+</p>
+        <p>no variant or associated item named `Execution` found for enum 
+`ForgeError` in the current scope</p>
+        <div class='suggestion'><strong>Solution:</strong> AI suggestion unavailable. Check your Gemini API key.</div>
+      </div>
+      <div class='error'>
+        <p><strong>microkernel\src\execution\wasm.rs:338</strong> - ERROR
+ [E0599]
+</p>
+        <p>no variant or associated item named `Execution` found for enum 
+`ForgeError` in the current scope</p>
+        <div class='suggestion'><strong>Solution:</strong> AI suggestion unavailable. Check your Gemini API key.</div>
+      </div>
+      <div class='error'>
+        <p><strong>microkernel\src\execution\wasm.rs:369</strong> - ERROR
+ [E0599]
+</p>
+        <p>no variant or associated item named `Execution` found for enum 
+`ForgeError` in the current scope</p>
+        <div class='suggestion'><strong>Solution:</strong> AI suggestion unavailable. Check your Gemini API key.</div>
+      </div>
+      <div class='error'>
+        <p><strong>microkernel\src\execution\wasm.rs:382</strong> - ERROR
+ [E0061]
+</p>
+        <p>this enum variant takes 1 argument but 0 arguments were supplied</p>
+        <div class='suggestion'><strong>Solution:</strong> AI suggestion unavailable. Check your Gemini API key.</div>
+      </div>
+      <div class='error'>
+        <p><strong>microkernel\src\execution\syscall.rs:101</strong> - ERROR
+ [E0599]
+</p>
+        <p>no variant or associated item named `Trust` found for enum 
+`ForgeError` in the current scope</p>
+        <div class='suggestion'><strong>Solution:</strong> AI suggestion unavailable. Check your Gemini API key.</div>
+      </div>
+      <div class='error'>
+        <p><strong>microkernel\src\execution\syscall.rs:150</strong> - ERROR
+ [E0599]
+</p>
+        <p>no variant or associated item named `Execution` found for enum 
+`ForgeError` in the current scope</p>
+        <div class='suggestion'><strong>Solution:</strong> AI suggestion unavailable. Check your Gemini API key.</div>
+      </div>
+      <div class='error'>
+        <p><strong>microkernel\src\execution\syscall.rs:193</strong> - ERROR
+ [E0599]
+</p>
+        <p>no variant or associated item named `Execution` found for enum 
+`ForgeError` in the current scope</p>
+        <div class='suggestion'><strong>Solution:</strong> AI suggestion unavailable. Check your Gemini API key.</div>
+      </div>
+      <div class='error'>
+        <p><strong>microkernel\src\execution\sandbox.rs:175</strong> - ERROR
+ [E0599]
+</p>
+        <p>no variant or associated item named `Execution` found for enum 
+`ForgeError` in the current scope</p>
+        <div class='suggestion'><strong>Solution:</strong> AI suggestion unavailable. Check your Gemini API key.</div>
+      </div>
+      <div class='error'>
+        <p><strong>microkernel\src\execution\sandbox.rs:210</strong> - ERROR
+ [E0599]
+</p>
+        <p>no variant or associated item named `Execution` found for enum 
+`ForgeError` in the current scope</p>
+        <div class='suggestion'><strong>Solution:</strong> AI suggestion unavailable. Check your Gemini API key.</div>
+      </div>
+      <div class='error'>
+        <p><strong>microkernel\src\execution\sandbox.rs:248</strong> - ERROR
+ [E0599]
+</p>
+        <p>no variant or associated item named `Execution` found for enum 
+`ForgeError` in the current scope</p>
+        <div class='suggestion'><strong>Solution:</strong> AI suggestion unavailable. Check your Gemini API key.</div>
+      </div>
+      <div class='error'>
+        <p><strong>microkernel\src\execution\sandbox.rs:283</strong> - ERROR
+ [E0599]
+</p>
+        <p>no variant or associated item named `Execution` found for enum 
+`ForgeError` in the current scope</p>
+        <div class='suggestion'><strong>Solution:</strong> AI suggestion unavailable. Check your Gemini API key.</div>
+      </div>
+      <div class='error'>
+        <p><strong>microkernel\src\execution\sandbox.rs:322</strong> - ERROR
+ [E0599]
+</p>
+        <p>no variant or associated item named `Execution` found for enum 
+`ForgeError` in the current scope</p>
+        <div class='suggestion'><strong>Solution:</strong> AI suggestion unavailable. Check your Gemini API key.</div>
+      </div>
+      <div class='error'>
+        <p><strong>microkernel\src\trust\zta_policy.rs:258</strong> - ERROR
+ [E0609]
+</p>
+        <p>no field `syscall` on type `&SyscallContext`</p>
+        <div class='suggestion'><strong>Solution:</strong> AI suggestion unavailable. Check your Gemini API key.</div>
+      </div>
+      <div class='error'>
+        <p><strong>microkernel\src\trust\zta_policy.rs:263</strong> - ERROR
+ [E0609]
+</p>
+        <p>no field `syscall` on type `&SyscallContext`</p>
+        <div class='suggestion'><strong>Solution:</strong> AI suggestion unavailable. Check your Gemini API key.</div>
+      </div>
+      <div class='error'>
+        <p><strong>microkernel\src\trust\zta_policy.rs:299</strong> - ERROR
+ [E0609]
+</p>
+        <p>no field `syscall` on type `&SyscallContext`</p>
+        <div class='suggestion'><strong>Solution:</strong> AI suggestion unavailable. Check your Gemini API key.</div>
+      </div>
+      <div class='error'>
+        <p><strong>microkernel\src\trust\zta_policy.rs:397</strong> - ERROR
+ [E0560]
+</p>
+        <p>struct `SyscallContext` has no field named `syscall`</p>
+        <div class='suggestion'><strong>Solution:</strong> AI suggestion unavailable. Check your Gemini API key.</div>
+      </div>
+      <div class='error'>
+        <p><strong>microkernel\src\trust\zta_policy.rs:400</strong> - ERROR
+ [E0560]
+</p>
+        <p>struct `SyscallContext` has no field named `execution_dna`</p>
+        <div class='suggestion'><strong>Solution:</strong> AI suggestion unavailable. Check your Gemini API key.</div>
+      </div>
+      <div class='error'>
+        <p><strong>microkernel\src\trust\zta_policy.rs:401</strong> - ERROR
+ [E0560]
+</p>
+        <p>struct `SyscallContext` has no field named `timestamp`</p>
+        <div class='suggestion'><strong>Solution:</strong> AI suggestion unavailable. Check your Gemini API key.</div>
+      </div>
+      <div class='error'>
+        <p><strong>microkernel\src\trust\syscall_enforcer.rs:151</strong> - ERROR
+ [E0609]
+</p>
+        <p>no field `syscall` on type `&SyscallContext`</p>
+        <div class='suggestion'><strong>Solution:</strong> AI suggestion unavailable. Check your Gemini API key.</div>
+      </div>
+      <div class='error'>
+        <p><strong>microkernel\src\trust\syscall_enforcer.rs:162</strong> - ERROR
+ [E0609]
+</p>
+        <p>no field `syscall` on type `&SyscallContext`</p>
+        <div class='suggestion'><strong>Solution:</strong> AI suggestion unavailable. Check your Gemini API key.</div>
+      </div>
+      <div class='error'>
+        <p><strong>microkernel\src\trust\syscall_enforcer.rs:163</strong> - ERROR
+ [E0609]
+</p>
+        <p>no field `syscall` on type `&SyscallContext`</p>
+        <div class='suggestion'><strong>Solution:</strong> AI suggestion unavailable. Check your Gemini API key.</div>
+      </div>
+      <div class='error'>
+        <p><strong>microkernel\src\trust\syscall_enforcer.rs:209</strong> - ERROR
+ [E0560]
+</p>
+        <p>struct `SyscallContext` has no field named `syscall`</p>
+        <div class='suggestion'><strong>Solution:</strong> AI suggestion unavailable. Check your Gemini API key.</div>
+      </div>
+      <div class='error'>
+        <p><strong>microkernel\src\trust\syscall_enforcer.rs:212</strong> - ERROR
+ [E0560]
+</p>
+        <p>struct `SyscallContext` has no field named `execution_dna`</p>
+        <div class='suggestion'><strong>Solution:</strong> AI suggestion unavailable. Check your Gemini API key.</div>
+      </div>
+      <div class='error'>
+        <p><strong>microkernel\src\trust\syscall_enforcer.rs:213</strong> - ERROR
+ [E0560]
+</p>
+        <p>struct `SyscallContext` has no field named `timestamp`</p>
+        <div class='suggestion'><strong>Solution:</strong> AI suggestion unavailable. Check your Gemini API key.</div>
+      </div>
+      <div class='error'>
+        <p><strong>microkernel\src\trust\evaluation.rs:117</strong> - ERROR
+ [E0599]
+</p>
+        <p>no function or associated item named `new` found for struct 
+`zta_policy::ZtaPolicyGraph` in the current scope</p>
+        <div class='suggestion'><strong>Solution:</strong> AI suggestion unavailable. Check your Gemini API key.</div>
+      </div>
+      <div class='error'>
+        <p><strong>microkernel\src\trust\evaluation.rs:249</strong> - ERROR
+ [E0599]
+</p>
+        <p>no method named `is_some` found for struct `std::string::String` 
+in the current scope</p>
+        <div class='suggestion'><strong>Solution:</strong> AI suggestion unavailable. Check your Gemini API key.</div>
+      </div>
+      <div class='error'>
+        <p><strong>microkernel\src\trust\evaluation.rs:274</strong> - ERROR
+ [E0689]
+</p>
+        <p>can't call method `min` on ambiguous numeric type `{float}`</p>
+        <div class='suggestion'><strong>Solution:</strong> AI suggestion unavailable. Check your Gemini API key.</div>
+      </div>
+      <div class='error'>
+        <p><strong>microkernel\src\lib.rs:58</strong> - ERROR
+ [E0061]
+</p>
+        <p>this enum variant takes 1 argument but 0 arguments were supplied</p>
+        <div class='suggestion'><strong>Solution:</strong> AI suggestion unavailable. Check your Gemini API key.</div>
+      </div>
+      <div class='error'>
+        <p><strong>microkernel\src\lib.rs:75</strong> - ERROR
+ [E0599]
+</p>
+        <p>no variant or associated item named `TrustViolation` found for 
+enum `ForgeError` in the current scope</p>
+        <div class='suggestion'><strong>Solution:</strong> AI suggestion unavailable. Check your Gemini API key.</div>
+      </div>
+      <div class='error'>
+        <p><strong>microkernel\src\lib.rs:82</strong> - ERROR
+ [E0599]
+</p>
+        <p>no variant or associated item named `TrustViolation` found for 
+enum `ForgeError` in the current scope</p>
+        <div class='suggestion'><strong>Solution:</strong> AI suggestion unavailable. Check your Gemini API key.</div>
+      </div>
+      <div class='error'>
+        <p><strong>microkernel\src\lib.rs:90</strong> - ERROR
+ [E0560]
+</p>
+        <p>struct `SyscallTrace` has no field named `id`</p>
+        <div class='suggestion'><strong>Solution:</strong> AI suggestion unavailable. Check your Gemini API key.</div>
+      </div>
+      <div class='error'>
+        <p><strong>microkernel\src\lib.rs:91</strong> - ERROR
+ [E0560]
+</p>
+        <p>struct `SyscallTrace` has no field named `syscall_name`</p>
+        <div class='suggestion'><strong>Solution:</strong> AI suggestion unavailable. Check your Gemini API key.</div>
+      </div>
+      <div class='error'>
+        <p><strong>microkernel\src\lib.rs:95</strong> - ERROR
+ [E0560]
+</p>
+        <p>struct `SyscallTrace` has no field named `result`</p>
+        <div class='suggestion'><strong>Solution:</strong> AI suggestion unavailable. Check your Gemini API key.</div>
+      </div>
+      <div class='error'>
+        <p><strong>microkernel\src\lib.rs:100</strong> - ERROR
+ [E0533]
+</p>
+        <p>expected value, found struct variant `ForgeError::ExecutionError`</p>
+        <div class='suggestion'><strong>Solution:</strong> AI suggestion unavailable. Check your Gemini API key.</div>
+      </div>
+      <div class='error'>
+        <p><strong>microkernel\src\lib.rs:107</strong> - ERROR
+ [E0599]
+</p>
+        <p>no variant or associated item named `TrustViolation` found for 
+enum `ForgeError` in the current scope</p>
+        <div class='suggestion'><strong>Solution:</strong> AI suggestion unavailable. Check your Gemini API key.</div>
+      </div>
+      <div class='error'>
+        <p><strong>microkernel\src\lib.rs:109</strong> - ERROR
+ [E0599]
+</p>
+        <p>no variant or associated item named `TrustViolation` found for 
+enum `ForgeError` in the current scope</p>
+        <div class='suggestion'><strong>Solution:</strong> AI suggestion unavailable. Check your Gemini API key.</div>
+      </div>
+      <div class='error'>
+        <p><strong>microkernel\src\lib.rs:124</strong> - ERROR
+ [E0061]
+</p>
+        <p>this function takes 2 arguments but 4 arguments were supplied</p>
+        <div class='suggestion'><strong>Solution:</strong> AI suggestion unavailable. Check your Gemini API key.</div>
+      </div>
+      <div class='error'>
+        <p><strong>microkernel\src\trust\zta_policy.rs:177</strong> - ERROR
+</p>
+        <p>unknown character escape: `.`</p>
+        <div class='suggestion'><strong>Solution:</strong> AI suggestion unavailable. Check your Gemini API key.</div>
+      </div>
+      <div class='error'>
+        <p><strong>microkernel\src\trust\zta_policy.rs:177</strong> - ERROR
+</p>
+        <p>unknown character escape: `.`</p>
+        <div class='suggestion'><strong>Solution:</strong> AI suggestion unavailable. Check your Gemini API key.</div>
+      </div>
+      <div class='error'>
+        <p><strong>microkernel\src\trust\zta_policy.rs:177</strong> - ERROR
+</p>
+        <p>unknown character escape: `.`</p>
+        <div class='suggestion'><strong>Solution:</strong> AI suggestion unavailable. Check your Gemini API key.</div>
+      </div>
+      <div class='error'>
+        <p><strong>microkernel\src\trust\zta_policy.rs:177</strong> - ERROR
+</p>
+        <p>unknown character escape: `.`</p>
+        <div class='suggestion'><strong>Solution:</strong> AI suggestion unavailable. Check your Gemini API key.</div>
+      </div>
+      <div class='error'>
+        <p><strong>microkernel\src\trust\zta_policy.rs:177</strong> - ERROR
+</p>
+        <p>unknown character escape: `.`</p>
+        <div class='suggestion'><strong>Solution:</strong> AI suggestion unavailable. Check your Gemini API key.</div>
+      </div>
+      <div class='error'>
+        <p><strong>microkernel\src\trust\zta_policy.rs:177</strong> - ERROR
+</p>
+        <p>unknown character escape: `.`</p>
+        <div class='suggestion'><strong>Solution:</strong> AI suggestion unavailable. Check your Gemini API key.</div>
+      </div>
+      <div class='error'>
+        <p><strong>microkernel\src\trust\zta_policy.rs:177</strong> - ERROR
+</p>
+        <p>unknown character escape: `.`</p>
+        <div class='suggestion'><strong>Solution:</strong> AI suggestion unavailable. Check your Gemini API key.</div>
+      </div>
+      <div class='error'>
+        <p><strong>microkernel\src\trust\zta_policy.rs:177</strong> - ERROR
+</p>
+        <p>unknown character escape: `.`</p>
+        <div class='suggestion'><strong>Solution:</strong> AI suggestion unavailable. Check your Gemini API key.</div>
+      </div>
+      <div class='error'>
+        <p><strong>microkernel\src\trust\zta_policy.rs:177</strong> - ERROR
+</p>
+        <p>unknown character escape: `.`</p>
+        <div class='suggestion'><strong>Solution:</strong> AI suggestion unavailable. Check your Gemini API key.</div>
+      </div>
+      <h3>Module System (25 issues)</h3>
+      <div class='error'>
+        <p><strong>microkernel\src\trust\attestation.rs:13</strong> - ERROR
+ [E0432]
+</p>
+        <p>unresolved imports `common::crypto::Hash`, 
+`common::crypto::PublicKey`</p>
+        <div class='suggestion'><strong>Solution:</strong> AI suggestion unavailable. Check your Gemini API key.</div>
+      </div>
+      <div class='error'>
+        <p><strong>microkernel\src\execution\syscall.rs:10</strong> - ERROR
+ [E0432]
+</p>
+        <p>unresolved import `crate::trust::zta_policy::PolicyGraph`</p>
+        <div class='suggestion'><strong>Solution:</strong> AI suggestion unavailable. Check your Gemini API key.</div>
+      </div>
+      <div class='error'>
+        <p><strong>microkernel\src\trust\syscall_enforcer.rs:78</strong> - ERROR
+ [E0433]
+</p>
+        <p>failed to resolve: use of unresolved module or unlinked crate 
+`log`</p>
+        <div class='suggestion'><strong>Solution:</strong> AI suggestion unavailable. Check your Gemini API key.</div>
+      </div>
+      <div class='error'>
+        <p><strong>microkernel\src\trust\redzone.rs:185</strong> - ERROR
+ [E0433]
+</p>
+        <p>failed to resolve: use of unresolved module or unlinked crate 
+`log`</p>
+        <div class='suggestion'><strong>Solution:</strong> AI suggestion unavailable. Check your Gemini API key.</div>
+      </div>
+      <div class='error'>
+        <p><strong>microkernel\src\trust\redzone.rs:208</strong> - ERROR
+ [E0433]
+</p>
+        <p>failed to resolve: use of unresolved module or unlinked crate 
+`log`</p>
+        <div class='suggestion'><strong>Solution:</strong> AI suggestion unavailable. Check your Gemini API key.</div>
+      </div>
+      <div class='error'>
+        <p><strong>microkernel\src\trust\redzone.rs:213</strong> - ERROR
+ [E0433]
+</p>
+        <p>failed to resolve: use of unresolved module or unlinked crate 
+`log`</p>
+        <div class='suggestion'><strong>Solution:</strong> AI suggestion unavailable. Check your Gemini API key.</div>
+      </div>
+      <div class='error'>
+        <p><strong>microkernel\src\trust\redzone.rs:218</strong> - ERROR
+ [E0433]
+</p>
+        <p>failed to resolve: use of unresolved module or unlinked crate 
+`log`</p>
+        <div class='suggestion'><strong>Solution:</strong> AI suggestion unavailable. Check your Gemini API key.</div>
+      </div>
+      <div class='error'>
+        <p><strong>microkernel\src\trust\redzone.rs:223</strong> - ERROR
+ [E0433]
+</p>
+        <p>failed to resolve: use of unresolved module or unlinked crate 
+`log`</p>
+        <div class='suggestion'><strong>Solution:</strong> AI suggestion unavailable. Check your Gemini API key.</div>
+      </div>
+      <div class='error'>
+        <p><strong>microkernel\src\trust\redzone.rs:248</strong> - ERROR
+ [E0433]
+</p>
+        <p>failed to resolve: use of unresolved module or unlinked crate 
+`log`</p>
+        <div class='suggestion'><strong>Solution:</strong> AI suggestion unavailable. Check your Gemini API key.</div>
+      </div>
+      <div class='error'>
+        <p><strong>microkernel\src\trust\redzone.rs:252</strong> - ERROR
+ [E0433]
+</p>
+        <p>failed to resolve: use of unresolved module or unlinked crate 
+`log`</p>
+        <div class='suggestion'><strong>Solution:</strong> AI suggestion unavailable. Check your Gemini API key.</div>
+      </div>
+      <div class='error'>
+        <p><strong>microkernel\src\trust\redzone.rs:257</strong> - ERROR
+ [E0433]
+</p>
+        <p>failed to resolve: use of unresolved module or unlinked crate 
+`log`</p>
+        <div class='suggestion'><strong>Solution:</strong> AI suggestion unavailable. Check your Gemini API key.</div>
+      </div>
+      <div class='error'>
+        <p><strong>microkernel\src\trust\redzone.rs:283</strong> - ERROR
+ [E0433]
+</p>
+        <p>failed to resolve: use of unresolved module or unlinked crate 
+`log`</p>
+        <div class='suggestion'><strong>Solution:</strong> AI suggestion unavailable. Check your Gemini API key.</div>
+      </div>
+      <div class='error'>
+        <p><strong>microkernel\src\trust\redzone.rs:309</strong> - ERROR
+ [E0433]
+</p>
+        <p>failed to resolve: use of unresolved module or unlinked crate 
+`log`</p>
+        <div class='suggestion'><strong>Solution:</strong> AI suggestion unavailable. Check your Gemini API key.</div>
+      </div>
+      <div class='error'>
+        <p><strong>microkernel\src\trust\redzone.rs:326</strong> - ERROR
+ [E0433]
+</p>
+        <p>failed to resolve: use of unresolved module or unlinked crate 
+`log`</p>
+        <div class='suggestion'><strong>Solution:</strong> AI suggestion unavailable. Check your Gemini API key.</div>
+      </div>
+      <div class='error'>
+        <p><strong>microkernel\src\trust\redzone.rs:346</strong> - ERROR
+ [E0433]
+</p>
+        <p>failed to resolve: use of unresolved module or unlinked crate 
+`log`</p>
+        <div class='suggestion'><strong>Solution:</strong> AI suggestion unavailable. Check your Gemini API key.</div>
+      </div>
+      <div class='error'>
+        <p><strong>microkernel\src\trust\attestation.rs:150</strong> - ERROR
+ [E0433]
+</p>
+        <p>failed to resolve: use of unresolved module or unlinked crate 
+`log`</p>
+        <div class='suggestion'><strong>Solution:</strong> AI suggestion unavailable. Check your Gemini API key.</div>
+      </div>
+      <div class='error'>
+        <p><strong>microkernel\src\trust\attestation.rs:226</strong> - ERROR
+ [E0433]
+</p>
+        <p>failed to resolve: use of unresolved module or unlinked crate 
+`log`</p>
+        <div class='suggestion'><strong>Solution:</strong> AI suggestion unavailable. Check your Gemini API key.</div>
+      </div>
+      <div class='error'>
+        <p><strong>microkernel\src\trust\attestation.rs:340</strong> - ERROR
+ [E0433]
+</p>
+        <p>failed to resolve: use of unresolved module or unlinked crate 
+`log`</p>
+        <div class='suggestion'><strong>Solution:</strong> AI suggestion unavailable. Check your Gemini API key.</div>
+      </div>
+      <div class='error'>
+        <p><strong>microkernel\src\trust\attestation.rs:356</strong> - ERROR
+ [E0433]
+</p>
+        <p>failed to resolve: use of unresolved module or unlinked crate 
+`log`</p>
+        <div class='suggestion'><strong>Solution:</strong> AI suggestion unavailable. Check your Gemini API key.</div>
+      </div>
+      <div class='error'>
+        <p><strong>microkernel\src\trust\evaluation.rs:147</strong> - ERROR
+ [E0433]
+</p>
+        <p>failed to resolve: use of unresolved module or unlinked crate 
+`log`</p>
+        <div class='suggestion'><strong>Solution:</strong> AI suggestion unavailable. Check your Gemini API key.</div>
+      </div>
+      <div class='error'>
+        <p><strong>microkernel\src\trust\evaluation.rs:191</strong> - ERROR
+ [E0433]
+</p>
+        <p>failed to resolve: use of unresolved module or unlinked crate 
+`log`</p>
+        <div class='suggestion'><strong>Solution:</strong> AI suggestion unavailable. Check your Gemini API key.</div>
+      </div>
+      <div class='error'>
+        <p><strong>microkernel\src\trust\evaluation.rs:418</strong> - ERROR
+ [E0433]
+</p>
+        <p>failed to resolve: use of unresolved module or unlinked crate 
+`log`</p>
+        <div class='suggestion'><strong>Solution:</strong> AI suggestion unavailable. Check your Gemini API key.</div>
+      </div>
+      <div class='error'>
+        <p><strong>microkernel\src\trust\mod.rs:39</strong> - ERROR
+ [E0433]
+</p>
+        <p>failed to resolve: use of unresolved module or unlinked crate 
+`log`</p>
+        <div class='suggestion'><strong>Solution:</strong> AI suggestion unavailable. Check your Gemini API key.</div>
+      </div>
+      <div class='error'>
+        <p><strong>microkernel\src\trust\mod.rs:47</strong> - ERROR
+ [E0433]
+</p>
+        <p>failed to resolve: use of unresolved module or unlinked crate 
+`log`</p>
+        <div class='suggestion'><strong>Solution:</strong> AI suggestion unavailable. Check your Gemini API key.</div>
+      </div>
+      <div class='error'>
+        <p><strong>microkernel\src\lib.rs:99</strong> - ERROR
+ [E0433]
+</p>
+        <p>failed to resolve: could not find `container` in `execution`</p>
+        <div class='suggestion'><strong>Solution:</strong> AI suggestion unavailable. Check your Gemini API key.</div>
+      </div>
+      <h3>Undefined Item (2 issues)</h3>
+      <div class='error'>
+        <p><strong>microkernel\src\trust\mod.rs:28</strong> - ERROR
+ [E0425]
+</p>
+        <p>cannot find function `init` in module `syscall_enforcer`</p>
+        <div class='suggestion'><strong>Solution:</strong> AI suggestion unavailable. Check your Gemini API key.</div>
+      </div>
+      <div class='error'>
+        <p><strong>microkernel\src\trust\mod.rs:59</strong> - ERROR
+ [E0425]
+</p>
+        <p>cannot find function `get_syscall_enforcer` in module 
+`syscall_enforcer`</p>
+        <div class='suggestion'><strong>Solution:</strong> AI suggestion unavailable. Check your Gemini API key.</div>
+      </div>
+      <h3>Privacy Violation (2 issues)</h3>
+      <div class='error'>
+        <p><strong>microkernel\src\trust\attestation.rs:13</strong> - ERROR
+ [E0603]
+</p>
+        <p>struct `Signature` is private</p>
+        <div class='suggestion'><strong>Solution:</strong> AI suggestion unavailable. Check your Gemini API key.</div>
+      </div>
+      <div class='error'>
+        <p><strong>microkernel\src\lib.rs:124</strong> - ERROR
+ [E0603]
+</p>
+        <p>function `execute_syscall` is private</p>
+        <div class='suggestion'><strong>Solution:</strong> AI suggestion unavailable. Check your Gemini API key.</div>
+      </div>
+      <h3>Type Mismatch (3 issues)</h3>
+      <div class='error'>
+        <p><strong>microkernel\src\core\boot.rs:81</strong> - ERROR
+ [E0308]
+</p>
+        <p>arguments to this function are incorrect</p>
+        <div class='suggestion'><strong>Solution:</strong> AI suggestion unavailable. Check your Gemini API key.</div>
+      </div>
+      <div class='error'>
+        <p><strong>microkernel\src\trust\evaluation.rs:369</strong> - ERROR
+ [E0308]
+</p>
+        <p>mismatched types</p>
+        <div class='suggestion'><strong>Solution:</strong> AI suggestion unavailable. Check your Gemini API key.</div>
+      </div>
+      <div class='error'>
+        <p><strong>microkernel\src\trust\mod.rs:37</strong> - ERROR
+ [E0308]
+</p>
+        <p>mismatched types</p>
+        <div class='suggestion'><strong>Solution:</strong> AI suggestion unavailable. Check your Gemini API key.</div>
+      </div>
+      <h3>Trait Bound (1 issues)</h3>
+      <div class='error'>
+        <p><strong>microkernel\src\execution\wasm.rs:57</strong> - ERROR
+ [E0277]
+</p>
+        <p>`Module` doesn't implement `std::fmt::Debug`</p>
+        <div class='suggestion'><strong>Solution:</strong> AI suggestion unavailable. Check your Gemini API key.</div>
+      </div>
+    </div>
+  </div>
+  <script>
+    function switchTab(tabId) {
+      // Hide all tabs
+      document.querySelectorAll('.tab-content').forEach(tab => {
+        tab.classList.remove('active');
+      });
+      document.querySelectorAll('.tab').forEach(tab => {
+        tab.classList.remove('active');
+      });
+
+      // Show selected tab
+      document.getElementById(tabId).classList.add('active');
+      document.querySelector(`.tab[onclick="switchTab('${tabId}')"]`).classList.add('active');
+    }
+  </script>
+</body>
+</html>

@@ -1,0 +1,229 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="1200" height="900" viewBox="0 0 1200 900">
+  <!-- Styles -->
+  <style>
+    .module { fill: #2c3e50; stroke: #34495e; stroke-width: 2; }
+    .submodule { fill: #3498db; stroke: #2980b9; stroke-width: 2; }
+    .common-module { fill: #27ae60; stroke: #219653; stroke-width: 2; }
+    .connection { stroke: #7f8c8d; stroke-width: 2; marker-end: url(#arrowhead); }
+    .data-flow { stroke: #e74c3c; stroke-width: 2; stroke-dasharray: 5,5; marker-end: url(#arrowhead); }
+    .trust-flow { stroke: #f39c12; stroke-width: 2; marker-end: url(#arrowhead); }
+    .module-title { font-family: Arial; font-size: 16px; fill: white; font-weight: bold; }
+    .submodule-title { font-family: Arial; font-size: 12px; fill: white; }
+    .label { font-family: Arial; font-size: 12px; fill: #34495e; }
+    .system-boundary { fill: none; stroke: #95a5a6; stroke-width: 2; stroke-dasharray: 10,5; }
+    .header { font-family: Arial; font-size: 24px; fill: #2c3e50; font-weight: bold; }
+    .subheader { font-family: Arial; font-size: 18px; fill: #7f8c8d; }
+  </style>
+  
+  <!-- Markers -->
+  <defs>
+    <marker id="arrowhead" markerWidth="10" markerHeight="7" refX="9" refY="3.5" orient="auto">
+      <polygon points="0 0, 10 3.5, 0 7" fill="#7f8c8d" />
+    </marker>
+  </defs>
+  
+  <!-- Title -->
+  <text x="600" y="40" text-anchor="middle" class="header">ForgeOne System Architecture</text>
+  <text x="600" y="70" text-anchor="middle" class="subheader">Zero Trust, Self-Aware Container Platform</text>
+  
+  <!-- System Boundary -->
+  <rect x="50" y="100" width="1100" height="750" rx="20" ry="20" class="system-boundary" />
+  
+  <!-- Common Module -->
+  <g>
+    <rect x="100" y="150" width="1000" height="120" rx="10" ry="10" class="common-module" />
+    <text x="600" y="180" text-anchor="middle" class="module-title">Common Module</text>
+    
+    <!-- Common Submodules -->
+    <rect x="120" y="200" width="100" height="50" rx="5" ry="5" class="submodule" />
+    <text x="170" y="230" text-anchor="middle" class="submodule-title">Identity</text>
+    
+    <rect x="230" y="200" width="100" height="50" rx="5" ry="5" class="submodule" />
+    <text x="280" y="230" text-anchor="middle" class="submodule-title">Trust</text>
+    
+    <rect x="340" y="200" width="100" height="50" rx="5" ry="5" class="submodule" />
+    <text x="390" y="230" text-anchor="middle" class="submodule-title">Error</text>
+    
+    <rect x="450" y="200" width="100" height="50" rx="5" ry="5" class="submodule" />
+    <text x="500" y="230" text-anchor="middle" class="submodule-title">Policy</text>
+    
+    <rect x="560" y="200" width="100" height="50" rx="5" ry="5" class="submodule" />
+    <text x="610" y="230" text-anchor="middle" class="submodule-title">Telemetry</text>
+    
+    <rect x="670" y="200" width="100" height="50" rx="5" ry="5" class="submodule" />
+    <text x="720" y="230" text-anchor="middle" class="submodule-title">DB</text>
+    
+    <rect x="780" y="200" width="100" height="50" rx="5" ry="5" class="submodule" />
+    <text x="830" y="230" text-anchor="middle" class="submodule-title">Crypto</text>
+    
+    <rect x="890" y="200" width="100" height="50" rx="5" ry="5" class="submodule" />
+    <text x="940" y="230" text-anchor="middle" class="submodule-title">Audit</text>
+  </g>
+  
+  <!-- Microkernel Module -->
+  <g>
+    <!-- Core Module -->
+    <rect x="100" y="300" width="300" height="200" rx="10" ry="10" class="module" />
+    <text x="250" y="330" text-anchor="middle" class="module-title">Core Module</text>
+    
+    <rect x="120" y="350" width="80" height="40" rx="5" ry="5" class="submodule" />
+    <text x="160" y="375" text-anchor="middle" class="submodule-title">Boot</text>
+    
+    <rect x="210" y="350" width="80" height="40" rx="5" ry="5" class="submodule" />
+    <text x="250" y="375" text-anchor="middle" class="submodule-title">Runtime</text>
+    
+    <rect x="300" y="350" width="80" height="40" rx="5" ry="5" class="submodule" />
+    <text x="340" y="375" text-anchor="middle" class="submodule-title">Scheduler</text>
+    
+    <!-- Trust Module -->
+    <rect x="450" y="300" width="300" height="200" rx="10" ry="10" class="module" />
+    <text x="600" y="330" text-anchor="middle" class="module-title">Trust Module</text>
+    
+    <rect x="470" y="350" width="80" height="40" rx="5" ry="5" class="submodule" />
+    <text x="510" y="375" text-anchor="middle" class="submodule-title">ZTA Policy</text>
+    
+    <rect x="560" y="350" width="80" height="40" rx="5" ry="5" class="submodule" />
+    <text x="600" y="375" text-anchor="middle" class="submodule-title">Syscall Enforcer</text>
+    
+    <rect x="650" y="350" width="80" height="40" rx="5" ry="5" class="submodule" />
+    <text x="690" y="375" text-anchor="middle" class="submodule-title">Redzone</text>
+    
+    <rect x="470" y="400" width="80" height="40" rx="5" ry="5" class="submodule" />
+    <text x="510" y="425" text-anchor="middle" class="submodule-title">Attestation</text>
+    
+    <rect x="560" y="400" width="80" height="40" rx="5" ry="5" class="submodule" />
+    <text x="600" y="425" text-anchor="middle" class="submodule-title">Evaluation</text>
+    
+    <!-- Execution Module -->
+    <rect x="800" y="300" width="300" height="200" rx="10" ry="10" class="module" />
+    <text x="950" y="330" text-anchor="middle" class="module-title">Execution Module</text>
+    
+    <rect x="820" y="350" width="80" height="40" rx="5" ry="5" class="submodule" />
+    <text x="860" y="375" text-anchor="middle" class="submodule-title">Syscall</text>
+    
+    <rect x="910" y="350" width="80" height="40" rx="5" ry="5" class="submodule" />
+    <text x="950" y="375" text-anchor="middle" class="submodule-title">Container</text>
+    
+    <rect x="1000" y="350" width="80" height="40" rx="5" ry="5" class="submodule" />
+    <text x="1040" y="375" text-anchor="middle" class="submodule-title">WASM Host</text>
+    
+    <!-- Observer Module -->
+    <rect x="100" y="530" width="300" height="150" rx="10" ry="10" class="module" />
+    <text x="250" y="560" text-anchor="middle" class="module-title">Observer Module</text>
+    
+    <rect x="120" y="580" width="80" height="40" rx="5" ry="5" class="submodule" />
+    <text x="160" y="605" text-anchor="middle" class="submodule-title">Trace</text>
+    
+    <rect x="210" y="580" width="80" height="40" rx="5" ry="5" class="submodule" />
+    <text x="250" y="605" text-anchor="middle" class="submodule-title">Forensic</text>
+    
+    <rect x="300" y="580" width="80" height="40" rx="5" ry="5" class="submodule" />
+    <text x="340" y="605" text-anchor="middle" class="submodule-title">Snapshot</text>
+    
+    <!-- Crypto Module -->
+    <rect x="450" y="530" width="300" height="150" rx="10" ry="10" class="module" />
+    <text x="600" y="560" text-anchor="middle" class="module-title">Crypto Module</text>
+    
+    <rect x="470" y="580" width="120" height="40" rx="5" ry="5" class="submodule" />
+    <text x="530" y="605" text-anchor="middle" class="submodule-title">Signature</text>
+    
+    <rect x="610" y="580" width="120" height="40" rx="5" ry="5" class="submodule" />
+    <text x="670" y="605" text-anchor="middle" class="submodule-title">ForgePkg</text>
+    
+    <!-- Diagnostics Module -->
+    <rect x="800" y="530" width="300" height="150" rx="10" ry="10" class="module" />
+    <text x="950" y="560" text-anchor="middle" class="module-title">Diagnostics Module</text>
+    
+    <rect x="820" y="580" width="120" height="40" rx="5" ry="5" class="submodule" />
+    <text x="880" y="605" text-anchor="middle" class="submodule-title">Self-Test</text>
+    
+    <rect x="960" y="580" width="120" height="40" rx="5" ry="5" class="submodule" />
+    <text x="1020" y="605" text-anchor="middle" class="submodule-title">Anomaly</text>
+    
+    <!-- Config & Interface Modules -->
+    <rect x="100" y="710" width="500" height="120" rx="10" ry="10" class="module" />
+    <text x="350" y="740" text-anchor="middle" class="module-title">Config Module</text>
+    
+    <rect x="120" y="760" width="460" height="40" rx="5" ry="5" class="submodule" />
+    <text x="350" y="785" text-anchor="middle" class="submodule-title">Runtime Configuration</text>
+    
+    <rect x="650" y="710" width="450" height="120" rx="10" ry="10" class="module" />
+    <text x="875" y="740" text-anchor="middle" class="module-title">Interface Module</text>
+    
+    <rect x="670" y="760" width="200" height="40" rx="5" ry="5" class="submodule" />
+    <text x="770" y="785" text-anchor="middle" class="submodule-title">API</text>
+    
+    <rect x="880" y="760" width="200" height="40" rx="5" ry="5" class="submodule" />
+    <text x="980" y="785" text-anchor="middle" class="submodule-title">Prelude</text>
+  </g>
+  
+  <!-- Connections -->
+  <!-- Common to Microkernel -->
+  <line x1="600" y1="270" x2="600" y2="300" class="connection" />
+  
+  <!-- Core to Trust -->
+  <line x1="400" y1="400" x2="450" y2="400" class="connection" />
+  
+  <!-- Trust to Execution -->
+  <line x1="750" y1="400" x2="800" y2="400" class="connection" />
+  
+  <!-- Core to Observer -->
+  <line x1="250" y1="500" x2="250" y2="530" class="connection" />
+  
+  <!-- Trust to Observer -->
+  <line x1="600" y1="500" x2="250" y2="530" class="connection" />
+  
+  <!-- Execution to Observer -->
+  <line x1="950" y1="500" x2="250" y2="530" class="connection" />
+  
+  <!-- Core to Crypto -->
+  <line x1="250" y1="500" x2="600" y2="530" class="connection" />
+  
+  <!-- Trust to Crypto -->
+  <line x1="600" y1="500" x2="600" y2="530" class="connection" />
+  
+  <!-- Execution to Crypto -->
+  <line x1="950" y1="500" x2="600" y2="530" class="connection" />
+  
+  <!-- Core to Diagnostics -->
+  <line x1="250" y1="500" x2="950" y2="530" class="connection" />
+  
+  <!-- Trust to Diagnostics -->
+  <line x1="600" y1="500" x2="950" y2="530" class="connection" />
+  
+  <!-- Execution to Diagnostics -->
+  <line x1="950" y1="500" x2="950" y2="530" class="connection" />
+  
+  <!-- Observer to Config -->
+  <line x1="250" y1="680" x2="350" y2="710" class="connection" />
+  
+  <!-- Crypto to Config -->
+  <line x1="600" y1="680" x2="350" y2="710" class="connection" />
+  
+  <!-- Diagnostics to Config -->
+  <line x1="950" y1="680" x2="350" y2="710" class="connection" />
+  
+  <!-- Observer to Interface -->
+  <line x1="250" y1="680" x2="875" y2="710" class="connection" />
+  
+  <!-- Crypto to Interface -->
+  <line x1="600" y1="680" x2="875" y2="710" class="connection" />
+  
+  <!-- Diagnostics to Interface -->
+  <line x1="950" y1="680" x2="875" y2="710" class="connection" />
+  
+  <!-- Trust Flows -->
+  <path d="M 170 250 C 170 400 510 350 510 350" class="trust-flow" />
+  <path d="M 280 250 C 280 380 600 350 600 350" class="trust-flow" />
+  
+  <!-- Data Flows -->
+  <path d="M 610 250 C 610 500 160 580 160 580" class="data-flow" />
+  <path d="M 830 250 C 830 500 530 580 530 580" class="data-flow" />
+  <path d="M 940 250 C 940 500 880 580 880 580" class="data-flow" />
+  
+  <!-- Key Features -->
+  <g>
+    <rect x="50" y="850" width="1100" height="30" fill="none" />
+    <text x="600" y="870" text-anchor="middle" class="subheader">Key Features: Zero Trust Architecture | Self-Awareness | Conscious Span DNA | Trusted Federation | Zero-Trust Red Zones</text>
+  </g>
+</svg>

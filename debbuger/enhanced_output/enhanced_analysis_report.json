@@ -1,0 +1,2263 @@
+{
+  "metadata": {
+    "project_root": "..",
+    "log_file": "error.log",
+    "analysis_timestamp": 1751209302.514287,
+    "total_files_analyzed": 112,
+    "total_symbols_found": 3965
+  },
+  "project_structure": {
+    "files": {
+      "..\\src\\lib.rs": {
+        "symbols": 4,
+        "imports": 4,
+        "dependencies": [
+          "std",
+          "futures",
+          "docker",
+          "detection",
+          "monitoring",
+          "api",
+          "security",
+          "plugins",
+          "agents",
+          "tracing",
+          "environments",
+          "anyhow",
+          "utils",
+          "config",
+          "templates",
+          "directories"
+        ]
+      },
+      "..\\src\\main.rs": {
+        "symbols": 8,
+        "imports": 17,
+        "dependencies": [
+          "distributed_tracer",
+          "api",
+          "security",
+          "plugins",
+          "tracing",
+          "uuid",
+          "monitoring",
+          "dotenv",
+          "detection",
+          "crate",
+          "anyhow",
+          "core",
+          "storage",
+          "config",
+          "performance_predictor",
+          "std",
+          "docker",
+          "environments",
+          "clap",
+          "agents",
+          "templates"
+        ]
+      },
+      "..\\tests\\integration_tests.rs": {
+        "symbols": 1,
+        "imports": 9,
+        "dependencies": [
+          "tokio",
+          "std",
+          "super",
+          "anyhow",
+          "uuid"
+        ]
+      },
+      "..\\src\\agents\\advanced_agent.rs": {
+        "symbols": 24,
+        "imports": 9,
+        "dependencies": [
+          "tokio",
+          "std",
+          "async_trait",
+          "super",
+          "serde",
+          "anyhow",
+          "uuid"
+        ]
+      },
+      "..\\src\\agents\\mod.rs": {
+        "symbols": 27,
+        "imports": 9,
+        "dependencies": [
+          "tokio",
+          "std",
+          "sha2",
+          "advanced_agent",
+          "super",
+          "serde",
+          "anyhow",
+          "uuid"
+        ]
+      },
+      "..\\src\\ai\\mod.rs": {
+        "symbols": 8,
+        "imports": 7,
+        "dependencies": [
+          "tokio",
+          "std",
+          "super",
+          "serde",
+          "crate",
+          "anyhow"
+        ]
+      },
+      "..\\src\\api\\mod.rs": {
+        "symbols": 24,
+        "imports": 12,
+        "dependencies": [
+          "tokio",
+          "std",
+          "super",
+          "serde",
+          "anyhow",
+          "uuid",
+          "base64",
+          "hyper_tls",
+          "hyper"
+        ]
+      },
+      "..\\src\\api\\server.rs": {
+        "symbols": 16,
+        "imports": 12,
+        "dependencies": [
+          "tokio",
+          "std",
+          "super",
+          "serde",
+          "crate",
+          "tracing",
+          "anyhow",
+          "warp"
+        ]
+      },
+      "..\\src\\cli\\database.rs": {
+        "symbols": 5,
+        "imports": 9,
+        "dependencies": [
+          "std",
+          "super",
+          "console",
+          "dialoguer",
+          "anyhow",
+          "indicatif",
+          "tempfile"
+        ]
+      },
+      "..\\src\\cli\\interactive.rs": {
+        "symbols": 15,
+        "imports": 8,
+        "dependencies": [
+          "std",
+          "super",
+          "crate",
+          "anyhow",
+          "tempfile"
+        ]
+      },
+      "..\\src\\cli\\mod.rs": {
+        "symbols": 31,
+        "imports": 14,
+        "dependencies": [
+          "std",
+          "tempfile",
+          "super",
+          "console",
+          "crate",
+          "dialoguer",
+          "anyhow",
+          "uuid",
+          "indicatif",
+          "clap"
+        ]
+      },
+      "..\\src\\cloud\\mock.rs": {
+        "symbols": 5,
+        "imports": 8,
+        "dependencies": [
+          "tokio",
+          "std",
+          "async_trait",
+          "super",
+          "crate",
+          "anyhow"
+        ]
+      },
+      "..\\src\\config\\devcontainer.rs": {
+        "symbols": 8,
+        "imports": 8,
+        "dependencies": [
+          "tokio",
+          "std",
+          "super",
+          "serde",
+          "anyhow",
+          "tempfile"
+        ]
+      },
+      "..\\src\\config\\environment.rs": {
+        "symbols": 21,
+        "imports": 8,
+        "dependencies": [
+          "std",
+          "super",
+          "serde",
+          "anyhow",
+          "uuid",
+          "tempfile"
+        ]
+      },
+      "..\\src\\config\\mock.rs": {
+        "symbols": 1,
+        "imports": 2,
+        "dependencies": [
+          "crate",
+          "std"
+        ]
+      },
+      "..\\src\\config\\mod.rs": {
+        "symbols": 11,
+        "imports": 8,
+        "dependencies": [
+          "std",
+          "devcontainer",
+          "serde",
+          "self",
+          "anyhow",
+          "parser"
+        ]
+      },
+      "..\\src\\config\\parser.rs": {
+        "symbols": 22,
+        "imports": 7,
+        "dependencies": [
+          "std",
+          "super",
+          "serde",
+          "anyhow",
+          "tempfile"
+        ]
+      },
+      "..\\src\\container\\mod.rs": {
+        "symbols": 4,
+        "imports": 10,
+        "dependencies": [
+          "tokio",
+          "std",
+          "bollard",
+          "serde",
+          "anyhow"
+        ]
+      },
+      "..\\src\\core\\config.rs": {
+        "symbols": 14,
+        "imports": 6,
+        "dependencies": [
+          "std",
+          "super",
+          "serde",
+          "crate",
+          "tempfile"
+        ]
+      },
+      "..\\src\\core\\dependencies.rs": {
+        "symbols": 43,
+        "imports": 6,
+        "dependencies": [
+          "std",
+          "chrono",
+          "super"
+        ]
+      },
+      "..\\src\\core\\error.rs": {
+        "symbols": 1,
+        "imports": 1,
+        "dependencies": [
+          "thiserror"
+        ]
+      },
+      "..\\src\\core\\mod.rs": {
+        "symbols": 7,
+        "imports": 11,
+        "dependencies": [
+          "tokio",
+          "std",
+          "dependencies",
+          "config",
+          "async_trait",
+          "resource",
+          "serde",
+          "anyhow",
+          "types",
+          "error"
+        ]
+      },
+      "..\\src\\core\\resource.rs": {
+        "symbols": 4,
+        "imports": 1,
+        "dependencies": [
+          "std"
+        ]
+      },
+      "..\\src\\core\\types.rs": {
+        "symbols": 4,
+        "imports": 2,
+        "dependencies": [
+          "std",
+          "serde"
+        ]
+      },
+      "..\\src\\database\\mod.rs": {
+        "symbols": 17,
+        "imports": 8,
+        "dependencies": [
+          "std",
+          "super",
+          "serde",
+          "anyhow",
+          "uuid",
+          "tempfile"
+        ]
+      },
+      "..\\src\\detection\\mod.rs": {
+        "symbols": 14,
+        "imports": 7,
+        "dependencies": [
+          "std",
+          "ignore",
+          "super",
+          "serde",
+          "anyhow",
+          "tempfile"
+        ]
+      },
+      "..\\src\\docker\\mod.rs": {
+        "symbols": 3,
+        "imports": 7,
+        "dependencies": [
+          "tokio",
+          "bollard",
+          "super",
+          "crate",
+          "anyhow"
+        ]
+      },
+      "..\\src\\environments\\devcontainer.rs": {
+        "symbols": 7,
+        "imports": 2,
+        "dependencies": [
+          "std",
+          "serde"
+        ]
+      },
+      "..\\src\\environments\\mod.rs": {
+        "symbols": 12,
+        "imports": 10,
+        "dependencies": [
+          "tokio",
+          "std",
+          "serde",
+          "crate",
+          "anyhow",
+          "uuid"
+        ]
+      },
+      "..\\src\\environments\\port_forward.rs": {
+        "symbols": 13,
+        "imports": 17,
+        "dependencies": [
+          "tokio",
+          "std",
+          "bollard",
+          "serde",
+          "crate",
+          "anyhow",
+          "hyper"
+        ]
+      },
+      "..\\src\\ml\\mod.rs": {
+        "symbols": 0,
+        "imports": 1,
+        "dependencies": [
+          "performance_predictor"
+        ]
+      },
+      "..\\src\\ml\\performance_predictor.rs": {
+        "symbols": 21,
+        "imports": 7,
+        "dependencies": [
+          "std",
+          "ndarray",
+          "super",
+          "serde",
+          "linfa",
+          "anyhow",
+          "linfa_linear"
+        ]
+      },
+      "..\\src\\ml\\resource_optimizer.rs": {
+        "symbols": 9,
+        "imports": 8,
+        "dependencies": [
+          "std",
+          "async_trait",
+          "super",
+          "serde",
+          "crate",
+          "anyhow",
+          "tempfile"
+        ]
+      },
+      "..\\src\\monitoring\\telemetry.rs": {
+        "symbols": 32,
+        "imports": 15,
+        "dependencies": [
+          "metrics",
+          "tokio",
+          "std",
+          "sysinfo",
+          "super",
+          "serde",
+          "tracing",
+          "anyhow",
+          "tempfile",
+          "chrono"
+        ]
+      },
+      "..\\src\\network\\port_forwarding.rs": {
+        "symbols": 10,
+        "imports": 17,
+        "dependencies": [
+          "tokio",
+          "std",
+          "rustls",
+          "super",
+          "serde",
+          "anyhow",
+          "uuid",
+          "rustls_pemfile",
+          "hyper"
+        ]
+      },
+      "..\\src\\orchestration\\docker.rs": {
+        "symbols": 12,
+        "imports": 10,
+        "dependencies": [
+          "tokio",
+          "std",
+          "super",
+          "serde",
+          "anyhow",
+          "uuid",
+          "tempfile"
+        ]
+      },
+      "..\\src\\orchestration\\kubernetes.rs": {
+        "symbols": 7,
+        "imports": 11,
+        "dependencies": [
+          "tokio",
+          "std",
+          "super",
+          "serde",
+          "k8s_openapi",
+          "anyhow",
+          "tempfile"
+        ]
+      },
+      "..\\src\\orchestration\\port_forwarding.rs": {
+        "symbols": 7,
+        "imports": 12,
+        "dependencies": [
+          "tokio",
+          "std",
+          "super",
+          "serde",
+          "anyhow",
+          "uuid",
+          "hyper_tls"
+        ]
+      },
+      "..\\src\\plugins\\mod.rs": {
+        "symbols": 51,
+        "imports": 12,
+        "dependencies": [
+          "std",
+          "async_trait",
+          "super",
+          "serde",
+          "anyhow",
+          "uuid",
+          "tempfile"
+        ]
+      },
+      "..\\src\\security\\access_control.rs": {
+        "symbols": 25,
+        "imports": 10,
+        "dependencies": [
+          "rand",
+          "super",
+          "serde",
+          "crate",
+          "anyhow",
+          "uuid",
+          "tempfile",
+          "chrono"
+        ]
+      },
+      "..\\src\\security\\audit.rs": {
+        "symbols": 10,
+        "imports": 9,
+        "dependencies": [
+          "std",
+          "super",
+          "serde",
+          "uuid",
+          "tempfile",
+          "chrono"
+        ]
+      },
+      "..\\src\\security\\base64.rs": {
+        "symbols": 6,
+        "imports": 1,
+        "dependencies": [
+          "super"
+        ]
+      },
+      "..\\src\\security\\cloud.rs": {
+        "symbols": 13,
+        "imports": 3,
+        "dependencies": [
+          "std",
+          "uuid",
+          "serde"
+        ]
+      },
+      "..\\src\\security\\cloud_secret_access_control.rs": {
+        "symbols": 21,
+        "imports": 11,
+        "dependencies": [
+          "tokio",
+          "std",
+          "async_trait",
+          "super",
+          "serde",
+          "anyhow",
+          "uuid",
+          "chrono"
+        ]
+      },
+      "..\\src\\security\\cloud_sync.rs": {
+        "symbols": 33,
+        "imports": 16,
+        "dependencies": [
+          "rand",
+          "std",
+          "ipnetwork",
+          "reqwest",
+          "maxminddb",
+          "log",
+          "super",
+          "serde",
+          "anyhow",
+          "uuid",
+          "chrono"
+        ]
+      },
+      "..\\src\\security\\credential_vault.rs": {
+        "symbols": 20,
+        "imports": 11,
+        "dependencies": [
+          "std",
+          "super",
+          "serde",
+          "aes_gcm",
+          "anyhow",
+          "uuid",
+          "tempfile",
+          "base64"
+        ]
+      },
+      "..\\src\\security\\email.rs": {
+        "symbols": 14,
+        "imports": 6,
+        "dependencies": [
+          "std",
+          "super",
+          "anyhow",
+          "tempfile",
+          "lettre"
+        ]
+      },
+      "..\\src\\security\\encryption.rs": {
+        "symbols": 5,
+        "imports": 2,
+        "dependencies": [
+          "async_trait",
+          "anyhow"
+        ]
+      },
+      "..\\src\\security\\encryption_provider.rs": {
+        "symbols": 5,
+        "imports": 6,
+        "dependencies": [
+          "std",
+          "async_trait",
+          "super",
+          "crate",
+          "anyhow"
+        ]
+      },
+      "..\\src\\security\\geolocation.rs": {
+        "symbols": 11,
+        "imports": 1,
+        "dependencies": [
+          "anyhow"
+        ]
+      },
+      "..\\src\\security\\geolocation_inner.rs": {
+        "symbols": 29,
+        "imports": 12,
+        "dependencies": [
+          "std",
+          "thiserror",
+          "async_trait",
+          "maxminddb",
+          "super",
+          "serde",
+          "anyhow"
+        ]
+      },
+      "..\\src\\security\\geolocation_unused.rs": {
+        "symbols": 22,
+        "imports": 7,
+        "dependencies": [
+          "std",
+          "thiserror",
+          "async_trait",
+          "super",
+          "serde"
+        ]
+      },
+      "..\\src\\security\\mfa.rs": {
+        "symbols": 11,
+        "imports": 6,
+        "dependencies": [
+          "rand",
+          "std",
+          "super",
+          "serde"
+        ]
+      },
+      "..\\src\\security\\mod.rs": {
+        "symbols": 23,
+        "imports": 14,
+        "dependencies": [
+          "std",
+          "encryption_provider",
+          "traits",
+          "service",
+          "email",
+          "serde",
+          "audit",
+          "anyhow",
+          "uuid",
+          "totp",
+          "utils",
+          "config",
+          "cloud_providers",
+          "prelude",
+          "random",
+          "cloud_sync"
+        ]
+      },
+      "..\\src\\security\\multi_region_sync.rs": {
+        "symbols": 15,
+        "imports": 10,
+        "dependencies": [
+          "tokio",
+          "std",
+          "async_trait",
+          "super",
+          "serde",
+          "anyhow",
+          "uuid",
+          "tempfile"
+        ]
+      },
+      "..\\src\\security\\prelude.rs": {
+        "symbols": 29,
+        "imports": 11,
+        "dependencies": [
+          "rand",
+          "tokio",
+          "std",
+          "async_trait",
+          "serde",
+          "anyhow",
+          "uuid",
+          "secrecy",
+          "base64",
+          "chrono"
+        ]
+      },
+      "..\\src\\security\\recovery.rs": {
+        "symbols": 21,
+        "imports": 15,
+        "dependencies": [
+          "rand",
+          "std",
+          "super",
+          "serde",
+          "anyhow",
+          "uuid",
+          "tempfile",
+          "secrecy",
+          "chrono"
+        ]
+      },
+      "..\\src\\security\\secrets.rs": {
+        "symbols": 2,
+        "imports": 16,
+        "dependencies": [
+          "tokio",
+          "std",
+          "dotenv",
+          "rand",
+          "super",
+          "serde",
+          "serde_json",
+          "audit",
+          "anyhow",
+          "tempfile",
+          "secrecy",
+          "encryption",
+          "base64"
+        ]
+      },
+      "..\\src\\security\\secrets_manager.rs": {
+        "symbols": 14,
+        "imports": 13,
+        "dependencies": [
+          "std",
+          "ring",
+          "super",
+          "serde",
+          "aes_gcm",
+          "anyhow",
+          "uuid",
+          "tempfile",
+          "base64"
+        ]
+      },
+      "..\\src\\security\\service.rs": {
+        "symbols": 14,
+        "imports": 7,
+        "dependencies": [
+          "crate",
+          "std",
+          "anyhow",
+          "uuid"
+        ]
+      },
+      "..\\src\\security\\session.rs": {
+        "symbols": 10,
+        "imports": 10,
+        "dependencies": [
+          "tokio",
+          "std",
+          "super",
+          "serde",
+          "crate",
+          "anyhow",
+          "uuid",
+          "chrono"
+        ]
+      },
+      "..\\src\\security\\session_provider.rs": {
+        "symbols": 6,
+        "imports": 9,
+        "dependencies": [
+          "tokio",
+          "std",
+          "async_trait",
+          "super",
+          "crate",
+          "anyhow"
+        ]
+      },
+      "..\\src\\security\\totp.rs": {
+        "symbols": 17,
+        "imports": 10,
+        "dependencies": [
+          "rand",
+          "std",
+          "qrcode",
+          "totp_rs",
+          "super",
+          "serde",
+          "base32",
+          "anyhow",
+          "tempfile",
+          "base64"
+        ]
+      },
+      "..\\src\\security\\traits.rs": {
+        "symbols": 7,
+        "imports": 5,
+        "dependencies": [
+          "std",
+          "anyhow",
+          "serde"
+        ]
+      },
+      "..\\src\\security\\user.rs": {
+        "symbols": 17,
+        "imports": 4,
+        "dependencies": [
+          "super",
+          "std",
+          "uuid",
+          "serde"
+        ]
+      },
+      "..\\src\\settings\\mod.rs": {
+        "symbols": 12,
+        "imports": 5,
+        "dependencies": [
+          "crate",
+          "std",
+          "anyhow",
+          "serde"
+        ]
+      },
+      "..\\src\\storage\\mod.rs": {
+        "symbols": 20,
+        "imports": 25,
+        "dependencies": [
+          "tokio",
+          "std",
+          "sqlx",
+          "async_trait",
+          "super",
+          "serde",
+          "crate",
+          "anyhow",
+          "tempfile",
+          "chrono"
+        ]
+      },
+      "..\\src\\templates\\mod.rs": {
+        "symbols": 16,
+        "imports": 7,
+        "dependencies": [
+          "tokio",
+          "std",
+          "super",
+          "serde",
+          "anyhow",
+          "tempfile"
+        ]
+      },
+      "..\\src\\tracing\\distributed_tracer.rs": {
+        "symbols": 19,
+        "imports": 7,
+        "dependencies": [
+          "std",
+          "super",
+          "serde",
+          "anyhow",
+          "uuid"
+        ]
+      },
+      "..\\src\\tracing\\mod.rs": {
+        "symbols": 0,
+        "imports": 1,
+        "dependencies": [
+          "distributed_tracer"
+        ]
+      },
+      "..\\src\\utils\\auth.rs": {
+        "symbols": 5,
+        "imports": 6,
+        "dependencies": [
+          "tokio",
+          "std",
+          "crate"
+        ]
+      },
+      "..\\src\\utils\\base64_impl.rs": {
+        "symbols": 2,
+        "imports": 0,
+        "dependencies": []
+      },
+      "..\\src\\utils\\encryption.rs": {
+        "symbols": 11,
+        "imports": 4,
+        "dependencies": [
+          "crate",
+          "std",
+          "super"
+        ]
+      },
+      "..\\src\\utils\\file_manager.rs": {
+        "symbols": 7,
+        "imports": 10,
+        "dependencies": [
+          "tokio",
+          "std",
+          "lazy_static",
+          "super"
+        ]
+      },
+      "..\\src\\utils\\mod.rs": {
+        "symbols": 0,
+        "imports": 13,
+        "dependencies": [
+          "std",
+          "super",
+          "uuid_impl",
+          "uuid",
+          "secrecy",
+          "base64_impl",
+          "encryption",
+          "random",
+          "time"
+        ]
+      },
+      "..\\src\\utils\\password.rs": {
+        "symbols": 10,
+        "imports": 5,
+        "dependencies": [
+          "crate",
+          "std",
+          "base64",
+          "super"
+        ]
+      },
+      "..\\src\\utils\\random.rs": {
+        "symbols": 21,
+        "imports": 5,
+        "dependencies": [
+          "std",
+          "super"
+        ]
+      },
+      "..\\src\\utils\\rate_limit.rs": {
+        "symbols": 3,
+        "imports": 6,
+        "dependencies": [
+          "tokio",
+          "std",
+          "super"
+        ]
+      },
+      "..\\src\\utils\\secrecy.rs": {
+        "symbols": 14,
+        "imports": 4,
+        "dependencies": [
+          "std",
+          "super",
+          "serde"
+        ]
+      },
+      "..\\src\\utils\\serialization.rs": {
+        "symbols": 9,
+        "imports": 3,
+        "dependencies": [
+          "crate",
+          "std",
+          "serde"
+        ]
+      },
+      "..\\src\\utils\\storage.rs": {
+        "symbols": 8,
+        "imports": 4,
+        "dependencies": [
+          "std",
+          "serde"
+        ]
+      },
+      "..\\src\\utils\\time.rs": {
+        "symbols": 14,
+        "imports": 1,
+        "dependencies": [
+          "std"
+        ]
+      },
+      "..\\src\\utils\\token.rs": {
+        "symbols": 7,
+        "imports": 3,
+        "dependencies": [
+          "crate",
+          "std",
+          "serde"
+        ]
+      },
+      "..\\src\\utils\\uuid.rs": {
+        "symbols": 11,
+        "imports": 6,
+        "dependencies": [
+          "std",
+          "super"
+        ]
+      },
+      "..\\src\\utils\\uuid_impl.rs": {
+        "symbols": 8,
+        "imports": 0,
+        "dependencies": []
+      },
+      "..\\src\\security\\access_control\\session_manager.rs": {
+        "symbols": 3,
+        "imports": 6,
+        "dependencies": [
+          "crate",
+          "std",
+          "anyhow",
+          "uuid"
+        ]
+      },
+      "..\\src\\security\\auth\\mod.rs": {
+        "symbols": 10,
+        "imports": 7,
+        "dependencies": [
+          "crate",
+          "std",
+          "anyhow"
+        ]
+      },
+      "..\\src\\security\\cloud_providers\\mod.rs": {
+        "symbols": 40,
+        "imports": 4,
+        "dependencies": [
+          "crate",
+          "std",
+          "anyhow"
+        ]
+      },
+      "..\\src\\security\\cloud_providers_impl\\aws.rs": {
+        "symbols": 10,
+        "imports": 14,
+        "dependencies": [
+          "std",
+          "futures",
+          "async_trait",
+          "aws_sdk_secretsmanager",
+          "aws_config",
+          "super",
+          "crate",
+          "anyhow",
+          "tempfile"
+        ]
+      },
+      "..\\src\\security\\cloud_providers_impl\\azure.rs": {
+        "symbols": 10,
+        "imports": 6,
+        "dependencies": [
+          "azure_key_vault",
+          "futures",
+          "azure_identity",
+          "serde",
+          "crate",
+          "anyhow"
+        ]
+      },
+      "..\\src\\security\\cloud_providers_impl\\gcp.rs": {
+        "symbols": 11,
+        "imports": 7,
+        "dependencies": [
+          "std",
+          "futures",
+          "serde",
+          "crate",
+          "anyhow",
+          "base64"
+        ]
+      },
+      "..\\src\\security\\cloud_providers_impl\\mock.rs": {
+        "symbols": 9,
+        "imports": 5,
+        "dependencies": [
+          "crate",
+          "std",
+          "futures",
+          "anyhow"
+        ]
+      },
+      "..\\src\\security\\cloud_providers_impl\\mod.rs": {
+        "symbols": 20,
+        "imports": 13,
+        "dependencies": [
+          "rand",
+          "std",
+          "traits",
+          "aws",
+          "gcp",
+          "serde",
+          "super",
+          "chrono",
+          "anyhow",
+          "tempfile",
+          "base64",
+          "azure"
+        ]
+      },
+      "..\\src\\security\\cloud_providers_impl\\traits.rs": {
+        "symbols": 3,
+        "imports": 3,
+        "dependencies": [
+          "std",
+          "futures",
+          "anyhow"
+        ]
+      },
+      "..\\src\\security\\config\\mod.rs": {
+        "symbols": 22,
+        "imports": 6,
+        "dependencies": [
+          "std",
+          "anyhow",
+          "serde"
+        ]
+      },
+      "..\\src\\security\\encryption\\mod.rs": {
+        "symbols": 4,
+        "imports": 9,
+        "dependencies": [
+          "tokio",
+          "std",
+          "secret_manager",
+          "service",
+          "super",
+          "anyhow"
+        ]
+      },
+      "..\\src\\security\\encryption\\secret_manager.rs": {
+        "symbols": 3,
+        "imports": 3,
+        "dependencies": [
+          "async_trait",
+          "std",
+          "anyhow"
+        ]
+      },
+      "..\\src\\security\\encryption\\service.rs": {
+        "symbols": 3,
+        "imports": 3,
+        "dependencies": [
+          "crate",
+          "std",
+          "anyhow"
+        ]
+      },
+      "..\\src\\security\\platform\\mod.rs": {
+        "symbols": 12,
+        "imports": 4,
+        "dependencies": [
+          "std",
+          "super",
+          "crate",
+          "anyhow",
+          "windows_impl"
+        ]
+      },
+      "..\\src\\security\\platform\\rate_limited.rs": {
+        "symbols": 5,
+        "imports": 8,
+        "dependencies": [
+          "tokio",
+          "std",
+          "super",
+          "nonzero_ext",
+          "governor"
+        ]
+      },
+      "..\\src\\security\\platform\\unix.rs": {
+        "symbols": 4,
+        "imports": 5,
+        "dependencies": [
+          "async_trait",
+          "log",
+          "super",
+          "crate",
+          "anyhow"
+        ]
+      },
+      "..\\src\\security\\platform\\windows.rs": {
+        "symbols": 4,
+        "imports": 5,
+        "dependencies": [
+          "async_trait",
+          "log",
+          "super",
+          "crate",
+          "anyhow"
+        ]
+      },
+      "..\\src\\security\\platform\\windows_impl.rs": {
+        "symbols": 8,
+        "imports": 8,
+        "dependencies": [
+          "crate",
+          "std",
+          "log",
+          "anyhow"
+        ]
+      },
+      "..\\src\\security\\providers\\aws.rs": {
+        "symbols": 3,
+        "imports": 8,
+        "dependencies": [
+          "aws_sdk_s3",
+          "std",
+          "async_trait",
+          "aws_config",
+          "crate",
+          "anyhow"
+        ]
+      },
+      "..\\src\\security\\providers\\mod.rs": {
+        "symbols": 0,
+        "imports": 1,
+        "dependencies": [
+          "aws"
+        ]
+      },
+      "..\\src\\security\\random\\mod.rs": {
+        "symbols": 7,
+        "imports": 5,
+        "dependencies": [
+          "std"
+        ]
+      },
+      "..\\src\\security\\secrets\\audit.rs": {
+        "symbols": 4,
+        "imports": 2,
+        "dependencies": [
+          "chrono",
+          "serde"
+        ]
+      },
+      "..\\src\\security\\secrets\\encryption.rs": {
+        "symbols": 6,
+        "imports": 7,
+        "dependencies": [
+          "rand",
+          "std",
+          "async_trait",
+          "super",
+          "aes_gcm",
+          "anyhow",
+          "secrecy"
+        ]
+      },
+      "..\\src\\security\\secret_serde\\mod.rs": {
+        "symbols": 11,
+        "imports": 2,
+        "dependencies": [
+          "crate",
+          "serde"
+        ]
+      },
+      "..\\src\\security\\utils\\mod.rs": {
+        "symbols": 21,
+        "imports": 3,
+        "dependencies": [
+          "std",
+          "chrono"
+        ]
+      },
+      "..\\target\\debug\\build\\libsqlite3-sys-f5e4cba5e0ecc7fa\\out\\bindgen.rs": {
+        "symbols": 869,
+        "imports": 0,
+        "dependencies": []
+      },
+      "..\\target\\debug\\build\\typenum-4e45f7be503c3a9e\\out\\tests.rs": {
+        "symbols": 1743,
+        "imports": 3,
+        "dependencies": [
+          "typenum",
+          "core"
+        ]
+      }
+    },
+    "dependency_graph": {
+      "lib": [
+        "monitoring",
+        "std",
+        "futures",
+        "docker",
+        "detection",
+        "config",
+        "api",
+        "security",
+        "plugins",
+        "tracing",
+        "environments",
+        "anyhow",
+        "utils",
+        "agents",
+        "templates",
+        "directories"
+      ],
+      "main": [
+        "distributed_tracer",
+        "api",
+        "security",
+        "plugins",
+        "tracing",
+        "uuid",
+        "monitoring",
+        "dotenv",
+        "detection",
+        "crate",
+        "anyhow",
+        "core",
+        "storage",
+        "config",
+        "performance_predictor",
+        "std",
+        "docker",
+        "environments",
+        "clap",
+        "agents",
+        "templates"
+      ],
+      "integration_tests": [
+        "tokio",
+        "std",
+        "super",
+        "anyhow",
+        "uuid"
+      ],
+      "advanced_agent": [
+        "tokio",
+        "std",
+        "async_trait",
+        "super",
+        "serde",
+        "anyhow",
+        "uuid"
+      ],
+      "mod": [
+        "traits",
+        "email",
+        "distributed_tracer",
+        "resource",
+        "indicatif",
+        "uuid",
+        "types",
+        "cloud_providers",
+        "encryption",
+        "time",
+        "cloud_sync",
+        "windows_impl",
+        "tokio",
+        "rand",
+        "encryption_provider",
+        "service",
+        "super",
+        "crate",
+        "uuid_impl",
+        "anyhow",
+        "utils",
+        "totp",
+        "config",
+        "base64",
+        "hyper_tls",
+        "random",
+        "performance_predictor",
+        "azure",
+        "std",
+        "sha2",
+        "devcontainer",
+        "dependencies",
+        "sqlx",
+        "async_trait",
+        "secret_manager",
+        "parser",
+        "clap",
+        "secrecy",
+        "hyper",
+        "prelude",
+        "chrono",
+        "advanced_agent",
+        "ignore",
+        "bollard",
+        "aws",
+        "gcp",
+        "serde",
+        "console",
+        "dialoguer",
+        "self",
+        "audit",
+        "tempfile",
+        "error",
+        "base64_impl"
+      ],
+      "server": [
+        "tokio",
+        "std",
+        "super",
+        "serde",
+        "crate",
+        "tracing",
+        "anyhow",
+        "warp"
+      ],
+      "database": [
+        "std",
+        "super",
+        "console",
+        "dialoguer",
+        "anyhow",
+        "indicatif",
+        "tempfile"
+      ],
+      "interactive": [
+        "std",
+        "super",
+        "crate",
+        "anyhow",
+        "tempfile"
+      ],
+      "mock": [
+        "tokio",
+        "std",
+        "futures",
+        "async_trait",
+        "super",
+        "crate",
+        "anyhow"
+      ],
+      "devcontainer": [
+        "tokio",
+        "std",
+        "super",
+        "serde",
+        "anyhow",
+        "tempfile"
+      ],
+      "environment": [
+        "std",
+        "super",
+        "serde",
+        "anyhow",
+        "uuid",
+        "tempfile"
+      ],
+      "parser": [
+        "std",
+        "super",
+        "serde",
+        "anyhow",
+        "tempfile"
+      ],
+      "config": [
+        "std",
+        "super",
+        "serde",
+        "crate",
+        "tempfile"
+      ],
+      "dependencies": [
+        "std",
+        "chrono",
+        "super"
+      ],
+      "error": [
+        "thiserror"
+      ],
+      "resource": [
+        "std"
+      ],
+      "types": [
+        "std",
+        "serde"
+      ],
+      "port_forward": [
+        "tokio",
+        "std",
+        "bollard",
+        "serde",
+        "crate",
+        "anyhow",
+        "hyper"
+      ],
+      "performance_predictor": [
+        "std",
+        "ndarray",
+        "super",
+        "serde",
+        "linfa",
+        "anyhow",
+        "linfa_linear"
+      ],
+      "resource_optimizer": [
+        "std",
+        "async_trait",
+        "super",
+        "serde",
+        "crate",
+        "anyhow",
+        "tempfile"
+      ],
+      "telemetry": [
+        "metrics",
+        "tokio",
+        "std",
+        "sysinfo",
+        "super",
+        "serde",
+        "tracing",
+        "anyhow",
+        "tempfile",
+        "chrono"
+      ],
+      "port_forwarding": [
+        "tokio",
+        "std",
+        "rustls",
+        "super",
+        "serde",
+        "anyhow",
+        "uuid",
+        "rustls_pemfile",
+        "hyper",
+        "hyper_tls"
+      ],
+      "docker": [
+        "tokio",
+        "std",
+        "super",
+        "serde",
+        "anyhow",
+        "uuid",
+        "tempfile"
+      ],
+      "kubernetes": [
+        "tokio",
+        "std",
+        "super",
+        "serde",
+        "k8s_openapi",
+        "anyhow",
+        "tempfile"
+      ],
+      "access_control": [
+        "rand",
+        "super",
+        "serde",
+        "crate",
+        "anyhow",
+        "uuid",
+        "tempfile",
+        "chrono"
+      ],
+      "audit": [
+        "std",
+        "super",
+        "serde",
+        "uuid",
+        "tempfile",
+        "chrono"
+      ],
+      "base64": [
+        "super"
+      ],
+      "cloud": [
+        "std",
+        "uuid",
+        "serde"
+      ],
+      "cloud_secret_access_control": [
+        "tokio",
+        "std",
+        "async_trait",
+        "super",
+        "serde",
+        "anyhow",
+        "uuid",
+        "chrono"
+      ],
+      "cloud_sync": [
+        "rand",
+        "std",
+        "ipnetwork",
+        "reqwest",
+        "maxminddb",
+        "log",
+        "super",
+        "serde",
+        "anyhow",
+        "uuid",
+        "chrono"
+      ],
+      "credential_vault": [
+        "std",
+        "super",
+        "serde",
+        "aes_gcm",
+        "anyhow",
+        "uuid",
+        "tempfile",
+        "base64"
+      ],
+      "email": [
+        "std",
+        "super",
+        "anyhow",
+        "tempfile",
+        "lettre"
+      ],
+      "encryption": [
+        "rand",
+        "std",
+        "async_trait",
+        "super",
+        "crate",
+        "aes_gcm",
+        "anyhow",
+        "secrecy"
+      ],
+      "encryption_provider": [
+        "std",
+        "async_trait",
+        "super",
+        "crate",
+        "anyhow"
+      ],
+      "geolocation": [
+        "anyhow"
+      ],
+      "geolocation_inner": [
+        "std",
+        "thiserror",
+        "async_trait",
+        "maxminddb",
+        "super",
+        "serde",
+        "anyhow"
+      ],
+      "geolocation_unused": [
+        "std",
+        "thiserror",
+        "async_trait",
+        "super",
+        "serde"
+      ],
+      "mfa": [
+        "rand",
+        "std",
+        "super",
+        "serde"
+      ],
+      "multi_region_sync": [
+        "tokio",
+        "std",
+        "async_trait",
+        "super",
+        "serde",
+        "anyhow",
+        "uuid",
+        "tempfile"
+      ],
+      "prelude": [
+        "rand",
+        "std",
+        "tokio",
+        "async_trait",
+        "serde",
+        "anyhow",
+        "uuid",
+        "secrecy",
+        "base64",
+        "chrono"
+      ],
+      "recovery": [
+        "rand",
+        "std",
+        "super",
+        "serde",
+        "anyhow",
+        "uuid",
+        "tempfile",
+        "secrecy",
+        "chrono"
+      ],
+      "secrets": [
+        "rand",
+        "tokio",
+        "std",
+        "dotenv",
+        "super",
+        "serde",
+        "serde_json",
+        "audit",
+        "anyhow",
+        "tempfile",
+        "secrecy",
+        "encryption",
+        "base64"
+      ],
+      "secrets_manager": [
+        "std",
+        "ring",
+        "super",
+        "serde",
+        "aes_gcm",
+        "anyhow",
+        "uuid",
+        "tempfile",
+        "base64"
+      ],
+      "service": [
+        "crate",
+        "std",
+        "anyhow",
+        "uuid"
+      ],
+      "session": [
+        "tokio",
+        "std",
+        "super",
+        "serde",
+        "crate",
+        "anyhow",
+        "uuid",
+        "chrono"
+      ],
+      "session_provider": [
+        "tokio",
+        "std",
+        "async_trait",
+        "super",
+        "crate",
+        "anyhow"
+      ],
+      "totp": [
+        "rand",
+        "std",
+        "qrcode",
+        "totp_rs",
+        "super",
+        "serde",
+        "base32",
+        "anyhow",
+        "tempfile",
+        "base64"
+      ],
+      "traits": [
+        "std",
+        "futures",
+        "anyhow",
+        "serde"
+      ],
+      "user": [
+        "std",
+        "uuid",
+        "super",
+        "serde"
+      ],
+      "distributed_tracer": [
+        "std",
+        "super",
+        "serde",
+        "anyhow",
+        "uuid"
+      ],
+      "auth": [
+        "tokio",
+        "std",
+        "crate"
+      ],
+      "file_manager": [
+        "tokio",
+        "std",
+        "lazy_static",
+        "super"
+      ],
+      "password": [
+        "crate",
+        "std",
+        "base64",
+        "super"
+      ],
+      "random": [
+        "std",
+        "super"
+      ],
+      "rate_limit": [
+        "tokio",
+        "std",
+        "super"
+      ],
+      "secrecy": [
+        "std",
+        "super",
+        "serde"
+      ],
+      "serialization": [
+        "crate",
+        "std",
+        "serde"
+      ],
+      "storage": [
+        "std",
+        "serde"
+      ],
+      "time": [
+        "std"
+      ],
+      "token": [
+        "crate",
+        "std",
+        "serde"
+      ],
+      "uuid": [
+        "std",
+        "super"
+      ],
+      "session_manager": [
+        "crate",
+        "std",
+        "anyhow",
+        "uuid"
+      ],
+      "aws": [
+        "aws_sdk_s3",
+        "std",
+        "futures",
+        "async_trait",
+        "aws_sdk_secretsmanager",
+        "aws_config",
+        "super",
+        "crate",
+        "anyhow",
+        "tempfile"
+      ],
+      "azure": [
+        "azure_key_vault",
+        "futures",
+        "azure_identity",
+        "serde",
+        "crate",
+        "anyhow"
+      ],
+      "gcp": [
+        "std",
+        "futures",
+        "serde",
+        "crate",
+        "anyhow",
+        "base64"
+      ],
+      "secret_manager": [
+        "async_trait",
+        "std",
+        "anyhow"
+      ],
+      "rate_limited": [
+        "tokio",
+        "std",
+        "nonzero_ext",
+        "super",
+        "governor"
+      ],
+      "unix": [
+        "async_trait",
+        "log",
+        "super",
+        "crate",
+        "anyhow"
+      ],
+      "windows": [
+        "async_trait",
+        "log",
+        "super",
+        "crate",
+        "anyhow"
+      ],
+      "windows_impl": [
+        "crate",
+        "std",
+        "log",
+        "anyhow"
+      ],
+      "tests": [
+        "typenum",
+        "core"
+      ]
+    },
+    "symbol_distribution": {
+      "function": 2738,
+      "struct": 359,
+      "enum": 82,
+      "trait": 49,
+      "impl": 229
+    }
+  },
+  "error_analysis": {
+    "total_errors": 13,
+    "errors_by_code": {
+      "E0252": 1,
+      "E0117": 4,
+      "Unknown": 1,
+      "E0425": 1,
+      "E0369": 1,
+      "E0061": 2,
+      "E0599": 3
+    },
+    "errors_by_file": {
+      "src\\security\\prelude.rs": 5,
+      "src\\security\\cloud_sync.rs": 6,
+      "src\\templates\\mod.rs": 2
+    },
+    "error_contexts": [
+      {
+        "error_location": {
+          "file_path": "src\\security\\prelude.rs",
+          "line": 60,
+          "column": 5
+        },
+        "error_code": "E0252",
+        "message": "the name `StdDuration` is defined multiple times",
+        "surrounding_code": [],
+        "affected_symbols": [],
+        "dependency_chain": []
+      },
+      {
+        "error_location": {
+          "file_path": "src\\security\\prelude.rs",
+          "line": 99,
+          "column": 1
+        },
+        "error_code": "E0117",
+        "message": "only traits defined in the current crate can be \nimplemented for types defined outside of the crate",
+        "surrounding_code": [],
+        "affected_symbols": [],
+        "dependency_chain": []
+      },
+      {
+        "error_location": {
+          "file_path": "src\\security\\prelude.rs",
+          "line": 106,
+          "column": 1
+        },
+        "error_code": "E0117",
+        "message": "only traits defined in the current crate can be \nimplemented for types defined outside of the crate",
+        "surrounding_code": [],
+        "affected_symbols": [],
+        "dependency_chain": []
+      },
+      {
+        "error_location": {
+          "file_path": "src\\security\\cloud_sync.rs",
+          "line": 715,
+          "column": 24
+        },
+        "error_code": null,
+        "message": "could not compile `forge` (lib) due to 3 previous errors; 98 \nwarnings emitted\nwarning: build failed, waiting for other jobs to finish...\nerror[E0425]: cannot find function `tempdir` in this scope",
+        "surrounding_code": [],
+        "affected_symbols": [],
+        "dependency_chain": []
+      },
+      {
+        "error_location": {
+          "file_path": "src\\security\\cloud_sync.rs",
+          "line": 740,
+          "column": 24
+        },
+        "error_code": "E0425",
+        "message": "cannot find function `tempdir` in this scope",
+        "surrounding_code": [],
+        "affected_symbols": [],
+        "dependency_chain": []
+      },
+      {
+        "error_location": {
+          "file_path": "src\\security\\prelude.rs",
+          "line": 99,
+          "column": 1
+        },
+        "error_code": "E0117",
+        "message": "only traits defined in the current crate can be \nimplemented for types defined outside of the crate",
+        "surrounding_code": [],
+        "affected_symbols": [],
+        "dependency_chain": []
+      },
+      {
+        "error_location": {
+          "file_path": "src\\security\\prelude.rs",
+          "line": 106,
+          "column": 1
+        },
+        "error_code": "E0117",
+        "message": "only traits defined in the current crate can be \nimplemented for types defined outside of the crate",
+        "surrounding_code": [],
+        "affected_symbols": [],
+        "dependency_chain": []
+      },
+      {
+        "error_location": {
+          "file_path": "src\\templates\\mod.rs",
+          "line": 279,
+          "column": 9
+        },
+        "error_code": "E0369",
+        "message": "binary operation `==` cannot be applied to type \n`templates::TemplateType`",
+        "surrounding_code": [],
+        "affected_symbols": [],
+        "dependency_chain": []
+      },
+      {
+        "error_location": {
+          "file_path": "src\\templates\\mod.rs",
+          "line": 292,
+          "column": 9
+        },
+        "error_code": "E0061",
+        "message": "this function takes 3 arguments but 2 arguments were \nsupplied",
+        "surrounding_code": [],
+        "affected_symbols": [],
+        "dependency_chain": []
+      },
+      {
+        "error_location": {
+          "file_path": "src\\security\\cloud_sync.rs",
+          "line": 784,
+          "column": 28
+        },
+        "error_code": "E0061",
+        "message": "this function takes 2 arguments but 0 arguments were \nsupplied",
+        "surrounding_code": [],
+        "affected_symbols": [],
+        "dependency_chain": []
+      },
+      {
+        "error_location": {
+          "file_path": "src\\security\\cloud_sync.rs",
+          "line": 790,
+          "column": 35
+        },
+        "error_code": "E0599",
+        "message": "no method named `validate_geolocation` found for enum \n`std::result::Result` in the current scope",
+        "surrounding_code": [],
+        "affected_symbols": [],
+        "dependency_chain": []
+      },
+      {
+        "error_location": {
+          "file_path": "src\\security\\cloud_sync.rs",
+          "line": 800,
+          "column": 46
+        },
+        "error_code": "E0599",
+        "message": "no method named `validate_geolocation` found for enum \n`std::result::Result` in the current scope",
+        "surrounding_code": [],
+        "affected_symbols": [],
+        "dependency_chain": []
+      },
+      {
+        "error_location": {
+          "file_path": "src\\security\\cloud_sync.rs",
+          "line": 813,
+          "column": 40
+        },
+        "error_code": "E0599",
+        "message": "no function or associated item named `days` found for \nstruct `std::time::Duration` in the current scope",
+        "surrounding_code": [],
+        "affected_symbols": [],
+        "dependency_chain": []
+      }
+    ]
+  },
+  "suggestions": {
+    "total_suggestions": 9,
+    "suggestions_by_type": {
+      "import_missing": 9
+    },
+    "confidence_distribution": {
+      "low": 0,
+      "medium": 9,
+      "high": 0
+    },
+    "all_suggestions": [
+      {
+        "suggestion_type": "import_missing",
+        "target_file": "src\\security\\prelude.rs",
+        "line_range": [
+          60,
+          60
+        ],
+        "original_code": "",
+        "suggested_code": "```rust\nuse std::time::Duration as StdDuration;\n```",
+        "confidence_score": 0.75,
+        "explanation": "The error \"E0252: the name `StdDuration` is defined multiple times\" means that the code imports or defines `StdDuration` in at least two different places.  The compiler cannot resolve which `StdDuration` to use.  This usually happens due to conflicting imports or re-exports.\n\nThe solution provides a concise and unambiguous way to alias `std::time::Duration` as `StdDuration`. This avoids naming conflicts by explicitly stating where the type comes from.  It's good practice to be explicit in imports, especially when dealing with common types that might be re-exported from crates.  This approach resolves the ambiguity, allowing the compiler to correctly identify the intended type.  No changes to the usage of `StdDuration` are needed assuming it is used consistently elsewhere in the code, as this only affects the import.\n\nThis solution prioritizes clarity and maintainability over brevity. A potential alternative could be to rename the conflicting imports to avoid using `StdDuration` altogether; however, this approach is more likely to introduce more changes elsewhere in the codebase. This solution precisely addresses the compiler error without requiring any other changes unless the `std::time::Duration` wasn't already imported.\n\nIf, after applying this fix, the problem persists, then there is a second conflicting definition of `StdDuration` which needs to be addressed similarly.  In that case, you would need to trace all uses of `StdDuration` within the scope to find the second definition and either rename it or use a similarly specific `use` statement for it.",
+        "imports_needed": [
+          "None (Assuming `std::time::Duration` is already imported elsewhere, but under a different name.  If not, then add this line to the relevant `use` statements)"
+        ]
+      },
+      {
+        "suggestion_type": "import_missing",
+        "target_file": "src\\security\\prelude.rs",
+        "line_range": [
+          99,
+          99
+        ],
+        "original_code": "",
+        "suggested_code": "```rust\n// Replace line 99 (and potentially surrounding lines depending on the trait and type) with appropriate code.  The exact solution depends on the specific trait and type involved.  Here are a few possibilities:",
+        "confidence_score": 0.75,
+        "explanation": "The error E0117 \"only traits defined in the current crate can be implemented for types defined outside of the crate\" arises when you try to implement a trait for a type that you don't own.  Rust's ownership system prevents arbitrary code from modifying external types, ensuring type safety and preventing conflicts.\n\nThe solution depends on the specific circumstances:\n\n1. **External Trait, Your Type:** If you are implementing a trait defined *outside* your crate for a type defined *inside* your crate,  you simply need to make sure you've imported the trait correctly using `use`. No other changes should be needed.\n\n\n2. **Your Trait, External Type:** If you're trying to implement a trait defined in *your* crate for a type defined *outside* your crate, it is *generally allowed* provided the external type's definition permits it (e.g., it has an appropriate trait bound).  The error suggests either a missing trait bound on the external type or a conflict with another implementation. You need to examine the definition of the external type and determine what bounds it requires or if another crate is trying to implement the same trait for the same type, causing a conflict.\n\n\n3. **Blanket Implementations:** If you are trying to provide a blanket implementation (implementing a trait for a variety of types), you need to carefully specify the constraints (`where` clause) to ensure the implementation is valid for all the types the trait is implemented for.  You need to add more constraints to the `where` clause to cover all possible cases.\n\nTo diagnose this issue properly, we need to see lines 98-100 of `src\\security\\prelude.rs`,  the definition of the trait being implemented, and the definition of the type.  This context is essential to provide a more accurate and effective solution.",
+        "imports_needed": [
+          "```rust",
+          "use my_external_crate::MyExternalTrait; // Replace `my_external_crate` and `MyExternalTrait` with the actual crate and trait name.",
+          "```"
+        ]
+      },
+      {
+        "suggestion_type": "import_missing",
+        "target_file": "src\\security\\cloud_sync.rs",
+        "line_range": [
+          715,
+          715
+        ],
+        "original_code": "",
+        "suggested_code": "```rust\nuse std::env::temp_dir;\n```",
+        "confidence_score": 0.75,
+        "explanation": "The original code attempts to call a function named `tempdir()` without specifying its origin.  The `tempdir()` function for creating a temporary directory resides within the `std::env` module. The compiler error `E0425: cannot find function `tempdir` in this scope` arises because the compiler cannot locate this function within the current scope.\n\nThe solution adds the necessary `use` statement to import `temp_dir()` from the `std::env` module.  This makes the `temp_dir()` function available for use.  Note that `temp_dir()` is a function, not a method, so it's called directly, not on an instance.  The change on line 715 corrects the call to use the imported function.  There is no need for special ownership, borrowing, or lifetime considerations as `temp_dir()` manages memory internally.  Finally, using the full path `std::env::temp_dir()` is also valid but less concise after the import.",
+        "imports_needed": [
+          "```rust",
+          "use std::env;",
+          "```"
+        ]
+      },
+      {
+        "suggestion_type": "import_missing",
+        "target_file": "src\\security\\cloud_sync.rs",
+        "line_range": [
+          740,
+          740
+        ],
+        "original_code": "",
+        "suggested_code": "```rust\nuse std::env::temp_dir;\n```",
+        "confidence_score": 0.75,
+        "explanation": "The error \"cannot find function `tempdir` in this scope\" indicates that the compiler couldn't locate the `tempdir` function.  The `tempdir()` function (note the lowercase 't')  is  not a free function directly available in the standard library. It's a function *within* the `std::env` module.\n\nThe original code likely incorrectly attempted to call it as a free function. The solution adds the necessary `use std::env;` import (or uses the existing wildcard import) to bring the `temp_dir()` function into scope.  Note the correct function name is `temp_dir()` (lowercase 'd').\n\n\nThe corrected code then calls `temp_dir()` which returns a `Result<TempDir, io::Error>`. The `.expect()` method handles potential errors during temporary directory creation. If the creation fails, the program will panic with the provided error message.  This is acceptable in some situations, but a more robust approach in production might involve more sophisticated error handling (like returning a `Result` from the function containing this code).\n\nIf a wildcard import `use std::env::*;` is already present, no imports are needed. The fix just involves changing `tempdir()` to `temp_dir()`.",
+        "imports_needed": [
+          "```rust",
+          "use std::env;",
+          "```"
+        ]
+      },
+      {
+        "suggestion_type": "import_missing",
+        "target_file": "src\\security\\prelude.rs",
+        "line_range": [
+          99,
+          99
+        ],
+        "original_code": "",
+        "suggested_code": "```rust\n// Assuming line 99 is an impl block like this:\n// impl<'a> SomeTrait for &'a SomeExternalType { ... }",
+        "confidence_score": 0.75,
+        "explanation": "The error \"E0117: only traits defined in the current crate can be implemented for types defined outside of the crate\" arises when you try to implement a trait for a type that's not from your current crate without the necessary `use` statements.  Rust's ownership and module system enforces this restriction to prevent accidental overriding of external types' behavior and maintain modularity.\n\nThe solution involves adding `use` statements to bring the trait and/or type into scope.  `use some_external_crate::SomeTrait;` imports the `SomeTrait` from its crate, allowing the `impl` block to reference it. Similarly, `use some_other_crate::SomeExternalType;` imports the `SomeExternalType` from its crate if it's not already in scope.\n\n\nIf the trait `SomeTrait` is defined *within the current crate*, but after the `impl` block, you will need to use `use crate::SomeTrait;`.\n\n\nThe `<'a>` lifetime annotation is crucial if the implementation involves borrowing (`&'a SomeExternalType`). It indicates that the implementation's lifetime is bound to the lifetime of the borrowed reference.  This ensures correct memory management and prevents dangling pointers.  The correct lifetime annotation depends on the specifics of the `impl` block;  it might not be needed depending on the contents.  Ensure you understand and correctly use lifetimes in your implementation to avoid memory safety issues.\n\n\nRemember to replace `some_external_crate` and `some_other_crate` with the actual crate names where `SomeTrait` and `SomeExternalType` are defined, respectively.  If `SomeExternalType` is a type defined in your crate, you would not need a `use` statement for it.",
+        "imports_needed": [
+          "```rust",
+          "use some_external_crate::SomeTrait;  //Replace some_external_crate with the actual crate name",
+          "use some_other_crate::SomeExternalType; //Replace some_other_crate with the actual crate name",
+          "```"
+        ]
+      },
+      {
+        "suggestion_type": "import_missing",
+        "target_file": "src\\templates\\mod.rs",
+        "line_range": [
+          279,
+          279
+        ],
+        "original_code": "",
+        "suggested_code": "```rust\n// Assuming TemplateType is an enum or struct without a built-in == implementation\n// Replace line 279 with the appropriate comparison logic based on the structure of TemplateType.\n// Example 1: If TemplateType is an enum:\nmatch (a, b) {\n    (TemplateType::TypeA(ref a_val), TemplateType::TypeA(ref b_val)) => a_val == b_val,\n    (TemplateType::TypeB(a_val), TemplateType::TypeB(b_val)) => a_val == b_val,\n    // Add more match arms for other variants of TemplateType\n    _ => false,\n}",
+        "confidence_score": 0.75,
+        "explanation": "The error `E0369: binary operation `==` cannot be applied to type `templates::TemplateType` arises because the `==` operator is not automatically defined for custom types (enums or structs) in Rust.  You must explicitly define how equality is determined for your `TemplateType`.\n\n\nThe provided solutions offer two common approaches:\n\n**Example 1 (Enum):**  If `TemplateType` is an enum, you use a `match` statement to compare the variants. Each arm handles a specific variant pairing, comparing the inner values if necessary. The `_ => false` arm handles cases where the variants are different, ensuring a complete comparison.  Remember to replace `TypeA`, `TypeB`, `a_val`, and `b_val` with the actual variant names and field types from your `TemplateType` definition.  This approach is exhaustive and safe.\n\n**Example 2 (Struct):** If `TemplateType` is a struct, you directly compare the fields using the `==` operator.  This requires that all fields of the struct either implement the `PartialEq` trait directly (e.g., primitive types like `i32`, `String`, etc.) or that you implement `PartialEq` for your struct using the `derive` attribute.  For instance:\n\n```rust\n#[derive(PartialEq)] // Add this line to your struct definition\nstruct TemplateType {\n    field1: i32,\n    field2: String,\n    // ... other fields\n}\n```\nThen you can directly use `a == b`.\n\n\n**Ownership and Borrowing:** The examples use references (`&`) where appropriate to avoid unnecessary copying.  If you're dealing with potentially large or complex data within `TemplateType`, using references improves performance and avoids unnecessary allocation.  Choose the best approach based on the memory layout and performance requirements of your `TemplateType`.\n\nRemember to replace placeholders like `field1`, `field2`, `TypeA`, `TypeB`, etc., with your actual field and variant names.  The key is to explicitly define the equality logic for your custom type `TemplateType`.  This ensures the compiler understands how to compare two instances and resolve the `E0369` error.",
+        "imports_needed": [
+          "```rust",
+          "// No imports are needed in most cases, unless the types within TemplateType require external imports.",
+          "```"
+        ]
+      },
+      {
+        "suggestion_type": "import_missing",
+        "target_file": "src\\templates\\mod.rs",
+        "line_range": [
+          292,
+          292
+        ],
+        "original_code": "",
+        "suggested_code": "```rust\n// Assuming the function call on line 292 looks something like this:\n// let result = generate_template(data, context);",
+        "confidence_score": 0.75,
+        "explanation": "The compiler error E0061 \"this function takes 3 arguments but 2 arguments were supplied\" indicates that the `generate_template` function expects three arguments, but the code on line 292 is only providing two.  The solution adds a third argument.\n\nThe specific solution above adds `&default_config` as the third argument.  This assumes:\n\n1. **`generate_template`'s signature:** The `generate_template` function signature includes three parameters.  A likely signature would be something like: `fn generate_template(data: &str, context: &Context, config: &TemplateConfig) -> Result<String, Error>` where `Context`, `TemplateConfig`, and `Error` are types you'd need to define and import appropriately, replacing placeholders accordingly.  \n\n2. **`default_config` exists:** A variable named `default_config` (or something appropriately named) of the correct type (`TemplateConfig` in the example) is defined and accessible within the scope where `generate_template` is called.  The `Default::default()` method is used to ensure it's initialized with sensible defaults.\n\n3. **Ownership and borrowing:**  The `&` before `default_config` implies passing a reference to the config, instead of moving ownership.  This is usually best practice to avoid unnecessary copies and maintain ownership of the `default_config` elsewhere in the program.  The exact borrowing method (`&`, `&mut`) depends on whether `generate_template` needs to modify the config.\n\n**Crucially**:  This is a *guess* at the correct fix,  as the full code and the `generate_template` function signature are not provided.  You must replace placeholders like `my_crate`, `config`, `Context`, `TemplateConfig`, and `Error`  with the actual paths and types from your project.  If `generate_template` takes ownership of the third argument, you'd remove the `&`. If it takes a mutable reference, you would use `&mut`.  Examine the function signature of `generate_template` to determine the correct fix.",
+        "imports_needed": [
+          "```rust",
+          "//  This depends entirely on what 'generate_template' expects.",
+          "//  We need to know the function signature to provide a proper import.",
+          "//  Assume the function looks like this for demonstration:",
+          "use my_crate::config::TemplateConfig; // Replace my_crate and config with appropriate paths"
+        ]
+      },
+      {
+        "suggestion_type": "import_missing",
+        "target_file": "src\\security\\cloud_sync.rs",
+        "line_range": [
+          790,
+          790
+        ],
+        "original_code": "",
+        "suggested_code": "```rust\nlet geolocation_result = get_geolocation(); // Assuming this returns a Result<Geolocation, Error>",
+        "confidence_score": 0.75,
+        "explanation": "The error \"no method named `validate_geolocation` found for enum `std::result::Result`\" arises because `Result` is an enum representing either success (`Ok`) or failure (`Err`). It doesn't have a method `validate_geolocation`.  The original code likely attempted to call `validate_geolocation` directly on the `Result` itself.\n\nThe provided solution uses a `match` statement to handle the `Result`. This is the idiomatic way to handle `Result` in Rust.\n\n*   **`Ok(geolocation)`:** This arm is executed if `get_geolocation()` successfully returns a `Geolocation` value.  The value is bound to the `geolocation` variable, allowing us to pass it to the `validate_geolocation` function.  Note the use of a reference `&geolocation` - this avoids unnecessary copying if `Geolocation` is a large struct.\n*   **`Err(e)`:** This arm handles the case where `get_geolocation()` returns an error (`Err`).  The error is bound to the `e` variable, allowing for error reporting or handling.\n\nThis approach correctly handles both success and failure cases of the geolocation retrieval, applying the `validate_geolocation` function only when a valid `Geolocation` is available.  The `validate_geolocation` function is assumed to take a reference to a `Geolocation` as input and return a boolean indicating whether the geolocation is valid. You need to adjust the imports to match your actual project structure and the definition of `Geolocation` and `validate_geolocation`.  Remember to handle the error appropriately \u2013 simply printing to stderr might not be sufficient in production code; you might want to log it, retry, or return an error to the caller.",
+        "imports_needed": [
+          "```rust",
+          "use std::error::Error; // Or a more specific error type if available.",
+          "// Add any necessary imports for Geolocation and validate_geolocation function.  Example:",
+          "// use my_geolocation_crate::Geolocation;",
+          "// use my_geolocation_crate::validate_geolocation;"
+        ]
+      },
+      {
+        "suggestion_type": "import_missing",
+        "target_file": "src\\security\\cloud_sync.rs",
+        "line_range": [
+          800,
+          800
+        ],
+        "original_code": "",
+        "suggested_code": "```rust\n// Assuming the original line was something like this:\n// let geolocation_result = fetch_geolocation();\n// if geolocation_result.validate_geolocation() { ... }",
+        "confidence_score": 0.75,
+        "explanation": "The error `E0599: no method named 'validate_geolocation' found for enum `std::result::Result` in the current scope` indicates that you are trying to call `validate_geolocation` directly on a `Result`.  `Result` is an enum with two variants: `Ok(T)` and `Err(E)`.  The `validate_geolocation` method presumably exists on the type `T` (the successful result type) and not on the `Result` itself.\n\nThe provided solution uses pattern matching with `if let` to extract the value from the `Ok` variant.  If the `fetch_geolocation()` function returns `Ok(geolocation)`, where `geolocation` is a struct that possesses the method `validate_geolocation()`, the code can successfully call that method.  If `fetch_geolocation()` returns an `Err`, the `else` block handles the error condition.\n\nThis approach correctly handles the possibility of both success (Ok) and failure (Err) outcomes from `fetch_geolocation()`, ensuring that `validate_geolocation()` is only called when a valid geolocation is available, avoiding the original compiler error.  It adheres to Rust's ownership and borrowing rules because it properly extracts the owned value within the `if let` block.",
+        "imports_needed": [
+          "None.  The necessary methods are assumed to already exist within the scope.  If `validate_geolocation` is a method on a struct, this solution already handles it correctly."
+        ]
+      }
+    ]
+  },
+  "fix_results": {
+    "applied": [],
+    "skipped": [
+      "CodeSuggestion(suggestion_type=<SuggestionType.IMPORT_MISSING: 'import_missing'>, target_file=WindowsPath('src/security/prelude.rs'), line_range=(60, 60), original_code='', suggested_code='```rust\\nuse std::time::Duration as StdDuration;\\n```', confidence_score=0.75, dependencies=[], explanation='The error \"E0252: the name `StdDuration` is defined multiple times\" means that the code imports or defines `StdDuration` in at least two different places.  The compiler cannot resolve which `StdDuration` to use.  This usually happens due to conflicting imports or re-exports.\\n\\nThe solution provides a concise and unambiguous way to alias `std::time::Duration` as `StdDuration`. This avoids naming conflicts by explicitly stating where the type comes from.  It\\'s good practice to be explicit in imports, especially when dealing with common types that might be re-exported from crates.  This approach resolves the ambiguity, allowing the compiler to correctly identify the intended type.  No changes to the usage of `StdDuration` are needed assuming it is used consistently elsewhere in the code, as this only affects the import.\\n\\nThis solution prioritizes clarity and maintainability over brevity. A potential alternative could be to rename the conflicting imports to avoid using `StdDuration` altogether; however, this approach is more likely to introduce more changes elsewhere in the codebase. This solution precisely addresses the compiler error without requiring any other changes unless the `std::time::Duration` wasn\\'t already imported.\\n\\nIf, after applying this fix, the problem persists, then there is a second conflicting definition of `StdDuration` which needs to be addressed similarly.  In that case, you would need to trace all uses of `StdDuration` within the scope to find the second definition and either rename it or use a similarly specific `use` statement for it.', imports_needed=['None (Assuming `std::time::Duration` is already imported elsewhere, but under a different name.  If not, then add this line to the relevant `use` statements)'])",
+      "CodeSuggestion(suggestion_type=<SuggestionType.IMPORT_MISSING: 'import_missing'>, target_file=WindowsPath('src/security/prelude.rs'), line_range=(99, 99), original_code='', suggested_code='```rust\\n// Replace line 99 (and potentially surrounding lines depending on the trait and type) with appropriate code.  The exact solution depends on the specific trait and type involved.  Here are a few possibilities:', confidence_score=0.75, dependencies=[], explanation='The error E0117 \"only traits defined in the current crate can be implemented for types defined outside of the crate\" arises when you try to implement a trait for a type that you don\\'t own.  Rust\\'s ownership system prevents arbitrary code from modifying external types, ensuring type safety and preventing conflicts.\\n\\nThe solution depends on the specific circumstances:\\n\\n1. **External Trait, Your Type:** If you are implementing a trait defined *outside* your crate for a type defined *inside* your crate,  you simply need to make sure you\\'ve imported the trait correctly using `use`. No other changes should be needed.\\n\\n\\n2. **Your Trait, External Type:** If you\\'re trying to implement a trait defined in *your* crate for a type defined *outside* your crate, it is *generally allowed* provided the external type\\'s definition permits it (e.g., it has an appropriate trait bound).  The error suggests either a missing trait bound on the external type or a conflict with another implementation. You need to examine the definition of the external type and determine what bounds it requires or if another crate is trying to implement the same trait for the same type, causing a conflict.\\n\\n\\n3. **Blanket Implementations:** If you are trying to provide a blanket implementation (implementing a trait for a variety of types), you need to carefully specify the constraints (`where` clause) to ensure the implementation is valid for all the types the trait is implemented for.  You need to add more constraints to the `where` clause to cover all possible cases.\\n\\nTo diagnose this issue properly, we need to see lines 98-100 of `src\\\\security\\\\prelude.rs`,  the definition of the trait being implemented, and the definition of the type.  This context is essential to provide a more accurate and effective solution.', imports_needed=['```rust', 'use my_external_crate::MyExternalTrait; // Replace `my_external_crate` and `MyExternalTrait` with the actual crate and trait name.', '```'])",
+      "CodeSuggestion(suggestion_type=<SuggestionType.IMPORT_MISSING: 'import_missing'>, target_file=WindowsPath('src/security/cloud_sync.rs'), line_range=(715, 715), original_code='', suggested_code='```rust\\nuse std::env::temp_dir;\\n```', confidence_score=0.75, dependencies=[], explanation=\"The original code attempts to call a function named `tempdir()` without specifying its origin.  The `tempdir()` function for creating a temporary directory resides within the `std::env` module. The compiler error `E0425: cannot find function `tempdir` in this scope` arises because the compiler cannot locate this function within the current scope.\\n\\nThe solution adds the necessary `use` statement to import `temp_dir()` from the `std::env` module.  This makes the `temp_dir()` function available for use.  Note that `temp_dir()` is a function, not a method, so it's called directly, not on an instance.  The change on line 715 corrects the call to use the imported function.  There is no need for special ownership, borrowing, or lifetime considerations as `temp_dir()` manages memory internally.  Finally, using the full path `std::env::temp_dir()` is also valid but less concise after the import.\", imports_needed=['```rust', 'use std::env;', '```'])",
+      "CodeSuggestion(suggestion_type=<SuggestionType.IMPORT_MISSING: 'import_missing'>, target_file=WindowsPath('src/security/cloud_sync.rs'), line_range=(740, 740), original_code='', suggested_code='```rust\\nuse std::env::temp_dir;\\n```', confidence_score=0.75, dependencies=[], explanation='The error \"cannot find function `tempdir` in this scope\" indicates that the compiler couldn\\'t locate the `tempdir` function.  The `tempdir()` function (note the lowercase \\'t\\')  is  not a free function directly available in the standard library. It\\'s a function *within* the `std::env` module.\\n\\nThe original code likely incorrectly attempted to call it as a free function. The solution adds the necessary `use std::env;` import (or uses the existing wildcard import) to bring the `temp_dir()` function into scope.  Note the correct function name is `temp_dir()` (lowercase \\'d\\').\\n\\n\\nThe corrected code then calls `temp_dir()` which returns a `Result<TempDir, io::Error>`. The `.expect()` method handles potential errors during temporary directory creation. If the creation fails, the program will panic with the provided error message.  This is acceptable in some situations, but a more robust approach in production might involve more sophisticated error handling (like returning a `Result` from the function containing this code).\\n\\nIf a wildcard import `use std::env::*;` is already present, no imports are needed. The fix just involves changing `tempdir()` to `temp_dir()`.', imports_needed=['```rust', 'use std::env;', '```'])",
+      "CodeSuggestion(suggestion_type=<SuggestionType.IMPORT_MISSING: 'import_missing'>, target_file=WindowsPath('src/security/prelude.rs'), line_range=(99, 99), original_code='', suggested_code=\"```rust\\n// Assuming line 99 is an impl block like this:\\n// impl<'a> SomeTrait for &'a SomeExternalType { ... }\", confidence_score=0.75, dependencies=[], explanation='The error \"E0117: only traits defined in the current crate can be implemented for types defined outside of the crate\" arises when you try to implement a trait for a type that\\'s not from your current crate without the necessary `use` statements.  Rust\\'s ownership and module system enforces this restriction to prevent accidental overriding of external types\\' behavior and maintain modularity.\\n\\nThe solution involves adding `use` statements to bring the trait and/or type into scope.  `use some_external_crate::SomeTrait;` imports the `SomeTrait` from its crate, allowing the `impl` block to reference it. Similarly, `use some_other_crate::SomeExternalType;` imports the `SomeExternalType` from its crate if it\\'s not already in scope.\\n\\n\\nIf the trait `SomeTrait` is defined *within the current crate*, but after the `impl` block, you will need to use `use crate::SomeTrait;`.\\n\\n\\nThe `<\\'a>` lifetime annotation is crucial if the implementation involves borrowing (`&\\'a SomeExternalType`). It indicates that the implementation\\'s lifetime is bound to the lifetime of the borrowed reference.  This ensures correct memory management and prevents dangling pointers.  The correct lifetime annotation depends on the specifics of the `impl` block;  it might not be needed depending on the contents.  Ensure you understand and correctly use lifetimes in your implementation to avoid memory safety issues.\\n\\n\\nRemember to replace `some_external_crate` and `some_other_crate` with the actual crate names where `SomeTrait` and `SomeExternalType` are defined, respectively.  If `SomeExternalType` is a type defined in your crate, you would not need a `use` statement for it.', imports_needed=['```rust', 'use some_external_crate::SomeTrait;  //Replace some_external_crate with the actual crate name', 'use some_other_crate::SomeExternalType; //Replace some_other_crate with the actual crate name', '```'])",
+      "CodeSuggestion(suggestion_type=<SuggestionType.IMPORT_MISSING: 'import_missing'>, target_file=WindowsPath('src/templates/mod.rs'), line_range=(279, 279), original_code='', suggested_code='```rust\\n// Assuming TemplateType is an enum or struct without a built-in == implementation\\n// Replace line 279 with the appropriate comparison logic based on the structure of TemplateType.\\n// Example 1: If TemplateType is an enum:\\nmatch (a, b) {\\n    (TemplateType::TypeA(ref a_val), TemplateType::TypeA(ref b_val)) => a_val == b_val,\\n    (TemplateType::TypeB(a_val), TemplateType::TypeB(b_val)) => a_val == b_val,\\n    // Add more match arms for other variants of TemplateType\\n    _ => false,\\n}', confidence_score=0.75, dependencies=[], explanation=\"The error `E0369: binary operation `==` cannot be applied to type `templates::TemplateType` arises because the `==` operator is not automatically defined for custom types (enums or structs) in Rust.  You must explicitly define how equality is determined for your `TemplateType`.\\n\\n\\nThe provided solutions offer two common approaches:\\n\\n**Example 1 (Enum):**  If `TemplateType` is an enum, you use a `match` statement to compare the variants. Each arm handles a specific variant pairing, comparing the inner values if necessary. The `_ => false` arm handles cases where the variants are different, ensuring a complete comparison.  Remember to replace `TypeA`, `TypeB`, `a_val`, and `b_val` with the actual variant names and field types from your `TemplateType` definition.  This approach is exhaustive and safe.\\n\\n**Example 2 (Struct):** If `TemplateType` is a struct, you directly compare the fields using the `==` operator.  This requires that all fields of the struct either implement the `PartialEq` trait directly (e.g., primitive types like `i32`, `String`, etc.) or that you implement `PartialEq` for your struct using the `derive` attribute.  For instance:\\n\\n```rust\\n#[derive(PartialEq)] // Add this line to your struct definition\\nstruct TemplateType {\\n    field1: i32,\\n    field2: String,\\n    // ... other fields\\n}\\n```\\nThen you can directly use `a == b`.\\n\\n\\n**Ownership and Borrowing:** The examples use references (`&`) where appropriate to avoid unnecessary copying.  If you're dealing with potentially large or complex data within `TemplateType`, using references improves performance and avoids unnecessary allocation.  Choose the best approach based on the memory layout and performance requirements of your `TemplateType`.\\n\\nRemember to replace placeholders like `field1`, `field2`, `TypeA`, `TypeB`, etc., with your actual field and variant names.  The key is to explicitly define the equality logic for your custom type `TemplateType`.  This ensures the compiler understands how to compare two instances and resolve the `E0369` error.\", imports_needed=['```rust', '// No imports are needed in most cases, unless the types within TemplateType require external imports.', '```'])",
+      "CodeSuggestion(suggestion_type=<SuggestionType.IMPORT_MISSING: 'import_missing'>, target_file=WindowsPath('src/templates/mod.rs'), line_range=(292, 292), original_code='', suggested_code='```rust\\n// Assuming the function call on line 292 looks something like this:\\n// let result = generate_template(data, context);', confidence_score=0.75, dependencies=[], explanation='The compiler error E0061 \"this function takes 3 arguments but 2 arguments were supplied\" indicates that the `generate_template` function expects three arguments, but the code on line 292 is only providing two.  The solution adds a third argument.\\n\\nThe specific solution above adds `&default_config` as the third argument.  This assumes:\\n\\n1. **`generate_template`\\'s signature:** The `generate_template` function signature includes three parameters.  A likely signature would be something like: `fn generate_template(data: &str, context: &Context, config: &TemplateConfig) -> Result<String, Error>` where `Context`, `TemplateConfig`, and `Error` are types you\\'d need to define and import appropriately, replacing placeholders accordingly.  \\n\\n2. **`default_config` exists:** A variable named `default_config` (or something appropriately named) of the correct type (`TemplateConfig` in the example) is defined and accessible within the scope where `generate_template` is called.  The `Default::default()` method is used to ensure it\\'s initialized with sensible defaults.\\n\\n3. **Ownership and borrowing:**  The `&` before `default_config` implies passing a reference to the config, instead of moving ownership.  This is usually best practice to avoid unnecessary copies and maintain ownership of the `default_config` elsewhere in the program.  The exact borrowing method (`&`, `&mut`) depends on whether `generate_template` needs to modify the config.\\n\\n**Crucially**:  This is a *guess* at the correct fix,  as the full code and the `generate_template` function signature are not provided.  You must replace placeholders like `my_crate`, `config`, `Context`, `TemplateConfig`, and `Error`  with the actual paths and types from your project.  If `generate_template` takes ownership of the third argument, you\\'d remove the `&`. If it takes a mutable reference, you would use `&mut`.  Examine the function signature of `generate_template` to determine the correct fix.', imports_needed=['```rust', \"//  This depends entirely on what 'generate_template' expects.\", '//  We need to know the function signature to provide a proper import.', '//  Assume the function looks like this for demonstration:', 'use my_crate::config::TemplateConfig; // Replace my_crate and config with appropriate paths'])",
+      "CodeSuggestion(suggestion_type=<SuggestionType.IMPORT_MISSING: 'import_missing'>, target_file=WindowsPath('src/security/cloud_sync.rs'), line_range=(790, 790), original_code='', suggested_code='```rust\\nlet geolocation_result = get_geolocation(); // Assuming this returns a Result<Geolocation, Error>', confidence_score=0.75, dependencies=[], explanation='The error \"no method named `validate_geolocation` found for enum `std::result::Result`\" arises because `Result` is an enum representing either success (`Ok`) or failure (`Err`). It doesn\\'t have a method `validate_geolocation`.  The original code likely attempted to call `validate_geolocation` directly on the `Result` itself.\\n\\nThe provided solution uses a `match` statement to handle the `Result`. This is the idiomatic way to handle `Result` in Rust.\\n\\n*   **`Ok(geolocation)`:** This arm is executed if `get_geolocation()` successfully returns a `Geolocation` value.  The value is bound to the `geolocation` variable, allowing us to pass it to the `validate_geolocation` function.  Note the use of a reference `&geolocation` - this avoids unnecessary copying if `Geolocation` is a large struct.\\n*   **`Err(e)`:** This arm handles the case where `get_geolocation()` returns an error (`Err`).  The error is bound to the `e` variable, allowing for error reporting or handling.\\n\\nThis approach correctly handles both success and failure cases of the geolocation retrieval, applying the `validate_geolocation` function only when a valid `Geolocation` is available.  The `validate_geolocation` function is assumed to take a reference to a `Geolocation` as input and return a boolean indicating whether the geolocation is valid. You need to adjust the imports to match your actual project structure and the definition of `Geolocation` and `validate_geolocation`.  Remember to handle the error appropriately \u2013 simply printing to stderr might not be sufficient in production code; you might want to log it, retry, or return an error to the caller.', imports_needed=['```rust', 'use std::error::Error; // Or a more specific error type if available.', '// Add any necessary imports for Geolocation and validate_geolocation function.  Example:', '// use my_geolocation_crate::Geolocation;', '// use my_geolocation_crate::validate_geolocation;'])",
+      "CodeSuggestion(suggestion_type=<SuggestionType.IMPORT_MISSING: 'import_missing'>, target_file=WindowsPath('src/security/cloud_sync.rs'), line_range=(800, 800), original_code='', suggested_code='```rust\\n// Assuming the original line was something like this:\\n// let geolocation_result = fetch_geolocation();\\n// if geolocation_result.validate_geolocation() { ... }', confidence_score=0.75, dependencies=[], explanation=\"The error `E0599: no method named 'validate_geolocation' found for enum `std::result::Result` in the current scope` indicates that you are trying to call `validate_geolocation` directly on a `Result`.  `Result` is an enum with two variants: `Ok(T)` and `Err(E)`.  The `validate_geolocation` method presumably exists on the type `T` (the successful result type) and not on the `Result` itself.\\n\\nThe provided solution uses pattern matching with `if let` to extract the value from the `Ok` variant.  If the `fetch_geolocation()` function returns `Ok(geolocation)`, where `geolocation` is a struct that possesses the method `validate_geolocation()`, the code can successfully call that method.  If `fetch_geolocation()` returns an `Err`, the `else` block handles the error condition.\\n\\nThis approach correctly handles the possibility of both success (Ok) and failure (Err) outcomes from `fetch_geolocation()`, ensuring that `validate_geolocation()` is only called when a valid geolocation is available, avoiding the original compiler error.  It adheres to Rust's ownership and borrowing rules because it properly extracts the owned value within the `if let` block.\", imports_needed=['None.  The necessary methods are assumed to already exist within the scope.  If `validate_geolocation` is a method on a struct, this solution already handles it correctly.'])"
+    ],
+    "failed": [],
+    "total_suggestions": 9
+  }
+}

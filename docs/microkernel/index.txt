@@ -1,0 +1,53 @@
+# ForgeOne Microkernel (Atomic, DMCOA, Production-Ready)
+
+## 1. Atomic Module Reference
+- [modules/microkernel-l2.txt]: Core orchestration, WASM runtime, ZTA enforcement
+- [modules/common-l1.txt]: Shared types, config, error handling
+- [common]: Identity, trust, error, policy, telemetry, diagnostics
+
+## 2. Architecture & Atomic Structure
+- **Microkernel**: Minimal, secure, reflexive execution core
+- **Subsystems**:
+  - Execution Brain: Modular kernel graph, LLM-interpretable
+  - ZTA Policy Engine: Dynamic syscall enforcement, trust vector
+  - WASM Host: Sandboxed plugin/runtime
+  - Observer: OTEL, LLM summaries, forensic replay
+  - Crypto: Ed25519/SHA3, .forgepkg validation
+  - Diagnostics: Self-test, anomaly detection
+  - Interface: API, prelude
+  - Config: Immutable, signed runtime config
+
+## 3. DMCOA Alignment
+- Distributed, modular, secure, self-healing
+- Zero Trust enforcement at syscall and thread level
+- Real-time observability, forensic replay, and audit
+- Plugin runtime (WASM), hot-patchable policies
+
+## 4. Code Mapping
+- See [modules/microkernel-l2.txt] for full module tree and Rust code examples
+- Use [common] crate for identity, trust, error, policy, telemetry, diagnostics
+- All syscalls, execution traces, and policy checks are auditable and testable
+
+## 5. Compliance & MNC-Grade Readiness
+- SOC2, ISO 27001, GDPR: All actions logged, signed, and auditable
+- Quarantine and self-healing for compromised workloads
+- Immutable audit logs, forensic replay, and evidence collection
+
+## 6. Test Strategy
+- Unit tests: Syscall enforcement, policy engine, DNA trace
+- Integration tests: WASM/plugin execution, quarantine, replay
+- Security tests: ZTA bypass attempts, compromised identity, policy hot-patch
+- Compliance tests: Audit log integrity, evidence export
+
+## 7. Example Test Cases
+- Allow/deny syscalls based on trust vector
+- Quarantine on ZTA block
+- Validate .forgepkg signature and manifest
+- Forensic replay matches original execution
+- LLM summary output is correct and complete
+
+## 8. See Also
+- [modules/microkernel-l2.txt]
+- [modules/common-l1.txt]
+- [common/src/]
+- [tests/] (to be created: test_zta.rs, test_replay.rs)

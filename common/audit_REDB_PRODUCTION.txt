@@ -1,0 +1,96 @@
+============================
+ForgeOne Audit System: Redb Production Guide
+============================
+
+Overview
+--------
+This guide covers production-ready usage of the Redb-based audit database layer for ForgeOne, including initialization, configuration, event ingestion/query/export, backup/restore, sharding, encryption, concurrency, and recovery.
+
+Initialization & Configuration
+-----------------------------
+- Use `RedbOptions` to configure base directory, encryption, compression, sharding, deduplication, checkpointing, log rotation, and more.
+- Always initialize RedbManager as a singleton before using RedbAuditStore.
+
+Example:
+```
+use common::audit::{init_audit_redb, RedbAuditStore};
+use common::db::redb::RedbOptions;
+
+// Configure for production
+let mut opts = RedbOptions::default();
+opts.base_dir = "/var/lib/forgeone/redb".into();
+opts.encryption_enabled = true;
+opts.sharding_enabled = true;
+opts.shard_count = 8;
+opts.compression_level = 9;
+// ... set other options as needed
+
+// Initialize RedbManager (singleton)
+init_audit_redb(Some(opts)).unwrap();
+let store = RedbAuditStore::new_with_manager();
+```
+
+Event Ingestion
+---------------
+```
+let event = create_audit_event(
+    identity,
+    "ContainerStarted".to_string(),
+    "container123".to_string(),
+    AuditOutcome::Success,
+    AuditCategory::System,
+    AuditSeverity::Info,
+    None
+);
+store.insert_event(&event)?;
+```
+
+Query & Export
+--------------
+```
+let query = AuditQuery { tenant_id: Some("tenant1".to_string()), ..Default::default() };
+let results = store.query_events(&query)?;
+let json = store.export_events(&query, "json")?;
+```
+
+Backup & Restore
+----------------
+```
+store.backup("/var/backups/forgeone").unwrap();
+store.restore("/var/backups/forgeone").unwrap();
+```
+
+Sharding & Multi-Tenancy
+------------------------
+- Sharding is enabled via RedbOptions. Events are routed by tenant hash.
+- For multi-tenant deployments, set `shard_count` and `sharding_enabled` appropriately.
+
+Encryption
+----------
+- Enable `encryption_enabled` in RedbOptions for AES-GCM at rest.
+- Use secure key management for production deployments.
+
+Concurrency & Performance
+-------------------------
+- RedbManager and RedbAuditStore are thread-safe and support high concurrency.
+- Use async event ingestion and batch operations for best throughput.
+
+Recovery & Repair
+-----------------
+- Use `auto_recovery` and `checksum_verification` in RedbOptions for crash safety.
+- Use RedbManager's repair APIs for recovery after failure.
+
+Best Practices
+--------------
+- Always use the singleton RedbManager for all DB access.
+- Monitor disk space, backup regularly, and test recovery procedures.
+- Use sharding and compression for large-scale, high-throughput deployments.
+- Enable encryption and access control for sensitive/regulated environments.
+
+Troubleshooting
+---------------
+- Check logs for RedbManager initialization and DB errors.
+- Use health checks and repair APIs for operational issues.
+- For performance tuning, adjust compression, sharding, and checkpointing options.
+
+See audit_tests.rs for comprehensive test coverage and edge-case handling. 

@@ -1,0 +1,365 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="1600" viewBox="0 0 1200 1600">
+  <style>
+    .folder { fill: #FFD700; stroke: #333; stroke-width: 2; }
+    .file { fill: #FFFFFF; stroke: #333; stroke-width: 2; }
+    .text { font-family: Arial; font-size: 14px; }
+    .title { font-family: Arial; font-size: 24px; font-weight: bold; }
+    .subtitle { font-family: Arial; font-size: 18px; font-weight: bold; }
+    .line { stroke: #333; stroke-width: 2; }
+    .module { fill: #90EE90; stroke: #333; stroke-width: 2; }
+    .submodule { fill: #ADD8E6; stroke: #333; stroke-width: 2; }
+    .data { fill: #FFA07A; stroke: #333; stroke-width: 2; }
+    .test { fill: #D8BFD8; stroke: #333; stroke-width: 2; }
+    .doc { fill: #F0E68C; stroke: #333; stroke-width: 2; }
+  </style>
+
+  <!-- Title -->
+  <text x="600" y="40" text-anchor="middle" class="title">ForgeOne Common Module - Advanced Folder Structure</text>
+
+  <!-- Root folder -->
+  <rect x="550" y="60" width="100" height="40" rx="5" ry="5" class="folder" />
+  <text x="600" y="85" text-anchor="middle" class="text">common/</text>
+
+  <!-- Main directories -->
+  <rect x="200" y="150" width="100" height="40" rx="5" ry="5" class="folder" />
+  <text x="250" y="175" text-anchor="middle" class="text">src/</text>
+
+  <rect x="400" y="150" width="100" height="40" rx="5" ry="5" class="folder" />
+  <text x="450" y="175" text-anchor="middle" class="text">tests/</text>
+
+  <rect x="600" y="150" width="100" height="40" rx="5" ry="5" class="folder" />
+  <text x="650" y="175" text-anchor="middle" class="text">data/</text>
+
+  <rect x="800" y="150" width="100" height="40" rx="5" ry="5" class="folder" />
+  <text x="850" y="175" text-anchor="middle" class="text">examples/</text>
+
+  <rect x="1000" y="150" width="100" height="40" rx="5" ry="5" class="folder" />
+  <text x="1050" y="175" text-anchor="middle" class="text">docs/</text>
+
+  <!-- Lines connecting root to main directories -->
+  <line x1="600" y1="100" x2="600" y2="120" class="line" />
+  <line x1="600" y1="120" x2="250" y2="120" class="line" />
+  <line x1="600" y1="120" x2="450" y2="120" class="line" />
+  <line x1="600" y1="120" x2="650" y2="120" class="line" />
+  <line x1="600" y1="120" x2="850" y2="120" class="line" />
+  <line x1="600" y1="120" x2="1050" y2="120" class="line" />
+  <line x1="250" y1="120" x2="250" y2="150" class="line" />
+  <line x1="450" y1="120" x2="450" y2="150" class="line" />
+  <line x1="650" y1="120" x2="650" y2="150" class="line" />
+  <line x1="850" y1="120" x2="850" y2="150" class="line" />
+  <line x1="1050" y1="120" x2="1050" y2="150" class="line" />
+
+  <!-- src/ subdirectories -->
+  <text x="250" y="220" text-anchor="middle" class="subtitle">Source Modules</text>
+
+  <!-- Module boxes -->
+  <rect x="50" y="250" width="120" height="40" rx="5" ry="5" class="module" />
+  <text x="110" y="275" text-anchor="middle" class="text">bootstrap/</text>
+
+  <rect x="190" y="250" width="120" height="40" rx="5" ry="5" class="module" />
+  <text x="250" y="275" text-anchor="middle" class="text">config/</text>
+
+  <rect x="330" y="250" width="120" height="40" rx="5" ry="5" class="module" />
+  <text x="390" y="275" text-anchor="middle" class="text">crypto/</text>
+
+  <rect x="50" y="310" width="120" height="40" rx="5" ry="5" class="module" />
+  <text x="110" y="335" text-anchor="middle" class="text">db/</text>
+
+  <rect x="190" y="310" width="120" height="40" rx="5" ry="5" class="module" />
+  <text x="250" y="335" text-anchor="middle" class="text">error/</text>
+
+  <rect x="330" y="310" width="120" height="40" rx="5" ry="5" class="module" />
+  <text x="390" y="335" text-anchor="middle" class="text">identity/</text>
+
+  <rect x="50" y="370" width="120" height="40" rx="5" ry="5" class="module" />
+  <text x="110" y="395" text-anchor="middle" class="text">trust/</text>
+
+  <rect x="190" y="370" width="120" height="40" rx="5" ry="5" class="module" />
+  <text x="250" y="395" text-anchor="middle" class="text">policy/</text>
+
+  <rect x="330" y="370" width="120" height="40" rx="5" ry="5" class="module" />
+  <text x="390" y="395" text-anchor="middle" class="text">telemetry/</text>
+
+  <rect x="50" y="430" width="120" height="40" rx="5" ry="5" class="module" />
+  <text x="110" y="455" text-anchor="middle" class="text">observer/</text>
+
+  <rect x="190" y="430" width="120" height="40" rx="5" ry="5" class="module" />
+  <text x="250" y="455" text-anchor="middle" class="text">diagnostics/</text>
+
+  <rect x="330" y="430" width="120" height="40" rx="5" ry="5" class="module" />
+  <text x="390" y="455" text-anchor="middle" class="text">audit/</text>
+
+  <rect x="50" y="490" width="120" height="40" rx="5" ry="5" class="module" />
+  <text x="110" y="515" text-anchor="middle" class="text">model/</text>
+
+  <rect x="190" y="490" width="120" height="40" rx="5" ry="5" class="module" />
+  <text x="250" y="515" text-anchor="middle" class="text">macros/</text>
+
+  <rect x="330" y="490" width="120" height="40" rx="5" ry="5" class="file" />
+  <text x="390" y="515" text-anchor="middle" class="text">lib.rs</text>
+
+  <rect x="50" y="550" width="120" height="40" rx="5" ry="5" class="file" />
+  <text x="110" y="575" text-anchor="middle" class="text">prelude.rs</text>
+
+  <!-- Lines connecting src to modules -->
+  <line x1="250" y1="190" x2="250" y2="220" class="line" />
+
+  <!-- DB Module Expanded -->
+  <text x="110" y="620" text-anchor="middle" class="subtitle">DB Module Detail</text>
+  
+  <rect x="20" y="650" width="100" height="30" rx="5" ry="5" class="submodule" />
+  <text x="70" y="670" text-anchor="middle" class="text">mod.rs</text>
+  
+  <rect x="130" y="650" width="100" height="30" rx="5" ry="5" class="submodule" />
+  <text x="180" y="670" text-anchor="middle" class="text">access.rs</text>
+  
+  <rect x="20" y="690" width="100" height="30" rx="5" ry="5" class="submodule" />
+  <text x="70" y="710" text-anchor="middle" class="text">crypto.rs</text>
+  
+  <rect x="130" y="690" width="100" height="30" rx="5" ry="5" class="submodule" />
+  <text x="180" y="710" text-anchor="middle" class="text">indxdb.rs</text>
+  
+  <rect x="20" y="730" width="100" height="30" rx="5" ry="5" class="submodule" />
+  <text x="70" y="750" text-anchor="middle" class="text">integrity.rs</text>
+  
+  <rect x="130" y="730" width="100" height="30" rx="5" ry="5" class="submodule" />
+  <text x="180" y="750" text-anchor="middle" class="text">metrics.rs</text>
+  
+  <rect x="20" y="770" width="100" height="30" rx="5" ry="5" class="submodule" />
+  <text x="70" y="790" text-anchor="middle" class="text">model.rs</text>
+  
+  <rect x="130" y="770" width="100" height="30" rx="5" ry="5" class="submodule" />
+  <text x="180" y="790" text-anchor="middle" class="text">recovery.rs</text>
+  
+  <rect x="20" y="810" width="100" height="30" rx="5" ry="5" class="submodule" />
+  <text x="70" y="830" text-anchor="middle" class="text">redb.rs</text>
+  
+  <rect x="130" y="810" width="100" height="30" rx="5" ry="5" class="submodule" />
+  <text x="180" y="830" text-anchor="middle" class="text">schema.rs</text>
+  
+  <rect x="20" y="850" width="100" height="30" rx="5" ry="5" class="submodule" />
+  <text x="70" y="870" text-anchor="middle" class="text">snapshot.rs</text>
+  
+  <rect x="130" y="850" width="100" height="30" rx="5" ry="5" class="submodule" />
+  <text x="180" y="870" text-anchor="middle" class="text">sharding.rs</text>
+  
+  <rect x="75" y="890" width="100" height="30" rx="5" ry="5" class="submodule" />
+  <text x="125" y="910" text-anchor="middle" class="text">vault.rs</text>
+
+  <!-- Line connecting DB module to detail -->
+  <line x1="110" y1="350" x2="20" y2="350" class="line" />
+  <line x1="20" y1="350" x2="20" y2="620" class="line" />
+  <line x1="20" y1="620" x2="110" y2="620" class="line" />
+
+  <!-- tests/ subdirectories -->
+  <text x="450" y="220" text-anchor="middle" class="subtitle">Test Structure</text>
+
+  <rect x="350" y="250" width="100" height="40" rx="5" ry="5" class="test" />
+  <text x="400" y="275" text-anchor="middle" class="text">common/</text>
+
+  <rect x="460" y="250" width="100" height="40" rx="5" ry="5" class="test" />
+  <text x="510" y="275" text-anchor="middle" class="text">unit/</text>
+
+  <rect x="350" y="310" width="100" height="40" rx="5" ry="5" class="test" />
+  <text x="400" y="335" text-anchor="middle" class="text">integration/</text>
+
+  <rect x="460" y="310" width="100" height="40" rx="5" ry="5" class="test" />
+  <text x="510" y="335" text-anchor="middle" class="text">performance/</text>
+
+  <!-- Lines connecting tests to subdirectories -->
+  <line x1="450" y1="190" x2="450" y2="220" class="line" />
+
+  <!-- Unit Test Detail -->
+  <text x="510" y="380" text-anchor="middle" class="subtitle">Unit Tests</text>
+  
+  <rect x="460" y="410" width="100" height="30" rx="5" ry="5" class="test" />
+  <text x="510" y="430" text-anchor="middle" class="text">bootstrap/</text>
+  
+  <rect x="460" y="450" width="100" height="30" rx="5" ry="5" class="test" />
+  <text x="510" y="470" text-anchor="middle" class="text">config/</text>
+  
+  <rect x="460" y="490" width="100" height="30" rx="5" ry="5" class="test" />
+  <text x="510" y="510" text-anchor="middle" class="text">crypto/</text>
+  
+  <rect x="460" y="530" width="100" height="30" rx="5" ry="5" class="test" />
+  <text x="510" y="550" text-anchor="middle" class="text">db/</text>
+  
+  <rect x="460" y="570" width="100" height="30" rx="5" ry="5" class="test" />
+  <text x="510" y="590" text-anchor="middle" class="text">error/</text>
+  
+  <rect x="460" y="610" width="100" height="30" rx="5" ry="5" class="test" />
+  <text x="510" y="630" text-anchor="middle" class="text">identity/</text>
+  
+  <rect x="460" y="650" width="100" height="30" rx="5" ry="5" class="test" />
+  <text x="510" y="670" text-anchor="middle" class="text">trust/</text>
+  
+  <rect x="460" y="690" width="100" height="30" rx="5" ry="5" class="test" />
+  <text x="510" y="710" text-anchor="middle" class="text">policy/</text>
+  
+  <rect x="460" y="730" width="100" height="30" rx="5" ry="5" class="test" />
+  <text x="510" y="750" text-anchor="middle" class="text">telemetry/</text>
+  
+  <rect x="460" y="770" width="100" height="30" rx="5" ry="5" class="test" />
+  <text x="510" y="790" text-anchor="middle" class="text">observer/</text>
+  
+  <rect x="460" y="810" width="100" height="30" rx="5" ry="5" class="test" />
+  <text x="510" y="830" text-anchor="middle" class="text">diagnostics/</text>
+  
+  <rect x="460" y="850" width="100" height="30" rx="5" ry="5" class="test" />
+  <text x="510" y="870" text-anchor="middle" class="text">audit/</text>
+  
+  <rect x="460" y="890" width="100" height="30" rx="5" ry="5" class="test" />
+  <text x="510" y="910" text-anchor="middle" class="text">model/</text>
+  
+  <rect x="460" y="930" width="100" height="30" rx="5" ry="5" class="test" />
+  <text x="510" y="950" text-anchor="middle" class="text">macros/</text>
+
+  <!-- Line connecting unit tests to detail -->
+  <line x1="510" y1="290" x2="510" y2="380" class="line" />
+
+  <!-- data/ subdirectories -->
+  <text x="650" y="220" text-anchor="middle" class="subtitle">Data Structure</text>
+
+  <rect x="600" y="250" width="100" height="40" rx="5" ry="5" class="data" />
+  <text x="650" y="275" text-anchor="middle" class="text">redb/</text>
+
+  <rect x="600" y="310" width="100" height="40" rx="5" ry="5" class="data" />
+  <text x="650" y="335" text-anchor="middle" class="text">vault/</text>
+
+  <rect x="600" y="370" width="100" height="40" rx="5" ry="5" class="data" />
+  <text x="650" y="395" text-anchor="middle" class="text">backups/</text>
+
+  <!-- Lines connecting data to subdirectories -->
+  <line x1="650" y1="190" x2="650" y2="220" class="line" />
+
+  <!-- Redb Detail -->
+  <text x="650" y="440" text-anchor="middle" class="subtitle">Redb Files</text>
+  
+  <rect x="600" y="470" width="100" height="30" rx="5" ry="5" class="file" />
+  <text x="650" y="490" text-anchor="middle" class="text">system.redb</text>
+  
+  <rect x="600" y="510" width="100" height="30" rx="5" ry="5" class="file" />
+  <text x="650" y="530" text-anchor="middle" class="text">logs_shard_0.redb</text>
+  
+  <rect x="600" y="550" width="100" height="30" rx="5" ry="5" class="file" />
+  <text x="650" y="570" text-anchor="middle" class="text">logs_shard_1.redb</text>
+  
+  <rect x="600" y="590" width="100" height="30" rx="5" ry="5" class="file" />
+  <text x="650" y="610" text-anchor="middle" class="text">blobs_shard_0.redb</text>
+  
+  <rect x="600" y="630" width="100" height="30" rx="5" ry="5" class="file" />
+  <text x="650" y="650" text-anchor="middle" class="text">blobs_shard_1.redb</text>
+  
+  <rect x="600" y="670" width="100" height="30" rx="5" ry="5" class="file" />
+  <text x="650" y="690" text-anchor="middle" class="text">events_shard_0.redb</text>
+  
+  <rect x="600" y="710" width="100" height="30" rx="5" ry="5" class="file" />
+  <text x="650" y="730" text-anchor="middle" class="text">events_shard_1.redb</text>
+
+  <!-- Line connecting redb to detail -->
+  <line x1="650" y1="290" x2="650" y2="440" class="line" />
+
+  <!-- examples/ files -->
+  <text x="850" y="220" text-anchor="middle" class="subtitle">Examples</text>
+
+  <rect x="800" y="250" width="100" height="30" rx="5" ry="5" class="file" />
+  <text x="850" y="270" text-anchor="middle" class="text">basic_usage.rs</text>
+
+  <rect x="800" y="290" width="100" height="30" rx="5" ry="5" class="file" />
+  <text x="850" y="310" text-anchor="middle" class="text">audit_example.rs</text>
+
+  <rect x="800" y="330" width="100" height="30" rx="5" ry="5" class="file" />
+  <text x="850" y="350" text-anchor="middle" class="text">policy_example.rs</text>
+
+  <rect x="800" y="370" width="100" height="30" rx="5" ry="5" class="file" />
+  <text x="850" y="390" text-anchor="middle" class="text">db_example.rs</text>
+
+  <!-- Line connecting examples to files -->
+  <line x1="850" y1="190" x2="850" y2="220" class="line" />
+
+  <!-- docs/ files -->
+  <text x="1050" y="220" text-anchor="middle" class="subtitle">Documentation</text>
+
+  <rect x="1000" y="250" width="100" height="30" rx="5" ry="5" class="doc" />
+  <text x="1050" y="270" text-anchor="middle" class="text">README.md</text>
+
+  <rect x="1000" y="290" width="100" height="30" rx="5" ry="5" class="doc" />
+  <text x="1050" y="310" text-anchor="middle" class="text">architecture.md</text>
+
+  <rect x="1000" y="330" width="100" height="30" rx="5" ry="5" class="doc" />
+  <text x="1050" y="350" text-anchor="middle" class="text">bootstrap.md</text>
+
+  <rect x="1000" y="370" width="100" height="30" rx="5" ry="5" class="doc" />
+  <text x="1050" y="390" text-anchor="middle" class="text">config.md</text>
+
+  <rect x="1000" y="410" width="100" height="30" rx="5" ry="5" class="doc" />
+  <text x="1050" y="430" text-anchor="middle" class="text">crypto.md</text>
+
+  <rect x="1000" y="450" width="100" height="30" rx="5" ry="5" class="doc" />
+  <text x="1050" y="470" text-anchor="middle" class="text">db.md</text>
+
+  <rect x="1000" y="490" width="100" height="30" rx="5" ry="5" class="doc" />
+  <text x="1050" y="510" text-anchor="middle" class="text">error.md</text>
+
+  <rect x="1000" y="530" width="100" height="30" rx="5" ry="5" class="doc" />
+  <text x="1050" y="550" text-anchor="middle" class="text">identity.md</text>
+
+  <rect x="1000" y="570" width="100" height="30" rx="5" ry="5" class="doc" />
+  <text x="1050" y="590" text-anchor="middle" class="text">trust.md</text>
+
+  <rect x="1000" y="610" width="100" height="30" rx="5" ry="5" class="doc" />
+  <text x="1050" y="630" text-anchor="middle" class="text">policy.md</text>
+
+  <rect x="1000" y="650" width="100" height="30" rx="5" ry="5" class="doc" />
+  <text x="1050" y="670" text-anchor="middle" class="text">telemetry.md</text>
+
+  <rect x="1000" y="690" width="100" height="30" rx="5" ry="5" class="doc" />
+  <text x="1050" y="710" text-anchor="middle" class="text">observer.md</text>
+
+  <rect x="1000" y="730" width="100" height="30" rx="5" ry="5" class="doc" />
+  <text x="1050" y="750" text-anchor="middle" class="text">diagnostics.md</text>
+
+  <rect x="1000" y="770" width="100" height="30" rx="5" ry="5" class="doc" />
+  <text x="1050" y="790" text-anchor="middle" class="text">audit.md</text>
+
+  <rect x="1000" y="810" width="100" height="30" rx="5" ry="5" class="doc" />
+  <text x="1050" y="830" text-anchor="middle" class="text">model.md</text>
+
+  <rect x="1000" y="850" width="100" height="30" rx="5" ry="5" class="doc" />
+  <text x="1050" y="870" text-anchor="middle" class="text">macros.md</text>
+
+  <rect x="1000" y="890" width="100" height="30" rx="5" ry="5" class="doc" />
+  <text x="1050" y="910" text-anchor="middle" class="text">examples/</text>
+
+  <!-- Line connecting docs to files -->
+  <line x1="1050" y1="190" x2="1050" y2="220" class="line" />
+
+  <!-- Legend -->
+  <text x="600" y="1000" text-anchor="middle" class="subtitle">Legend</text>
+  
+  <rect x="450" y="1030" width="60" height="30" rx="5" ry="5" class="folder" />
+  <text x="520" y="1050" text-anchor="start" class="text">Directory</text>
+  
+  <rect x="450" y="1070" width="60" height="30" rx="5" ry="5" class="file" />
+  <text x="520" y="1090" text-anchor="start" class="text">File</text>
+  
+  <rect x="450" y="1110" width="60" height="30" rx="5" ry="5" class="module" />
+  <text x="520" y="1130" text-anchor="start" class="text">Module Directory</text>
+  
+  <rect x="450" y="1150" width="60" height="30" rx="5" ry="5" class="submodule" />
+  <text x="520" y="1170" text-anchor="start" class="text">Submodule File</text>
+  
+  <rect x="450" y="1190" width="60" height="30" rx="5" ry="5" class="data" />
+  <text x="520" y="1210" text-anchor="start" class="text">Data Directory/File</text>
+  
+  <rect x="450" y="1230" width="60" height="30" rx="5" ry="5" class="test" />
+  <text x="520" y="1250" text-anchor="start" class="text">Test Directory/File</text>
+  
+  <rect x="450" y="1270" width="60" height="30" rx="5" ry="5" class="doc" />
+  <text x="520" y="1290" text-anchor="start" class="text">Documentation File</text>
+
+  <!-- Footer -->
+  <text x="600" y="1350" text-anchor="middle" class="subtitle">ForgeOne Common Module - Advanced Folder Structure</text>
+  <text x="600" y="1380" text-anchor="middle" class="text">This diagram illustrates the proposed folder structure for the ForgeOne Common module.</text>
+  <text x="600" y="1400" text-anchor="middle" class="text">The structure is designed to improve maintainability, scalability, and adherence to best practices.</text>
+</svg>

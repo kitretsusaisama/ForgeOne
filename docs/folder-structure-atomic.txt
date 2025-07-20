@@ -1,0 +1,153 @@
+# ForgeOne Atomic Folder Structure (DMCOA)
+
+## Top-Level Organization
+
+- /modules/
+  - microkernel-l2.txt: Core orchestration, WASM runtime
+  - container-runtime-l4.txt: Container lifecycle management
+  - network-manager-l5.txt: Networking, service mesh, DNS
+  - storage-manager-l6.txt: Storage, backup, DR
+  - plugin-manager-l3.txt: WASM plugins, hooks, sandboxing
+  - security-l7.txt: Zero Trust, RBAC, MFA, audit
+  - api-l8.txt: REST/gRPC API, multi-tenancy
+  - cli-l9.txt: CLI frontend, automation
+  - common-l1.txt: Shared types, config, logging
+  - testing-l10.txt: QA, test harnesses
+
+---
+
+## /docs Folder-by-Folder Atomic Breakdown
+
+### product/
+- **Atomic Module Mapping:** All modules (cross-cutting, product planning)
+- **Responsibilities:**
+  - Product requirements, use-cases, roadmap
+  - MNC-grade planning, compliance, and architecture
+- **Key Files:**
+  - README.md, prd.md, use-cases.md
+- **Cross-links:**
+  - [../modules/](../../modules/)
+- **DMCOA Layer:** Product/strategy, cross-module
+
+### infra/
+- **Atomic Module Mapping:** cli-l9.txt, api-l8.txt
+- **Responsibilities:**
+  - CI/CD, deployment, infrastructure as code
+  - Automation, multi-region, multi-cluster
+- **Key Files:**
+  - README.md, ci-cd.md, deployment.md, terraform/
+- **Cross-links:**
+  - [../../modules/cli-l9.txt], [../../modules/api-l8.txt]
+- **DMCOA Layer:** Infrastructure, orchestration
+
+### api/
+- **Atomic Module Mapping:** api-l8.txt
+- **Responsibilities:**
+  - REST/gRPC API, endpoint security, multi-tenancy
+- **Key Files:**
+  - README.md, openapi.yaml
+- **Cross-links:**
+  - [../../modules/api-l8.txt]
+- **DMCOA Layer:** API gateway, service interface
+
+### qa/
+- **Atomic Module Mapping:** testing-l10.txt
+- **Responsibilities:**
+  - Test plans, QA automation, reports
+  - Traceability, compliance, evidence
+- **Key Files:**
+  - README.md, test-plan.md, reports/
+- **Cross-links:**
+  - [../../modules/testing-l10.txt]
+- **DMCOA Layer:** Quality assurance, cross-module
+
+### user-guides/
+- **Atomic Module Mapping:** cli-l9.txt, api-l8.txt
+- **Responsibilities:**
+  - CLI/GUI manuals, user workflows
+  - Secure, auditable, compliant operations
+- **Key Files:**
+  - README.md, cli.md, gui.md
+- **Cross-links:**
+  - [../../modules/cli-l9.txt], [../../modules/api-l8.txt]
+- **DMCOA Layer:** User interface, service access
+
+### contrib/
+- **Atomic Module Mapping:** common-l1.txt
+- **Responsibilities:**
+  - Code style, contribution guidelines, shared types
+- **Key Files:**
+  - README.md, code-style.md, contribution.md
+- **Cross-links:**
+  - [../../modules/common-l1.txt]
+- **DMCOA Layer:** Foundation, cross-module
+
+### agile/
+- **Atomic Module Mapping:** All modules (cross-team, cross-module)
+- **Responsibilities:**
+  - Epics, sprints, retrospectives, agile practices
+- **Key Files:**
+  - README.md, epics-features.md, retrospectives.md, sprints.md
+- **Cross-links:**
+  - [../../modules/]
+- **DMCOA Layer:** Project management, cross-module
+
+### database/
+- **Atomic Module Mapping:** storage-manager-l6.txt, common-l1.txt
+- **Responsibilities:**
+  - Schema, backups, DR, compliance
+  - Storage, config, error handling
+- **Key Files:**
+  - README.md, backups.md, schema.md, schema.sql
+- **Cross-links:**
+  - [../../modules/storage-manager-l6.txt], [../../modules/common-l1.txt]
+- **DMCOA Layer:** Data storage, persistence
+
+### compliance/
+- **Atomic Module Mapping:** security-l7.txt, common-l1.txt
+- **Responsibilities:**
+  - Audit, privacy, legal, compliance mapping
+  - Evidence collection, policy enforcement
+- **Key Files:**
+  - README.md, audit.md, privacy.md, license.md
+- **Cross-links:**
+  - [../../modules/security-l7.txt], [../../modules/common-l1.txt]
+- **DMCOA Layer:** Security, compliance, audit
+
+### plugins/
+- **Atomic Module Mapping:** plugin-manager-l3.txt
+- **Responsibilities:**
+  - Plugin system, developer guide, WASM plugins
+  - Hooks, sandboxing, plugin lifecycle
+- **Key Files:**
+  - README.md, developer-guide.md
+- **Cross-links:**
+  - [../../modules/plugin-manager-l3.txt]
+- **DMCOA Layer:** Extensibility, plugin system
+
+### ops/
+- **Atomic Module Mapping:** microkernel-l2.txt, plugin-manager-l3.txt
+- **Responsibilities:**
+  - Operational playbook, monitoring, recovery
+  - Incident response, escalation, self-healing
+- **Key Files:**
+  - README.md, operational-playbook.md
+- **Cross-links:**
+  - [../../modules/microkernel-l2.txt], [../../modules/plugin-manager-l3.txt]
+- **DMCOA Layer:** Operations, monitoring, recovery
+
+### architecture/
+- **Atomic Module Mapping:** All modules (system design)
+- **Responsibilities:**
+  - HLA, LLD, security model, DMCOA overview
+- **Key Files:**
+  - README.md, hld.md, lld.md, security-model.md, security-threat-model.md
+- **Cross-links:**
+  - [../../modules/]
+- **DMCOA Layer:** Architecture, design, security
+
+---
+
+## Principle
+- Each folder is atomic: single responsibility, clear mapping to a module, cross-linked to /modules for implementation details.
+- Structure is DMCOA-aligned: distributed, modular, scalable, and secure. 

@@ -1,0 +1,3 @@
+-- Deprecated: ForgeOne uses Redb (NoSQL, sharded, atomic, MNC-grade, production-ready, and compliance-driven) for all core storage.
+-- See schema.md for the advanced logical schema, compliance mapping (SOC2, ISO 27001, GDPR), and operational details.
+-- All data models, encryption, audit, and DR are documented in schema.md and backups.md.

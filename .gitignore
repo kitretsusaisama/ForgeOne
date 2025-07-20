@@ -1,0 +1,64 @@
+# Rust/Cargo build artifacts
+/target/
+**/target/
+
+# Cargo package manager
+Cargo.lock
+!/**/Cargo.lock
+
+# IDE/editor files
+/.idea/
+/.vscode/
+*.swp
+*.swo
+*.swn
+*.bak
+*.tmp
+*.temp
+
+# OS-specific files
+.DS_Store
+Thumbs.db
+
+# Logs and temp files
+*.log
+*.tmp
+*.out
+*.err
+
+# Byproducts
+*.rmeta
+*.d
+*.rlib
+*.exe
+*.dll
+*.so
+*.dylib
+*.a
+*.o
+*.obj
+
+# Coverage and test output
+/coverage/
+/target/coverage/
+/target/debug/
+/target/release/
+
+# Backup files
+*~
+
+# Node/npm (if any JS tooling)
+/node_modules/
+
+# Python (if any tooling)
+__pycache__/
+*.pyc
+
+# Misc
+*.old
+*.orig
+*.rej
+
+# Ignore local config
+.env
+.env.* 

@@ -1,0 +1,272 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="1600" viewBox="0 0 1200 1600">
+  <style>
+    .database { fill: #B0C4DE; stroke: #333; stroke-width: 2; }
+    .table { fill: #F0F8FF; stroke: #333; stroke-width: 2; }
+    .shard { fill: #E6E6FA; stroke: #333; stroke-width: 2; }
+    .field { fill: #FFFFFF; stroke: #333; stroke-width: 1; }
+    .pk { fill: #FFD700; stroke: #333; stroke-width: 1; }
+    .fk { fill: #98FB98; stroke: #333; stroke-width: 1; }
+    .text { font-family: Arial; font-size: 14px; }
+    .title { font-family: Arial; font-size: 24px; font-weight: bold; }
+    .subtitle { font-family: Arial; font-size: 18px; font-weight: bold; }
+    .table-title { font-family: Arial; font-size: 16px; font-weight: bold; }
+    .field-text { font-family: Arial; font-size: 12px; }
+    .line { stroke: #333; stroke-width: 2; }
+    .dashed-line { stroke: #333; stroke-width: 2; stroke-dasharray: 5,5; }
+    .arrow { fill: #333; }
+  </style>
+
+  <!-- Title -->
+  <text x="600" y="40" text-anchor="middle" class="title">ForgeOne Database Schema</text>
+
+  <!-- Databases -->
+  <rect x="100" y="100" width="200" height="80" rx="10" ry="10" class="database" />
+  <text x="200" y="145" text-anchor="middle" class="subtitle">System Database</text>
+  <text x="200" y="170" text-anchor="middle" class="text">system.redb</text>
+
+  <rect x="400" y="100" width="200" height="80" rx="10" ry="10" class="database" />
+  <text x="500" y="145" text-anchor="middle" class="subtitle">Logs Database</text>
+  <text x="500" y="170" text-anchor="middle" class="text">(Sharded)</text>
+
+  <rect x="700" y="100" width="200" height="80" rx="10" ry="10" class="database" />
+  <text x="800" y="145" text-anchor="middle" class="subtitle">Blobs Database</text>
+  <text x="800" y="170" text-anchor="middle" class="text">(Sharded)</text>
+
+  <rect x="1000" y="100" width="200" height="80" rx="10" ry="10" class="database" />
+  <text x="1100" y="145" text-anchor="middle" class="subtitle">Events Database</text>
+  <text x="1100" y="170" text-anchor="middle" class="text">(Sharded)</text>
+
+  <!-- Shards -->
+  <!-- Logs Shards -->
+  <rect x="350" y="230" width="120" height="60" rx="5" ry="5" class="shard" />
+  <text x="410" y="265" text-anchor="middle" class="text">logs_shard_0.redb</text>
+
+  <rect x="480" y="230" width="120" height="60" rx="5" ry="5" class="shard" />
+  <text x="540" y="265" text-anchor="middle" class="text">logs_shard_1.redb</text>
+
+  <rect x="350" y="300" width="120" height="60" rx="5" ry="5" class="shard" />
+  <text x="410" y="335" text-anchor="middle" class="text">logs_shard_2.redb</text>
+
+  <rect x="480" y="300" width="120" height="60" rx="5" ry="5" class="shard" />
+  <text x="540" y="335" text-anchor="middle" class="text">logs_shard_3.redb</text>
+
+  <!-- Blobs Shards -->
+  <rect x="650" y="230" width="120" height="60" rx="5" ry="5" class="shard" />
+  <text x="710" y="265" text-anchor="middle" class="text">blobs_shard_0.redb</text>
+
+  <rect x="780" y="230" width="120" height="60" rx="5" ry="5" class="shard" />
+  <text x="840" y="265" text-anchor="middle" class="text">blobs_shard_1.redb</text>
+
+  <rect x="650" y="300" width="120" height="60" rx="5" ry="5" class="shard" />
+  <text x="710" y="335" text-anchor="middle" class="text">blobs_shard_2.redb</text>
+
+  <rect x="780" y="300" width="120" height="60" rx="5" ry="5" class="shard" />
+  <text x="840" y="335" text-anchor="middle" class="text">blobs_shard_3.redb</text>
+
+  <!-- Events Shards -->
+  <rect x="950" y="230" width="120" height="60" rx="5" ry="5" class="shard" />
+  <text x="1010" y="265" text-anchor="middle" class="text">events_shard_0.redb</text>
+
+  <rect x="1080" y="230" width="120" height="60" rx="5" ry="5" class="shard" />
+  <text x="1140" y="265" text-anchor="middle" class="text">events_shard_1.redb</text>
+
+  <rect x="950" y="300" width="120" height="60" rx="5" ry="5" class="shard" />
+  <text x="1010" y="335" text-anchor="middle" class="text">events_shard_2.redb</text>
+
+  <rect x="1080" y="300" width="120" height="60" rx="5" ry="5" class="shard" />
+  <text x="1140" y="335" text-anchor="middle" class="text">events_shard_3.redb</text>
+
+  <!-- Lines connecting databases to shards -->
+  <line x1="500" y1="180" x2="500" y2="210" class="line" />
+  <line x1="500" y1="210" x2="410" y2="230" class="line" />
+  <line x1="500" y1="210" x2="540" y2="230" class="line" />
+  <line x1="500" y1="210" x2="410" y2="300" class="line" />
+  <line x1="500" y1="210" x2="540" y2="300" class="line" />
+
+  <line x1="800" y1="180" x2="800" y2="210" class="line" />
+  <line x1="800" y1="210" x2="710" y2="230" class="line" />
+  <line x1="800" y1="210" x2="840" y2="230" class="line" />
+  <line x1="800" y1="210" x2="710" y2="300" class="line" />
+  <line x1="800" y1="210" x2="840" y2="300" class="line" />
+
+  <line x1="1100" y1="180" x2="1100" y2="210" class="line" />
+  <line x1="1100" y1="210" x2="1010" y2="230" class="line" />
+  <line x1="1100" y1="210" x2="1140" y2="230" class="line" />
+  <line x1="1100" y1="210" x2="1010" y2="300" class="line" />
+  <line x1="1100" y1="210" x2="1140" y2="300" class="line" />
+
+  <!-- Data Models -->
+  <text x="600" y="400" text-anchor="middle" class="subtitle">Data Models</text>
+
+  <!-- LogEntry Table -->
+  <rect x="100" y="450" width="250" height="30" rx="5" ry="5" class="table" />
+  <text x="225" y="470" text-anchor="middle" class="table-title">LogEntry</text>
+
+  <rect x="100" y="480" width="50" height="25" rx="0" ry="0" class="pk" />
+  <text x="125" y="497" text-anchor="middle" class="field-text">id</text>
+
+  <rect x="150" y="480" width="100" height="25" rx="0" ry="0" class="field" />
+  <text x="200" y="497" text-anchor="middle" class="field-text">timestamp</text>
+
+  <rect x="250" y="480" width="100" height="25" rx="0" ry="0" class="field" />
+  <text x="300" y="497" text-anchor="middle" class="field-text">severity</text>
+
+  <rect x="100" y="505" width="100" height="25" rx="0" ry="0" class="field" />
+  <text x="150" y="522" text-anchor="middle" class="field-text">source</text>
+
+  <rect x="200" y="505" width="150" height="25" rx="0" ry="0" class="field" />
+  <text x="275" y="522" text-anchor="middle" class="field-text">message</text>
+
+  <rect x="100" y="530" width="100" height="25" rx="0" ry="0" class="field" />
+  <text x="150" y="547" text-anchor="middle" class="field-text">context</text>
+
+  <rect x="200" y="530" width="150" height="25" rx="0" ry="0" class="field" />
+  <text x="275" y="547" text-anchor="middle" class="field-text">signature</text>
+
+  <!-- BlobMetadata Table -->
+  <rect x="400" y="450" width="250" height="30" rx="5" ry="5" class="table" />
+  <text x="525" y="470" text-anchor="middle" class="table-title">BlobMetadata</text>
+
+  <rect x="400" y="480" width="50" height="25" rx="0" ry="0" class="pk" />
+  <text x="425" y="497" text-anchor="middle" class="field-text">id</text>
+
+  <rect x="450" y="480" width="100" height="25" rx="0" ry="0" class="field" />
+  <text x="500" y="497" text-anchor="middle" class="field-text">name</text>
+
+  <rect x="550" y="480" width="100" height="25" rx="0" ry="0" class="field" />
+  <text x="600" y="497" text-anchor="middle" class="field-text">content_type</text>
+
+  <rect x="400" y="505" width="100" height="25" rx="0" ry="0" class="field" />
+  <text x="450" y="522" text-anchor="middle" class="field-text">size</text>
+
+  <rect x="500" y="505" width="150" height="25" rx="0" ry="0" class="field" />
+  <text x="575" y="522" text-anchor="middle" class="field-text">created_at</text>
+
+  <rect x="400" y="530" width="100" height="25" rx="0" ry="0" class="field" />
+  <text x="450" y="547" text-anchor="middle" class="field-text">checksum</text>
+
+  <rect x="500" y="530" width="150" height="25" rx="0" ry="0" class="field" />
+  <text x="575" y="547" text-anchor="middle" class="field-text">encryption_info</text>
+
+  <!-- BlobChunk Table -->
+  <rect x="400" y="580" width="250" height="30" rx="5" ry="5" class="table" />
+  <text x="525" y="600" text-anchor="middle" class="table-title">BlobChunk</text>
+
+  <rect x="400" y="610" width="50" height="25" rx="0" ry="0" class="pk" />
+  <text x="425" y="627" text-anchor="middle" class="field-text">id</text>
+
+  <rect x="450" y="610" width="100" height="25" rx="0" ry="0" class="fk" />
+  <text x="500" y="627" text-anchor="middle" class="field-text">blob_id</text>
+
+  <rect x="550" y="610" width="100" height="25" rx="0" ry="0" class="field" />
+  <text x="600" y="627" text-anchor="middle" class="field-text">chunk_index</text>
+
+  <rect x="400" y="635" width="250" height="25" rx="0" ry="0" class="field" />
+  <text x="525" y="652" text-anchor="middle" class="field-text">data</text>
+
+  <!-- EventMessage Table -->
+  <rect x="700" y="450" width="250" height="30" rx="5" ry="5" class="table" />
+  <text x="825" y="470" text-anchor="middle" class="table-title">EventMessage</text>
+
+  <rect x="700" y="480" width="50" height="25" rx="0" ry="0" class="pk" />
+  <text x="725" y="497" text-anchor="middle" class="field-text">id</text>
+
+  <rect x="750" y="480" width="100" height="25" rx="0" ry="0" class="field" />
+  <text x="800" y="497" text-anchor="middle" class="field-text">timestamp</text>
+
+  <rect x="850" y="480" width="100" height="25" rx="0" ry="0" class="field" />
+  <text x="900" y="497" text-anchor="middle" class="field-text">category</text>
+
+  <rect x="700" y="505" width="100" height="25" rx="0" ry="0" class="field" />
+  <text x="750" y="522" text-anchor="middle" class="field-text">severity</text>
+
+  <rect x="800" y="505" width="150" height="25" rx="0" ry="0" class="field" />
+  <text x="875" y="522" text-anchor="middle" class="field-text">outcome</text>
+
+  <rect x="700" y="530" width="100" height="25" rx="0" ry="0" class="field" />
+  <text x="750" y="547" text-anchor="middle" class="field-text">source</text>
+
+  <rect x="800" y="530" width="150" height="25" rx="0" ry="0" class="field" />
+  <text x="875" y="547" text-anchor="middle" class="field-text">message</text>
+
+  <rect x="700" y="555" width="100" height="25" rx="0" ry="0" class="field" />
+  <text x="750" y="572" text-anchor="middle" class="field-text">context</text>
+
+  <rect x="800" y="555" width="150" height="25" rx="0" ry="0" class="field" />
+  <text x="875" y="572" text-anchor="middle" class="field-text">metadata</text>
+
+  <rect x="700" y="580" width="250" height="25" rx="0" ry="0" class="field" />
+  <text x="825" y="597" text-anchor="middle" class="field-text">signature</text>
+
+  <!-- Line connecting BlobMetadata to BlobChunk -->
+  <line x1="425" y1="555" x2="425" y2="610" class="line" />
+  <polygon points="425,610 420,600 430,600" class="arrow" />
+
+  <!-- Database Features -->
+  <text x="600" y="700" text-anchor="middle" class="subtitle">Database Features</text>
+
+  <!-- Features -->
+  <rect x="100" y="750" width="200" height="60" rx="10" ry="10" class="table" />
+  <text x="200" y="785" text-anchor="middle" class="text">Sharding</text>
+
+  <rect x="350" y="750" width="200" height="60" rx="10" ry="10" class="table" />
+  <text x="450" y="785" text-anchor="middle" class="text">Encryption</text>
+
+  <rect x="600" y="750" width="200" height="60" rx="10" ry="10" class="table" />
+  <text x="700" y="785" text-anchor="middle" class="text">Compression</text>
+
+  <rect x="850" y="750" width="200" height="60" rx="10" ry="10" class="table" />
+  <text x="950" y="785" text-anchor="middle" class="text">Snapshots</text>
+
+  <rect x="475" y="850" width="200" height="60" rx="10" ry="10" class="table" />
+  <text x="575" y="885" text-anchor="middle" class="text">Audit</text>
+
+  <!-- Backup Procedures -->
+  <text x="600" y="950" text-anchor="middle" class="subtitle">Backup Procedures</text>
+
+  <rect x="250" y="1000" width="200" height="60" rx="10" ry="10" class="table" />
+  <text x="350" y="1035" text-anchor="middle" class="text">Scheduled Backups</text>
+
+  <rect x="500" y="1000" width="200" height="60" rx="10" ry="10" class="table" />
+  <text x="600" y="1035" text-anchor="middle" class="text">Incremental Backups</text>
+
+  <rect x="750" y="1000" width="200" height="60" rx="10" ry="10" class="table" />
+  <text x="850" y="1035" text-anchor="middle" class="text">Encrypted Backups</text>
+
+  <!-- Compliance -->
+  <text x="600" y="1100" text-anchor="middle" class="subtitle">Compliance</text>
+
+  <rect x="250" y="1150" width="200" height="60" rx="10" ry="10" class="table" />
+  <text x="350" y="1185" text-anchor="middle" class="text">GDPR Compliance</text>
+
+  <rect x="500" y="1150" width="200" height="60" rx="10" ry="10" class="table" />
+  <text x="600" y="1185" text-anchor="middle" class="text">HIPAA Compliance</text>
+
+  <rect x="750" y="1150" width="200" height="60" rx="10" ry="10" class="table" />
+  <text x="850" y="1185" text-anchor="middle" class="text">SOC2 Compliance</text>
+
+  <!-- Legend -->
+  <text x="600" y="1250" text-anchor="middle" class="subtitle">Legend</text>
+  
+  <rect x="450" y="1280" width="60" height="30" rx="5" ry="5" class="database" />
+  <text x="520" y="1300" text-anchor="start" class="text">Database</text>
+  
+  <rect x="450" y="1320" width="60" height="30" rx="5" ry="5" class="shard" />
+  <text x="520" y="1340" text-anchor="start" class="text">Database Shard</text>
+  
+  <rect x="450" y="1360" width="60" height="30" rx="5" ry="5" class="table" />
+  <text x="520" y="1380" text-anchor="start" class="text">Table/Model</text>
+  
+  <rect x="450" y="1400" width="60" height="30" rx="0" ry="0" class="pk" />
+  <text x="520" y="1420" text-anchor="start" class="text">Primary Key</text>
+  
+  <rect x="450" y="1440" width="60" height="30" rx="0" ry="0" class="fk" />
+  <text x="520" y="1460" text-anchor="start" class="text">Foreign Key</text>
+  
+  <rect x="450" y="1480" width="60" height="30" rx="0" ry="0" class="field" />
+  <text x="520" y="1500" text-anchor="start" class="text">Field</text>
+
+  <!-- Footer -->
+  <text x="600" y="1550" text-anchor="middle" class="subtitle">ForgeOne Database Schema</text>
+  <text x="600" y="1580" text-anchor="middle" class="text">This diagram illustrates the database schema for the ForgeOne Common module.</text>
+</svg>

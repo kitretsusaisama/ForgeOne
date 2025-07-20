@@ -1,0 +1,213 @@
+Excellent — now you're asking the most important question:
+
+> **“How do we connect all modules together into one working system?”**
+
+This is where most complex systems fail — but ForgeOne, designed **modularly and layer-by-layer**, will **naturally compose** if we follow these precise patterns.
+
+---
+
+## 🔧 Phase-by-Phase Connection Guide
+
+We'll connect crates via:
+
+1. **Public APIs (`pub fn`, `pub struct`)**
+2. **Dependency graph in `Cargo.toml`**
+3. **Internal traits & interfaces**
+4. **Config + shared types from `common/`**
+5. **Orchestrated init order: CLI → API → Runtime → Kernel → Plugin/Security/Net**
+
+---
+
+## 🧩 1. `common` connects everything via shared types
+
+### What to Export:
+
+* `Config`: all runtime settings (`config.rs`)
+* `Error`, `Result`: from `error.rs`, `result.rs`
+* `Identity`, `TrustVector`, `RuntimeMode`, etc.
+
+### Example Usage:
+
+```rust
+// crates/container-runtime/src/lib.rs
+use common::{Result, error::ForgeError, config::RuntimeConfig};
+```
+
+✅ This ensures **one canonical version of every shared concept** (trust, config, logging, etc.)
+
+---
+
+## ⚙️ 2. Kernel -> Plugin Manager -> WASM
+
+`microkernel` depends on:
+
+* `common` (for config, error)
+* `plugin-manager` (to load WASM plugins)
+
+### Sample Flow:
+
+```rust
+// microkernel/src/lib.rs
+use plugin_manager::PluginHost;
+use common::config::RuntimeConfig;
+
+pub fn boot_kernel(cfg: &RuntimeConfig) -> Result<KernelHandle> {
+    let plugin_runtime = PluginHost::init(&cfg.plugin_dir)?;
+    ...
+}
+```
+
+✅ This **composes runtime loading** without circular dependency.
+
+---
+
+## 📦 3. Container Runtime -> Microkernel
+
+`container-runtime` is the **supervisor**. It uses `microkernel` to:
+
+* Start container
+* Stop container
+* Query state
+
+### Example Flow:
+
+```rust
+// container-runtime/src/manager.rs
+use microkernel::boot_kernel;
+use common::config::RuntimeConfig;
+
+pub fn run_container(config: RuntimeConfig) -> Result<()> {
+    let kernel = boot_kernel(&config)?;
+    kernel.run_foreground();
+    Ok(())
+}
+```
+
+✅ This links `container-runtime` to the core.
+
+---
+
+## 🌐 4. API -> Runtime
+
+`api` is your **external surface**. It talks to:
+
+* `container-runtime` → for `run`, `stop`, etc.
+* `storage-manager`, `network-manager`, etc.
+
+### Example:
+
+```rust
+// api/src/server.rs
+use container_runtime::manager;
+
+#[post("/run")]
+async fn run(pkg: RunRequest) -> Result<RunResponse> {
+    manager::run_container(pkg.config)?;
+    Ok(RunResponse::success())
+}
+```
+
+✅ Clean decoupling: API is only a wrapper, not logic-heavy.
+
+---
+
+## 🖥️ 5. CLI -> API
+
+`cli` is the **user gateway**:
+
+```rust
+// cli/src/main.rs
+use clap::Parser;
+use api::client::send_run;
+
+fn main() -> Result<()> {
+    let opts = CliOptions::parse();
+    match opts.cmd {
+        Commands::Run { pkg } => send_run(pkg)?,
+        ...
+    }
+    Ok(())
+}
+```
+
+---
+
+## 🔗 Dependency Connection Flow
+
+```
+cli
+ └──→ api
+       └──→ container-runtime
+             └──→ microkernel
+                   ├──→ plugin-manager
+                   └──→ security
+             ├──→ storage-manager
+             └──→ network-manager
+All use → common
+```
+
+✅ **Only downward dependencies**, **no cyclic imports**. That's **enterprise-ready design.**
+
+---
+
+## 🔧 How to Link Crates (Cargo.toml)
+
+Example: `container-runtime/Cargo.toml`
+
+```toml
+[dependencies]
+common = { path = "../common" }
+microkernel = { path = "../microkernel" }
+security = { path = "../security" }
+```
+
+Same in `api/Cargo.toml`:
+
+```toml
+[dependencies]
+common = { path = "../common" }
+container-runtime = { path = "../container-runtime" }
+```
+
+> Use `cargo check -p <crate>` to verify at every stage.
+
+---
+
+## 🔄 Connection Loop (Design Pattern)
+
+Every module has:
+
+| Thing        | How it's Passed                          |
+| ------------ | ---------------------------------------- |
+| Config       | From `common::config::RuntimeConfig`     |
+| Errors       | Via `common::error::ForgeError`          |
+| Logging      | Via `common::logging::init_logging()`    |
+| Identity     | Passed from CLI → API → Runtime → Kernel |
+| Container ID | From API → Runtime → Kernel              |
+| TrustVector  | Validated inside `security`              |
+
+---
+
+## ✅ Summary: How They All Connect
+
+| Layer               | Role               | Depends On                    |
+| ------------------- | ------------------ | ----------------------------- |
+| `cli`               | UX frontend        | `api`                         |
+| `api`               | Control layer      | `container-runtime`, `common` |
+| `container-runtime` | Supervisor         | `microkernel`, `security`     |
+| `microkernel`       | OS/Runtime layer   | `plugin-manager`, `common`    |
+| `plugin-manager`    | Plugin executor    | `common`                      |
+| `security`          | Policy enforcement | `common`                      |
+| `storage-manager`   | Volumes/FS         | `common`                      |
+| `network-manager`   | Virtual networks   | `common`                      |
+
+---
+
+## 🔥 Ready to Start Linking?
+
+If you're ready, we’ll begin with the **`common/` crate**, which every other module will import.
+
+Say:
+
+> 🔧 **Begin Step 1: Build `common` crate (types, config, logging)**
+> And I’ll scaffold everything you need, ready to paste in.

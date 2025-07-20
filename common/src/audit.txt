@@ -1,0 +1,9 @@
+    /// Example: Initialize and use RedbAuditStore in production
+    /// ```rust
+    /// use common::audit::{init_audit_redb, RedbAuditStore};
+    /// use common::db::redb::RedbOptions;
+    /// // Initialize RedbManager (singleton)
+    /// init_audit_redb(Some(RedbOptions::default())).unwrap();
+    /// let store = RedbAuditStore::new_with_manager();
+    /// // Use store.insert_event, store.query_events, etc.
+    /// ```

@@ -1,0 +1,161 @@
+📌 Objective
+Upgrade common/ into an ultra-secure, distributed, resilient local services module powering ForgeOne’s core subsystems.
+
+It must support:
+
+🔐 SQLite → Config, auth, API keys, logging index (with sqlcipher)
+
+⚡ RocksDB → Real-time compressed stream chunks, trace chains, LLM cache
+
+📁 Sharded Local Storage → Files + DB split across nodes and paths
+
+📜 Immutable Audit Trails → Signed logs, snapshot history
+
+⚙️ Stateful Recovery → Checkpointing, restoration, crash-safe
+
+📊 Telemetry Layer → Real-time & offline performance metrics
+
+🎯 Zero Trust Friendly → Minimal exposure, strict crypto/trace checks
+
+🌐 Access Keying System → API keys, GUI tokens, user accounts (offline)
+
+📁 Structure (Suggested common/ Expansion)
+bash
+Copy
+Edit
+common/
+├── src/
+│   ├── db/
+│   │   ├── mod.rs                   # DB prelude
+│   │   ├── sqlite.rs                # Encrypted SQL storage
+│   │   ├── rocks.rs                 # Zstd-compressed KV sharded DB
+│   │   ├── model.rs                 # DB-persisted models
+│   │   ├── access.rs                # Local auth, tokens, keychains
+│   │   └── snapshot.rs              # Restore, checkpoint state
+│   ├── audit.rs                     # Signed log ingestion
+│   ├── telemetry.rs                 # Real-time metrics store (to Rocks)
+│   ├── identity.rs                  # User/device/agent lineage DB-backed
+│   ├── trust.rs                     # Cache graphs using Rocks
+│   ├── observer.rs                  # Store LLM explanations + session trace
+│   ├── diagnostics.rs               # Panic dumps, restart plans
+│   ├── crypto.rs                    # Ed25519, entropy seal, log signatures
+│   ├── logging.rs                   # Rolling .log.zst writer
+│   ├── events.rs                    # Event definitions (ECS-style)
+│   └── prelude.rs                   # Export traits, helpers
+✅ Required Traits / Concepts
+Trait	Purpose
+Persistable	For types storable in Rocks/SQLite
+Compressible	Support for .zst, .xz, .snappy
+Auditable	Self-verifiable event chain
+CheckPointable	Must implement snapshot/restore
+Loggable	Converts system events into signed .log entries
+SecureIdentifiable	All identities have trace IDs and signatures
+Shardable	Automatically splits into folder-chunks
+SelfHealing	Supports recovery after crash/halt
+StreamableEvent	Live emit of metrics / logs / errors
+
+📦 Filesystem Layout (Distributed, Sharded, Fast)
+bash
+Copy
+Edit
+.forgeone/
+├── db/
+│   ├── sqlite/
+│   │   └── local.db
+│   ├── rocks/
+│   │   ├── node-01/
+│   │   └── node-02/
+├── logs/
+│   ├── 2025-07-14/
+│   │   └── audit-001.log.zst
+├── checkpoints/
+│   ├── latest/
+│   └── archive/
+├── metrics/
+│   ├── system.zst
+│   └── perf.csv
+├── snapshots/
+│   ├── session_001/
+│   └── crash_20250714_13-22-15/
+💻 Advanced SQLite Usage
+Use sqlcipher for encrypted-at-rest DB
+
+Index logs, API keys, users, config versions
+
+All writes are signed with Ed25519
+
+Full WAL + rollback support
+
+⚡ Advanced RocksDB Usage
+Per-node compression: zstd + lz4
+
+Sharded paths: node-01, node-02, etc.
+
+TTL (time-to-live) per trace segment
+
+LLM cache can be deduplicated
+
+Telemetry traces streamable to WebSocket layer or GUI
+
+🔐 Local Access Management
+Store the following inside encrypted SQLite:
+
+✅ User: username, passhash (argon2), scopes
+
+🔑 APIKey: web tokens, token rotation
+
+🌍 GUI Token: locally signed bearer token with expiry
+
+🔒 Keychain: per-device, per-session encryption fingerprint
+
+🧩 Entitlement: RBAC-like per subsystem
+
+🧠 Recovery System
+snapshot.rs: implements CheckPointable trait
+
+Every 1/5/15 min, write a full RocksDB + SQLite checkpoint
+
+On crash, verify logs, checksum state, offer restore prompt
+
+Audit trail embedded with each recovery
+
+🔁 Audit Logging System
+Append-only .log.zst
+
+Uses audit.rs + crypto.rs to:
+
+Sign each log entry
+
+Encrypt full log if configured
+
+Allow tail + verify via CLI or GUI
+
+Log viewer parses logs by span, event, error, context
+
+🚦 Telemetry Channel
+RocksDB stream + WebSocket forwarding
+
+Export metrics:
+
+Latency, throughput
+
+CPU, memory
+
+Event loop status
+
+Snapshot count, log size
+
+GUI uses GET /local/telemetry/stream
+
+✅ Next Step
+You can now scaffold the following:
+
+common/src/db/sqlite.rs
+
+common/src/db/rocks.rs
+
+common/src/db/snapshot.rs
+
+common/src/logging.rs
+
+common/src/db/model.rs
