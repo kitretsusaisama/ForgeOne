@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="800" height="700" viewBox="0 0 800 700">
+  <style>
+    .title { font: bold 20px sans-serif; }
+    .step { font: bold 14px sans-serif; }
+    .description { font: 12px sans-serif; }
+    .step-box { stroke: #333; stroke-width: 2; }
+    .config { fill: #e6f7ff; }
+    .security { fill: #ffe6e6; }
+    .fs { fill: #e6ffe6; }
+    .registry { fill: #fff2e6; }
+    .lifecycle { fill: #f2e6ff; }
+    .arrow { stroke: #666; stroke-width: 1.5; fill: none; marker-end: url(#arrowhead); }
+    .module { font: italic 12px sans-serif; fill: #666; }
+  </style>
+  
+  <defs>
+    <marker id="arrowhead" markerWidth="10" markerHeight="7" refX="9" refY="3.5" orient="auto">
+      <polygon points="0 0, 10 3.5, 0 7" fill="#666" />
+    </marker>
+  </defs>
+  
+  <rect width="100%" height="100%" fill="white" />
+  
+  <!-- Title -->
+  <text x="400" y="30" text-anchor="middle" class="title">Container Creation Process</text>
+  
+  <!-- Start -->
+  <rect x="350" y="60" width="120" height="40" rx="20" ry="20" class="step-box" fill="#ccc" />
+  <text x="410" y="85" text-anchor="middle" class="step">START</text>
+  
+  <!-- Step 1: Generate Container ID -->
+  <rect x="250" y="130" width="300" height="60" rx="10" ry="10" class="step-box registry" />
+  <text x="400" y="155" text-anchor="middle" class="step">1. Generate Container ID</text>
+  <text x="400" y="175" text-anchor="middle" class="description">Create unique identifier for container</text>
+  
+  <!-- Step 2: Create Container DNA -->
+  <rect x="250" y="220" width="300" height="60" rx="10" ry="10" class="step-box security" />
+  <text x="400" y="245" text-anchor="middle" class="step">2. Create Container DNA</text>
+  <text x="400" y="265" text-anchor="middle" class="description">Generate runtime behavior fingerprint</text>
+  
+  <!-- Step 3: Create ZTA Contract -->
+  <rect x="250" y="310" width="300" height="60" rx="10" ry="10" class="step-box security" />
+  <text x="400" y="335" text-anchor="middle" class="step">3. Create ZTA Contract</text>
+  <text x="400" y="355" text-anchor="middle" class="description">Establish security policies and trust boundaries</text>
+  
+  <!-- Step 4: Create Container Filesystem -->
+  <rect x="250" y="400" width="300" height="60" rx="10" ry="10" class="step-box fs" />
+  <text x="400" y="425" text-anchor="middle" class="step">4. Create Container Filesystem</text>
+  <text x="400" y="445" text-anchor="middle" class="description">Setup OverlayFS layers and mount points</text>
+  
+  <!-- Step 5: Register with Registry -->
+  <rect x="250" y="490" width="300" height="60" rx="10" ry="10" class="step-box registry" />
+  <text x="400" y="515" text-anchor="middle" class="step">5. Register with Registry</text>
+  <text x="400" y="535" text-anchor="middle" class="description">Add container to runtime registry</text>
+  
+  <!-- Step 6: Apply Configuration -->
+  <rect x="250" y="580" width="300" height="60" rx="10" ry="10" class="step-box config" />
+  <text x="400" y="605" text-anchor="middle" class="step">6. Apply Configuration</text>
+  <text x="400" y="625" text-anchor="middle" class="description">Apply ContainerConfig settings</text>
+  
+  <!-- End -->
+  <rect x="350" y="670" width="120" height="40" rx="20" ry="20" class="step-box" fill="#ccc" />
+  <text x="410" y="695" text-anchor="middle" class="step">CREATED</text>
+  
+  <!-- Connections -->
+  <path d="M 410 100 L 410 130" class="arrow" />
+  <path d="M 410 190 L 410 220" class="arrow" />
+  <path d="M 410 280 L 410 310" class="arrow" />
+  <path d="M 410 370 L 410 400" class="arrow" />
+  <path d="M 410 460 L 410 490" class="arrow" />
+  <path d="M 410 550 L 410 580" class="arrow" />
+  <path d="M 410 640 L 410 670" class="arrow" />
+  
+  <!-- Module Labels -->
+  <text x="580" y="155" class="module">registry::create</text>
+  <text x="580" y="245" class="module">dna::create_dna</text>
+  <text x="580" y="335" class="module">contract::create_zta_contract</text>
+  <text x="580" y="425" class="module">fs::create_container_fs</text>
+  <text x="580" y="515" class="module">registry::register_container</text>
+  <text x="580" y="605" class="module">config::apply_config</text>
+  
+  <!-- Input/Output -->
+  <rect x="50" y="130" width="150" height="60" rx="10" ry="10" stroke="#333" stroke-width="1" fill="#f9f9f9" />
+  <text x="125" y="155" text-anchor="middle" class="step">Input</text>
+  <text x="125" y="175" text-anchor="middle" class="description">image_path</text>
+  <text x="125" y="190" text-anchor="middle" class="description">container_id (opt)</text>
+  
+  <rect x="50" y="580" width="150" height="60" rx="10" ry="10" stroke="#333" stroke-width="1" fill="#f9f9f9" />
+  <text x="125" y="605" text-anchor="middle" class="step">Output</text>
+  <text x="125" y="625" text-anchor="middle" class="description">container_id</text>
+  
+  <path d="M 200 160 L 250 160" class="arrow" />
+  <path d="M 250 610 L 200 610" class="arrow" />
+</svg>

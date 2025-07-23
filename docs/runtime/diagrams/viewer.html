@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ForgeOne Runtime Diagrams Viewer</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            line-height: 1.6;
+            margin: 0;
+            padding: 20px;
+            color: #333;
+            background-color: #f5f5f5;
+        }
+        header {
+            background-color: #0066cc;
+            color: white;
+            padding: 20px;
+            text-align: center;
+            margin-bottom: 20px;
+            border-radius: 5px;
+        }
+        h1 {
+            margin: 0;
+        }
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background-color: white;
+            padding: 20px;
+            border-radius: 5px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+        .diagram-nav {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-bottom: 20px;
+        }
+        .diagram-button {
+            padding: 10px 15px;
+            background-color: #0066cc;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+        .diagram-button:hover {
+            background-color: #0055aa;
+        }
+        .diagram-button.active {
+            background-color: #004488;
+        }
+        .diagram-container {
+            margin-top: 20px;
+            text-align: center;
+        }
+        .diagram-container svg {
+            max-width: 100%;
+            height: auto;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+        }
+        .diagram-description {
+            margin-top: 20px;
+            padding: 15px;
+            background-color: #f9f9f9;
+            border-radius: 5px;
+            border-left: 5px solid #0066cc;
+        }
+        footer {
+            margin-top: 30px;
+            text-align: center;
+            font-size: 0.9em;
+            color: #666;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>ForgeOne Runtime Diagrams Viewer</h1>
+    </header>
+    
+    <div class="container">
+        <div class="diagram-nav">
+            <button class="diagram-button active" data-diagram="runtime_architecture.svg">Runtime Architecture</button>
+            <button class="diagram-button" data-diagram="container_lifecycle.svg">Container Lifecycle</button>
+            <button class="diagram-button" data-diagram="container_creation.svg">Container Creation</button>
+            <button class="diagram-button" data-diagram="config_module.svg">Config Module</button>
+            <button class="diagram-button" data-diagram="security_architecture.svg">Security Architecture</button>
+            <button class="diagram-button" data-diagram="network_architecture.svg">Network Architecture</button>
+        </div>
+        
+        <div class="diagram-description" id="diagram-description">
+            <p>This diagram provides a high-level overview of the runtime architecture, showing the main modules and their relationships. It illustrates how the core runtime components interact with security, execution, network, and storage subsystems.</p>
+        </div>
+        
+        <div class="diagram-container" id="diagram-container">
+            <!-- SVG will be loaded here -->
+        </div>
+    </div>
+    
+    <footer>
+        <p>ForgeOne Quantum-Grade HyperContainer Runtime Documentation</p>
+    </footer>
+    
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const diagramContainer = document.getElementById('diagram-container');
+            const diagramDescription = document.getElementById('diagram-description');
+            const buttons = document.querySelectorAll('.diagram-button');
+            
+            // Descriptions for each diagram
+            const descriptions = {
+                'runtime_architecture.svg': 'This diagram provides a high-level overview of the runtime architecture, showing the main modules and their relationships. It illustrates how the core runtime components interact with security, execution, network, and storage subsystems.',
+                'container_lifecycle.svg': 'This diagram illustrates the container lifecycle state machine, showing the various states a container can be in (CREATED, RUNNING, PAUSED, STOPPED, EXITED) and the transitions between these states. It also shows the API functions that trigger these transitions.',
+                'container_creation.svg': 'This diagram details the step-by-step process of container creation, from generating a container ID to applying configuration. It shows the sequence of operations performed by the create_container function in the registry module.',
+                'config_module.svg': 'This diagram shows the structure of the configuration module, including its submodules (loader, validator, saver, tests) and the relationships between them. It also illustrates the core ContainerConfig type and its supporting structures.',
+                'security_architecture.svg': 'This diagram illustrates the security architecture of the runtime, centered around Zero Trust Architecture. It shows how attestation, cryptography, policy enforcement, and isolation mechanisms work together to provide a secure container execution environment.',
+                'network_architecture.svg': 'This diagram shows the network architecture of the runtime, including the virtual network bridge, container firewall, and service mesh components. It illustrates how containers communicate with each other and with external networks.'
+            };
+            
+            // Load the default diagram
+            loadDiagram('runtime_architecture.svg');
+            
+            // Add click event listeners to buttons
+            buttons.forEach(button => {
+                button.addEventListener('click', function() {
+                    // Remove active class from all buttons
+                    buttons.forEach(btn => btn.classList.remove('active'));
+                    // Add active class to clicked button
+                    this.classList.add('active');
+                    // Load the selected diagram
+                    loadDiagram(this.dataset.diagram);
+                });
+            });
+            
+            // Function to load a diagram
+            function loadDiagram(diagramFile) {
+                fetch(diagramFile)
+                    .then(response => response.text())
+                    .then(svgContent => {
+                        diagramContainer.innerHTML = svgContent;
+                        diagramDescription.innerHTML = `<p>${descriptions[diagramFile]}</p>`;
+                    })
+                    .catch(error => {
+                        console.error('Error loading diagram:', error);
+                        diagramContainer.innerHTML = `<p>Error loading diagram: ${error.message}</p>`;
+                    });
+            }
+        });
+    </script>
+</body>
+</html>

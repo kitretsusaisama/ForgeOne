@@ -1,0 +1,130 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1000" height="800" viewBox="0 0 1000 800">
+  <!-- Background and Title -->
+  <rect width="1000" height="800" fill="#f8f9fa" />
+  <text x="500" y="40" font-family="Arial" font-size="24" font-weight="bold" text-anchor="middle" fill="#333">ForgeOne Plugin Manager Architecture</text>
+  
+  <!-- Main Container -->
+  <rect x="50" y="70" width="900" height="680" rx="10" ry="10" fill="#fff" stroke="#ddd" stroke-width="2" />
+  
+  <!-- Plugin Interface -->
+  <rect x="100" y="100" width="800" height="80" rx="5" ry="5" fill="#e6f7ff" stroke="#1890ff" stroke-width="2" />
+  <text x="500" y="145" font-family="Arial" font-size="18" font-weight="bold" text-anchor="middle" fill="#333">Plugin Interface</text>
+  <rect x="150" y="120" width="150" height="40" rx="5" ry="5" fill="#bae7ff" stroke="#1890ff" stroke-width="1" />
+  <text x="225" y="145" font-family="Arial" font-size="14" text-anchor="middle" fill="#333">ABI</text>
+  <rect x="350" y="120" width="150" height="40" rx="5" ry="5" fill="#bae7ff" stroke="#1890ff" stroke-width="1" />
+  <text x="425" y="145" font-family="Arial" font-size="14" text-anchor="middle" fill="#333">Extension Points</text>
+  <rect x="550" y="120" width="150" height="40" rx="5" ry="5" fill="#bae7ff" stroke="#1890ff" stroke-width="1" />
+  <text x="625" y="145" font-family="Arial" font-size="14" text-anchor="middle" fill="#333">Manifest</text>
+  <rect x="750" y="120" width="100" height="40" rx="5" ry="5" fill="#bae7ff" stroke="#1890ff" stroke-width="1" />
+  <text x="800" y="145" font-family="Arial" font-size="14" text-anchor="middle" fill="#333">API</text>
+  
+  <!-- Plugin Manager Core -->
+  <rect x="100" y="200" width="800" height="100" rx="5" ry="5" fill="#f6ffed" stroke="#52c41a" stroke-width="2" />
+  <text x="500" y="230" font-family="Arial" font-size="18" font-weight="bold" text-anchor="middle" fill="#333">Plugin Manager Core</text>
+  
+  <rect x="150" y="250" width="150" height="40" rx="5" ry="5" fill="#d9f7be" stroke="#52c41a" stroke-width="1" />
+  <text x="225" y="275" font-family="Arial" font-size="14" text-anchor="middle" fill="#333">Registry</text>
+  
+  <rect x="350" y="250" width="150" height="40" rx="5" ry="5" fill="#d9f7be" stroke="#52c41a" stroke-width="1" />
+  <text x="425" y="275" font-family="Arial" font-size="14" text-anchor="middle" fill="#333">Lifecycle</text>
+  
+  <rect x="550" y="250" width="150" height="40" rx="5" ry="5" fill="#d9f7be" stroke="#52c41a" stroke-width="1" />
+  <text x="625" y="275" font-family="Arial" font-size="14" text-anchor="middle" fill="#333">Loader</text>
+  
+  <rect x="750" y="250" width="100" height="40" rx="5" ry="5" fill="#d9f7be" stroke="#52c41a" stroke-width="1" />
+  <text x="800" y="275" font-family="Arial" font-size="14" text-anchor="middle" fill="#333">Manager</text>
+  
+  <!-- Runtime Layer -->
+  <rect x="100" y="320" width="800" height="100" rx="5" ry="5" fill="#fff7e6" stroke="#fa8c16" stroke-width="2" />
+  <text x="500" y="350" font-family="Arial" font-size="18" font-weight="bold" text-anchor="middle" fill="#333">Runtime Layer</text>
+  
+  <rect x="150" y="370" width="150" height="40" rx="5" ry="5" fill="#ffe7ba" stroke="#fa8c16" stroke-width="1" />
+  <text x="225" y="395" font-family="Arial" font-size="14" text-anchor="middle" fill="#333">WASM Plugin</text>
+  
+  <rect x="350" y="370" width="150" height="40" rx="5" ry="5" fill="#ffe7ba" stroke="#fa8c16" stroke-width="1" />
+  <text x="425" y="395" font-family="Arial" font-size="14" text-anchor="middle" fill="#333">Wasmer Engine</text>
+  
+  <rect x="550" y="370" width="150" height="40" rx="5" ry="5" fill="#ffe7ba" stroke="#fa8c16" stroke-width="1" />
+  <text x="625" y="395" font-family="Arial" font-size="14" text-anchor="middle" fill="#333">Wasmtime Engine</text>
+  
+  <rect x="750" y="370" width="100" height="40" rx="5" ry="5" fill="#ffe7ba" stroke="#fa8c16" stroke-width="1" />
+  <text x="800" y="395" font-family="Arial" font-size="14" text-anchor="middle" fill="#333">Execution</text>
+  
+  <!-- Security Layer -->
+  <rect x="100" y="440" width="800" height="100" rx="5" ry="5" fill="#f9f0ff" stroke="#722ed1" stroke-width="2" />
+  <text x="500" y="470" font-family="Arial" font-size="18" font-weight="bold" text-anchor="middle" fill="#333">Security Layer</text>
+  
+  <rect x="150" y="490" width="150" height="40" rx="5" ry="5" fill="#efdbff" stroke="#722ed1" stroke-width="1" />
+  <text x="225" y="515" font-family="Arial" font-size="14" text-anchor="middle" fill="#333">Attestation</text>
+  
+  <rect x="350" y="490" width="150" height="40" rx="5" ry="5" fill="#efdbff" stroke="#722ed1" stroke-width="1" />
+  <text x="425" y="515" font-family="Arial" font-size="14" text-anchor="middle" fill="#333">Verification</text>
+  
+  <rect x="550" y="490" width="150" height="40" rx="5" ry="5" fill="#efdbff" stroke="#722ed1" stroke-width="1" />
+  <text x="625" y="515" font-family="Arial" font-size="14" text-anchor="middle" fill="#333">Sandbox</text>
+  
+  <rect x="750" y="490" width="100" height="40" rx="5" ry="5" fill="#efdbff" stroke="#722ed1" stroke-width="1" />
+  <text x="800" y="515" font-family="Arial" font-size="14" text-anchor="middle" fill="#333">Namespaces</text>
+  
+  <!-- Syscall Layer -->
+  <rect x="100" y="560" width="800" height="80" rx="5" ry="5" fill="#fff0f6" stroke="#eb2f96" stroke-width="2" />
+  <text x="500" y="600" font-family="Arial" font-size="18" font-weight="bold" text-anchor="middle" fill="#333">Syscall Layer</text>
+  
+  <rect x="200" y="580" width="200" height="40" rx="5" ry="5" fill="#ffd6e7" stroke="#eb2f96" stroke-width="1" />
+  <text x="300" y="605" font-family="Arial" font-size="14" text-anchor="middle" fill="#333">Syscall Bridge</text>
+  
+  <rect x="600" y="580" width="200" height="40" rx="5" ry="5" fill="#ffd6e7" stroke="#eb2f96" stroke-width="1" />
+  <text x="700" y="605" font-family="Arial" font-size="14" text-anchor="middle" fill="#333">Microkernel Integration</text>
+  
+  <!-- Metrics Layer -->
+  <rect x="100" y="660" width="800" height="70" rx="5" ry="5" fill="#e6fffb" stroke="#13c2c2" stroke-width="2" />
+  <text x="500" y="685" font-family="Arial" font-size="18" font-weight="bold" text-anchor="middle" fill="#333">Metrics Layer</text>
+  
+  <rect x="200" y="690" width="200" height="30" rx="5" ry="5" fill="#b5f5ec" stroke="#13c2c2" stroke-width="1" />
+  <text x="300" y="710" font-family="Arial" font-size="14" text-anchor="middle" fill="#333">Performance Metrics</text>
+  
+  <rect x="600" y="690" width="200" height="30" rx="5" ry="5" fill="#b5f5ec" stroke="#13c2c2" stroke-width="1" />
+  <text x="700" y="710" font-family="Arial" font-size="14" text-anchor="middle" fill="#333">Telemetry</text>
+  
+  <!-- Connecting Lines -->
+  <!-- Interface to Core -->
+  <line x1="500" y1="180" x2="500" y2="200" stroke="#333" stroke-width="2" />
+  
+  <!-- Core to Runtime -->
+  <line x1="500" y1="300" x2="500" y2="320" stroke="#333" stroke-width="2" />
+  
+  <!-- Runtime to Security -->
+  <line x1="500" y1="420" x2="500" y2="440" stroke="#333" stroke-width="2" />
+  
+  <!-- Security to Syscall -->
+  <line x1="500" y1="540" x2="500" y2="560" stroke="#333" stroke-width="2" />
+  
+  <!-- Syscall to Metrics -->
+  <line x1="500" y1="640" x2="500" y2="660" stroke="#333" stroke-width="2" />
+  
+  <!-- Cross-connections -->
+  <path d="M 225 275 Q 225 325 225 370" fill="none" stroke="#333" stroke-width="1" stroke-dasharray="5,5" />
+  <path d="M 425 275 Q 425 325 425 370" fill="none" stroke="#333" stroke-width="1" stroke-dasharray="5,5" />
+  <path d="M 625 275 Q 625 325 625 370" fill="none" stroke="#333" stroke-width="1" stroke-dasharray="5,5" />
+  <path d="M 800 275 Q 800 325 800 370" fill="none" stroke="#333" stroke-width="1" stroke-dasharray="5,5" />
+  
+  <!-- Security Connections -->
+  <path d="M 225 395 Q 225 445 225 490" fill="none" stroke="#333" stroke-width="1" stroke-dasharray="5,5" />
+  <path d="M 425 395 Q 425 445 425 490" fill="none" stroke="#333" stroke-width="1" stroke-dasharray="5,5" />
+  <path d="M 625 395 Q 625 445 625 490" fill="none" stroke="#333" stroke-width="1" stroke-dasharray="5,5" />
+  <path d="M 800 395 Q 800 445 800 490" fill="none" stroke="#333" stroke-width="1" stroke-dasharray="5,5" />
+  
+  <!-- Syscall Connections -->
+  <path d="M 300 515 Q 300 550 300 580" fill="none" stroke="#333" stroke-width="1" stroke-dasharray="5,5" />
+  <path d="M 700 515 Q 700 550 700 580" fill="none" stroke="#333" stroke-width="1" stroke-dasharray="5,5" />
+  
+  <!-- Metrics Connections -->
+  <path d="M 300 605 Q 300 650 300 690" fill="none" stroke="#333" stroke-width="1" stroke-dasharray="5,5" />
+  <path d="M 700 605 Q 700 650 700 690" fill="none" stroke="#333" stroke-width="1" stroke-dasharray="5,5" />
+  
+  <!-- Key Features -->
+  <rect x="50" y="750" width="900" height="30" rx="5" ry="5" fill="none" />
+  <text x="500" y="770" font-family="Arial" font-size="14" text-anchor="middle" fill="#333">
+    Key Features: WASM Plugin Support | Secure Attestation | Sandboxed Execution | Dynamic Loading | Quantum-Grade Verification
+  </text>
+</svg>

@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="800" height="600" viewBox="0 0 800 600">
+  <style>
+    .title { font: bold 20px sans-serif; }
+    .module { font: bold 14px sans-serif; }
+    .file { font: bold 13px sans-serif; }
+    .description { font: 12px sans-serif; }
+    .function { font: italic 12px sans-serif; }
+    .module-box { stroke: #333; stroke-width: 2; }
+    .file-box { stroke: #666; stroke-width: 1; }
+    .core { fill: #e6f7ff; }
+    .loader { fill: #e6ffe6; }
+    .saver { fill: #fff2e6; }
+    .validator { fill: #ffe6e6; }
+    .tests { fill: #f2e6ff; }
+    .arrow { stroke: #666; stroke-width: 1.5; fill: none; marker-end: url(#arrowhead); }
+  </style>
+  
+  <defs>
+    <marker id="arrowhead" markerWidth="10" markerHeight="7" refX="9" refY="3.5" orient="auto">
+      <polygon points="0 0, 10 3.5, 0 7" fill="#666" />
+    </marker>
+  </defs>
+  
+  <rect width="100%" height="100%" fill="white" />
+  
+  <!-- Title -->
+  <text x="400" y="30" text-anchor="middle" class="title">Container Configuration Module Structure</text>
+  
+  <!-- Main Module -->
+  <rect x="300" y="60" width="200" height="80" rx="10" ry="10" class="module-box core" />
+  <text x="400" y="85" text-anchor="middle" class="module">config</text>
+  <text x="400" y="105" text-anchor="middle" class="file">mod.rs</text>
+  <text x="400" y="125" text-anchor="middle" class="description">Core Configuration Types</text>
+  
+  <!-- Submodules -->
+  <!-- Loader -->
+  <rect x="100" y="200" width="180" height="140" rx="10" ry="10" class="module-box loader" />
+  <text x="190" y="225" text-anchor="middle" class="module">Loader</text>
+  <text x="190" y="245" text-anchor="middle" class="file">loader.rs</text>
+  <text x="190" y="265" text-anchor="middle" class="description">Configuration Loading</text>
+  <text x="190" y="285" text-anchor="middle" class="function">load_config_from_file()</text>
+  <text x="190" y="305" text-anchor="middle" class="function">load_config_from_env()</text>
+  <text x="190" y="325" text-anchor="middle" class="function">merge_configs()</text>
+  
+  <!-- Validator -->
+  <rect x="310" y="200" width="180" height="140" rx="10" ry="10" class="module-box validator" />
+  <text x="400" y="225" text-anchor="middle" class="module">Validator</text>
+  <text x="400" y="245" text-anchor="middle" class="file">validator.rs</text>
+  <text x="400" y="265" text-anchor="middle" class="description">Configuration Validation</text>
+  <text x="400" y="285" text-anchor="middle" class="function">validate_config()</text>
+  <text x="400" y="305" text-anchor="middle" class="function">validate_resource_limits()</text>
+  <text x="400" y="325" text-anchor="middle" class="function">validate_network_config()</text>
+  
+  <!-- Saver -->
+  <rect x="520" y="200" width="180" height="140" rx="10" ry="10" class="module-box saver" />
+  <text x="610" y="225" text-anchor="middle" class="module">Saver</text>
+  <text x="610" y="245" text-anchor="middle" class="file">saver.rs</text>
+  <text x="610" y="265" text-anchor="middle" class="description">Configuration Saving</text>
+  <text x="610" y="285" text-anchor="middle" class="function">save_config_to_file()</text>
+  <text x="610" y="305" text-anchor="middle" class="function">save_config_to_env()</text>
+  <text x="610" y="325" text-anchor="middle" class="function">save_config_to_registry()</text>
+  
+  <!-- Tests -->
+  <rect x="310" y="400" width="180" height="100" rx="10" ry="10" class="module-box tests" />
+  <text x="400" y="425" text-anchor="middle" class="module">Tests</text>
+  <text x="400" y="445" text-anchor="middle" class="file">tests.rs</text>
+  <text x="400" y="465" text-anchor="middle" class="description">Unit & Integration Tests</text>
+  <text x="400" y="485" text-anchor="middle" class="function">test_config_validation()</text>
+  
+  <!-- Container Config Structure -->
+  <rect x="100" y="400" width="180" height="160" rx="10" ry="10" class="file-box" fill="#f9f9f9" />
+  <text x="190" y="425" text-anchor="middle" class="module">ContainerConfig</text>
+  <text x="190" y="445" text-anchor="middle" class="description">Core Configuration Type</text>
+  <text x="190" y="465" text-anchor="middle" class="function">image: String</text>
+  <text x="190" y="485" text-anchor="middle" class="function">resource_limits: ResourceLimits</text>
+  <text x="190" y="505" text-anchor="middle" class="function">mounts: Vec<Mount></text>
+  <text x="190" y="525" text-anchor="middle" class="function">network: NetworkConfig</text>
+  <text x="190" y="545" text-anchor="middle" class="function">volumes: Vec<Volume></text>
+  
+  <!-- Supporting Types -->
+  <rect x="520" y="400" width="180" height="160" rx="10" ry="10" class="file-box" fill="#f9f9f9" />
+  <text x="610" y="425" text-anchor="middle" class="module">Supporting Types</text>
+  <text x="610" y="445" text-anchor="middle" class="description">Additional Structures</text>
+  <text x="610" y="465" text-anchor="middle" class="function">Mount</text>
+  <text x="610" y="485" text-anchor="middle" class="function">Volume</text>
+  <text x="610" y="505" text-anchor="middle" class="function">NetworkConfig</text>
+  <text x="610" y="525" text-anchor="middle" class="function">PortMapping</text>
+  <text x="610" y="545" text-anchor="middle" class="function">ResourceLimits</text>
+  
+  <!-- Connections -->
+  <!-- Core to Submodules -->
+  <path d="M 350 140 L 190 200" class="arrow" />
+  <path d="M 400 140 L 400 200" class="arrow" />
+  <path d="M 450 140 L 610 200" class="arrow" />
+  
+  <!-- Submodules to Tests -->
+  <path d="M 190 340 C 190 370, 300 370, 350 400" class="arrow" />
+  <path d="M 400 340 L 400 400" class="arrow" />
+  <path d="M 610 340 C 610 370, 500 370, 450 400" class="arrow" />
+  
+  <!-- ContainerConfig to Supporting Types -->
+  <path d="M 280 480 L 520 480" class="arrow" />
+</svg>

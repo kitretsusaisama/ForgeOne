@@ -1,0 +1,138 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1000" height="800" viewBox="0 0 1000 800">
+  <!-- Background and Title -->
+  <rect width="1000" height="800" fill="#f8f9fa" />
+  <text x="500" y="40" font-family="Arial" font-size="24" font-weight="bold" text-anchor="middle" fill="#333">ForgeOne Syscall Flow</text>
+  
+  <!-- Main Container -->
+  <rect x="50" y="70" width="900" height="680" rx="10" ry="10" fill="#fff" stroke="#ddd" stroke-width="2" />
+  
+  <!-- Flow Diagram -->
+  <!-- Application -->
+  <rect x="100" y="100" width="200" height="60" rx="5" ry="5" fill="#e6f7ff" stroke="#1890ff" stroke-width="2" />
+  <text x="200" y="135" font-family="Arial" font-size="16" font-weight="bold" text-anchor="middle" fill="#333">Application</text>
+  
+  <!-- Syscall Request -->
+  <rect x="400" y="100" width="200" height="60" rx="5" ry="5" fill="#f6ffed" stroke="#52c41a" stroke-width="2" />
+  <text x="500" y="135" font-family="Arial" font-size="16" font-weight="bold" text-anchor="middle" fill="#333">Syscall Request</text>
+  
+  <!-- ABI Translator -->
+  <rect x="700" y="100" width="200" height="60" rx="5" ry="5" fill="#f9f0ff" stroke="#722ed1" stroke-width="2" />
+  <text x="800" y="135" font-family="Arial" font-size="16" font-weight="bold" text-anchor="middle" fill="#333">ABI Translator</text>
+  
+  <!-- Syscall Router -->
+  <rect x="700" y="200" width="200" height="60" rx="5" ry="5" fill="#fff7e6" stroke="#fa8c16" stroke-width="2" />
+  <text x="800" y="235" font-family="Arial" font-size="16" font-weight="bold" text-anchor="middle" fill="#333">Syscall Router</text>
+  
+  <!-- Security Filter -->
+  <rect x="700" y="300" width="200" height="60" rx="5" ry="5" fill="#fff0f6" stroke="#eb2f96" stroke-width="2" />
+  <text x="800" y="335" font-family="Arial" font-size="16" font-weight="bold" text-anchor="middle" fill="#333">Security Filter</text>
+  
+  <!-- ZTA Policy Check -->
+  <rect x="400" y="300" width="200" height="60" rx="5" ry="5" fill="#fff1f0" stroke="#f5222d" stroke-width="2" />
+  <text x="500" y="335" font-family="Arial" font-size="16" font-weight="bold" text-anchor="middle" fill="#333">ZTA Policy Check</text>
+  
+  <!-- Decision Diamond -->
+  <polygon points="500,400 550,450 500,500 450,450" fill="#fff2e8" stroke="#fa541c" stroke-width="2" />
+  <text x="500" y="455" font-family="Arial" font-size="14" font-weight="bold" text-anchor="middle" fill="#333">Allow?</text>
+  
+  <!-- Syscall Engine -->
+  <rect x="400" y="550" width="200" height="60" rx="5" ry="5" fill="#e6fffb" stroke="#13c2c2" stroke-width="2" />
+  <text x="500" y="585" font-family="Arial" font-size="16" font-weight="bold" text-anchor="middle" fill="#333">Syscall Engine</text>
+  
+  <!-- Syscall Execution -->
+  <rect x="400" y="650" width="200" height="60" rx="5" ry="5" fill="#fcffe6" stroke="#a0d911" stroke-width="2" />
+  <text x="500" y="685" font-family="Arial" font-size="16" font-weight="bold" text-anchor="middle" fill="#333">Syscall Execution</text>
+  
+  <!-- Audit Logger -->
+  <rect x="700" y="550" width="200" height="60" rx="5" ry="5" fill="#f0f5ff" stroke="#2f54eb" stroke-width="2" />
+  <text x="800" y="585" font-family="Arial" font-size="16" font-weight="bold" text-anchor="middle" fill="#333">Audit Logger</text>
+  
+  <!-- Syscall Response -->
+  <rect x="400" y="750" width="200" height="60" rx="5" ry="5" fill="#fff2f0" stroke="#ff4d4f" stroke-width="2" />
+  <text x="500" y="785" font-family="Arial" font-size="16" font-weight="bold" text-anchor="middle" fill="#333">Syscall Response</text>
+  
+  <!-- Denied Response -->
+  <rect x="100" y="550" width="200" height="60" rx="5" ry="5" fill="#fff1f0" stroke="#f5222d" stroke-width="2" />
+  <text x="200" y="585" font-family="Arial" font-size="16" font-weight="bold" text-anchor="middle" fill="#333">Access Denied</text>
+  
+  <!-- Connecting Arrows -->
+  <!-- Application to Syscall Request -->
+  <line x1="300" y1="130" x2="400" y2="130" stroke="#333" stroke-width="2" marker-end="url(#arrowhead)" />
+  <text x="350" y="120" font-family="Arial" font-size="12" text-anchor="middle" fill="#333">Initiates</text>
+  
+  <!-- Syscall Request to ABI Translator -->
+  <line x1="600" y1="130" x2="700" y2="130" stroke="#333" stroke-width="2" marker-end="url(#arrowhead)" />
+  <text x="650" y="120" font-family="Arial" font-size="12" text-anchor="middle" fill="#333">Translates</text>
+  
+  <!-- ABI Translator to Syscall Router -->
+  <line x1="800" y1="160" x2="800" y2="200" stroke="#333" stroke-width="2" marker-end="url(#arrowhead)" />
+  <text x="820" y="180" font-family="Arial" font-size="12" text-anchor="middle" fill="#333">Routes</text>
+  
+  <!-- Syscall Router to Security Filter -->
+  <line x1="800" y1="260" x2="800" y2="300" stroke="#333" stroke-width="2" marker-end="url(#arrowhead)" />
+  <text x="820" y="280" font-family="Arial" font-size="12" text-anchor="middle" fill="#333">Filters</text>
+  
+  <!-- Security Filter to ZTA Policy Check -->
+  <line x1="700" y1="330" x2="600" y2="330" stroke="#333" stroke-width="2" marker-end="url(#arrowhead)" />
+  <text x="650" y="320" font-family="Arial" font-size="12" text-anchor="middle" fill="#333">Validates</text>
+  
+  <!-- ZTA Policy Check to Decision -->
+  <line x1="500" y1="360" x2="500" y2="400" stroke="#333" stroke-width="2" marker-end="url(#arrowhead)" />
+  <text x="520" y="380" font-family="Arial" font-size="12" text-anchor="middle" fill="#333">Decides</text>
+  
+  <!-- Decision to Syscall Engine (Yes) -->
+  <line x1="500" y1="500" x2="500" y2="550" stroke="#333" stroke-width="2" marker-end="url(#arrowhead)" />
+  <text x="520" y="525" font-family="Arial" font-size="12" text-anchor="middle" fill="#333">Yes</text>
+  
+  <!-- Decision to Denied (No) -->
+  <line x1="450" y1="450" x2="200" y2="550" stroke="#333" stroke-width="2" marker-end="url(#arrowhead)" />
+  <text x="300" y="480" font-family="Arial" font-size="12" text-anchor="middle" fill="#333">No</text>
+  
+  <!-- Syscall Engine to Audit Logger -->
+  <line x1="600" y1="580" x2="700" y2="580" stroke="#333" stroke-width="2" marker-end="url(#arrowhead)" />
+  <text x="650" y="570" font-family="Arial" font-size="12" text-anchor="middle" fill="#333">Logs</text>
+  
+  <!-- Syscall Engine to Syscall Execution -->
+  <line x1="500" y1="610" x2="500" y2="650" stroke="#333" stroke-width="2" marker-end="url(#arrowhead)" />
+  <text x="520" y="630" font-family="Arial" font-size="12" text-anchor="middle" fill="#333">Executes</text>
+  
+  <!-- Syscall Execution to Syscall Response -->
+  <line x1="500" y1="710" x2="500" y2="750" stroke="#333" stroke-width="2" marker-end="url(#arrowhead)" />
+  <text x="520" y="730" font-family="Arial" font-size="12" text-anchor="middle" fill="#333">Returns</text>
+  
+  <!-- Denied to Application -->
+  <path d="M 100 580 L 80 580 L 80 130 L 100 130" fill="none" stroke="#f5222d" stroke-width="2" stroke-dasharray="5,5" marker-end="url(#arrowhead)" />
+  <text x="60" y="350" font-family="Arial" font-size="12" text-anchor="middle" fill="#f5222d">Error Response</text>
+  
+  <!-- Syscall Response to Application -->
+  <path d="M 400 780 L 50 780 L 50 130 L 100 130" fill="none" stroke="#333" stroke-width="2" marker-end="url(#arrowhead)" />
+  <text x="200" y="800" font-family="Arial" font-size="12" text-anchor="middle" fill="#333">Returns Result</text>
+  
+  <!-- Arrowhead Marker -->
+  <defs>
+    <marker id="arrowhead" markerWidth="10" markerHeight="7" refX="9" refY="3.5" orient="auto">
+      <polygon points="0 0, 10 3.5, 0 7" fill="#333" />
+    </marker>
+  </defs>
+  
+  <!-- Flow Phases -->
+  <rect x="900" y="100" width="30" height="150" rx="5" ry="5" fill="#e6f7ff" stroke="#1890ff" stroke-width="1" />
+  <text x="915" y="175" font-family="Arial" font-size="14" font-weight="bold" text-anchor="middle" fill="#333" transform="rotate(90,915,175)">Request Phase</text>
+  
+  <rect x="900" y="300" width="30" height="150" rx="5" ry="5" fill="#fff0f6" stroke="#eb2f96" stroke-width="1" />
+  <text x="915" y="375" font-family="Arial" font-size="14" font-weight="bold" text-anchor="middle" fill="#333" transform="rotate(90,915,375)">Security Phase</text>
+  
+  <rect x="900" y="500" width="30" height="150" rx="5" ry="5" fill="#e6fffb" stroke="#13c2c2" stroke-width="1" />
+  <text x="915" y="575" font-family="Arial" font-size="14" font-weight="bold" text-anchor="middle" fill="#333" transform="rotate(90,915,575)">Execution Phase</text>
+  
+  <rect x="900" y="700" width="30" height="50" rx="5" ry="5" fill="#f6ffed" stroke="#52c41a" stroke-width="1" />
+  <text x="915" y="725" font-family="Arial" font-size="14" font-weight="bold" text-anchor="middle" fill="#333" transform="rotate(90,915,725)">Response</text>
+  
+  <!-- Legend -->
+  <rect x="100" y="700" width="200" height="60" rx="5" ry="5" fill="none" stroke="#ddd" stroke-width="1" />
+  <text x="200" y="720" font-family="Arial" font-size="14" font-weight="bold" text-anchor="middle" fill="#333">Legend</text>
+  <line x1="120" y1="740" x2="150" y2="740" stroke="#333" stroke-width="2" marker-end="url(#arrowhead)" />
+  <text x="180" y="745" font-family="Arial" font-size="12" text-anchor="start" fill="#333">Normal Flow</text>
+  <line x1="220" y1="740" x2="250" y2="740" stroke="#f5222d" stroke-width="2" stroke-dasharray="5,5" marker-end="url(#arrowhead)" />
+  <text x="280" y="745" font-family="Arial" font-size="12" text-anchor="start" fill="#f5222d">Error Flow</text>
+</svg>

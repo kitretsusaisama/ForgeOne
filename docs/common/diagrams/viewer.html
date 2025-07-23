@@ -1,0 +1,271 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ForgeOne Common Module Diagrams Viewer</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f5f5f5;
+            color: #333;
+        }
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        header {
+            background-color: #2c3e50;
+            color: white;
+            padding: 20px;
+            text-align: center;
+            margin-bottom: 20px;
+        }
+        h1 {
+            margin: 0;
+            font-size: 28px;
+        }
+        .controls {
+            display: flex;
+            justify-content: center;
+            margin-bottom: 20px;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+        .btn {
+            background-color: #3498db;
+            color: white;
+            border: none;
+            padding: 10px 15px;
+            cursor: pointer;
+            border-radius: 4px;
+            font-size: 14px;
+            transition: background-color 0.3s;
+        }
+        .btn:hover {
+            background-color: #2980b9;
+        }
+        .btn.active {
+            background-color: #2c3e50;
+        }
+        .diagram-container {
+            background-color: white;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            padding: 20px;
+            margin-bottom: 20px;
+            overflow: auto;
+        }
+        .diagram-view {
+            text-align: center;
+            min-height: 600px;
+        }
+        .diagram-view svg {
+            max-width: 100%;
+            height: auto;
+        }
+        .description {
+            background-color: #eaf2f8;
+            padding: 15px;
+            border-radius: 4px;
+            margin-top: 20px;
+            border-left: 4px solid #3498db;
+        }
+        .zoom-controls {
+            display: flex;
+            justify-content: center;
+            margin-bottom: 10px;
+            gap: 10px;
+        }
+        footer {
+            text-align: center;
+            margin-top: 30px;
+            padding: 10px;
+            font-size: 12px;
+            color: #7f8c8d;
+        }
+        @media (max-width: 768px) {
+            .controls {
+                flex-direction: column;
+            }
+            .btn {
+                width: 100%;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>ForgeOne Common Module Diagrams Viewer</h1>
+    </header>
+    
+    <div class="container">
+        <div class="controls">
+            <button class="btn active" data-diagram="module_structure.svg">Module Structure</button>
+            <button class="btn" data-diagram="database_schema.svg">Database Schema</button>
+            <button class="btn" data-diagram="security_architecture.svg">Security Architecture</button>
+            <button class="btn" data-diagram="integration_patterns.svg">Integration Patterns</button>
+            <button class="btn" data-diagram="data_flow_architecture.svg">Data Flow Architecture</button>
+        </div>
+        
+        <div class="zoom-controls">
+            <button class="btn" id="zoom-in">Zoom In</button>
+            <button class="btn" id="zoom-out">Zoom Out</button>
+            <button class="btn" id="reset-zoom">Reset</button>
+        </div>
+        
+        <div class="diagram-container">
+            <div class="diagram-view" id="diagram-view">
+                <!-- SVG will be loaded here -->
+            </div>
+            
+            <div class="description" id="diagram-description">
+                <!-- Description will be loaded here -->
+            </div>
+        </div>
+    </div>
+    
+    <footer>
+        <p>ForgeOne Common Module - The sentient core of ForgeOne</p>
+    </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const diagramView = document.getElementById('diagram-view');
+            const diagramDescription = document.getElementById('diagram-description');
+            const buttons = document.querySelectorAll('.controls .btn');
+            const zoomIn = document.getElementById('zoom-in');
+            const zoomOut = document.getElementById('zoom-out');
+            const resetZoom = document.getElementById('reset-zoom');
+            
+            let currentScale = 1;
+            const scaleStep = 0.1;
+            
+            // Diagram descriptions
+            const descriptions = {
+                'module_structure.svg': `
+                    <h3>Module Structure Diagram</h3>
+                    <p>This diagram illustrates the overall structure of the ForgeOne Common Module, categorizing its components into different functional layers:</p>
+                    <ul>
+                        <li><strong>Foundation Layer:</strong> Core utilities and base functionality</li>
+                        <li><strong>Security Layer:</strong> Components related to identity, crypto, and policy enforcement</li>
+                        <li><strong>Observability Layer:</strong> Audit, telemetry, and diagnostics components</li>
+                        <li><strong>Storage Layer:</strong> Database access and persistence components</li>
+                        <li><strong>Integration Layer:</strong> Components for interacting with other system modules</li>
+                    </ul>
+                    <p>The diagram shows the relationships between different modules and their hierarchical organization.</p>
+                `,
+                'database_schema.svg': `
+                    <h3>Database Schema Diagram</h3>
+                    <p>This diagram visualizes the database schema used by the Common Module, including:</p>
+                    <ul>
+                        <li><strong>System Database:</strong> Core system configuration and state</li>
+                        <li><strong>Logs Database:</strong> Audit logs and system events</li>
+                        <li><strong>Blobs Database:</strong> Binary large objects and file storage</li>
+                        <li><strong>Events Database:</strong> Event streams and notifications</li>
+                    </ul>
+                    <p>The diagram shows tables, fields, relationships, and the overall database architecture.</p>
+                `,
+                'security_architecture.svg': `
+                    <h3>Security Architecture Diagram</h3>
+                    <p>This diagram presents the Zero Trust Architecture (ZTA) implemented in the Common Module, featuring:</p>
+                    <ul>
+                        <li><strong>Zero Trust Core:</strong> Central policy engine</li>
+                        <li><strong>Security Modules:</strong> Identity, Trust, Policy, and Crypto components</li>
+                        <li><strong>Security Boundary:</strong> Defined trust boundaries within the system</li>
+                        <li><strong>External Systems:</strong> Integration with external security services</li>
+                        <li><strong>Security Features:</strong> Key security capabilities provided by the module</li>
+                    </ul>
+                    <p>The diagram emphasizes the "never trust, always verify" security model implemented throughout the system.</p>
+                `,
+                'integration_patterns.svg': `
+                    <h3>Integration Patterns Diagram</h3>
+                    <p>This diagram shows how the Common Module integrates with other system components, highlighting:</p>
+                    <ul>
+                        <li><strong>Integration Patterns:</strong> Observer, Dependency Injection, Repository, Adapter, and Factory patterns</li>
+                        <li><strong>External Systems:</strong> Runtime, Microkernel, Plugin Manager, Database, API Gateway, and Security Services</li>
+                        <li><strong>Bidirectional Flows:</strong> Data and control flows between components</li>
+                    </ul>
+                    <p>The diagram illustrates the architectural patterns used for system-wide integration.</p>
+                `,
+                'data_flow_architecture.svg': `
+                    <h3>Data Flow Architecture Diagram</h3>
+                    <p>This diagram depicts the data processing pipeline within the Common Module, including:</p>
+                    <ul>
+                        <li><strong>Data Sources:</strong> External inputs to the system</li>
+                        <li><strong>Data Ingestion Layer:</strong> Input validation and normalization</li>
+                        <li><strong>Data Processing Layer:</strong> Transformation, validation, enrichment, and encryption</li>
+                        <li><strong>Data Storage Layer:</strong> Persistence mechanisms</li>
+                        <li><strong>Data Access Layer:</strong> Query, retrieval, and access control</li>
+                        <li><strong>Data Consumers:</strong> Components that use the processed data</li>
+                    </ul>
+                    <p>The diagram shows how data flows through the system, from ingestion to consumption.</p>
+                `
+            };
+            
+            // Load diagram
+            function loadDiagram(diagramFile) {
+                fetch(diagramFile)
+                    .then(response => response.text())
+                    .then(svgContent => {
+                        diagramView.innerHTML = svgContent;
+                        diagramDescription.innerHTML = descriptions[diagramFile] || '';
+                        resetZoomLevel();
+                    })
+                    .catch(error => {
+                        diagramView.innerHTML = `<p>Error loading diagram: ${error.message}</p>`;
+                    });
+            }
+            
+            // Set active button
+            function setActiveButton(activeButton) {
+                buttons.forEach(button => {
+                    button.classList.remove('active');
+                });
+                activeButton.classList.add('active');
+            }
+            
+            // Handle button clicks
+            buttons.forEach(button => {
+                button.addEventListener('click', function() {
+                    const diagramFile = this.getAttribute('data-diagram');
+                    loadDiagram(diagramFile);
+                    setActiveButton(this);
+                });
+            });
+            
+            // Zoom functionality
+            function applyZoom() {
+                const svg = diagramView.querySelector('svg');
+                if (svg) {
+                    svg.style.transform = `scale(${currentScale})`;
+                    svg.style.transformOrigin = 'center';
+                }
+            }
+            
+            function resetZoomLevel() {
+                currentScale = 1;
+                applyZoom();
+            }
+            
+            zoomIn.addEventListener('click', function() {
+                currentScale += scaleStep;
+                applyZoom();
+            });
+            
+            zoomOut.addEventListener('click', function() {
+                currentScale = Math.max(0.1, currentScale - scaleStep);
+                applyZoom();
+            });
+            
+            resetZoom.addEventListener('click', resetZoomLevel);
+            
+            // Load initial diagram
+            loadDiagram('module_structure.svg');
+        });
+    </script>
+</body>
+</html>

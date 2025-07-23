@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ForgeOne Microkernel Diagrams Viewer</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f8f9fa;
+            color: #333;
+        }
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        header {
+            background-color: #1890ff;
+            color: white;
+            padding: 20px;
+            text-align: center;
+            margin-bottom: 20px;
+        }
+        h1 {
+            margin: 0;
+            font-size: 24px;
+        }
+        .controls {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 20px;
+            flex-wrap: wrap;
+        }
+        .diagram-selector {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-bottom: 10px;
+        }
+        button {
+            background-color: #1890ff;
+            color: white;
+            border: none;
+            padding: 10px 15px;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+        button:hover {
+            background-color: #40a9ff;
+        }
+        button.active {
+            background-color: #096dd9;
+        }
+        .zoom-controls {
+            display: flex;
+            gap: 10px;
+        }
+        .diagram-container {
+            background-color: white;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            padding: 20px;
+            overflow: auto;
+            margin-bottom: 20px;
+            min-height: 600px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        .diagram-container svg {
+            max-width: 100%;
+            height: auto;
+        }
+        .description {
+            background-color: white;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            padding: 20px;
+            margin-bottom: 20px;
+        }
+        .description h2 {
+            margin-top: 0;
+            color: #1890ff;
+        }
+        footer {
+            text-align: center;
+            margin-top: 20px;
+            padding: 10px;
+            font-size: 14px;
+            color: #666;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>ForgeOne Microkernel Diagrams Viewer</h1>
+    </header>
+    
+    <div class="container">
+        <div class="controls">
+            <div class="diagram-selector">
+                <button id="btn-architecture" class="active">Architecture</button>
+                <button id="btn-folder-structure">Folder Structure</button>
+                <button id="btn-syscall">Syscall Architecture</button>
+                <button id="btn-execution">Execution Model</button>
+                <button id="btn-trust">Trust Architecture</button>
+            </div>
+            <div class="zoom-controls">
+                <button id="btn-zoom-in">Zoom In</button>
+                <button id="btn-zoom-out">Zoom Out</button>
+                <button id="btn-zoom-reset">Reset Zoom</button>
+            </div>
+        </div>
+        
+        <div class="diagram-container" id="diagram-view">
+            <!-- SVG will be loaded here -->
+        </div>
+        
+        <div class="description" id="diagram-description">
+            <!-- Description will be loaded here -->
+        </div>
+    </div>
+    
+    <footer>
+        <p>ForgeOne Quantum-Grade Microkernel Documentation</p>
+    </footer>
+    
+    <script>
+        // Diagram data
+        const diagrams = {
+            architecture: {
+                file: 'microkernel_architecture.svg',
+                title: 'Microkernel Architecture',
+                description: 'This diagram illustrates the overall architecture of the ForgeOne Microkernel, showing the layered design and component interactions. It includes the Interface Layer, Core Layer, Execution Layer, Trust Layer, Observer Layer, Crypto Layer, Diagnostics Layer, and Common Module Integration.'
+            },
+            folderStructure: {
+                file: 'microkernel_folder_structure.svg',
+                title: 'Folder Structure',
+                description: 'This diagram provides a visual representation of the microkernel\'s folder and file organization, showing the root directory structure, source code organization, module hierarchy, and test and benchmark organization.'
+            },
+            syscall: {
+                file: 'syscall_architecture.svg',
+                title: 'Syscall Architecture',
+                description: 'This diagram details the syscall architecture of the microkernel, including the Application Layer integration, Syscall Interface design, Syscall Bridge implementation, Syscall Engine categories (Process, Memory, I/O, Security), Security Layer integration, Telemetry Layer, and Core Services integration.'
+            },
+            execution: {
+                file: 'execution_model.svg',
+                title: 'Execution Model',
+                description: 'This diagram illustrates the execution model of the microkernel, showing the Execution Environments (WASM, Plugin, Sandbox), Execution Engine components, Scheduler design and implementation, Trust Layer integration, Observer Layer monitoring, and Core Integration points.'
+            },
+            trust: {
+                file: 'trust_architecture.svg',
+                title: 'Trust Architecture',
+                description: 'This diagram details the Zero Trust Architecture (ZTA) implementation in the microkernel, including the Trust Policy Engine, Attestation Layer, Enforcement Layer, Audit Layer, Integration Layer, and Trust boundaries and security perimeters.'
+            }
+        };
+        
+        // Current zoom level
+        let currentZoom = 1;
+        let currentDiagram = 'architecture';
+        
+        // Function to load a diagram
+        function loadDiagram(diagramKey) {
+            currentDiagram = diagramKey;
+            const diagram = diagrams[diagramKey];
+            
+            // Update active button
+            document.querySelectorAll('.diagram-selector button').forEach(btn => {
+                btn.classList.remove('active');
+            });
+            document.getElementById(`btn-${diagramKey}`).classList.add('active');
+            
+            // Load SVG
+            fetch(diagram.file)
+                .then(response => response.text())
+                .then(svgContent => {
+                    const diagramView = document.getElementById('diagram-view');
+                    diagramView.innerHTML = svgContent;
+                    
+                    // Apply current zoom
+                    const svg = diagramView.querySelector('svg');
+                    if (svg) {
+                        svg.style.transform = `scale(${currentZoom})`;
+                        svg.style.transformOrigin = 'center';
+                        svg.style.transition = 'transform 0.3s';
+                    }
+                })
+                .catch(error => {
+                    console.error('Error loading SVG:', error);
+                    document.getElementById('diagram-view').innerHTML = `<p>Error loading diagram: ${error.message}</p>`;
+                });
+            
+            // Update description
+            const descriptionEl = document.getElementById('diagram-description');
+            descriptionEl.innerHTML = `<h2>${diagram.title}</h2><p>${diagram.description}</p>`;
+        }
+        
+        // Function to handle zoom
+        function handleZoom(action) {
+            switch(action) {
+                case 'in':
+                    currentZoom += 0.1;
+                    break;
+                case 'out':
+                    currentZoom = Math.max(0.5, currentZoom - 0.1);
+                    break;
+                case 'reset':
+                    currentZoom = 1;
+                    break;
+            }
+            
+            const svg = document.querySelector('#diagram-view svg');
+            if (svg) {
+                svg.style.transform = `scale(${currentZoom})`;
+            }
+        }
+        
+        // Event listeners
+        document.getElementById('btn-architecture').addEventListener('click', () => loadDiagram('architecture'));
+        document.getElementById('btn-folder-structure').addEventListener('click', () => loadDiagram('folderStructure'));
+        document.getElementById('btn-syscall').addEventListener('click', () => loadDiagram('syscall'));
+        document.getElementById('btn-execution').addEventListener('click', () => loadDiagram('execution'));
+        document.getElementById('btn-trust').addEventListener('click', () => loadDiagram('trust'));
+        
+        document.getElementById('btn-zoom-in').addEventListener('click', () => handleZoom('in'));
+        document.getElementById('btn-zoom-out').addEventListener('click', () => handleZoom('out'));
+        document.getElementById('btn-zoom-reset').addEventListener('click', () => handleZoom('reset'));
+        
+        // Load initial diagram
+        window.addEventListener('DOMContentLoaded', () => {
+            loadDiagram('architecture');
+        });
+    </script>
+</body>
+</html>

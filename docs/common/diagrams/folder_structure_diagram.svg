@@ -1,0 +1,314 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="1600" viewBox="0 0 1200 1600">
+  <style>
+    .folder { fill: #FFD700; stroke: #333; stroke-width: 2; }
+    .file { fill: #FFFFFF; stroke: #333; stroke-width: 2; }
+    .text { font-family: Arial; font-size: 14px; }
+    .title { font-family: Arial; font-size: 24px; font-weight: bold; }
+    .subtitle { font-family: Arial; font-size: 18px; font-weight: bold; }
+    .line { stroke: #333; stroke-width: 2; }
+    .module { fill: #90EE90; stroke: #333; stroke-width: 2; }
+    .submodule { fill: #ADD8E6; stroke: #333; stroke-width: 2; }
+    .data { fill: #FFA07A; stroke: #333; stroke-width: 2; }
+    .test { fill: #D8BFD8; stroke: #333; stroke-width: 2; }
+    .doc { fill: #F0E68C; stroke: #333; stroke-width: 2; }
+  </style>
+
+  <!-- Title -->
+  <text x="600" y="40" text-anchor="middle" class="title">ForgeOne Common Module - Advanced Folder Structure</text>
+
+  <!-- Root folder -->
+  <rect x="550" y="60" width="100" height="40" rx="5" ry="5" class="folder" />
+  <text x="600" y="85" text-anchor="middle" class="text">common</text>
+
+  <!-- Main sections -->
+  <rect x="200" y="150" width="200" height="50" rx="5" ry="5" class="module" />
+  <text x="300" y="180" text-anchor="middle" class="subtitle">Source Code</text>
+  <line x1="300" y1="150" x2="580" y2="100" class="line" />
+
+  <rect x="500" y="150" width="200" height="50" rx="5" ry="5" class="test" />
+  <text x="600" y="180" text-anchor="middle" class="subtitle">Tests</text>
+  <line x1="600" y1="150" x2="600" y2="100" class="line" />
+
+  <rect x="800" y="150" width="200" height="50" rx="5" ry="5" class="data" />
+  <text x="900" y="180" text-anchor="middle" class="subtitle">Data</text>
+  <line x1="900" y1="150" x2="620" y2="100" class="line" />
+
+  <!-- Source Code Structure -->
+  <rect x="50" y="250" width="500" height="1200" rx="10" ry="10" stroke="#333" stroke-width="2" fill="none" stroke-dasharray="10,5" />
+  <text x="300" y="270" text-anchor="middle" class="subtitle">Source Code Structure</text>
+
+  <!-- Main source files -->
+  <rect x="100" y="300" width="400" height="200" rx="5" ry="5" class="module" />
+  <text x="300" y="320" text-anchor="middle" class="subtitle">Core Module Files</text>
+
+  <rect x="120" y="340" width="80" height="30" rx="5" ry="5" class="file" />
+  <text x="160" y="360" text-anchor="middle" class="text">lib.rs</text>
+
+  <rect x="120" y="380" width="80" height="30" rx="5" ry="5" class="file" />
+  <text x="160" y="400" text-anchor="middle" class="text">audit.rs</text>
+
+  <rect x="120" y="420" width="80" height="30" rx="5" ry="5" class="file" />
+  <text x="160" y="440" text-anchor="middle" class="text">bootstrap.rs</text>
+
+  <rect x="120" y="460" width="80" height="30" rx="5" ry="5" class="file" />
+  <text x="160" y="480" text-anchor="middle" class="text">config.rs</text>
+
+  <rect x="220" y="340" width="80" height="30" rx="5" ry="5" class="file" />
+  <text x="260" y="360" text-anchor="middle" class="text">crypto.rs</text>
+
+  <rect x="220" y="380" width="80" height="30" rx="5" ry="5" class="file" />
+  <text x="260" y="400" text-anchor="middle" class="text">error.rs</text>
+
+  <rect x="220" y="420" width="80" height="30" rx="5" ry="5" class="file" />
+  <text x="260" y="440" text-anchor="middle" class="text">identity.rs</text>
+
+  <rect x="220" y="460" width="80" height="30" rx="5" ry="5" class="file" />
+  <text x="260" y="480" text-anchor="middle" class="text">macros.rs</text>
+
+  <rect x="320" y="340" width="80" height="30" rx="5" ry="5" class="file" />
+  <text x="360" y="360" text-anchor="middle" class="text">model.rs</text>
+
+  <rect x="320" y="380" width="80" height="30" rx="5" ry="5" class="file" />
+  <text x="360" y="400" text-anchor="middle" class="text">observer.rs</text>
+
+  <rect x="320" y="420" width="80" height="30" rx="5" ry="5" class="file" />
+  <text x="360" y="440" text-anchor="middle" class="text">policy.rs</text>
+
+  <rect x="320" y="460" width="80" height="30" rx="5" ry="5" class="file" />
+  <text x="360" y="480" text-anchor="middle" class="text">prelude.rs</text>
+
+  <rect x="420" y="340" width="80" height="30" rx="5" ry="5" class="file" />
+  <text x="460" y="360" text-anchor="middle" class="text">syscall.rs</text>
+
+  <rect x="420" y="380" width="80" height="30" rx="5" ry="5" class="file" />
+  <text x="460" y="400" text-anchor="middle" class="text">telemetry.rs</text>
+
+  <rect x="420" y="420" width="80" height="30" rx="5" ry="5" class="file" />
+  <text x="460" y="440" text-anchor="middle" class="text">trust.rs</text>
+
+  <!-- DB Submodule -->
+  <rect x="100" y="520" width="400" height="250" rx="5" ry="5" class="submodule" />
+  <text x="300" y="540" text-anchor="middle" class="subtitle">Database Submodule (db/)</text>
+
+  <rect x="120" y="560" width="80" height="30" rx="5" ry="5" class="file" />
+  <text x="160" y="580" text-anchor="middle" class="text">mod.rs</text>
+
+  <rect x="120" y="600" width="80" height="30" rx="5" ry="5" class="file" />
+  <text x="160" y="620" text-anchor="middle" class="text">access.rs</text>
+
+  <rect x="120" y="640" width="80" height="30" rx="5" ry="5" class="file" />
+  <text x="160" y="660" text-anchor="middle" class="text">crypto.rs</text>
+
+  <rect x="120" y="680" width="80" height="30" rx="5" ry="5" class="file" />
+  <text x="160" y="700" text-anchor="middle" class="text">indxdb.rs</text>
+
+  <rect x="120" y="720" width="80" height="30" rx="5" ry="5" class="file" />
+  <text x="160" y="740" text-anchor="middle" class="text">integrity.rs</text>
+
+  <rect x="220" y="560" width="80" height="30" rx="5" ry="5" class="file" />
+  <text x="260" y="580" text-anchor="middle" class="text">metrics.rs</text>
+
+  <rect x="220" y="600" width="80" height="30" rx="5" ry="5" class="file" />
+  <text x="260" y="620" text-anchor="middle" class="text">model.rs</text>
+
+  <rect x="220" y="640" width="80" height="30" rx="5" ry="5" class="file" />
+  <text x="260" y="660" text-anchor="middle" class="text">recovery.rs</text>
+
+  <rect x="220" y="680" width="80" height="30" rx="5" ry="5" class="file" />
+  <text x="260" y="700" text-anchor="middle" class="text">redb.rs</text>
+
+  <rect x="220" y="720" width="80" height="30" rx="5" ry="5" class="file" />
+  <text x="260" y="740" text-anchor="middle" class="text">schema.rs</text>
+
+  <rect x="320" y="560" width="80" height="30" rx="5" ry="5" class="file" />
+  <text x="360" y="580" text-anchor="middle" class="text">snapshot.rs</text>
+
+  <!-- Crypto Submodule -->
+  <rect x="100" y="790" width="400" height="150" rx="5" ry="5" class="submodule" />
+  <text x="300" y="810" text-anchor="middle" class="subtitle">Crypto Submodule (crypto/)</text>
+
+  <rect x="120" y="830" width="80" height="30" rx="5" ry="5" class="file" />
+  <text x="160" y="850" text-anchor="middle" class="text">mod.rs</text>
+
+  <rect x="120" y="870" width="80" height="30" rx="5" ry="5" class="file" />
+  <text x="160" y="890" text-anchor="middle" class="text">aes.rs</text>
+
+  <rect x="120" y="910" width="80" height="30" rx="5" ry="5" class="file" />
+  <text x="160" y="930" text-anchor="middle" class="text">hash.rs</text>
+
+  <rect x="220" y="830" width="80" height="30" rx="5" ry="5" class="file" />
+  <text x="260" y="850" text-anchor="middle" class="text">rsa.rs</text>
+
+  <rect x="220" y="870" width="80" height="30" rx="5" ry="5" class="file" />
+  <text x="260" y="890" text-anchor="middle" class="text">sign.rs</text>
+
+  <rect x="220" y="910" width="80" height="30" rx="5" ry="5" class="file" />
+  <text x="260" y="930" text-anchor="middle" class="text">tls.rs</text>
+
+  <rect x="320" y="830" width="80" height="30" rx="5" ry="5" class="file" />
+  <text x="360" y="850" text-anchor="middle" class="text">x509.rs</text>
+
+  <rect x="320" y="870" width="80" height="30" rx="5" ry="5" class="file" />
+  <text x="360" y="890" text-anchor="middle" class="text">zero.rs</text>
+
+  <!-- Audit Submodule -->
+  <rect x="100" y="960" width="400" height="150" rx="5" ry="5" class="submodule" />
+  <text x="300" y="980" text-anchor="middle" class="subtitle">Audit Submodule (audit/)</text>
+
+  <rect x="120" y="1000" width="80" height="30" rx="5" ry="5" class="file" />
+  <text x="160" y="1020" text-anchor="middle" class="text">mod.rs</text>
+
+  <rect x="120" y="1040" width="80" height="30" rx="5" ry="5" class="file" />
+  <text x="160" y="1060" text-anchor="middle" class="text">event.rs</text>
+
+  <rect x="120" y="1080" width="80" height="30" rx="5" ry="5" class="file" />
+  <text x="160" y="1100" text-anchor="middle" class="text">log.rs</text>
+
+  <rect x="220" y="1000" width="80" height="30" rx="5" ry="5" class="file" />
+  <text x="260" y="1020" text-anchor="middle" class="text">record.rs</text>
+
+  <rect x="220" y="1040" width="80" height="30" rx="5" ry="5" class="file" />
+  <text x="260" y="1060" text-anchor="middle" class="text">store.rs</text>
+
+  <rect x="220" y="1080" width="80" height="30" rx="5" ry="5" class="file" />
+  <text x="260" y="1100" text-anchor="middle" class="text">trail.rs</text>
+
+  <!-- Diagnostics Submodule -->
+  <rect x="100" y="1130" width="400" height="150" rx="5" ry="5" class="submodule" />
+  <text x="300" y="1150" text-anchor="middle" class="subtitle">Diagnostics Submodule (diagnostics/)</text>
+
+  <rect x="120" y="1170" width="80" height="30" rx="5" ry="5" class="file" />
+  <text x="160" y="1190" text-anchor="middle" class="text">mod.rs</text>
+
+  <rect x="120" y="1210" width="80" height="30" rx="5" ry="5" class="file" />
+  <text x="160" y="1230" text-anchor="middle" class="text">health.rs</text>
+
+  <rect x="120" y="1250" width="80" height="30" rx="5" ry="5" class="file" />
+  <text x="160" y="1270" text-anchor="middle" class="text">metrics.rs</text>
+
+  <rect x="220" y="1170" width="80" height="30" rx="5" ry="5" class="file" />
+  <text x="260" y="1190" text-anchor="middle" class="text">monitor.rs</text>
+
+  <rect x="220" y="1210" width="80" height="30" rx="5" ry="5" class="file" />
+  <text x="260" y="1230" text-anchor="middle" class="text">trace.rs</text>
+
+  <rect x="220" y="1250" width="80" height="30" rx="5" ry="5" class="file" />
+  <text x="260" y="1270" text-anchor="middle" class="text">debug.rs</text>
+
+  <!-- Documentation files -->
+  <rect x="100" y="1300" width="400" height="120" rx="5" ry="5" class="doc" />
+  <text x="300" y="1320" text-anchor="middle" class="subtitle">Documentation Files</text>
+
+  <rect x="120" y="1340" width="150" height="30" rx="5" ry="5" class="file" />
+  <text x="195" y="1360" text-anchor="middle" class="text">Deployment.md</text>
+
+  <rect x="120" y="1380" width="150" height="30" rx="5" ry="5" class="file" />
+  <text x="195" y="1400" text-anchor="middle" class="text">syscall_client.md</text>
+
+  <rect x="290" y="1340" width="150" height="30" rx="5" ry="5" class="file" />
+  <text x="365" y="1360" text-anchor="middle" class="text">audit.txt</text>
+
+  <rect x="290" y="1380" width="150" height="30" rx="5" ry="5" class="file" />
+  <text x="365" y="1400" text-anchor="middle" class="text">updation_plan.txt</text>
+
+  <!-- Tests Structure -->
+  <rect x="570" y="250" width="260" height="600" rx="10" ry="10" stroke="#333" stroke-width="2" fill="none" stroke-dasharray="10,5" />
+  <text x="700" y="270" text-anchor="middle" class="subtitle">Tests Structure</text>
+
+  <!-- Test files -->
+  <rect x="590" y="300" width="220" height="530" rx="5" ry="5" class="test" />
+  <text x="700" y="320" text-anchor="middle" class="subtitle">Test Files</text>
+
+  <rect x="600" y="340" width="200" height="30" rx="5" ry="5" class="file" />
+  <text x="700" y="360" text-anchor="middle" class="text">audit_tests.rs</text>
+
+  <rect x="600" y="380" width="200" height="30" rx="5" ry="5" class="file" />
+  <text x="700" y="400" text-anchor="middle" class="text">bootstrap_tests.rs</text>
+
+  <rect x="600" y="420" width="200" height="30" rx="5" ry="5" class="file" />
+  <text x="700" y="440" text-anchor="middle" class="text">config_tests.rs</text>
+
+  <rect x="600" y="460" width="200" height="30" rx="5" ry="5" class="file" />
+  <text x="700" y="480" text-anchor="middle" class="text">crypto_tests.rs</text>
+
+  <rect x="600" y="500" width="200" height="30" rx="5" ry="5" class="file" />
+  <text x="700" y="520" text-anchor="middle" class="text">diagnotics_tests.rs</text>
+
+  <rect x="600" y="540" width="200" height="30" rx="5" ry="5" class="file" />
+  <text x="700" y="560" text-anchor="middle" class="text">error_tests.rs</text>
+
+  <rect x="600" y="580" width="200" height="30" rx="5" ry="5" class="file" />
+  <text x="700" y="600" text-anchor="middle" class="text">identity_tests.rs</text>
+
+  <rect x="600" y="620" width="200" height="30" rx="5" ry="5" class="file" />
+  <text x="700" y="640" text-anchor="middle" class="text">observation_tests.rs</text>
+
+  <rect x="600" y="660" width="200" height="30" rx="5" ry="5" class="file" />
+  <text x="700" y="680" text-anchor="middle" class="text">policy_tests.rs</text>
+
+  <rect x="600" y="700" width="200" height="30" rx="5" ry="5" class="file" />
+  <text x="700" y="720" text-anchor="middle" class="text">telemetry_tests.rs</text>
+
+  <rect x="600" y="740" width="200" height="30" rx="5" ry="5" class="file" />
+  <text x="700" y="760" text-anchor="middle" class="text">trust_tests.rs</text>
+
+  <rect x="600" y="780" width="200" height="30" rx="5" ry="5" class="file" />
+  <text x="700" y="800" text-anchor="middle" class="text">consciousness.rs</text>
+
+  <!-- Data Structure -->
+  <rect x="850" y="250" width="300" height="400" rx="10" ry="10" stroke="#333" stroke-width="2" fill="none" stroke-dasharray="10,5" />
+  <text x="1000" y="270" text-anchor="middle" class="subtitle">Data Structure</text>
+
+  <!-- ReDB Database -->
+  <rect x="870" y="300" width="260" height="330" rx="5" ry="5" class="data" />
+  <text x="1000" y="320" text-anchor="middle" class="subtitle">ReDB Database Files</text>
+
+  <rect x="890" y="340" width="220" height="30" rx="5" ry="5" class="file" />
+  <text x="1000" y="360" text-anchor="middle" class="text">system.redb</text>
+
+  <rect x="890" y="380" width="220" height="30" rx="5" ry="5" class="file" />
+  <text x="1000" y="400" text-anchor="middle" class="text">logs_shard_0.redb</text>
+
+  <rect x="890" y="420" width="220" height="30" rx="5" ry="5" class="file" />
+  <text x="1000" y="440" text-anchor="middle" class="text">logs_shard_1.redb</text>
+
+  <rect x="890" y="460" width="220" height="30" rx="5" ry="5" class="file" />
+  <text x="1000" y="480" text-anchor="middle" class="text">logs_shard_2.redb</text>
+
+  <rect x="890" y="500" width="220" height="30" rx="5" ry="5" class="file" />
+  <text x="1000" y="520" text-anchor="middle" class="text">logs_shard_3.redb</text>
+
+  <rect x="890" y="540" width="220" height="30" rx="5" ry="5" class="file" />
+  <text x="1000" y="560" text-anchor="middle" class="text">blobs_shard_0.redb</text>
+
+  <rect x="890" y="580" width="220" height="30" rx="5" ry="5" class="file" />
+  <text x="1000" y="600" text-anchor="middle" class="text">events_shard_0.redb</text>
+
+  <!-- Legend -->
+  <rect x="100" y="1450" width="1000" height="120" rx="10" ry="10" stroke="#333" stroke-width="2" fill="#F8F8F8" />
+  <text x="600" y="1470" text-anchor="middle" class="subtitle">Legend</text>
+  
+  <rect x="150" y="1490" width="30" height="30" class="folder" />
+  <text x="190" y="1510" class="text">Folder</text>
+  
+  <rect x="250" y="1490" width="30" height="30" class="file" />
+  <text x="290" y="1510" class="text">File</text>
+  
+  <rect x="350" y="1490" width="30" height="30" class="module" />
+  <text x="390" y="1510" class="text">Module</text>
+  
+  <rect x="450" y="1490" width="30" height="30" class="submodule" />
+  <text x="490" y="1510" class="text">Submodule</text>
+  
+  <rect x="550" y="1490" width="30" height="30" class="data" />
+  <text x="590" y="1510" class="text">Data</text>
+  
+  <rect x="650" y="1490" width="30" height="30" class="test" />
+  <text x="690" y="1510" class="text">Test</text>
+  
+  <rect x="750" y="1490" width="30" height="30" class="doc" />
+  <text x="790" y="1510" class="text">Documentation</text>
+  
+  <line x1="850" y1="1505" x2="900" y2="1505" class="line" />
+  <text x="950" y="1510" class="text">Relationship</text>
+</svg>

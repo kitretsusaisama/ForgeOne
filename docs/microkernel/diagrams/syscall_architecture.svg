@@ -1,0 +1,114 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1000" height="800" viewBox="0 0 1000 800">
+  <!-- Background and Title -->
+  <rect width="1000" height="800" fill="#f8f9fa" />
+  <text x="500" y="40" font-family="Arial" font-size="24" font-weight="bold" text-anchor="middle" fill="#333">ForgeOne Microkernel Syscall Architecture</text>
+  
+  <!-- Main Container -->
+  <rect x="50" y="70" width="900" height="680" rx="10" ry="10" fill="#fff" stroke="#ddd" stroke-width="2" />
+  
+  <!-- Application Layer -->
+  <rect x="100" y="100" width="800" height="80" rx="5" ry="5" fill="#e6f7ff" stroke="#1890ff" stroke-width="2" />
+  <text x="500" y="145" font-family="Arial" font-size="18" font-weight="bold" text-anchor="middle" fill="#333">Application Layer</text>
+  <rect x="150" y="120" width="150" height="40" rx="5" ry="5" fill="#bae7ff" stroke="#1890ff" stroke-width="1" />
+  <text x="225" y="145" font-family="Arial" font-size="14" text-anchor="middle" fill="#333">WASM Modules</text>
+  <rect x="350" y="120" width="150" height="40" rx="5" ry="5" fill="#bae7ff" stroke="#1890ff" stroke-width="1" />
+  <text x="425" y="145" font-family="Arial" font-size="14" text-anchor="middle" fill="#333">Native Plugins</text>
+  <rect x="550" y="120" width="150" height="40" rx="5" ry="5" fill="#bae7ff" stroke="#1890ff" stroke-width="1" />
+  <text x="625" y="145" font-family="Arial" font-size="14" text-anchor="middle" fill="#333">Containers</text>
+  <rect x="750" y="120" width="100" height="40" rx="5" ry="5" fill="#bae7ff" stroke="#1890ff" stroke-width="1" />
+  <text x="800" y="145" font-family="Arial" font-size="14" text-anchor="middle" fill="#333">API</text>
+  
+  <!-- Syscall Interface -->
+  <rect x="100" y="200" width="800" height="60" rx="5" ry="5" fill="#fff7e6" stroke="#fa8c16" stroke-width="2" />
+  <text x="500" y="235" font-family="Arial" font-size="18" font-weight="bold" text-anchor="middle" fill="#333">Syscall Interface</text>
+  
+  <!-- Syscall Bridge -->
+  <rect x="150" y="280" width="700" height="60" rx="5" ry="5" fill="#fff2e8" stroke="#fa541c" stroke-width="2" />
+  <text x="500" y="315" font-family="Arial" font-size="18" font-weight="bold" text-anchor="middle" fill="#333">Syscall Bridge</text>
+  
+  <!-- Syscall Engine -->
+  <rect x="150" y="360" width="700" height="100" rx="5" ry="5" fill="#fff1f0" stroke="#f5222d" stroke-width="2" />
+  <text x="500" y="385" font-family="Arial" font-size="18" font-weight="bold" text-anchor="middle" fill="#333">Syscall Engine</text>
+  
+  <!-- Syscall Categories -->
+  <rect x="180" y="400" width="120" height="40" rx="5" ry="5" fill="#ffccc7" stroke="#f5222d" stroke-width="1" />
+  <text x="240" y="425" font-family="Arial" font-size="14" text-anchor="middle" fill="#333">Process</text>
+  
+  <rect x="320" y="400" width="120" height="40" rx="5" ry="5" fill="#ffccc7" stroke="#f5222d" stroke-width="1" />
+  <text x="380" y="425" font-family="Arial" font-size="14" text-anchor="middle" fill="#333">Memory</text>
+  
+  <rect x="460" y="400" width="120" height="40" rx="5" ry="5" fill="#ffccc7" stroke="#f5222d" stroke-width="1" />
+  <text x="520" y="425" font-family="Arial" font-size="14" text-anchor="middle" fill="#333">I/O</text>
+  
+  <rect x="600" y="400" width="120" height="40" rx="5" ry="5" fill="#ffccc7" stroke="#f5222d" stroke-width="1" />
+  <text x="660" y="425" font-family="Arial" font-size="14" text-anchor="middle" fill="#333">Security</text>
+  
+  <!-- Security Layer -->
+  <rect x="100" y="480" width="800" height="80" rx="5" ry="5" fill="#f9f0ff" stroke="#722ed1" stroke-width="2" />
+  <text x="500" y="520" font-family="Arial" font-size="18" font-weight="bold" text-anchor="middle" fill="#333">Security Layer</text>
+  
+  <rect x="150" y="500" width="150" height="40" rx="5" ry="5" fill="#efdbff" stroke="#722ed1" stroke-width="1" />
+  <text x="225" y="525" font-family="Arial" font-size="14" text-anchor="middle" fill="#333">ZTA Policy</text>
+  
+  <rect x="350" y="500" width="150" height="40" rx="5" ry="5" fill="#efdbff" stroke="#722ed1" stroke-width="1" />
+  <text x="425" y="525" font-family="Arial" font-size="14" text-anchor="middle" fill="#333">Syscall Enforcer</text>
+  
+  <rect x="550" y="500" width="150" height="40" rx="5" ry="5" fill="#efdbff" stroke="#722ed1" stroke-width="1" />
+  <text x="625" y="525" font-family="Arial" font-size="14" text-anchor="middle" fill="#333">Redzone</text>
+  
+  <rect x="750" y="500" width="100" height="40" rx="5" ry="5" fill="#efdbff" stroke="#722ed1" stroke-width="1" />
+  <text x="800" y="525" font-family="Arial" font-size="14" text-anchor="middle" fill="#333">Audit</text>
+  
+  <!-- Telemetry Layer -->
+  <rect x="100" y="580" width="800" height="80" rx="5" ry="5" fill="#e6fffb" stroke="#13c2c2" stroke-width="2" />
+  <text x="500" y="620" font-family="Arial" font-size="18" font-weight="bold" text-anchor="middle" fill="#333">Telemetry Layer</text>
+  
+  <rect x="200" y="600" width="150" height="40" rx="5" ry="5" fill="#b5f5ec" stroke="#13c2c2" stroke-width="1" />
+  <text x="275" y="625" font-family="Arial" font-size="14" text-anchor="middle" fill="#333">Syscall Metrics</text>
+  
+  <rect x="400" y="600" width="150" height="40" rx="5" ry="5" fill="#b5f5ec" stroke="#13c2c2" stroke-width="1" />
+  <text x="475" y="625" font-family="Arial" font-size="14" text-anchor="middle" fill="#333">Performance</text>
+  
+  <rect x="600" y="600" width="150" height="40" rx="5" ry="5" fill="#b5f5ec" stroke="#13c2c2" stroke-width="1" />
+  <text x="675" y="625" font-family="Arial" font-size="14" text-anchor="middle" fill="#333">Tracing</text>
+  
+  <!-- Core Services -->
+  <rect x="100" y="680" width="800" height="50" rx="5" ry="5" fill="#f6ffed" stroke="#52c41a" stroke-width="2" />
+  <text x="500" y="710" font-family="Arial" font-size="16" font-weight="bold" text-anchor="middle" fill="#333">Core Services (Runtime, Scheduler, Boot)</text>
+  
+  <!-- Connecting Lines -->
+  <!-- Application to Syscall Interface -->
+  <line x1="500" y1="180" x2="500" y2="200" stroke="#333" stroke-width="2" />
+  
+  <!-- Syscall Interface to Bridge -->
+  <line x1="500" y1="260" x2="500" y2="280" stroke="#333" stroke-width="2" />
+  
+  <!-- Bridge to Engine -->
+  <line x1="500" y1="340" x2="500" y2="360" stroke="#333" stroke-width="2" />
+  
+  <!-- Engine to Security -->
+  <line x1="500" y1="460" x2="500" y2="480" stroke="#333" stroke-width="2" />
+  
+  <!-- Security to Telemetry -->
+  <line x1="500" y1="560" x2="500" y2="580" stroke="#333" stroke-width="2" />
+  
+  <!-- Telemetry to Core -->
+  <line x1="500" y1="660" x2="500" y2="680" stroke="#333" stroke-width="2" />
+  
+  <!-- Cross-connections -->
+  <path d="M 225 145 Q 225 235 240 315" fill="none" stroke="#333" stroke-width="1" stroke-dasharray="5,5" />
+  <path d="M 425 145 Q 425 235 440 315" fill="none" stroke="#333" stroke-width="1" stroke-dasharray="5,5" />
+  <path d="M 625 145 Q 625 235 560 315" fill="none" stroke="#333" stroke-width="1" stroke-dasharray="5,5" />
+  
+  <!-- Security Connections -->
+  <path d="M 225 525 Q 225 450 240 425" fill="none" stroke="#333" stroke-width="1" stroke-dasharray="5,5" />
+  <path d="M 425 525 Q 425 450 380 425" fill="none" stroke="#333" stroke-width="1" stroke-dasharray="5,5" />
+  <path d="M 625 525 Q 625 450 520 425" fill="none" stroke="#333" stroke-width="1" stroke-dasharray="5,5" />
+  <path d="M 800 525 Q 800 450 660 425" fill="none" stroke="#333" stroke-width="1" stroke-dasharray="5,5" />
+  
+  <!-- Key Features -->
+  <rect x="50" y="750" width="900" height="30" rx="5" ry="5" fill="none" />
+  <text x="500" y="770" font-family="Arial" font-size="14" text-anchor="middle" fill="#333">
+    Key Features: Zero-Trust Syscall Validation | Quantum-Grade Security | Real-time Telemetry | Adaptive Policy Enforcement
+  </text>
+</svg>
