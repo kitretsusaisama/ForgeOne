@@ -6,8 +6,7 @@
 
 use crate::contract::Contract;
 use crate::dna::ContainerDNA;
-use common::crypto::hash::{Hash, HashAlgorithm};
-use common::crypto::signature::{Signature, SignatureAlgorithm};
+use common::crypto::{Hash, HashAlgorithm, SignatureAlgorithm};
 use common::error::{ForgeError, Result};
 use common::observer::trace::ExecutionSpan;
 use serde::{Deserialize, Serialize};
@@ -108,7 +107,7 @@ pub struct AttestationEvidence {
     /// Evidence hash
     pub hash: Hash,
     /// Evidence signature
-    pub signature: Option<Signature>,
+    pub signature: Option<Vec<u8>>, // or Option<String> if you want base64/hex,
     /// Evidence timestamp
     pub timestamp: u64,
     /// Custom evidence fields
@@ -136,9 +135,8 @@ impl AttestationEvidence {
         }
     }
 
-    /// Sign the evidence
-    pub fn sign(&mut self, algorithm: SignatureAlgorithm, private_key: &[u8]) -> Result<()> {
-        let signature = Signature::sign(&self.data, algorithm, private_key)?;
+    pub fn sign(&mut self, private_key: &[u8]) -> Result<()> {
+        let signature = common::crypto::sign(&self.data, private_key)?;
         self.signature = Some(signature);
         Ok(())
     }
@@ -146,10 +144,12 @@ impl AttestationEvidence {
     /// Verify the evidence signature
     pub fn verify(&self, public_key: &[u8]) -> Result<bool> {
         match &self.signature {
-            Some(signature) => signature.verify(&self.data, public_key),
+            Some(signature) => common::crypto::verify(&self.data, signature, public_key),
             None => Err(ForgeError::ValidationError {
-                context: "attestation_evidence".to_string(),
-                reason: "no signature".to_string(),
+                field: "attestation_evidence".to_string(),
+                rule: "no signature".to_string(),
+                value: "".to_string(),
+                suggestions: vec![],
             }),
         }
     }
@@ -177,7 +177,7 @@ pub struct AttestationReport {
     /// Attestation issuer
     pub issuer: String,
     /// Attestation signature
-    pub signature: Option<Signature>,
+    pub signature: Option<Vec<u8>>,
     /// Custom attestation fields
     pub custom: HashMap<String, String>,
 }
@@ -234,14 +234,14 @@ impl AttestationReport {
     pub fn sign(&mut self, algorithm: SignatureAlgorithm, private_key: &[u8]) -> Result<()> {
         // Serialize the report without the signature
         let temp_signature = self.signature.take();
-        let data = serde_json::to_vec(self).map_err(|e| ForgeError::SerializationError {
-            context: "attestation_report".to_string(),
-            error: e.to_string(),
+        let data = serde_json::to_vec(self).map_err(|e| {
+            ForgeError::SerializationError("attestation_report".to_string() + ": " + &e.to_string())
         })?;
         self.signature = temp_signature;
 
         // Sign the data
-        let signature = Signature::sign(&data, algorithm, private_key)?;
+        let signature = common::crypto::sign(&data, private_key)?;
+
         self.signature = Some(signature);
 
         Ok(())
@@ -255,18 +255,19 @@ impl AttestationReport {
                 let mut temp_report = self.clone();
                 temp_report.signature = None;
                 let data = serde_json::to_vec(&temp_report).map_err(|e| {
-                    ForgeError::SerializationError {
-                        context: "attestation_report".to_string(),
-                        error: e.to_string(),
-                    }
+                    ForgeError::SerializationError(
+                        "attestation_report: ".to_string() + &e.to_string(),
+                    )
                 })?;
 
                 // Verify the signature
-                signature.verify(&data, public_key)
+                common::crypto::verify(&data, signature, public_key)
             }
             None => Err(ForgeError::ValidationError {
-                context: "attestation_report".to_string(),
-                reason: "no signature".to_string(),
+                field: "attestation_report".to_string(),
+                rule: "no signature".to_string(),
+                value: "".to_string(),
+                suggestions: vec![],
             }),
         }
     }
@@ -435,8 +436,8 @@ impl AttestationManager {
 
         let report = AttestationReport::new(container_id, attestation_type, hardware_type, issuer);
 
-        let mut reports = self.reports.write().map_err(|_| ForgeError::LockError {
-            resource: "attestation_reports".to_string(),
+        let mut reports = self.reports.write().map_err(|_| {
+            ForgeError::InternalError("attestation_reports lock poisoned".to_string())
         })?;
 
         reports.insert(report.id.clone(), report.clone());
@@ -451,15 +452,12 @@ impl AttestationManager {
             common::identity::IdentityContext::system(),
         );
 
-        let mut reports = self.reports.write().map_err(|_| ForgeError::LockError {
-            resource: "attestation_reports".to_string(),
+        let mut reports = self.reports.write().map_err(|_| {
+            ForgeError::InternalError("attestation_reports lock poisoned".to_string())
         })?;
 
         if !reports.contains_key(&report.id) {
-            return Err(ForgeError::NotFoundError {
-                resource: "attestation_report".to_string(),
-                id: report.id.clone(),
-            });
+            return Err(ForgeError::NotFound("attestation_report".to_string()));
         }
 
         reports.insert(report.id.clone(), report);
@@ -474,14 +472,13 @@ impl AttestationManager {
             common::identity::IdentityContext::system(),
         );
 
-        let reports = self.reports.read().map_err(|_| ForgeError::LockError {
-            resource: "attestation_reports".to_string(),
+        let reports = self.reports.read().map_err(|_| {
+            ForgeError::InternalError("attestation_reports lock poisoned".to_string())
         })?;
 
-        let report = reports.get(report_id).ok_or(ForgeError::NotFoundError {
-            resource: "attestation_report".to_string(),
-            id: report_id.to_string(),
-        })?;
+        let report = reports
+            .get(report_id)
+            .ok_or(ForgeError::NotFound("attestation_report".to_string()))?;
 
         Ok(report.clone())
     }
@@ -493,8 +490,8 @@ impl AttestationManager {
             common::identity::IdentityContext::system(),
         );
 
-        let reports = self.reports.read().map_err(|_| ForgeError::LockError {
-            resource: "attestation_reports".to_string(),
+        let reports = self.reports.read().map_err(|_| {
+            ForgeError::InternalError("attestation_reports lock poisoned".to_string())
         })?;
 
         let container_reports = reports
@@ -513,15 +510,12 @@ impl AttestationManager {
             common::identity::IdentityContext::system(),
         );
 
-        let mut reports = self.reports.write().map_err(|_| ForgeError::LockError {
-            resource: "attestation_reports".to_string(),
+        let mut reports = self.reports.write().map_err(|_| {
+            ForgeError::InternalError("attestation_reports lock poisoned".to_string())
         })?;
 
         if !reports.contains_key(report_id) {
-            return Err(ForgeError::NotFoundError {
-                resource: "attestation_report".to_string(),
-                id: report_id.to_string(),
-            });
+            return Err(ForgeError::NotFound("attestation_report".to_string()));
         }
 
         reports.remove(report_id);
@@ -543,8 +537,8 @@ impl AttestationManager {
 
         let policy = AttestationPolicy::new(name, required_type, required_hardware_type);
 
-        let mut policies = self.policies.write().map_err(|_| ForgeError::LockError {
-            resource: "attestation_policies".to_string(),
+        let mut policies = self.policies.write().map_err(|_| {
+            ForgeError::InternalError("attestation_policies lock poisoned".to_string())
         })?;
 
         policies.insert(policy.id.clone(), policy.clone());
@@ -559,15 +553,12 @@ impl AttestationManager {
             common::identity::IdentityContext::system(),
         );
 
-        let mut policies = self.policies.write().map_err(|_| ForgeError::LockError {
-            resource: "attestation_policies".to_string(),
+        let mut policies = self.policies.write().map_err(|_| {
+            ForgeError::InternalError("attestation_policies lock poisoned".to_string())
         })?;
 
         if !policies.contains_key(&policy.id) {
-            return Err(ForgeError::NotFoundError {
-                resource: "attestation_policy".to_string(),
-                id: policy.id.clone(),
-            });
+            return Err(ForgeError::NotFound("attestation_policy".to_string()));
         }
 
         policies.insert(policy.id.clone(), policy);
@@ -582,14 +573,13 @@ impl AttestationManager {
             common::identity::IdentityContext::system(),
         );
 
-        let policies = self.policies.read().map_err(|_| ForgeError::LockError {
-            resource: "attestation_policies".to_string(),
+        let policies = self.policies.read().map_err(|_| {
+            ForgeError::InternalError("attestation_policies lock poisoned".to_string())
         })?;
 
-        let policy = policies.get(policy_id).ok_or(ForgeError::NotFoundError {
-            resource: "attestation_policy".to_string(),
-            id: policy_id.to_string(),
-        })?;
+        let policy = policies
+            .get(policy_id)
+            .ok_or(ForgeError::NotFound("attestation_policy".to_string()))?;
 
         Ok(policy.clone())
     }
@@ -601,18 +591,14 @@ impl AttestationManager {
             common::identity::IdentityContext::system(),
         );
 
-        let policies = self.policies.read().map_err(|_| ForgeError::LockError {
-            resource: "attestation_policies".to_string(),
+        let policies = self.policies.read().map_err(|_| {
+            ForgeError::InternalError("attestation_policies lock poisoned".to_string())
         })?;
 
-        let policy =
-            policies
-                .values()
-                .find(|p| p.name == name)
-                .ok_or(ForgeError::NotFoundError {
-                    resource: "attestation_policy".to_string(),
-                    id: name.to_string(),
-                })?;
+        let policy = policies
+            .values()
+            .find(|p| p.name == name)
+            .ok_or(ForgeError::NotFound("attestation_policy".to_string()))?;
 
         Ok(policy.clone())
     }
@@ -624,15 +610,12 @@ impl AttestationManager {
             common::identity::IdentityContext::system(),
         );
 
-        let mut policies = self.policies.write().map_err(|_| ForgeError::LockError {
-            resource: "attestation_policies".to_string(),
+        let mut policies = self.policies.write().map_err(|_| {
+            ForgeError::InternalError("attestation_policies lock poisoned".to_string())
         })?;
 
         if !policies.contains_key(policy_id) {
-            return Err(ForgeError::NotFoundError {
-                resource: "attestation_policy".to_string(),
-                id: policy_id.to_string(),
-            });
+            return Err(ForgeError::NotFound("attestation_policy".to_string()));
         }
 
         policies.remove(policy_id);
@@ -647,8 +630,8 @@ impl AttestationManager {
             common::identity::IdentityContext::system(),
         );
 
-        let policies = self.policies.read().map_err(|_| ForgeError::LockError {
-            resource: "attestation_policies".to_string(),
+        let policies = self.policies.read().map_err(|_| {
+            ForgeError::InternalError("attestation_policies lock poisoned".to_string())
         })?;
 
         Ok(policies.values().cloned().collect())
@@ -673,20 +656,15 @@ impl AttestationManager {
             self.create_report(container_id, attestation_type, hardware_type, "system")?;
 
         // Add DNA evidence
-        let dna_data = serde_json::to_vec(dna).map_err(|e| ForgeError::SerializationError {
-            context: "container_dna".to_string(),
-            error: e.to_string(),
-        })?;
+        let dna_data = serde_json::to_vec(dna)
+            .map_err(|e| ForgeError::SerializationError(format!("container_dna: {}", e)))?;
 
         let mut dna_evidence = AttestationEvidence::new("dna", dna_data);
         // In a real implementation, we would sign the evidence here
 
         // Add contract evidence
-        let contract_data =
-            serde_json::to_vec(contract).map_err(|e| ForgeError::SerializationError {
-                context: "container_contract".to_string(),
-                error: e.to_string(),
-            })?;
+        let contract_data = serde_json::to_vec(contract)
+            .map_err(|e| ForgeError::SerializationError(format!("container_contract: {}", e)))?;
 
         let mut contract_evidence = AttestationEvidence::new("contract", contract_data);
         // In a real implementation, we would sign the evidence here
@@ -726,14 +704,10 @@ impl AttestationManager {
         }
 
         // Get the latest report
-        let latest_report =
-            reports
-                .iter()
-                .max_by_key(|r| r.timestamp)
-                .ok_or(ForgeError::NotFoundError {
-                    resource: "attestation_report".to_string(),
-                    id: format!("latest for container {}", container_id),
-                })?;
+        let latest_report = reports
+            .iter()
+            .max_by_key(|r| r.timestamp)
+            .ok_or(ForgeError::NotFound("attestation_report".to_string()))?;
 
         // Check report status
         if latest_report.status != AttestationStatus::Success {
@@ -774,10 +748,7 @@ pub fn init() -> Result<()> {
         if ATTESTATION_MANAGER.is_none() {
             ATTESTATION_MANAGER = Some(attestation_manager);
         } else {
-            return Err(ForgeError::AlreadyExistsError {
-                resource: "attestation_manager".to_string(),
-                id: "global".to_string(),
-            });
+            return Err(ForgeError::AlreadyExists("attestation_manager".to_string()));
         }
     }
 
@@ -789,9 +760,7 @@ pub fn get_attestation_manager() -> Result<&'static AttestationManager> {
     unsafe {
         match &ATTESTATION_MANAGER {
             Some(attestation_manager) => Ok(attestation_manager),
-            None => Err(ForgeError::UninitializedError {
-                component: "attestation_manager".to_string(),
-            }),
+            None => Err(ForgeError::Other("attestation_manager".to_string())),
         }
     }
 }
@@ -959,19 +928,20 @@ mod tests {
         // Create container DNA and contract for attestation
         let dna = ContainerDNA {
             id: "test-container".to_string(),
-            fingerprint: "test-fingerprint".to_string(),
             resource_limits: crate::dna::ResourceLimits::default(),
+            hash: "test-hash".to_string(),
+            signer: "test-signer".to_string(),
+            trust_label: "test-trust-label".to_string(),
+            runtime_entropy: "test-runtime-entropy".to_string(),
+            created_at: 0,
+            identity: common::identity::IdentityContext::system(),
         };
 
         let contract = Contract {
             id: "test-contract".to_string(),
-            container_id: "test-container".to_string(),
             contract_type: crate::contract::ContractType::ZTA,
-            status: crate::contract::ContractStatus::Active,
-            created_at: 0,
-            updated_at: 0,
-            data: Vec::new(),
-            custom: HashMap::new(),
+            data: serde_json::json!({}),
+            status: crate::contract::ContractStatus::Valid,
         };
 
         // Attest container

@@ -19,10 +19,8 @@ pub fn save_config_to_file(config: &ContainerConfig, config_path: &str) -> Resul
 
     // Create parent directory if it doesn't exist
     if let Some(parent) = Path::new(config_path).parent() {
-        fs::create_dir_all(parent).map_err(|e| ForgeError::IOError {
-            operation: "create_dir".to_string(),
-            path: parent.to_string_lossy().to_string(),
-            error: e.to_string(),
+        fs::create_dir_all(parent).map_err(|e| {
+            ForgeError::IoError(format!("create_dir {}: {}", parent.to_string_lossy(), e))
         })?;
     }
 
@@ -34,26 +32,23 @@ pub fn save_config_to_file(config: &ContainerConfig, config_path: &str) -> Resul
 
     // Serialize configuration based on file format
     let config_str = match extension.to_lowercase().as_str() {
-        "json" => serde_json::to_string_pretty(config).map_err(|e| ForgeError::SerializeError {
+        "json" => serde_json::to_string_pretty(config).map_err(|e| ForgeError::ParseError {
             format: "json".to_string(),
             error: e.to_string(),
         }),
-        "yaml" | "yml" => serde_yaml::to_string(config).map_err(|e| ForgeError::SerializeError {
+        "yaml" | "yml" => serde_yaml::to_string(config).map_err(|e| ForgeError::ParseError {
             format: "yaml".to_string(),
             error: e.to_string(),
         }),
-        _ => Err(ForgeError::SerializeError {
+        _ => Err(ForgeError::ParseError {
             format: "unknown".to_string(),
             error: format!("Unsupported file format: {}", extension),
         }),
     }?;
 
     // Save configuration to file
-    fs::write(config_path, config_str).map_err(|e| ForgeError::IOError {
-        operation: "write".to_string(),
-        path: config_path.to_string(),
-        error: e.to_string(),
-    })?;
+    fs::write(config_path, config_str)
+        .map_err(|e| ForgeError::IoError(format!("write {}: {}", config_path, e)))?;
 
     Ok(())
 }
@@ -66,7 +61,7 @@ pub fn save_config_to_env(config: &ContainerConfig, prefix: &str) -> Result<()> 
     );
 
     // Serialize configuration to JSON
-    let json = serde_json::to_string(config).map_err(|e| ForgeError::SerializeError {
+    let json = serde_json::to_string(config).map_err(|e| ForgeError::ParseError {
         format: "json".to_string(),
         error: e.to_string(),
     })?;
@@ -102,14 +97,13 @@ pub fn save_config_to_registry(config: &ContainerConfig, key: &str) -> Result<()
     // such as etcd, Consul, or a database
 
     // Serialize configuration to JSON
-    let json = serde_json::to_string(config).map_err(|e| ForgeError::SerializeError {
+    let json = serde_json::to_string(config).map_err(|e| ForgeError::ParseError {
         format: "json".to_string(),
         error: e.to_string(),
     })?;
 
-    // Log the operation for now
-    log::info!("Saving configuration to registry key: {}", key);
-    log::debug!("Configuration: {}", json);
+    // Log the operation for now (placeholder)
+    // (logging removed)
 
     Ok(())
 }
@@ -121,10 +115,7 @@ pub fn save_config(
     env_prefix: Option<&str>,
     registry_key: Option<&str>,
 ) -> Result<()> {
-    let span = ExecutionSpan::new(
-        "save_config",
-        common::identity::IdentityContext::system(),
-    );
+    let span = ExecutionSpan::new("save_config", common::identity::IdentityContext::system());
 
     // Save configuration to file if specified
     if let Some(path) = config_path {
@@ -164,10 +155,10 @@ mod tests {
             .with_command("/bin/sh")
             .with_args(vec!["-c".to_string(), "echo hello".to_string()])
             .with_resource_limits(ResourceLimits {
-                cpu_cores: Some(1.0),
-                memory_bytes: Some(1024 * 1024 * 100),
-                disk_bytes: Some(1024 * 1024 * 1000),
-                network_bps: Some(1024 * 1024),
+                cpu_millicores: 1000,
+                memory_bytes: 1024 * 1024 * 100,
+                disk_bytes: 1024 * 1024 * 1000,
+                network_bps: 1024 * 1024,
             });
 
         // Save configuration to file
@@ -206,10 +197,10 @@ mod tests {
             .with_command("/bin/sh")
             .with_args(vec!["-c".to_string(), "echo hello".to_string()])
             .with_resource_limits(ResourceLimits {
-                cpu_cores: Some(1.0),
-                memory_bytes: Some(1024 * 1024 * 100),
-                disk_bytes: Some(1024 * 1024 * 1000),
-                network_bps: Some(1024 * 1024),
+                cpu_millicores: 1000,
+                memory_bytes: 1024 * 1024 * 100,
+                disk_bytes: 1024 * 1024 * 1000,
+                network_bps: 1024 * 1024,
             });
 
         // Save configuration to file
@@ -244,17 +235,20 @@ mod tests {
             .with_command("/bin/sh")
             .with_args(vec!["-c".to_string(), "echo hello".to_string()])
             .with_resource_limits(ResourceLimits {
-                cpu_cores: Some(1.0),
-                memory_bytes: Some(1024 * 1024 * 100),
-                disk_bytes: Some(1024 * 1024 * 1000),
-                network_bps: Some(1024 * 1024),
+                cpu_millicores: 1000,
+                memory_bytes: 1024 * 1024 * 100,
+                disk_bytes: 1024 * 1024 * 1000,
+                network_bps: 1024 * 1024,
             });
 
         // Save configuration to environment variables
         save_config_to_env(&config, "TEST_").unwrap();
 
         // Check environment variables
-        assert_eq!(std::env::var("TEST_IMAGE").unwrap(), "\"test-image:latest\"");
+        assert_eq!(
+            std::env::var("TEST_IMAGE").unwrap(),
+            "\"test-image:latest\""
+        );
         assert_eq!(std::env::var("TEST_NAME").unwrap(), "\"test-container\"");
         assert_eq!(std::env::var("TEST_COMMAND").unwrap(), "\"/bin/sh\"");
     }
@@ -271,10 +265,10 @@ mod tests {
             .with_command("/bin/sh")
             .with_args(vec!["-c".to_string(), "echo hello".to_string()])
             .with_resource_limits(ResourceLimits {
-                cpu_cores: Some(1.0),
-                memory_bytes: Some(1024 * 1024 * 100),
-                disk_bytes: Some(1024 * 1024 * 1000),
-                network_bps: Some(1024 * 1024),
+                cpu_millicores: 1000,
+                memory_bytes: 1024 * 1024 * 100,
+                disk_bytes: 1024 * 1024 * 1000,
+                network_bps: 1024 * 1024,
             });
 
         // Save configuration to multiple destinations
@@ -284,7 +278,10 @@ mod tests {
         assert!(Path::new(&temp_path).exists());
 
         // Check environment variables
-        assert_eq!(std::env::var("TEST2_IMAGE").unwrap(), "\"test-image:latest\"");
+        assert_eq!(
+            std::env::var("TEST2_IMAGE").unwrap(),
+            "\"test-image:latest\""
+        );
         assert_eq!(std::env::var("TEST2_NAME").unwrap(), "\"test-container\"");
         assert_eq!(std::env::var("TEST2_COMMAND").unwrap(), "\"/bin/sh\"");
 

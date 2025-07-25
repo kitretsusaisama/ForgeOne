@@ -5,12 +5,10 @@ use runtime::config::ContainerConfig;
 fn bench_container_config(c: &mut Criterion) {
     c.bench_function("create container config", |b| {
         b.iter(|| {
-            let config = ContainerConfig::builder()
-                .image(black_box("my-image:latest"))
-                .name(black_box("benchmark-container"))
-                .command(black_box("/bin/sh"))
-                .args(black_box(vec!["-c", "echo hello"]))
-                .build();
+            let mut config = ContainerConfig::new(black_box("my-image:latest"));
+            config.name = Some(black_box("benchmark-container").to_string());
+            config.command = Some(black_box("/bin/sh").to_string());
+            config.args = Some(black_box(vec!["-c".to_string(), "echo hello".to_string()]));
             black_box(config)
         })
     });
@@ -18,12 +16,10 @@ fn bench_container_config(c: &mut Criterion) {
 
 // Benchmark for container configuration validation
 fn bench_validate_config(c: &mut Criterion) {
-    let config = ContainerConfig::builder()
-        .image("my-image:latest")
-        .name("benchmark-container")
-        .command("/bin/sh")
-        .args(vec!["-c", "echo hello"])
-        .build();
+    let mut config = ContainerConfig::new("my-image:latest");
+    config.name = Some("benchmark-container".to_string());
+    config.command = Some("/bin/sh".to_string());
+    config.args = Some(vec!["-c".to_string(), "echo hello".to_string()]);
 
     c.bench_function("validate container config", |b| {
         b.iter(|| {
@@ -35,12 +31,10 @@ fn bench_validate_config(c: &mut Criterion) {
 
 // Benchmark for container creation
 fn bench_create_container(c: &mut Criterion) {
-    let config = ContainerConfig::builder()
-        .image("my-image:latest")
-        .name("benchmark-container")
-        .command("/bin/sh")
-        .args(vec!["-c", "echo hello"])
-        .build();
+    let mut config = ContainerConfig::new("my-image:latest");
+    config.name = Some("benchmark-container".to_string());
+    config.command = Some("/bin/sh".to_string());
+    config.args = Some(vec!["-c".to_string(), "echo hello".to_string()]);
 
     c.bench_function("create container", |b| {
         b.iter(|| {

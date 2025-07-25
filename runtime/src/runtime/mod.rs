@@ -67,7 +67,7 @@ pub struct RuntimeStats {
 }
 
 /// Runtime context
-#[derive(Debug)]
+#[derive(Debug, Clone)]
 pub struct RuntimeContext {
     /// Runtime configuration
     config: Arc<RwLock<RuntimeConfig>>,
@@ -104,18 +104,20 @@ impl RuntimeContext {
 
     /// Get the runtime configuration
     pub fn config(&self) -> Result<RuntimeConfig> {
-        let config = self.config.read().map_err(|_| ForgeError::LockError {
-            resource: "runtime_config".to_string(),
-        })?;
+        let config = self
+            .config
+            .read()
+            .map_err(|_| ForgeError::InternalError("runtime_config lock poisoned".to_string()))?;
 
         Ok(config.clone())
     }
 
     /// Update the runtime configuration
     pub fn update_config(&self, config: RuntimeConfig) -> Result<()> {
-        let mut current_config = self.config.write().map_err(|_| ForgeError::LockError {
-            resource: "runtime_config".to_string(),
-        })?;
+        let mut current_config = self
+            .config
+            .write()
+            .map_err(|_| ForgeError::InternalError("runtime_config lock poisoned".to_string()))?;
 
         *current_config = config;
 
@@ -124,18 +126,20 @@ impl RuntimeContext {
 
     /// Get the runtime statistics
     pub fn stats(&self) -> Result<RuntimeStats> {
-        let stats = self.stats.read().map_err(|_| ForgeError::LockError {
-            resource: "runtime_stats".to_string(),
-        })?;
+        let stats = self
+            .stats
+            .read()
+            .map_err(|_| ForgeError::InternalError("runtime_stats lock poisoned".to_string()))?;
 
         Ok(stats.clone())
     }
 
     /// Update the runtime statistics
     pub fn update_stats(&self) -> Result<()> {
-        let mut stats = self.stats.write().map_err(|_| ForgeError::LockError {
-            resource: "runtime_stats".to_string(),
-        })?;
+        let mut stats = self
+            .stats
+            .write()
+            .map_err(|_| ForgeError::InternalError("runtime_stats lock poisoned".to_string()))?;
 
         let now = SystemTime::now()
             .duration_since(UNIX_EPOCH)
@@ -152,18 +156,20 @@ impl RuntimeContext {
 
     /// Check if the runtime is running
     pub fn is_running(&self) -> Result<bool> {
-        let running = self.running.read().map_err(|_| ForgeError::LockError {
-            resource: "runtime_running".to_string(),
-        })?;
+        let running = self
+            .running
+            .read()
+            .map_err(|_| ForgeError::InternalError("runtime_running lock poisoned".to_string()))?;
 
         Ok(*running)
     }
 
     /// Stop the runtime
     pub fn stop(&self) -> Result<()> {
-        let mut running = self.running.write().map_err(|_| ForgeError::LockError {
-            resource: "runtime_running".to_string(),
-        })?;
+        let mut running = self
+            .running
+            .write()
+            .map_err(|_| ForgeError::InternalError("runtime_running lock poisoned".to_string()))?;
 
         *running = false;
 
@@ -172,9 +178,10 @@ impl RuntimeContext {
 
     /// Start the runtime
     pub fn start(&self) -> Result<()> {
-        let mut running = self.running.write().map_err(|_| ForgeError::LockError {
-            resource: "runtime_running".to_string(),
-        })?;
+        let mut running = self
+            .running
+            .write()
+            .map_err(|_| ForgeError::InternalError("runtime_running lock poisoned".to_string()))?;
 
         *running = true;
 
@@ -233,16 +240,19 @@ pub fn get_runtime_context() -> Result<&'static RuntimeContext> {
     unsafe {
         match &RUNTIME_CONTEXT {
             Some(context) => Ok(context),
-            None => Err(ForgeError::UninitializedError {
-                component: "runtime_context".to_string(),
-            }),
+            None => Err(ForgeError::InternalError(
+                "runtime_context not initialized".to_string(),
+            )),
         }
     }
 }
 
 /// Shutdown the runtime
 pub fn shutdown() -> Result<()> {
-    let span = ExecutionSpan::new("shutdown_runtime", common::identity::IdentityContext::system());
+    let span = ExecutionSpan::new(
+        "shutdown_runtime",
+        common::identity::IdentityContext::system(),
+    );
 
     // Get the runtime context
     let context = get_runtime_context()?;
@@ -266,19 +276,12 @@ pub fn load_config(config_path: &str) -> Result<RuntimeConfig> {
     );
 
     // Load configuration from file
-    let config_str = std::fs::read_to_string(config_path).map_err(|e| ForgeError::IOError {
-        operation: "read".to_string(),
-        path: config_path.to_string(),
-        error: e.to_string(),
-    })?;
+    let config_str = std::fs::read_to_string(config_path)
+        .map_err(|e| ForgeError::IoError(format!("read {}: {}", config_path, e)))?;
 
     // Parse configuration
-    let config: RuntimeConfig = serde_json::from_str(&config_str).map_err(|e| {
-        ForgeError::ParseError {
-            format: "json".to_string(),
-            error: e.to_string(),
-        }
-    })?;
+    let config: RuntimeConfig = serde_json::from_str(&config_str)
+        .map_err(|e| ForgeError::InternalError(format!("json parse error: {}", e)))?;
 
     Ok(config)
 }
@@ -291,17 +294,12 @@ pub fn save_config(config: &RuntimeConfig, config_path: &str) -> Result<()> {
     );
 
     // Serialize configuration
-    let config_str = serde_json::to_string_pretty(config).map_err(|e| ForgeError::SerializeError {
-        format: "json".to_string(),
-        error: e.to_string(),
-    })?;
+    let config_str = serde_json::to_string_pretty(config)
+        .map_err(|e| ForgeError::InternalError(format!("json serialize error: {}", e)))?;
 
     // Save configuration to file
-    std::fs::write(config_path, config_str).map_err(|e| ForgeError::IOError {
-        operation: "write".to_string(),
-        path: config_path.to_string(),
-        error: e.to_string(),
-    })?;
+    std::fs::write(config_path, config_str)
+        .map_err(|e| ForgeError::IoError(format!("write {}: {}", config_path, e)))?;
 
     Ok(())
 }

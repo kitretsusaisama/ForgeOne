@@ -1,0 +1,123 @@
+syntax = "proto3";
+
+package network;
+
+import "google/protobuf/timestamp.proto";
+import "google/protobuf/empty.proto";
+
+// Network service definition
+service NetworkService {
+  // Network management
+  rpc CreateNetwork(CreateNetworkRequest) returns (Network);
+  rpc GetNetwork(GetNetworkRequest) returns (Network);
+  rpc ListNetworks(google.protobuf.Empty) returns (ListNetworksResponse);
+  rpc DeleteNetwork(DeleteNetworkRequest) returns (google.protobuf.Empty);
+  
+  // Container connectivity
+  rpc ConnectContainer(ConnectContainerRequest) returns (ConnectContainerResponse);
+  rpc DisconnectContainer(DisconnectContainerRequest) returns (google.protobuf.Empty);
+  
+  // Network statistics
+  rpc GetNetworkStats(GetNetworkRequest) returns (NetworkStats);
+}
+
+// Network isolation level
+enum IsolationLevel {
+  ISOLATION_NONE = 0;
+  ISOLATION_FULL = 1;
+  ISOLATION_PEER_ONLY = 2;
+  ISOLATION_MESH_ONLY = 3;
+}
+
+// Network driver type
+enum NetworkDriverType {
+  DRIVER_NONE = 0;
+  DRIVER_BRIDGE = 1;
+  DRIVER_HOST = 2;
+  DRIVER_OVERLAY = 3;
+  DRIVER_MACVLAN = 4;
+  DRIVER_IPVLAN = 5;
+}
+
+// Network definition
+message Network {
+  string id = 1;
+  string name = 2;
+  string cidr = 3;
+  string gateway = 4;
+  NetworkDriverType driver = 5;
+  IsolationLevel isolation_mode = 6;
+  map<string, string> options = 7;
+  map<string, string> labels = 8;
+  google.protobuf.Timestamp created_at = 9;
+}
+
+// Endpoint definition
+message Endpoint {
+  string id = 1;
+  string container_id = 2;
+  string network_id = 3;
+  string ip = 4;
+  string mac = 5;
+  string interface = 6;
+  google.protobuf.Timestamp created_at = 7;
+}
+
+// Network statistics
+message NetworkStats {
+  uint64 bytes_in = 1;
+  uint64 bytes_out = 2;
+  uint64 packets_in = 3;
+  uint64 packets_out = 4;
+  uint32 dns_queries = 5;
+  uint32 firewall_blocks = 6;
+  google.protobuf.Timestamp last_updated = 7;
+}
+
+// Create network request
+message CreateNetworkRequest {
+  string name = 1;
+  string cidr = 2;
+  string gateway = 3;
+  NetworkDriverType driver = 4;
+  IsolationLevel isolation_mode = 5;
+  map<string, string> options = 6;
+  map<string, string> labels = 7;
+}
+
+// Get network request
+message GetNetworkRequest {
+  string id = 1;
+}
+
+// List networks response
+message ListNetworksResponse {
+  repeated Network networks = 1;
+}
+
+// Delete network request
+message DeleteNetworkRequest {
+  string id = 1;
+}
+
+// Connect container request
+message ConnectContainerRequest {
+  string container_id = 1;
+  string network_id = 2;
+  string namespace_path = 3;
+  string interface_name = 4;
+  string static_ip = 5;
+}
+
+// Connect container response
+message ConnectContainerResponse {
+  string ip = 1;
+  string mac = 2;
+  string interface = 3;
+}
+
+// Disconnect container request
+message DisconnectContainerRequest {
+  string container_id = 1;
+  string network_id = 2;
+}

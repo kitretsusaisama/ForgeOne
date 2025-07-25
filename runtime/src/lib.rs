@@ -17,7 +17,7 @@
 //! - **Hot Reloadable**: Controlled rolling runtime reload
 
 // Core modules
-pub mod abi;
+// pub mod abi;
 pub mod attestation;
 pub mod config;
 pub mod contract;
@@ -44,32 +44,20 @@ pub const VERSION: &str = env!("CARGO_PKG_VERSION");
 
 /// Initialize the container runtime with default configuration
 pub fn init() -> Result<runtime::RuntimeContext> {
-    // Initialize telemetry
-    metrics::init_container_metrics();
-
     let runtime_context = runtime::init()?;
-    tracing::info!(version = VERSION, "ForgeOne Container Runtime initialized");
     Ok(runtime_context)
 }
 
 /// Initialize the container runtime with custom configuration
 pub fn init_with_config(config_path: &str) -> Result<runtime::RuntimeContext> {
-    // Initialize telemetry
-    metrics::init_container_metrics();
-
-    let config = config::load_config(config_path)?;
+    let config = config::load_config(Some(config_path), None)?;
     let runtime_context = runtime::init_with_config(&config)?;
-    tracing::info!(
-        version = VERSION,
-        "ForgeOne Container Runtime initialized with custom config"
-    );
     Ok(runtime_context)
 }
 
 /// Shutdown the container runtime
 pub fn shutdown() -> Result<()> {
     runtime::shutdown()?;
-    tracing::info!("ForgeOne Container Runtime shutdown complete");
     Ok(())
 }
 
@@ -114,7 +102,10 @@ pub fn get_container_status(container_id: &str) -> Result<lifecycle::ContainerSt
 
 /// List all containers
 pub fn list_containers() -> Result<Vec<String>> {
-    registry::list_containers()
+    Ok(registry::list_containers()?
+        .into_iter()
+        .map(|r| r.id)
+        .collect())
 }
 
 /// Get container metrics
@@ -122,7 +113,7 @@ pub fn get_container_metrics(container_id: &str) -> Result<metrics::ContainerMet
     metrics::get_container_metrics(container_id)
 }
 
-/// Send a message to a container
-pub fn send_message(container_id: &str, message: &[u8]) -> Result<()> {
-    rpc::send_message(container_id, message)
-}
+// /// Send a message to a container
+// pub fn send_message(container_id: &str, message: &[u8]) -> Result<()> {
+//     rpc::send_message(container_id, message)
+// }

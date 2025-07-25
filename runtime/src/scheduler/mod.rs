@@ -183,11 +183,7 @@ impl NodeAllocation {
     }
 
     /// Check if the node has enough resources for the given constraints
-    pub fn has_capacity(
-        &self,
-        capacity: &NodeCapacity,
-        constraints: &ResourceConstraints,
-    ) -> bool {
+    pub fn has_capacity(&self, capacity: &NodeCapacity, constraints: &ResourceConstraints) -> bool {
         // Check CPU
         if let Some(cpu_cores) = constraints.cpu_cores {
             if self.allocated_cpu_cores + cpu_cores > capacity.cpu_cores {
@@ -278,10 +274,7 @@ impl NodeAllocation {
     ) -> Result<()> {
         // Check if container is allocated on this node
         if !self.container_ids.contains(container_id) {
-            return Err(ForgeError::NotFoundError {
-                resource: "container".to_string(),
-                id: container_id.to_string(),
-            });
+            return Err(ForgeError::NotFound(format!("container: {}", container_id)));
         }
 
         // Deallocate CPU
@@ -401,36 +394,29 @@ impl Scheduler {
 
     /// Register a node
     pub fn register_node(&self, capacity: NodeCapacity) -> Result<()> {
-        let span = ExecutionSpan::new(
-            "register_node",
-            common::identity::IdentityContext::system(),
-        );
+        let span = ExecutionSpan::new("register_node", common::identity::IdentityContext::system());
 
         // Add node capacity
-        let mut node_capacities = self.node_capacities.write().map_err(|_| ForgeError::LockError {
-            resource: "node_capacities".to_string(),
-        })?;
+        let mut node_capacities = self
+            .node_capacities
+            .write()
+            .map_err(|_| ForgeError::InternalError("node_capacities lock poisoned".to_string()))?;
 
         // Check if node already exists
         if node_capacities.contains_key(&capacity.id) {
-            return Err(ForgeError::AlreadyExistsError {
-                resource: "node".to_string(),
-                id: capacity.id.clone(),
-            });
+            return Err(ForgeError::AlreadyExists(format!("node: {}", capacity.id)));
         }
 
-        // Add node capacity
-        node_capacities.insert(capacity.id.clone(), capacity);
+        let node_id = capacity.id.clone();
+        node_capacities.insert(node_id.clone(), capacity);
 
         // Add node allocation
         let mut node_allocations = self
             .node_allocations
             .write()
-            .map_err(|_| ForgeError::LockError {
-                resource: "node_allocations".to_string(),
-            })?;
+            .map_err(|_| ForgeError::InternalError("node_allocations lock poisoned".to_string()))?;
 
-        node_allocations.insert(capacity.id.clone(), NodeAllocation::new(&capacity.id));
+        node_allocations.insert(node_id.clone(), NodeAllocation::new(&node_id));
 
         Ok(())
     }
@@ -443,31 +429,29 @@ impl Scheduler {
         );
 
         // Get node allocation
-        let node_allocations = self.node_allocations.read().map_err(|_| ForgeError::LockError {
-            resource: "node_allocations".to_string(),
-        })?;
+        let node_allocations = self
+            .node_allocations
+            .read()
+            .map_err(|_| ForgeError::InternalError("node_allocations lock poisoned".to_string()))?;
 
-        let node_allocation = node_allocations.get(node_id).ok_or(ForgeError::NotFoundError {
-            resource: "node".to_string(),
-            id: node_id.to_string(),
-        })?;
+        let node_allocation = node_allocations
+            .get(node_id)
+            .ok_or(ForgeError::NotFound(format!("node: {}", node_id)))?;
 
         // Check if node has containers
         if !node_allocation.container_ids.is_empty() {
-            return Err(ForgeError::InvalidOperationError {
-                operation: "unregister_node".to_string(),
-                reason: format!(
-                    "Node {} has {} containers",
-                    node_id,
-                    node_allocation.container_ids.len()
-                ),
-            });
+            return Err(ForgeError::InternalError(format!(
+                "unregister_node: Node {} has {} containers",
+                node_id,
+                node_allocation.container_ids.len()
+            )));
         }
 
         // Remove node capacity
-        let mut node_capacities = self.node_capacities.write().map_err(|_| ForgeError::LockError {
-            resource: "node_capacities".to_string(),
-        })?;
+        let mut node_capacities = self
+            .node_capacities
+            .write()
+            .map_err(|_| ForgeError::InternalError("node_capacities lock poisoned".to_string()))?;
 
         node_capacities.remove(node_id);
 
@@ -475,9 +459,7 @@ impl Scheduler {
         let mut node_allocations = self
             .node_allocations
             .write()
-            .map_err(|_| ForgeError::LockError {
-                resource: "node_allocations".to_string(),
-            })?;
+            .map_err(|_| ForgeError::InternalError("node_allocations lock poisoned".to_string()))?;
 
         node_allocations.remove(node_id);
 
@@ -492,14 +474,14 @@ impl Scheduler {
         );
 
         // Get node allocation
-        let node_allocations = self.node_allocations.read().map_err(|_| ForgeError::LockError {
-            resource: "node_allocations".to_string(),
-        })?;
+        let node_allocations = self
+            .node_allocations
+            .read()
+            .map_err(|_| ForgeError::InternalError("node_allocations lock poisoned".to_string()))?;
 
-        let node_allocation = node_allocations.get(&capacity.id).ok_or(ForgeError::NotFoundError {
-            resource: "node".to_string(),
-            id: capacity.id.clone(),
-        })?;
+        let node_allocation = node_allocations
+            .get(&capacity.id)
+            .ok_or(ForgeError::NotFound(format!("node: {}", capacity.id)))?;
 
         // Check if new capacity is sufficient for current allocations
         if node_allocation.allocated_cpu_cores > capacity.cpu_cores
@@ -507,19 +489,14 @@ impl Scheduler {
             || node_allocation.allocated_disk_bytes > capacity.disk_bytes
             || node_allocation.allocated_network_bps > capacity.network_bps
         {
-            return Err(ForgeError::InvalidOperationError {
-                operation: "update_node_capacity".to_string(),
-                reason: format!(
-                    "New capacity for node {} is insufficient for current allocations",
-                    capacity.id
-                ),
-            });
+            return Err(ForgeError::InternalError(format!("update_node_capacity: New capacity for node {} is insufficient for current allocations", capacity.id)));
         }
 
         // Update node capacity
-        let mut node_capacities = self.node_capacities.write().map_err(|_| ForgeError::LockError {
-            resource: "node_capacities".to_string(),
-        })?;
+        let mut node_capacities = self
+            .node_capacities
+            .write()
+            .map_err(|_| ForgeError::InternalError("node_capacities lock poisoned".to_string()))?;
 
         node_capacities.insert(capacity.id.clone(), capacity);
 
@@ -534,14 +511,14 @@ impl Scheduler {
         );
 
         // Get node capacity
-        let node_capacities = self.node_capacities.read().map_err(|_| ForgeError::LockError {
-            resource: "node_capacities".to_string(),
-        })?;
+        let node_capacities = self
+            .node_capacities
+            .read()
+            .map_err(|_| ForgeError::InternalError("node_capacities lock poisoned".to_string()))?;
 
-        let capacity = node_capacities.get(node_id).ok_or(ForgeError::NotFoundError {
-            resource: "node".to_string(),
-            id: node_id.to_string(),
-        })?;
+        let capacity = node_capacities
+            .get(node_id)
+            .ok_or(ForgeError::NotFound(format!("node: {}", node_id)))?;
 
         Ok(capacity.clone())
     }
@@ -554,29 +531,27 @@ impl Scheduler {
         );
 
         // Get node allocation
-        let node_allocations = self.node_allocations.read().map_err(|_| ForgeError::LockError {
-            resource: "node_allocations".to_string(),
-        })?;
+        let node_allocations = self
+            .node_allocations
+            .read()
+            .map_err(|_| ForgeError::InternalError("node_allocations lock poisoned".to_string()))?;
 
-        let allocation = node_allocations.get(node_id).ok_or(ForgeError::NotFoundError {
-            resource: "node".to_string(),
-            id: node_id.to_string(),
-        })?;
+        let allocation = node_allocations
+            .get(node_id)
+            .ok_or(ForgeError::NotFound(format!("node: {}", node_id)))?;
 
         Ok(allocation.clone())
     }
 
     /// List nodes
     pub fn list_nodes(&self) -> Result<Vec<NodeCapacity>> {
-        let span = ExecutionSpan::new(
-            "list_nodes",
-            common::identity::IdentityContext::system(),
-        );
+        let span = ExecutionSpan::new("list_nodes", common::identity::IdentityContext::system());
 
         // Get node capacities
-        let node_capacities = self.node_capacities.read().map_err(|_| ForgeError::LockError {
-            resource: "node_capacities".to_string(),
-        })?;
+        let node_capacities = self
+            .node_capacities
+            .read()
+            .map_err(|_| ForgeError::InternalError("node_capacities lock poisoned".to_string()))?;
 
         Ok(node_capacities.values().cloned().collect())
     }
@@ -593,28 +568,27 @@ impl Scheduler {
         );
 
         // Check if container is already scheduled
-        let container_allocations = self
-            .container_allocations
-            .read()
-            .map_err(|_| ForgeError::LockError {
-                resource: "container_allocations".to_string(),
-            })?;
+        let container_allocations = self.container_allocations.read().map_err(|_| {
+            ForgeError::InternalError("container_allocations lock poisoned".to_string())
+        })?;
 
         if container_allocations.contains_key(container_id) {
-            return Err(ForgeError::AlreadyExistsError {
-                resource: "container_allocation".to_string(),
-                id: container_id.to_string(),
-            });
+            return Err(ForgeError::AlreadyExists(format!(
+                "container_allocation: {}",
+                container_id
+            )));
         }
 
         // Get node capacities and allocations
-        let node_capacities = self.node_capacities.read().map_err(|_| ForgeError::LockError {
-            resource: "node_capacities".to_string(),
-        })?;
+        let node_capacities = self
+            .node_capacities
+            .read()
+            .map_err(|_| ForgeError::InternalError("node_capacities lock poisoned".to_string()))?;
 
-        let node_allocations = self.node_allocations.read().map_err(|_| ForgeError::LockError {
-            resource: "node_allocations".to_string(),
-        })?;
+        let node_allocations = self
+            .node_allocations
+            .read()
+            .map_err(|_| ForgeError::InternalError("node_allocations lock poisoned".to_string()))?;
 
         // Find a suitable node based on scheduling policy
         let node_id = match self.policy {
@@ -654,14 +628,11 @@ impl Scheduler {
         let mut node_allocations = self
             .node_allocations
             .write()
-            .map_err(|_| ForgeError::LockError {
-                resource: "node_allocations".to_string(),
-            })?;
+            .map_err(|_| ForgeError::InternalError("node_allocations lock poisoned".to_string()))?;
 
-        let node_allocation = node_allocations.get_mut(&node_id).ok_or(ForgeError::NotFoundError {
-            resource: "node".to_string(),
-            id: node_id.clone(),
-        })?;
+        let node_allocation = node_allocations
+            .get_mut(&node_id)
+            .ok_or(ForgeError::NotFound(format!("node: {}", node_id)))?;
 
         node_allocation.allocate(container_id, &constraints.resources)?;
 
@@ -680,12 +651,9 @@ impl Scheduler {
         };
 
         // Add container allocation
-        let mut container_allocations = self
-            .container_allocations
-            .write()
-            .map_err(|_| ForgeError::LockError {
-                resource: "container_allocations".to_string(),
-            })?;
+        let mut container_allocations = self.container_allocations.write().map_err(|_| {
+            ForgeError::InternalError("container_allocations lock poisoned".to_string())
+        })?;
 
         container_allocations.insert(container_id.to_string(), container_allocation);
 
@@ -700,20 +668,17 @@ impl Scheduler {
         );
 
         // Get container allocation
-        let mut container_allocations = self
-            .container_allocations
-            .write()
-            .map_err(|_| ForgeError::LockError {
-                resource: "container_allocations".to_string(),
-            })?;
+        let mut container_allocations = self.container_allocations.write().map_err(|_| {
+            ForgeError::InternalError("container_allocations lock poisoned".to_string())
+        })?;
 
         let container_allocation =
             container_allocations
                 .get(container_id)
-                .ok_or(ForgeError::NotFoundError {
-                    resource: "container_allocation".to_string(),
-                    id: container_id.to_string(),
-                })?;
+                .ok_or(ForgeError::NotFound(format!(
+                    "container_allocation: {}",
+                    container_id
+                )))?;
 
         let node_id = container_allocation.node_id.clone();
         let constraints = container_allocation.constraints.clone();
@@ -722,14 +687,11 @@ impl Scheduler {
         let mut node_allocations = self
             .node_allocations
             .write()
-            .map_err(|_| ForgeError::LockError {
-                resource: "node_allocations".to_string(),
-            })?;
+            .map_err(|_| ForgeError::InternalError("node_allocations lock poisoned".to_string()))?;
 
-        let node_allocation = node_allocations.get_mut(&node_id).ok_or(ForgeError::NotFoundError {
-            resource: "node".to_string(),
-            id: node_id.clone(),
-        })?;
+        let node_allocation = node_allocations
+            .get_mut(&node_id)
+            .ok_or(ForgeError::NotFound(format!("node: {}", node_id)))?;
 
         node_allocation.deallocate(container_id, &constraints)?;
 
@@ -751,20 +713,16 @@ impl Scheduler {
         );
 
         // Get container allocation
-        let container_allocations = self
-            .container_allocations
-            .read()
-            .map_err(|_| ForgeError::LockError {
-                resource: "container_allocations".to_string(),
-            })?;
+        let container_allocations = self.container_allocations.read().map_err(|_| {
+            ForgeError::InternalError("container_allocations lock poisoned".to_string())
+        })?;
 
-        let allocation =
-            container_allocations
-                .get(container_id)
-                .ok_or(ForgeError::NotFoundError {
-                    resource: "container_allocation".to_string(),
-                    id: container_id.to_string(),
-                })?;
+        let allocation = container_allocations
+            .get(container_id)
+            .ok_or(ForgeError::NotFound(format!(
+                "container_allocation: {}",
+                container_id
+            )))?;
 
         Ok(allocation.clone())
     }
@@ -777,12 +735,9 @@ impl Scheduler {
         );
 
         // Get container allocations
-        let container_allocations = self
-            .container_allocations
-            .read()
-            .map_err(|_| ForgeError::LockError {
-                resource: "container_allocations".to_string(),
-            })?;
+        let container_allocations = self.container_allocations.read().map_err(|_| {
+            ForgeError::InternalError("container_allocations lock poisoned".to_string())
+        })?;
 
         Ok(container_allocations.values().cloned().collect())
     }
@@ -804,19 +759,19 @@ impl Scheduler {
         )?;
 
         if matching_nodes.is_empty() {
-            return Err(ForgeError::ResourceExhaustedError {
-                resource: "nodes".to_string(),
-                reason: "No nodes match the constraints".to_string(),
-            });
+            return Err(ForgeError::InternalError(
+                "No nodes match the constraints".to_string(),
+            ));
         }
 
         // Sort nodes by ID for consistent ordering
         matching_nodes.sort_by(|a, b| a.id.cmp(&b.id));
 
         // Get last node index
-        let mut last_index = self.last_node_index.write().map_err(|_| ForgeError::LockError {
-            resource: "last_node_index".to_string(),
-        })?;
+        let mut last_index = self
+            .last_node_index
+            .write()
+            .map_err(|_| ForgeError::InternalError("last_node_index lock poisoned".to_string()))?;
 
         // Find next node in round-robin fashion
         let node_count = matching_nodes.len();
@@ -832,10 +787,9 @@ impl Scheduler {
             return Ok(node.id.clone());
         }
 
-        Err(ForgeError::ResourceExhaustedError {
-            resource: "nodes".to_string(),
-            reason: "No nodes available for scheduling".to_string(),
-        })
+        Err(ForgeError::InternalError(
+            "No nodes available for scheduling".to_string(),
+        ))
     }
 
     /// Schedule using binpack policy
@@ -855,10 +809,9 @@ impl Scheduler {
         )?;
 
         if matching_nodes.is_empty() {
-            return Err(ForgeError::ResourceExhaustedError {
-                resource: "nodes".to_string(),
-                reason: "No nodes match the constraints".to_string(),
-            });
+            return Err(ForgeError::InternalError(
+                "No nodes match the constraints".to_string(),
+            ));
         }
 
         // Sort nodes by resource utilization (most utilized first)
@@ -879,7 +832,9 @@ impl Scheduler {
             let b_avg_util = (b_cpu_util + b_mem_util) / 2.0;
 
             // Sort in descending order (most utilized first)
-            b_avg_util.partial_cmp(&a_avg_util).unwrap_or(std::cmp::Ordering::Equal)
+            b_avg_util
+                .partial_cmp(&a_avg_util)
+                .unwrap_or(std::cmp::Ordering::Equal)
         });
 
         // Return the most utilized node that has capacity
@@ -887,10 +842,9 @@ impl Scheduler {
             return Ok(node.id.clone());
         }
 
-        Err(ForgeError::ResourceExhaustedError {
-            resource: "nodes".to_string(),
-            reason: "No nodes available for scheduling".to_string(),
-        })
+        Err(ForgeError::InternalError(
+            "No nodes available for scheduling".to_string(),
+        ))
     }
 
     /// Schedule using spread policy
@@ -910,10 +864,9 @@ impl Scheduler {
         )?;
 
         if matching_nodes.is_empty() {
-            return Err(ForgeError::ResourceExhaustedError {
-                resource: "nodes".to_string(),
-                reason: "No nodes match the constraints".to_string(),
-            });
+            return Err(ForgeError::InternalError(
+                "No nodes match the constraints".to_string(),
+            ));
         }
 
         // Sort nodes by resource utilization (least utilized first)
@@ -934,7 +887,9 @@ impl Scheduler {
             let b_avg_util = (b_cpu_util + b_mem_util) / 2.0;
 
             // Sort in ascending order (least utilized first)
-            a_avg_util.partial_cmp(&b_avg_util).unwrap_or(std::cmp::Ordering::Equal)
+            a_avg_util
+                .partial_cmp(&b_avg_util)
+                .unwrap_or(std::cmp::Ordering::Equal)
         });
 
         // Return the least utilized node that has capacity
@@ -942,10 +897,9 @@ impl Scheduler {
             return Ok(node.id.clone());
         }
 
-        Err(ForgeError::ResourceExhaustedError {
-            resource: "nodes".to_string(),
-            reason: "No nodes available for scheduling".to_string(),
-        })
+        Err(ForgeError::InternalError(
+            "No nodes available for scheduling".to_string(),
+        ))
     }
 
     /// Schedule using random policy
@@ -965,10 +919,9 @@ impl Scheduler {
         )?;
 
         if matching_nodes.is_empty() {
-            return Err(ForgeError::ResourceExhaustedError {
-                resource: "nodes".to_string(),
-                reason: "No nodes match the constraints".to_string(),
-            });
+            return Err(ForgeError::InternalError(
+                "No nodes match the constraints".to_string(),
+            ));
         }
 
         // Select a random node
@@ -1010,10 +963,12 @@ impl Scheduler {
         let mut matching_nodes = Vec::new();
 
         for (node_id, capacity) in node_capacities {
-            let allocation = node_allocations.get(node_id).ok_or(ForgeError::NotFoundError {
-                resource: "node_allocation".to_string(),
-                id: node_id.clone(),
-            })?;
+            let allocation = node_allocations
+                .get(node_id)
+                .ok_or(ForgeError::NotFound(format!(
+                    "node_allocation: {}",
+                    node_id
+                )))?;
 
             // Check resource constraints
             if !allocation.has_capacity(capacity, resource_constraints) {
@@ -1085,10 +1040,7 @@ pub fn init(policy: SchedulingPolicy) -> Result<()> {
         if SCHEDULER.is_none() {
             SCHEDULER = Some(scheduler);
         } else {
-            return Err(ForgeError::AlreadyExistsError {
-                resource: "scheduler".to_string(),
-                id: "global".to_string(),
-            });
+            return Err(ForgeError::AlreadyExists(format!("scheduler: global")));
         }
     }
 
@@ -1100,9 +1052,9 @@ pub fn get_scheduler() -> Result<&'static Scheduler> {
     unsafe {
         match &SCHEDULER {
             Some(scheduler) => Ok(scheduler),
-            None => Err(ForgeError::UninitializedError {
-                component: "scheduler".to_string(),
-            }),
+            None => Err(ForgeError::InternalError(
+                "scheduler not initialized".to_string(),
+            )),
         }
     }
 }

@@ -1,0 +1,156 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" width="800" height="800" viewBox="0 0 800 800">
+  <!-- Styles -->
+  <defs>
+    <style type="text/css">
+      .actor {
+        fill: #e1f5fe;
+        stroke: #0288d1;
+        stroke-width: 2;
+      }
+      .lifeline {
+        stroke: #9e9e9e;
+        stroke-width: 1;
+        stroke-dasharray: 5, 5;
+      }
+      .activation {
+        fill: #bbdefb;
+        stroke: #1976d2;
+        stroke-width: 1;
+      }
+      .message {
+        stroke: #424242;
+        stroke-width: 1;
+        fill: none;
+        marker-end: url(#arrowhead);
+      }
+      .return {
+        stroke: #424242;
+        stroke-width: 1;
+        stroke-dasharray: 2, 2;
+        fill: none;
+        marker-end: url(#arrowhead);
+      }
+      .note {
+        fill: #fff9c4;
+        stroke: #fbc02d;
+        stroke-width: 1;
+      }
+      .label {
+        font-family: Arial, sans-serif;
+        font-size: 12px;
+        fill: #212121;
+      }
+      .title {
+        font-family: Arial, sans-serif;
+        font-size: 24px;
+        font-weight: bold;
+        fill: #212121;
+      }
+      .subtitle {
+        font-family: Arial, sans-serif;
+        font-size: 16px;
+        fill: #424242;
+      }
+    </style>
+    <marker id="arrowhead" markerWidth="10" markerHeight="7" refX="9" refY="3.5" orient="auto">
+      <polygon points="0 0, 10 3.5, 0 7" fill="#424242" />
+    </marker>
+  </defs>
+  
+  <!-- Title -->
+  <text x="400" y="40" class="title" text-anchor="middle">Quantum-Network Fabric Layer</text>
+  <text x="400" y="70" class="subtitle" text-anchor="middle">Sequence Diagram: Container Network Connection</text>
+  
+  <!-- Actors -->
+  <rect x="50" y="100" width="100" height="50" rx="5" ry="5" class="actor" />
+  <text x="100" y="130" class="label" text-anchor="middle">Container Runtime</text>
+  
+  <rect x="200" y="100" width="100" height="50" rx="5" ry="5" class="actor" />
+  <text x="250" y="130" class="label" text-anchor="middle">CNI Server</text>
+  
+  <rect x="350" y="100" width="100" height="50" rx="5" ry="5" class="actor" />
+  <text x="400" y="130" class="label" text-anchor="middle">CNI Plugin</text>
+  
+  <rect x="500" y="100" width="100" height="50" rx="5" ry="5" class="actor" />
+  <text x="550" y="130" class="label" text-anchor="middle">VNet Manager</text>
+  
+  <rect x="650" y="100" width="100" height="50" rx="5" ry="5" class="actor" />
+  <text x="700" y="130" class="label" text-anchor="middle">Bridge Module</text>
+  
+  <!-- Lifelines -->
+  <line x1="100" y1="150" x2="100" y2="750" class="lifeline" />
+  <line x1="250" y1="150" x2="250" y2="750" class="lifeline" />
+  <line x1="400" y1="150" x2="400" y2="750" class="lifeline" />
+  <line x1="550" y1="150" x2="550" y2="750" class="lifeline" />
+  <line x1="700" y1="150" x2="700" y2="750" class="lifeline" />
+  
+  <!-- Activations -->
+  <rect x="95" y="200" width="10" height="500" class="activation" />
+  <rect x="245" y="220" width="10" height="460" class="activation" />
+  <rect x="395" y="240" width="10" height="420" class="activation" />
+  <rect x="545" y="280" width="10" height="340" class="activation" />
+  <rect x="695" y="320" width="10" height="260" class="activation" />
+  
+  <!-- Messages -->
+  <!-- Container Runtime to CNI Server -->
+  <path d="M 105 220 L 245 220" class="message" />
+  <text x="175" y="215" class="label" text-anchor="middle">1. ADD Request</text>
+  
+  <!-- CNI Server to CNI Plugin -->
+  <path d="M 255 240 L 395 240" class="message" />
+  <text x="325" y="235" class="label" text-anchor="middle">2. Execute Plugin</text>
+  
+  <!-- CNI Plugin to VNet Manager -->
+  <path d="M 405 280 L 545 280" class="message" />
+  <text x="475" y="275" class="label" text-anchor="middle">3. Create Endpoint</text>
+  
+  <!-- VNet Manager to Bridge Module -->
+  <path d="M 555 320 L 695 320" class="message" />
+  <text x="625" y="315" class="label" text-anchor="middle">4. Create Bridge</text>
+  
+  <!-- Bridge Module Operations -->
+  <path d="M 705 360 L 750 360 L 750 390 L 705 390" class="message" />
+  <text x="750" y="375" class="label" text-anchor="left">5. Create veth pair</text>
+  
+  <path d="M 705 420 L 750 420 L 750 450 L 705 450" class="message" />
+  <text x="750" y="435" class="label" text-anchor="left">6. Attach to bridge</text>
+  
+  <path d="M 705 480 L 750 480 L 750 510 L 705 510" class="message" />
+  <text x="750" y="495" class="label" text-anchor="left">7. Configure IP</text>
+  
+  <!-- Return Messages -->
+  <path d="M 695 580 L 555 580" class="return" />
+  <text x="625" y="575" class="label" text-anchor="middle">8. Bridge Created</text>
+  
+  <path d="M 545 620 L 405 620" class="return" />
+  <text x="475" y="615" class="label" text-anchor="middle">9. Endpoint Created</text>
+  
+  <path d="M 395 660 L 255 660" class="return" />
+  <text x="325" y="655" class="label" text-anchor="middle">10. Plugin Success</text>
+  
+  <path d="M 245 680 L 105 680" class="return" />
+  <text x="175" y="675" class="label" text-anchor="middle">11. ADD Response</text>
+  
+  <!-- Notes -->
+  <rect x="20" y="520" width="160" height="40" class="note" />
+  <text x="100" y="545" class="label" text-anchor="middle">Container waiting for network</text>
+  
+  <rect x="620" y="520" width="160" height="40" class="note" />
+  <text x="700" y="545" class="label" text-anchor="middle">Zero Trust policy applied</text>
+  
+  <!-- Final Actors -->
+  <rect x="50" y="750" width="100" height="50" rx="5" ry="5" class="actor" />
+  <text x="100" y="780" class="label" text-anchor="middle">Container Runtime</text>
+  
+  <rect x="200" y="750" width="100" height="50" rx="5" ry="5" class="actor" />
+  <text x="250" y="780" class="label" text-anchor="middle">CNI Server</text>
+  
+  <rect x="350" y="750" width="100" height="50" rx="5" ry="5" class="actor" />
+  <text x="400" y="780" class="label" text-anchor="middle">CNI Plugin</text>
+  
+  <rect x="500" y="750" width="100" height="50" rx="5" ry="5" class="actor" />
+  <text x="550" y="780" class="label" text-anchor="middle">VNet Manager</text>
+  
+  <rect x="650" y="750" width="100" height="50" rx="5" ry="5" class="actor" />
+  <text x="700" y="780" class="label" text-anchor="middle">Bridge Module</text>
+</svg>

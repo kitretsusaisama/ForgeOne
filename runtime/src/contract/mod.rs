@@ -7,7 +7,7 @@
 pub mod zta;
 
 use crate::dna::ContainerDNA;
-use common::error::Result;
+use common::error::{ForgeError, Result};
 use serde::{Deserialize, Serialize};
 
 /// Contract type
@@ -62,7 +62,11 @@ impl Contract {
     pub fn validate(&mut self, dna: &ContainerDNA) -> Result<()> {
         match self.contract_type {
             ContractType::ZTA => {
-                let zta_contract: zta::ZTAContract = serde_json::from_value(self.data.clone())?;
+                let zta_contract: zta::ZTAContract = serde_json::from_value(self.data.clone())
+                    .map_err(|e| ForgeError::ParseError {
+                        format: "json".to_string(),
+                        error: e.to_string(),
+                    })?;
                 let result = zta::validate_contract(dna, &zta_contract);
                 match result {
                     Ok(_) => {

@@ -47,6 +47,8 @@ prometheus = "0.13.3"
 lazy_static = "1.4.0"
 strum = { version = "0.24", features = ["derive"] }
 strum_macros = "0.24"
+serde_yaml = "0.9.34"
+regex = "1.11.1"
 
 [dev-dependencies]
 criterion = "0.4.0"

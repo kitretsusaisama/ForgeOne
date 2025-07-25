@@ -261,7 +261,8 @@ impl Network {
         }
 
         // Add endpoint
-        self.endpoints.insert(endpoint.container_id.clone(), endpoint);
+        self.endpoints
+            .insert(endpoint.container_id.clone(), endpoint);
 
         Ok(())
     }
@@ -270,10 +271,7 @@ impl Network {
     pub fn remove_endpoint(&mut self, container_id: &str) -> Result<Endpoint> {
         // Check if endpoint exists
         if !self.endpoints.contains_key(container_id) {
-            return Err(ForgeError::NotFoundError {
-                resource: "endpoint".to_string(),
-                id: container_id.to_string(),
-            });
+            return Err(ForgeError::NotFound(format!("endpoint: {}", container_id)));
         }
 
         // Remove endpoint
@@ -283,10 +281,9 @@ impl Network {
     /// Get an endpoint
     pub fn get_endpoint(&self, container_id: &str) -> Result<&Endpoint> {
         // Check if endpoint exists
-        self.endpoints.get(container_id).ok_or(ForgeError::NotFoundError {
-            resource: "endpoint".to_string(),
-            id: container_id.to_string(),
-        })
+        self.endpoints
+            .get(container_id)
+            .ok_or(ForgeError::NotFound(format!("endpoint: {}", container_id)))
     }
 
     /// Get all endpoints
@@ -329,18 +326,16 @@ impl NetworkManager {
         );
 
         // Generate network ID
-        let id = format!(
-            "net_{}",
-            common::crypto::hash::generate_id(&config.name, 12)
-        );
+        let id = format!("net_{}", &config.name);
 
         // Create network
         let network = Network::new(&id, config.clone());
 
         // Add to networks
-        let mut networks = self.networks.write().map_err(|_| ForgeError::LockError {
-            resource: "networks".to_string(),
-        })?;
+        let mut networks = self
+            .networks
+            .write()
+            .map_err(|_| ForgeError::InternalError("networks lock poisoned".to_string()))?;
 
         // Check if network with the same ID already exists
         if networks.contains_key(&id) {
@@ -351,8 +346,8 @@ impl NetworkManager {
         }
 
         // Add to name to ID map
-        let mut name_to_id = self.name_to_id.write().map_err(|_| ForgeError::LockError {
-            resource: "network_name_to_id".to_string(),
+        let mut name_to_id = self.name_to_id.write().map_err(|_| {
+            ForgeError::InternalError("network_name_to_id lock poisoned".to_string())
         })?;
 
         // Check if network with the same name already exists
@@ -378,26 +373,27 @@ impl NetworkManager {
         );
 
         // Get network
-        let mut networks = self.networks.write().map_err(|_| ForgeError::LockError {
-            resource: "networks".to_string(),
-        })?;
+        let mut networks = self
+            .networks
+            .write()
+            .map_err(|_| ForgeError::InternalError("networks lock poisoned".to_string()))?;
 
-        let network = networks.get(id).ok_or(ForgeError::NotFoundError {
-            resource: "network".to_string(),
-            id: id.to_string(),
-        })?;
+        let network = networks
+            .get(id)
+            .ok_or(ForgeError::NotFound(format!("network: {}", id)))?;
 
         // Check if network has endpoints
         if !network.endpoints.is_empty() {
-            return Err(ForgeError::InvalidOperationError {
-                operation: "remove_network".to_string(),
-                reason: format!("Network {} has {} endpoints", id, network.endpoints.len()),
-            });
+            return Err(ForgeError::InternalError(format!(
+                "Cannot remove network {}: has {} endpoints",
+                id,
+                network.endpoints.len()
+            )));
         }
 
         // Remove from name to ID map
-        let mut name_to_id = self.name_to_id.write().map_err(|_| ForgeError::LockError {
-            resource: "network_name_to_id".to_string(),
+        let mut name_to_id = self.name_to_id.write().map_err(|_| {
+            ForgeError::InternalError("network_name_to_id lock poisoned".to_string())
         })?;
 
         name_to_id.remove(&network.config.name);
@@ -410,20 +406,17 @@ impl NetworkManager {
 
     /// Get a network
     pub fn get_network(&self, id: &str) -> Result<Network> {
-        let span = ExecutionSpan::new(
-            "get_network",
-            common::identity::IdentityContext::system(),
-        );
+        let span = ExecutionSpan::new("get_network", common::identity::IdentityContext::system());
 
         // Get network
-        let networks = self.networks.read().map_err(|_| ForgeError::LockError {
-            resource: "networks".to_string(),
-        })?;
+        let networks = self
+            .networks
+            .read()
+            .map_err(|_| ForgeError::InternalError("networks lock poisoned".to_string()))?;
 
-        let network = networks.get(id).ok_or(ForgeError::NotFoundError {
-            resource: "network".to_string(),
-            id: id.to_string(),
-        })?;
+        let network = networks
+            .get(id)
+            .ok_or(ForgeError::NotFound(format!("network: {}", id)))?;
 
         Ok(network.clone())
     }
@@ -436,14 +429,13 @@ impl NetworkManager {
         );
 
         // Get network ID from name
-        let name_to_id = self.name_to_id.read().map_err(|_| ForgeError::LockError {
-            resource: "network_name_to_id".to_string(),
+        let name_to_id = self.name_to_id.read().map_err(|_| {
+            ForgeError::InternalError("network_name_to_id lock poisoned".to_string())
         })?;
 
-        let id = name_to_id.get(name).ok_or(ForgeError::NotFoundError {
-            resource: "network".to_string(),
-            id: name.to_string(),
-        })?;
+        let id = name_to_id
+            .get(name)
+            .ok_or(ForgeError::NotFound(format!("network: {}", name)))?;
 
         // Get network
         self.get_network(id)
@@ -451,15 +443,13 @@ impl NetworkManager {
 
     /// List all networks
     pub fn list_networks(&self) -> Result<Vec<Network>> {
-        let span = ExecutionSpan::new(
-            "list_networks",
-            common::identity::IdentityContext::system(),
-        );
+        let span = ExecutionSpan::new("list_networks", common::identity::IdentityContext::system());
 
         // Get all networks
-        let networks = self.networks.read().map_err(|_| ForgeError::LockError {
-            resource: "networks".to_string(),
-        })?;
+        let networks = self
+            .networks
+            .read()
+            .map_err(|_| ForgeError::InternalError("networks lock poisoned".to_string()))?;
 
         Ok(networks.values().cloned().collect())
     }
@@ -477,14 +467,14 @@ impl NetworkManager {
         );
 
         // Get network
-        let mut networks = self.networks.write().map_err(|_| ForgeError::LockError {
-            resource: "networks".to_string(),
-        })?;
+        let mut networks = self
+            .networks
+            .write()
+            .map_err(|_| ForgeError::InternalError("networks lock poisoned".to_string()))?;
 
-        let network = networks.get_mut(network_id).ok_or(ForgeError::NotFoundError {
-            resource: "network".to_string(),
-            id: network_id.to_string(),
-        })?;
+        let network = networks
+            .get_mut(network_id)
+            .ok_or(ForgeError::NotFound(format!("network: {}", network_id)))?;
 
         // Create endpoint
         let endpoint = match endpoint_config {
@@ -496,12 +486,9 @@ impl NetworkManager {
         network.add_endpoint(endpoint)?;
 
         // Add network to container networks
-        let mut container_networks = self
-            .container_networks
-            .write()
-            .map_err(|_| ForgeError::LockError {
-                resource: "container_networks".to_string(),
-            })?;
+        let mut container_networks = self.container_networks.write().map_err(|_| {
+            ForgeError::InternalError("container_networks lock poisoned".to_string())
+        })?;
 
         let networks_set = container_networks
             .entry(container_id.to_string())
@@ -520,25 +507,22 @@ impl NetworkManager {
         );
 
         // Get network
-        let mut networks = self.networks.write().map_err(|_| ForgeError::LockError {
-            resource: "networks".to_string(),
-        })?;
+        let mut networks = self
+            .networks
+            .write()
+            .map_err(|_| ForgeError::InternalError("networks lock poisoned".to_string()))?;
 
-        let network = networks.get_mut(network_id).ok_or(ForgeError::NotFoundError {
-            resource: "network".to_string(),
-            id: network_id.to_string(),
-        })?;
+        let network = networks
+            .get_mut(network_id)
+            .ok_or(ForgeError::NotFound(format!("network: {}", network_id)))?;
 
         // Remove endpoint from network
         network.remove_endpoint(container_id)?;
 
         // Remove network from container networks
-        let mut container_networks = self
-            .container_networks
-            .write()
-            .map_err(|_| ForgeError::LockError {
-                resource: "container_networks".to_string(),
-            })?;
+        let mut container_networks = self.container_networks.write().map_err(|_| {
+            ForgeError::InternalError("container_networks lock poisoned".to_string())
+        })?;
 
         if let Some(networks_set) = container_networks.get_mut(container_id) {
             networks_set.remove(network_id);
@@ -560,22 +544,19 @@ impl NetworkManager {
         );
 
         // Get container networks
-        let container_networks = self
-            .container_networks
-            .read()
-            .map_err(|_| ForgeError::LockError {
-                resource: "container_networks".to_string(),
-            })?;
-
-        let networks_set = container_networks.get(container_id).ok_or(ForgeError::NotFoundError {
-            resource: "container".to_string(),
-            id: container_id.to_string(),
+        let container_networks = self.container_networks.read().map_err(|_| {
+            ForgeError::InternalError("container_networks lock poisoned".to_string())
         })?;
+
+        let networks_set = container_networks
+            .get(container_id)
+            .ok_or(ForgeError::NotFound(format!("container: {}", container_id)))?;
 
         // Get networks
-        let networks = self.networks.read().map_err(|_| ForgeError::LockError {
-            resource: "networks".to_string(),
-        })?;
+        let networks = self
+            .networks
+            .read()
+            .map_err(|_| ForgeError::InternalError("networks lock poisoned".to_string()))?;
 
         let mut result = Vec::new();
         for network_id in networks_set {
@@ -595,22 +576,19 @@ impl NetworkManager {
         );
 
         // Get container networks
-        let container_networks = self
-            .container_networks
-            .read()
-            .map_err(|_| ForgeError::LockError {
-                resource: "container_networks".to_string(),
-            })?;
-
-        let networks_set = container_networks.get(container_id).ok_or(ForgeError::NotFoundError {
-            resource: "container".to_string(),
-            id: container_id.to_string(),
+        let container_networks = self.container_networks.read().map_err(|_| {
+            ForgeError::InternalError("container_networks lock poisoned".to_string())
         })?;
+
+        let networks_set = container_networks
+            .get(container_id)
+            .ok_or(ForgeError::NotFound(format!("container: {}", container_id)))?;
 
         // Get networks
-        let networks = self.networks.read().map_err(|_| ForgeError::LockError {
-            resource: "networks".to_string(),
-        })?;
+        let networks = self
+            .networks
+            .read()
+            .map_err(|_| ForgeError::InternalError("networks lock poisoned".to_string()))?;
 
         let mut result = Vec::new();
         for network_id in networks_set {
@@ -632,12 +610,9 @@ impl NetworkManager {
         );
 
         // Get container networks
-        let container_networks = self
-            .container_networks
-            .read()
-            .map_err(|_| ForgeError::LockError {
-                resource: "container_networks".to_string(),
-            })?;
+        let container_networks = self.container_networks.read().map_err(|_| {
+            ForgeError::InternalError("container_networks lock poisoned".to_string())
+        })?;
 
         let networks_set = match container_networks.get(container_id) {
             Some(set) => set.clone(),
@@ -686,9 +661,9 @@ pub fn get_network_manager() -> Result<&'static NetworkManager> {
     unsafe {
         match &NETWORK_MANAGER {
             Some(manager) => Ok(manager),
-            None => Err(ForgeError::UninitializedError {
-                component: "network_manager".to_string(),
-            }),
+            None => Err(ForgeError::InternalError(
+                "network_manager not initialized".to_string(),
+            )),
         }
     }
 }
@@ -805,7 +780,10 @@ mod tests {
         assert_eq!(endpoints.len(), 1);
         assert_eq!(endpoints[0].container_id, "test-container");
         assert_eq!(endpoints[0].network_id, network_id);
-        assert_eq!(endpoints[0].ipv4_address, Some(Ipv4Addr::new(172, 17, 0, 2)));
+        assert_eq!(
+            endpoints[0].ipv4_address,
+            Some(Ipv4Addr::new(172, 17, 0, 2))
+        );
 
         // Disconnect container from network
         manager

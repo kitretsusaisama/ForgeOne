@@ -32,6 +32,7 @@ pub struct IdentityContext {
     pub roles: Vec<String>,
     /// Additional attributes for the identity
     pub attributes: std::collections::HashMap<String, String>,
+    pub public_key: Vec<u8>,
 }
 
 impl IdentityContext {
@@ -43,21 +44,22 @@ impl IdentityContext {
             container_id: Uuid::new_v4(),
             roles: Vec::new(),
             attributes: std::collections::HashMap::new(),
+            public_key: Vec::new(),
         }
     }
-    
+
     /// Set the trust vector for this identity
     pub fn with_trust_vector(mut self, trust_vector: TrustVector) -> Self {
         self.trust_vector = trust_vector;
         self
     }
-    
+
     /// Add a role to this identity
     pub fn with_role(mut self, role: &str) -> Self {
         self.roles.push(role.to_string());
         self
     }
-    
+
     /// Add an attribute to this identity
     pub fn with_attribute(mut self, key: &str, value: &str) -> Self {
         self.attributes.insert(key.to_string(), value.to_string());
@@ -119,24 +121,24 @@ impl ExecutionDNA {
             red_flags: Vec::new(),
         }
     }
-    
+
     /// Log a message
     pub fn log(&mut self, message: &str) {
         tracing::info!(container_id = %self.container_id, trace_id = %self.trace_id, "DNA: {}", message);
     }
-    
+
     /// Record a syscall
     pub fn record_syscall(&mut self, syscall: &str, args: &[impl AsRef<str>], allowed: bool) {
         let record = SyscallRecord::new(syscall, args, allowed);
         self.syscall_log.push(record);
     }
-    
+
     /// Flag a risk
     pub fn flag_risk(&mut self, reason: &str) {
         self.red_flags.push(reason.to_string());
         self.integrity_score -= 10.0;
         self.integrity_score = self.integrity_score.max(0.0);
-        
+
         tracing::warn!(
             container_id = %self.container_id,
             trace_id = %self.trace_id,
@@ -180,7 +182,7 @@ pub struct ResourceLimits {
 impl Default for ResourceLimits {
     fn default() -> Self {
         Self {
-            max_memory: 1024 * 1024 * 1024, // 1GB
+            max_memory: 1024 * 1024 * 1024,        // 1GB
             max_cpu_time: Duration::from_secs(60), // 60 seconds
             max_file_descriptors: 1024,
             max_processes: 100,
@@ -191,9 +193,13 @@ impl Default for ResourceLimits {
 
 impl ExecutionContext {
     /// Create a new execution context
-    pub fn new(container_id: Uuid, runtime_path: PathBuf, identity_context: IdentityContext) -> Self {
+    pub fn new(
+        container_id: Uuid,
+        runtime_path: PathBuf,
+        identity_context: IdentityContext,
+    ) -> Self {
         let dna = ExecutionDNA::new(container_id, identity_context.clone());
-        
+
         Self {
             container_id,
             runtime_path,
@@ -202,13 +208,17 @@ impl ExecutionContext {
             resource_limits: ResourceLimits::default(),
         }
     }
-    
+
     /// Create an execution context from a syscall context
-    pub fn from_syscall_context<T>(container_id_str: &str, identity: IdentityContext, resource_limits: ResourceLimits) -> Self {
+    pub fn from_syscall_context<T>(
+        container_id_str: &str,
+        identity: IdentityContext,
+        resource_limits: ResourceLimits,
+    ) -> Self {
         let container_id = Uuid::parse_str(container_id_str).unwrap_or_else(|_| Uuid::nil());
         let runtime_path = PathBuf::from("/runtime"); // Default path, would be configured properly
         let dna = ExecutionDNA::new(container_id, identity.clone());
-        
+
         Self {
             container_id,
             runtime_path,
@@ -217,7 +227,7 @@ impl ExecutionContext {
             resource_limits,
         }
     }
-    
+
     /// Get the identity context
     pub fn identity(&self) -> &IdentityContext {
         &self.identity_context
@@ -262,25 +272,30 @@ pub struct ZtaPolicyGraph {
 impl ZtaPolicyGraph {
     /// Create a new ZTA policy graph
     pub fn new() -> Self {
-        Self {
-            rules: Vec::new(),
-        }
+        Self { rules: Vec::new() }
     }
-    
+
     /// Add a rule to the graph
     pub fn add_rule(&mut self, rule: ZtaRule) {
         self.rules.push(rule);
     }
-    
+
     /// Evaluate the policy graph for a given identity, syscall, and arguments
-    pub fn evaluate(&self, identity: &IdentityContext, syscall: &str, args: &[impl AsRef<str>]) -> bool {
+    pub fn evaluate(
+        &self,
+        identity: &IdentityContext,
+        syscall: &str,
+        args: &[impl AsRef<str>],
+    ) -> bool {
         // Default deny if no rules match
         if self.rules.is_empty() {
             return false;
         }
-        
+
         // Check if any rule allows this syscall
-        self.rules.iter().any(|rule| rule.matches(identity, syscall, args))
+        self.rules
+            .iter()
+            .any(|rule| rule.matches(identity, syscall, args))
     }
 }
 
@@ -307,46 +322,57 @@ impl ZtaRule {
             required_trust: None,
         }
     }
-    
+
     /// Add a syscall to this rule
     pub fn with_syscall(mut self, syscall: &str) -> Self {
         self.syscalls.push(syscall.to_string());
         self
     }
-    
+
     /// Add a required role to this rule
     pub fn with_required_role(mut self, role: &str) -> Self {
         self.required_roles.push(role.to_string());
         self
     }
-    
+
     /// Set the required trust vector for this rule
     pub fn with_required_trust(mut self, trust: TrustVector) -> Self {
         self.required_trust = Some(trust);
         self
     }
-    
+
     /// Check if this rule matches the given identity, syscall, and arguments
-    pub fn matches(&self, identity: &IdentityContext, syscall: &str, _args: &[impl AsRef<str>]) -> bool {
+    pub fn matches(
+        &self,
+        identity: &IdentityContext,
+        syscall: &str,
+        _args: &[impl AsRef<str>],
+    ) -> bool {
         // Check if syscall is allowed by this rule
         if !self.syscalls.iter().any(|s| s == syscall || s == "*") {
             return false;
         }
-        
+
         // Check if identity has required roles
         if !self.required_roles.is_empty() {
-            let has_required_role = self.required_roles.iter().any(|role| identity.roles.contains(role));
+            let has_required_role = self
+                .required_roles
+                .iter()
+                .any(|role| identity.roles.contains(role));
             if !has_required_role {
                 return false;
             }
         }
-        
+
         // Check if identity has required trust vector
         if let Some(required_trust) = &self.required_trust {
             match (required_trust, &identity.trust_vector) {
                 (TrustVector::Trusted, TrustVector::Trusted) => true,
                 (TrustVector::Partial, TrustVector::Trusted | TrustVector::Partial) => true,
-                (TrustVector::Untrusted, TrustVector::Trusted | TrustVector::Partial | TrustVector::Untrusted) => true,
+                (
+                    TrustVector::Untrusted,
+                    TrustVector::Trusted | TrustVector::Partial | TrustVector::Untrusted,
+                ) => true,
                 _ => false,
             }
         } else {

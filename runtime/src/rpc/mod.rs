@@ -347,7 +347,7 @@ impl RpcResponse {
 pub type RpcHandlerFn = fn(RpcRequest) -> Result<RpcResponse>;
 
 /// RPC server
-#[derive(Debug)]
+#[derive(Debug, Clone)]
 pub struct RpcServer {
     /// Server configuration
     config: RpcServerConfig,
@@ -374,9 +374,10 @@ impl RpcServer {
             common::identity::IdentityContext::system(),
         );
 
-        let mut handlers = self.handlers.write().map_err(|_| ForgeError::LockError {
-            resource: "rpc_handlers".to_string(),
-        })?;
+        let mut handlers = self
+            .handlers
+            .write()
+            .map_err(|_| ForgeError::InternalError("rpc_handlers lock poisoned".to_string()))?;
 
         handlers.insert(method.to_string(), handler);
 
@@ -390,9 +391,10 @@ impl RpcServer {
             common::identity::IdentityContext::system(),
         );
 
-        let mut handlers = self.handlers.write().map_err(|_| ForgeError::LockError {
-            resource: "rpc_handlers".to_string(),
-        })?;
+        let mut handlers = self
+            .handlers
+            .write()
+            .map_err(|_| ForgeError::InternalError("rpc_handlers lock poisoned".to_string()))?;
 
         handlers.remove(method);
 
@@ -406,15 +408,14 @@ impl RpcServer {
             common::identity::IdentityContext::system(),
         );
 
-        let mut running = self.running.write().map_err(|_| ForgeError::LockError {
-            resource: "rpc_server_running".to_string(),
+        let mut running = self.running.write().map_err(|_| {
+            ForgeError::InternalError("rpc_server_running lock poisoned".to_string())
         })?;
 
         if *running {
-            return Err(ForgeError::AlreadyRunningError {
-                resource: "rpc_server".to_string(),
-                id: self.config.id.clone(),
-            });
+            return Err(ForgeError::InternalError(
+                "rpc_server already running".to_string(),
+            ));
         }
 
         // In a real implementation, we would start the server here
@@ -431,15 +432,14 @@ impl RpcServer {
             common::identity::IdentityContext::system(),
         );
 
-        let mut running = self.running.write().map_err(|_| ForgeError::LockError {
-            resource: "rpc_server_running".to_string(),
+        let mut running = self.running.write().map_err(|_| {
+            ForgeError::InternalError("rpc_server_running lock poisoned".to_string())
         })?;
 
         if !*running {
-            return Err(ForgeError::NotRunningError {
-                resource: "rpc_server".to_string(),
-                id: self.config.id.clone(),
-            });
+            return Err(ForgeError::InternalError(
+                "rpc_server not running".to_string(),
+            ));
         }
 
         // In a real implementation, we would stop the server here
@@ -451,8 +451,8 @@ impl RpcServer {
 
     /// Check if the server is running
     pub fn is_running(&self) -> Result<bool> {
-        let running = self.running.read().map_err(|_| ForgeError::LockError {
-            resource: "rpc_server_running".to_string(),
+        let running = self.running.read().map_err(|_| {
+            ForgeError::InternalError("rpc_server_running lock poisoned".to_string())
         })?;
 
         Ok(*running)
@@ -485,14 +485,17 @@ impl RpcServer {
         }
 
         // Get the handler for the method
-        let handlers = self.handlers.read().map_err(|_| ForgeError::LockError {
-            resource: "rpc_handlers".to_string(),
-        })?;
+        let handlers = self
+            .handlers
+            .read()
+            .map_err(|_| ForgeError::InternalError("rpc_handlers lock poisoned".to_string()))?;
 
-        let handler = handlers.get(&request.method).ok_or(ForgeError::NotFoundError {
-            resource: "rpc_handler".to_string(),
-            id: request.method.clone(),
-        })?;
+        let handler = handlers
+            .get(&request.method)
+            .ok_or(ForgeError::NotFound(format!(
+                "rpc_handler: {}",
+                request.method
+            )))?;
 
         // Call the handler
         handler(request)
@@ -500,7 +503,7 @@ impl RpcServer {
 }
 
 /// RPC client
-#[derive(Debug)]
+#[derive(Debug, Clone)]
 pub struct RpcClient {
     /// Client configuration
     config: RpcClientConfig,
@@ -524,15 +527,14 @@ impl RpcClient {
             common::identity::IdentityContext::system(),
         );
 
-        let mut connected = self.connected.write().map_err(|_| ForgeError::LockError {
-            resource: "rpc_client_connected".to_string(),
+        let mut connected = self.connected.write().map_err(|_| {
+            ForgeError::InternalError("rpc_client_connected lock poisoned".to_string())
         })?;
 
         if *connected {
-            return Err(ForgeError::AlreadyConnectedError {
-                resource: "rpc_client".to_string(),
-                id: self.config.id.clone(),
-            });
+            return Err(ForgeError::InternalError(
+                "rpc_client already connected".to_string(),
+            ));
         }
 
         // In a real implementation, we would connect to the server here
@@ -549,15 +551,14 @@ impl RpcClient {
             common::identity::IdentityContext::system(),
         );
 
-        let mut connected = self.connected.write().map_err(|_| ForgeError::LockError {
-            resource: "rpc_client_connected".to_string(),
+        let mut connected = self.connected.write().map_err(|_| {
+            ForgeError::InternalError("rpc_client_connected lock poisoned".to_string())
         })?;
 
         if !*connected {
-            return Err(ForgeError::NotConnectedError {
-                resource: "rpc_client".to_string(),
-                id: self.config.id.clone(),
-            });
+            return Err(ForgeError::InternalError(
+                "rpc_client not connected".to_string(),
+            ));
         }
 
         // In a real implementation, we would disconnect from the server here
@@ -569,8 +570,8 @@ impl RpcClient {
 
     /// Check if the client is connected
     pub fn is_connected(&self) -> Result<bool> {
-        let connected = self.connected.read().map_err(|_| ForgeError::LockError {
-            resource: "rpc_client_connected".to_string(),
+        let connected = self.connected.read().map_err(|_| {
+            ForgeError::InternalError("rpc_client_connected lock poisoned".to_string())
         })?;
 
         Ok(*connected)
@@ -590,10 +591,9 @@ impl RpcClient {
 
         // Check if the client is connected
         if !self.is_connected()? {
-            return Err(ForgeError::NotConnectedError {
-                resource: "rpc_client".to_string(),
-                id: self.config.id.clone(),
-            });
+            return Err(ForgeError::InternalError(
+                "rpc_client not connected".to_string(),
+            ));
         }
 
         // In a real implementation, we would send the request to the server here
@@ -632,9 +632,10 @@ impl RpcManager {
 
         let server = RpcServer::new(config.clone());
 
-        let mut servers = self.servers.write().map_err(|_| ForgeError::LockError {
-            resource: "rpc_servers".to_string(),
-        })?;
+        let mut servers = self
+            .servers
+            .write()
+            .map_err(|_| ForgeError::InternalError("rpc_servers lock poisoned".to_string()))?;
 
         if servers.contains_key(&config.id) {
             return Err(ForgeError::AlreadyExistsError {
@@ -655,14 +656,14 @@ impl RpcManager {
             common::identity::IdentityContext::system(),
         );
 
-        let servers = self.servers.read().map_err(|_| ForgeError::LockError {
-            resource: "rpc_servers".to_string(),
-        })?;
+        let servers = self
+            .servers
+            .read()
+            .map_err(|_| ForgeError::InternalError("rpc_servers lock poisoned".to_string()))?;
 
-        let server = servers.get(server_id).ok_or(ForgeError::NotFoundError {
-            resource: "rpc_server".to_string(),
-            id: server_id.to_string(),
-        })?;
+        let server = servers
+            .get(server_id)
+            .ok_or(ForgeError::NotFound(format!("rpc_server: {}", server_id)))?;
 
         Ok(server.clone())
     }
@@ -683,9 +684,10 @@ impl RpcManager {
         }
 
         // Remove the server
-        let mut servers = self.servers.write().map_err(|_| ForgeError::LockError {
-            resource: "rpc_servers".to_string(),
-        })?;
+        let mut servers = self
+            .servers
+            .write()
+            .map_err(|_| ForgeError::InternalError("rpc_servers lock poisoned".to_string()))?;
 
         servers.remove(server_id);
 
@@ -701,9 +703,10 @@ impl RpcManager {
 
         let client = RpcClient::new(config.clone());
 
-        let mut clients = self.clients.write().map_err(|_| ForgeError::LockError {
-            resource: "rpc_clients".to_string(),
-        })?;
+        let mut clients = self
+            .clients
+            .write()
+            .map_err(|_| ForgeError::InternalError("rpc_clients lock poisoned".to_string()))?;
 
         if clients.contains_key(&config.id) {
             return Err(ForgeError::AlreadyExistsError {
@@ -724,14 +727,14 @@ impl RpcManager {
             common::identity::IdentityContext::system(),
         );
 
-        let clients = self.clients.read().map_err(|_| ForgeError::LockError {
-            resource: "rpc_clients".to_string(),
-        })?;
+        let clients = self
+            .clients
+            .read()
+            .map_err(|_| ForgeError::InternalError("rpc_clients lock poisoned".to_string()))?;
 
-        let client = clients.get(client_id).ok_or(ForgeError::NotFoundError {
-            resource: "rpc_client".to_string(),
-            id: client_id.to_string(),
-        })?;
+        let client = clients
+            .get(client_id)
+            .ok_or(ForgeError::NotFound(format!("rpc_client: {}", client_id)))?;
 
         Ok(client.clone())
     }
@@ -752,9 +755,10 @@ impl RpcManager {
         }
 
         // Remove the client
-        let mut clients = self.clients.write().map_err(|_| ForgeError::LockError {
-            resource: "rpc_clients".to_string(),
-        })?;
+        let mut clients = self
+            .clients
+            .write()
+            .map_err(|_| ForgeError::InternalError("rpc_clients lock poisoned".to_string()))?;
 
         clients.remove(client_id);
 
@@ -768,9 +772,10 @@ impl RpcManager {
             common::identity::IdentityContext::system(),
         );
 
-        let servers = self.servers.read().map_err(|_| ForgeError::LockError {
-            resource: "rpc_servers".to_string(),
-        })?;
+        let servers = self
+            .servers
+            .read()
+            .map_err(|_| ForgeError::InternalError("rpc_servers lock poisoned".to_string()))?;
 
         Ok(servers.values().cloned().collect())
     }
@@ -782,9 +787,10 @@ impl RpcManager {
             common::identity::IdentityContext::system(),
         );
 
-        let clients = self.clients.read().map_err(|_| ForgeError::LockError {
-            resource: "rpc_clients".to_string(),
-        })?;
+        let clients = self
+            .clients
+            .read()
+            .map_err(|_| ForgeError::InternalError("rpc_clients lock poisoned".to_string()))?;
 
         Ok(clients.values().cloned().collect())
     }
@@ -823,9 +829,9 @@ pub fn get_rpc_manager() -> Result<&'static RpcManager> {
     unsafe {
         match &RPC_MANAGER {
             Some(rpc_manager) => Ok(rpc_manager),
-            None => Err(ForgeError::UninitializedError {
-                component: "rpc_manager".to_string(),
-            }),
+            None => Err(ForgeError::InternalError(
+                "rpc_manager not initialized".to_string(),
+            )),
         }
     }
 }
@@ -950,8 +956,8 @@ mod tests {
         assert_eq!(request.params, params);
         assert!(request.timeout.is_some());
         assert_eq!(request.timeout.unwrap(), Duration::from_secs(30));
-        assert!(request.auth_token.is_some());
-        assert_eq!(request.auth_token.unwrap(), "test-token");
+        assert!(request.auth_token.as_ref().is_some());
+        assert_eq!(request.auth_token.as_ref().unwrap(), "test-token");
         assert!(request.headers.contains_key("X-Test"));
         assert_eq!(request.headers.get("X-Test").unwrap(), "test-value");
         assert!(!request.is_timed_out());
@@ -967,12 +973,15 @@ mod tests {
         // Check success response fields
         assert_eq!(success_response.request_id, "test-request");
         assert_eq!(success_response.status, RpcResponseStatus::Success);
-        assert!(success_response.result.is_some());
-        assert_eq!(success_response.result.unwrap(), result);
-        assert!(success_response.error.is_none());
-        assert!(success_response.error_code.is_none());
+        assert!(success_response.result.as_ref().is_some());
+        assert_eq!(success_response.result.as_ref().unwrap(), &result);
+        assert!(success_response.error.as_ref().is_none());
+        assert!(success_response.error_code.as_ref().is_none());
         assert!(success_response.headers.contains_key("X-Test"));
-        assert_eq!(success_response.headers.get("X-Test").unwrap(), "test-value");
+        assert_eq!(
+            success_response.headers.get("X-Test").unwrap(),
+            "test-value"
+        );
         assert!(success_response.is_success());
         assert!(!success_response.is_error());
 
@@ -983,10 +992,10 @@ mod tests {
         assert_eq!(error_response.request_id, "test-request");
         assert_eq!(error_response.status, RpcResponseStatus::Error);
         assert!(error_response.result.is_none());
-        assert!(error_response.error.is_some());
-        assert_eq!(error_response.error.unwrap(), "Error message");
-        assert!(error_response.error_code.is_some());
-        assert_eq!(error_response.error_code.unwrap(), 500);
+        assert!(error_response.error.as_ref().is_some());
+        assert_eq!(error_response.error.as_ref().unwrap(), "Error message");
+        assert!(error_response.error_code.as_ref().is_some());
+        assert_eq!(error_response.error_code.as_ref().unwrap(), &500);
         assert!(!error_response.is_success());
         assert!(error_response.is_error());
     }
@@ -1054,10 +1063,7 @@ mod tests {
         assert!(client.is_connected().unwrap());
 
         // Send request
-        let request = RpcRequest::new(
-            "test_method",
-            serde_json::json!({"param": "test"}),
-        );
+        let request = RpcRequest::new("test_method", serde_json::json!({"param": "test"}));
         let response = client.send_request(request).unwrap();
 
         // Check response

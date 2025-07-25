@@ -133,8 +133,8 @@ impl ContainerRegistry {
         let registration = ContainerRegistration::new(id, name, dna, contract);
 
         // Add to registrations
-        let mut registrations = self.registrations.write().map_err(|_| ForgeError::LockError {
-            resource: "container_registrations".to_string(),
+        let mut registrations = self.registrations.write().map_err(|_| {
+            ForgeError::InternalError("container_registrations lock poisoned".to_string())
         })?;
 
         // Check if container with the same ID already exists
@@ -146,8 +146,8 @@ impl ContainerRegistry {
         }
 
         // Add to name to ID map
-        let mut name_to_id = self.name_to_id.write().map_err(|_| ForgeError::LockError {
-            resource: "container_name_to_id".to_string(),
+        let mut name_to_id = self.name_to_id.write().map_err(|_| {
+            ForgeError::InternalError("container_name_to_id lock poisoned".to_string())
         })?;
 
         // Check if container with the same name already exists
@@ -173,18 +173,17 @@ impl ContainerRegistry {
         );
 
         // Get container registration
-        let mut registrations = self.registrations.write().map_err(|_| ForgeError::LockError {
-            resource: "container_registrations".to_string(),
+        let mut registrations = self.registrations.write().map_err(|_| {
+            ForgeError::InternalError("container_registrations lock poisoned".to_string())
         })?;
 
-        let registration = registrations.get(id).ok_or(ForgeError::NotFoundError {
-            resource: "container".to_string(),
-            id: id.to_string(),
-        })?;
+        let registration = registrations
+            .get(id)
+            .ok_or(ForgeError::NotFound(format!("container: {}", id)))?;
 
         // Remove from name to ID map
-        let mut name_to_id = self.name_to_id.write().map_err(|_| ForgeError::LockError {
-            resource: "container_name_to_id".to_string(),
+        let mut name_to_id = self.name_to_id.write().map_err(|_| {
+            ForgeError::InternalError("container_name_to_id lock poisoned".to_string())
         })?;
 
         name_to_id.remove(&registration.name);
@@ -197,20 +196,16 @@ impl ContainerRegistry {
 
     /// Get container registration by ID
     pub fn get_container(&self, id: &str) -> Result<ContainerRegistration> {
-        let span = ExecutionSpan::new(
-            "get_container",
-            common::identity::IdentityContext::system(),
-        );
+        let span = ExecutionSpan::new("get_container", common::identity::IdentityContext::system());
 
         // Get container registration
-        let registrations = self.registrations.read().map_err(|_| ForgeError::LockError {
-            resource: "container_registrations".to_string(),
+        let registrations = self.registrations.read().map_err(|_| {
+            ForgeError::InternalError("container_registrations lock poisoned".to_string())
         })?;
 
-        let registration = registrations.get(id).ok_or(ForgeError::NotFoundError {
-            resource: "container".to_string(),
-            id: id.to_string(),
-        })?;
+        let registration = registrations
+            .get(id)
+            .ok_or(ForgeError::NotFound(format!("container: {}", id)))?;
 
         Ok(registration.clone())
     }
@@ -223,14 +218,13 @@ impl ContainerRegistry {
         );
 
         // Get container ID from name
-        let name_to_id = self.name_to_id.read().map_err(|_| ForgeError::LockError {
-            resource: "container_name_to_id".to_string(),
+        let name_to_id = self.name_to_id.read().map_err(|_| {
+            ForgeError::InternalError("container_name_to_id lock poisoned".to_string())
         })?;
 
-        let id = name_to_id.get(name).ok_or(ForgeError::NotFoundError {
-            resource: "container".to_string(),
-            id: name.to_string(),
-        })?;
+        let id = name_to_id
+            .get(name)
+            .ok_or(ForgeError::NotFound(format!("container: {}", name)))?;
 
         // Get container registration
         self.get_container(id)
@@ -270,23 +264,27 @@ impl ContainerRegistry {
         );
 
         // Get all container registrations
-        let registrations = self.registrations.read().map_err(|_| ForgeError::LockError {
-            resource: "container_registrations".to_string(),
+        let registrations = self.registrations.read().map_err(|_| {
+            ForgeError::InternalError("container_registrations lock poisoned".to_string())
         })?;
 
         Ok(registrations.values().cloned().collect())
     }
 
     /// List containers by label
-    pub fn list_containers_by_label(&self, key: &str, value: &str) -> Result<Vec<ContainerRegistration>> {
+    pub fn list_containers_by_label(
+        &self,
+        key: &str,
+        value: &str,
+    ) -> Result<Vec<ContainerRegistration>> {
         let span = ExecutionSpan::new(
             "list_containers_by_label",
             common::identity::IdentityContext::system(),
         );
 
         // Get all container registrations
-        let registrations = self.registrations.read().map_err(|_| ForgeError::LockError {
-            resource: "container_registrations".to_string(),
+        let registrations = self.registrations.read().map_err(|_| {
+            ForgeError::InternalError("container_registrations lock poisoned".to_string())
         })?;
 
         // Filter by label
@@ -300,25 +298,20 @@ impl ContainerRegistry {
     }
 
     /// Update container labels
-    pub fn update_container_labels(
-        &self,
-        id: &str,
-        labels: HashMap<String, String>,
-    ) -> Result<()> {
+    pub fn update_container_labels(&self, id: &str, labels: HashMap<String, String>) -> Result<()> {
         let span = ExecutionSpan::new(
             "update_container_labels",
             common::identity::IdentityContext::system(),
         );
 
         // Get container registration
-        let mut registrations = self.registrations.write().map_err(|_| ForgeError::LockError {
-            resource: "container_registrations".to_string(),
+        let mut registrations = self.registrations.write().map_err(|_| {
+            ForgeError::InternalError("container_registrations lock poisoned".to_string())
         })?;
 
-        let registration = registrations.get_mut(id).ok_or(ForgeError::NotFoundError {
-            resource: "container".to_string(),
-            id: id.to_string(),
-        })?;
+        let registration = registrations
+            .get_mut(id)
+            .ok_or(ForgeError::NotFound(format!("container: {}", id)))?;
 
         // Update labels
         registration.labels = labels;
@@ -342,14 +335,13 @@ impl ContainerRegistry {
         );
 
         // Get container registration
-        let mut registrations = self.registrations.write().map_err(|_| ForgeError::LockError {
-            resource: "container_registrations".to_string(),
+        let mut registrations = self.registrations.write().map_err(|_| {
+            ForgeError::InternalError("container_registrations lock poisoned".to_string())
         })?;
 
-        let registration = registrations.get_mut(id).ok_or(ForgeError::NotFoundError {
-            resource: "container".to_string(),
-            id: id.to_string(),
-        })?;
+        let registration = registrations
+            .get_mut(id)
+            .ok_or(ForgeError::NotFound(format!("container: {}", id)))?;
 
         // Update annotations
         registration.annotations = annotations;
@@ -395,9 +387,9 @@ pub fn get_container_registry() -> Result<&'static ContainerRegistry> {
     unsafe {
         match &CONTAINER_REGISTRY {
             Some(registry) => Ok(registry),
-            None => Err(ForgeError::UninitializedError {
-                component: "container_registry".to_string(),
-            }),
+            None => Err(ForgeError::InternalError(
+                "container_registry not initialized".to_string(),
+            )),
         }
     }
 }
@@ -490,14 +482,24 @@ mod tests {
         // Create container DNA
         let dna = ContainerDNA::new(
             "test-image",
-            "latest",
-            "test-command",
-            vec!["arg1".to_string(), "arg2".to_string()],
-            None,
+            "test-signer",
+            crate::dna::ResourceLimits::default(),
+            "trusted",
+            common::identity::IdentityContext::system(),
         );
 
         // Create container contract
-        let contract = Contract::new(ContractType::ZTA, &dna);
+        let zta_contract = crate::contract::zta::ZTAContract::new(
+            "default-policy",
+            vec!["test-signer".to_string()],
+            0.0,
+            crate::contract::zta::ExecMode::Restricted,
+        );
+        let contract = Contract::new(
+            "test-contract",
+            ContractType::ZTA,
+            serde_json::to_value(zta_contract).unwrap(),
+        );
 
         // Register container
         registry
@@ -508,20 +510,29 @@ mod tests {
         let registration = registry.get_container("test-id").unwrap();
         assert_eq!(registration.id, "test-id");
         assert_eq!(registration.name, "test-container");
-        assert_eq!(registration.dna.image, "test-image");
-        assert_eq!(registration.contract.contract_type, ContractType::ZTA);
-
+        assert_eq!(registration.dna.hash, "test-image");
+        assert_eq!(registration.dna.signer, "test-signer");
+        assert_eq!(registration.dna.trust_label, "trusted");
+        assert!(matches!(
+            registration.contract.contract_type(),
+            ContractType::ZTA
+        ));
         // Get container by name
         let registration = registry.get_container_by_name("test-container").unwrap();
         assert_eq!(registration.id, "test-id");
 
         // Get container DNA
         let container_dna = registry.get_container_dna("test-id").unwrap();
-        assert_eq!(container_dna.image, "test-image");
+        assert_eq!(container_dna.hash, "test-image");
+        assert_eq!(container_dna.signer, "test-signer");
+        assert_eq!(container_dna.trust_label, "trusted");
 
         // Get container contract
         let container_contract = registry.get_container_contract("test-id").unwrap();
-        assert_eq!(container_contract.contract_type, ContractType::ZTA);
+        assert!(matches!(
+            container_contract.contract_type(),
+            ContractType::ZTA
+        ));
 
         // Update container labels
         let mut labels = HashMap::new();

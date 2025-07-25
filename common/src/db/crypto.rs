@@ -290,10 +290,10 @@ impl DbCryptoManager {
             let backup_path = keys_dir.join(format!("master.key.{}", key_id));
             // Backup old key
             std::fs::write(&backup_path, &old_key)
-                .map_err(|e| ForgeError::IoError { message: format!("Failed to backup master key: {}", e), source: None })?;
+                .map_err(|e| ForgeError::IoError(format!("Failed to backup master key: {}", e)))?;
             // Write new key
             std::fs::write(&key_path, &new_key)
-                .map_err(|e| ForgeError::IoError { message: format!("Failed to write master key: {}", e), source: None })?;
+                .map_err(|e| ForgeError::IoError(format!("Failed to write master key: {}", e)))?;
         }
         
         // Update master key

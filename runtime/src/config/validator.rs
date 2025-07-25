@@ -40,7 +40,9 @@ fn validate_image(config: &ContainerConfig) -> Result<()> {
     if config.image.is_empty() {
         return Err(ForgeError::ValidationError {
             field: "image".to_string(),
-            error: "Image cannot be empty".to_string(),
+            rule: "required".to_string(),
+            value: "".to_string(),
+            suggestions: vec!["Provide a valid image name with tag or digest".to_string()],
         });
     }
 
@@ -48,7 +50,12 @@ fn validate_image(config: &ContainerConfig) -> Result<()> {
     if !config.image.contains(':') && !config.image.contains('@') {
         return Err(ForgeError::ValidationError {
             field: "image".to_string(),
-            error: "Image should include a tag or digest".to_string(),
+            rule: "valid_format".to_string(),
+            value: config.image.clone(),
+            suggestions: vec![
+                "Ensure the image name includes a tag or digest".to_string(),
+                "Use a valid image name with tag or digest".to_string(),
+            ],
         });
     }
 
@@ -58,43 +65,39 @@ fn validate_image(config: &ContainerConfig) -> Result<()> {
 /// Validate container resource limits
 fn validate_resource_limits(config: &ContainerConfig) -> Result<()> {
     if let Some(resource_limits) = &config.resource_limits {
-        if let Some(cpu_cores) = resource_limits.cpu_cores {
-            if cpu_cores <= 0.0 {
-                return Err(ForgeError::ValidationError {
-                    field: "resource_limits.cpu_cores".to_string(),
-                    error: "CPU cores must be positive".to_string(),
-                });
-            }
+        if resource_limits.cpu_millicores <= 0 {
+            return Err(ForgeError::ValidationError {
+                field: "resource_limits.cpu_millicores".to_string(),
+                rule: "positive".to_string(),
+                value: resource_limits.cpu_millicores.to_string(),
+                suggestions: vec!["Ensure CPU millicores are greater than 0".to_string()],
+            });
         }
-
-        if let Some(memory_bytes) = resource_limits.memory_bytes {
-            if memory_bytes == 0 {
-                return Err(ForgeError::ValidationError {
-                    field: "resource_limits.memory_bytes".to_string(),
-                    error: "Memory bytes must be positive".to_string(),
-                });
-            }
+        if resource_limits.memory_bytes == 0 {
+            return Err(ForgeError::ValidationError {
+                field: "resource_limits.memory_bytes".to_string(),
+                rule: "positive".to_string(),
+                value: resource_limits.memory_bytes.to_string(),
+                suggestions: vec!["Ensure memory bytes are greater than 0".to_string()],
+            });
         }
-
-        if let Some(disk_bytes) = resource_limits.disk_bytes {
-            if disk_bytes == 0 {
-                return Err(ForgeError::ValidationError {
-                    field: "resource_limits.disk_bytes".to_string(),
-                    error: "Disk bytes must be positive".to_string(),
-                });
-            }
+        if resource_limits.disk_bytes == 0 {
+            return Err(ForgeError::ValidationError {
+                field: "resource_limits.disk_bytes".to_string(),
+                rule: "positive".to_string(),
+                value: resource_limits.disk_bytes.to_string(),
+                suggestions: vec!["Ensure disk bytes are greater than 0".to_string()],
+            });
         }
-
-        if let Some(network_bps) = resource_limits.network_bps {
-            if network_bps == 0 {
-                return Err(ForgeError::ValidationError {
-                    field: "resource_limits.network_bps".to_string(),
-                    error: "Network BPS must be positive".to_string(),
-                });
-            }
+        if resource_limits.network_bps == 0 {
+            return Err(ForgeError::ValidationError {
+                field: "resource_limits.network_bps".to_string(),
+                rule: "positive".to_string(),
+                value: resource_limits.network_bps.to_string(),
+                suggestions: vec!["Ensure network BPS is greater than 0".to_string()],
+            });
         }
     }
-
     Ok(())
 }
 
@@ -104,11 +107,12 @@ fn validate_minimum_entropy(config: &ContainerConfig) -> Result<()> {
         if minimum_entropy < 0.0 || minimum_entropy > 1.0 {
             return Err(ForgeError::ValidationError {
                 field: "minimum_entropy".to_string(),
-                error: "Minimum entropy must be between 0.0 and 1.0".to_string(),
+                rule: "range".to_string(),
+                value: minimum_entropy.to_string(),
+                suggestions: vec!["Minimum entropy must be between 0.0 and 1.0".to_string()],
             });
         }
     }
-
     Ok(())
 }
 
@@ -128,29 +132,31 @@ fn validate_mount(mount: &Mount, index: usize) -> Result<()> {
     if mount.source.is_empty() {
         return Err(ForgeError::ValidationError {
             field: format!("mounts[{}].source", index),
-            error: "Mount source cannot be empty".to_string(),
+            rule: "required".to_string(),
+            value: "".to_string(),
+            suggestions: vec!["Mount source cannot be empty".to_string()],
         });
     }
-
     if mount.destination.is_empty() {
         return Err(ForgeError::ValidationError {
             field: format!("mounts[{}].destination", index),
-            error: "Mount destination cannot be empty".to_string(),
+            rule: "required".to_string(),
+            value: "".to_string(),
+            suggestions: vec!["Mount destination cannot be empty".to_string()],
         });
     }
-
-    // Validate mount options
     if let Some(options) = &mount.options {
         for (j, option) in options.iter().enumerate() {
             if option.is_empty() {
                 return Err(ForgeError::ValidationError {
                     field: format!("mounts[{}].options[{}]", index, j),
-                    error: "Mount option cannot be empty".to_string(),
+                    rule: "required".to_string(),
+                    value: "".to_string(),
+                    suggestions: vec!["Mount option cannot be empty".to_string()],
                 });
             }
         }
     }
-
     Ok(())
 }
 
@@ -170,36 +176,39 @@ fn validate_volume(volume: &Volume, index: usize) -> Result<()> {
     if volume.name.is_empty() {
         return Err(ForgeError::ValidationError {
             field: format!("volumes[{}].name", index),
-            error: "Volume name cannot be empty".to_string(),
+            rule: "required".to_string(),
+            value: "".to_string(),
+            suggestions: vec!["Volume name cannot be empty".to_string()],
         });
     }
-
     if volume.path.is_empty() {
         return Err(ForgeError::ValidationError {
             field: format!("volumes[{}].path", index),
-            error: "Volume path cannot be empty".to_string(),
+            rule: "required".to_string(),
+            value: "".to_string(),
+            suggestions: vec!["Volume path cannot be empty".to_string()],
         });
     }
-
-    // Validate volume options
     if let Some(options) = &volume.options {
         for (key, value) in options {
             if key.is_empty() {
                 return Err(ForgeError::ValidationError {
                     field: format!("volumes[{}].options.key", index),
-                    error: "Volume option key cannot be empty".to_string(),
+                    rule: "required".to_string(),
+                    value: "".to_string(),
+                    suggestions: vec!["Volume option key cannot be empty".to_string()],
                 });
             }
-
             if value.is_empty() {
                 return Err(ForgeError::ValidationError {
                     field: format!("volumes[{}].options.{}", index, key),
-                    error: "Volume option value cannot be empty".to_string(),
+                    rule: "required".to_string(),
+                    value: "".to_string(),
+                    suggestions: vec!["Volume option value cannot be empty".to_string()],
                 });
             }
         }
     }
-
     Ok(())
 }
 
@@ -211,7 +220,9 @@ fn validate_network(config: &ContainerConfig) -> Result<()> {
             if name.is_empty() {
                 return Err(ForgeError::ValidationError {
                     field: "network.name".to_string(),
-                    error: "Network name cannot be empty".to_string(),
+                    rule: "required".to_string(),
+                    value: "".to_string(),
+                    suggestions: vec!["Network name cannot be empty".to_string()],
                 });
             }
         }
@@ -221,7 +232,9 @@ fn validate_network(config: &ContainerConfig) -> Result<()> {
             if !is_valid_ip_address(ip_address) {
                 return Err(ForgeError::ValidationError {
                     field: "network.ip_address".to_string(),
-                    error: "Invalid IP address format".to_string(),
+                    rule: "invalid_format".to_string(),
+                    value: ip_address.clone(),
+                    suggestions: vec!["Invalid IP address format".to_string()],
                 });
             }
         }
@@ -231,7 +244,9 @@ fn validate_network(config: &ContainerConfig) -> Result<()> {
             if !is_valid_ip_address(gateway) {
                 return Err(ForgeError::ValidationError {
                     field: "network.gateway".to_string(),
-                    error: "Invalid gateway IP address format".to_string(),
+                    rule: "invalid_format".to_string(),
+                    value: gateway.clone(),
+                    suggestions: vec!["Invalid gateway IP address format".to_string()],
                 });
             }
         }
@@ -242,7 +257,9 @@ fn validate_network(config: &ContainerConfig) -> Result<()> {
                 if !is_valid_ip_address(server) {
                     return Err(ForgeError::ValidationError {
                         field: format!("network.dns[{}]", i),
-                        error: "Invalid DNS server IP address format".to_string(),
+                        rule: "invalid_format".to_string(),
+                        value: server.clone(),
+                        suggestions: vec!["Invalid DNS server IP address format".to_string()],
                     });
                 }
             }
@@ -261,14 +278,17 @@ fn validate_network(config: &ContainerConfig) -> Result<()> {
                 if key.is_empty() {
                     return Err(ForgeError::ValidationError {
                         field: "network.options.key".to_string(),
-                        error: "Network option key cannot be empty".to_string(),
+                        rule: "required".to_string(),
+                        value: "".to_string(),
+                        suggestions: vec!["Network option key cannot be empty".to_string()],
                     });
                 }
-
                 if value.is_empty() {
                     return Err(ForgeError::ValidationError {
                         field: format!("network.options.{}", key),
-                        error: "Network option value cannot be empty".to_string(),
+                        rule: "required".to_string(),
+                        value: "".to_string(),
+                        suggestions: vec!["Network option value cannot be empty".to_string()],
                     });
                 }
             }
@@ -283,14 +303,18 @@ fn validate_port_mapping(port: &PortMapping, index: usize) -> Result<()> {
     if port.host_port == 0 {
         return Err(ForgeError::ValidationError {
             field: format!("network.ports[{}].host_port", index),
-            error: "Host port cannot be 0".to_string(),
+            rule: "required".to_string(),
+            value: "0".to_string(),
+            suggestions: vec!["Host port cannot be 0".to_string()],
         });
     }
 
     if port.container_port == 0 {
         return Err(ForgeError::ValidationError {
             field: format!("network.ports[{}].container_port", index),
-            error: "Container port cannot be 0".to_string(),
+            rule: "required".to_string(),
+            value: "0".to_string(),
+            suggestions: vec!["Container port cannot be 0".to_string()],
         });
     }
 
@@ -299,7 +323,9 @@ fn validate_port_mapping(port: &PortMapping, index: usize) -> Result<()> {
         if !host_ip.is_empty() && !is_valid_ip_address(host_ip) {
             return Err(ForgeError::ValidationError {
                 field: format!("network.ports[{}].host_ip", index),
-                error: "Invalid host IP address format".to_string(),
+                rule: "invalid_format".to_string(),
+                value: host_ip.clone(),
+                suggestions: vec!["Invalid host IP address format".to_string()],
             });
         }
     }
@@ -405,10 +431,10 @@ mod tests {
             env: None,
             working_dir: None,
             resource_limits: Some(ResourceLimits {
-                cpu_cores: Some(1.0),
-                memory_bytes: Some(1024 * 1024 * 100),
-                disk_bytes: Some(1024 * 1024 * 1000),
-                network_bps: Some(1024 * 1024),
+                cpu_millicores: 1000,
+                memory_bytes: 1024 * 1024 * 100,
+                disk_bytes: 1024 * 1024 * 1000,
+                network_bps: 1024 * 1024,
             }),
             trusted_issuers: None,
             minimum_entropy: None,
@@ -431,10 +457,10 @@ mod tests {
             env: None,
             working_dir: None,
             resource_limits: Some(ResourceLimits {
-                cpu_cores: Some(-1.0),
-                memory_bytes: Some(1024 * 1024 * 100),
-                disk_bytes: Some(1024 * 1024 * 1000),
-                network_bps: Some(1024 * 1024),
+                cpu_millicores: 0,
+                memory_bytes: 1024 * 1024 * 100,
+                disk_bytes: 1024 * 1024 * 1000,
+                network_bps: 1024 * 1024,
             }),
             trusted_issuers: None,
             minimum_entropy: None,
@@ -457,10 +483,10 @@ mod tests {
             env: None,
             working_dir: None,
             resource_limits: Some(ResourceLimits {
-                cpu_cores: Some(1.0),
-                memory_bytes: Some(0),
-                disk_bytes: Some(1024 * 1024 * 1000),
-                network_bps: Some(1024 * 1024),
+                cpu_millicores: 1000,
+                memory_bytes: 0,
+                disk_bytes: 1024 * 1024 * 1000,
+                network_bps: 1024 * 1024,
             }),
             trusted_issuers: None,
             minimum_entropy: None,
@@ -690,14 +716,20 @@ mod tests {
         assert!(!is_valid_ip_address("192.168.1.a"));
 
         // Valid IPv6 addresses
-        assert!(is_valid_ip_address("2001:0db8:85a3:0000:0000:8a2e:0370:7334"));
+        assert!(is_valid_ip_address(
+            "2001:0db8:85a3:0000:0000:8a2e:0370:7334"
+        ));
         assert!(is_valid_ip_address("2001:db8:85a3::8a2e:370:7334"));
         assert!(is_valid_ip_address("::1"));
         assert!(is_valid_ip_address("fe80::"));
 
         // Invalid IPv6 addresses
-        assert!(!is_valid_ip_address("2001:0db8:85a3:0000:0000:8a2e:0370:7334:7334"));
+        assert!(!is_valid_ip_address(
+            "2001:0db8:85a3:0000:0000:8a2e:0370:7334:7334"
+        ));
         assert!(!is_valid_ip_address("2001:0db8:85a3:0000:0000:8a2e:0370"));
-        assert!(!is_valid_ip_address("2001:0db8:85a3:0000:0000:8a2e:0370:zzzz"));
+        assert!(!is_valid_ip_address(
+            "2001:0db8:85a3:0000:0000:8a2e:0370:zzzz"
+        ));
     }
 }

@@ -182,12 +182,7 @@ pub struct ServiceEndpoint {
 
 impl ServiceEndpoint {
     /// Create a new service endpoint
-    pub fn new(
-        container_id: &str,
-        ip_addr: IpAddr,
-        port: u16,
-        protocol: MeshProtocol,
-    ) -> Self {
+    pub fn new(container_id: &str, ip_addr: IpAddr, port: u16, protocol: MeshProtocol) -> Self {
         let now = SystemTime::now()
             .duration_since(UNIX_EPOCH)
             .unwrap_or_default()
@@ -317,10 +312,10 @@ impl Service {
             .endpoints
             .iter()
             .position(|e| e.id == endpoint_id)
-            .ok_or(ForgeError::NotFoundError {
-                resource: "service_endpoint".to_string(),
-                id: endpoint_id.to_string(),
-            })?;
+            .ok_or(ForgeError::NotFound(format!(
+                "service_endpoint: {}",
+                endpoint_id
+            )))?;
 
         Ok(self.endpoints.remove(index))
     }
@@ -330,10 +325,10 @@ impl Service {
         self.endpoints
             .iter()
             .find(|e| e.id == endpoint_id)
-            .ok_or(ForgeError::NotFoundError {
-                resource: "service_endpoint".to_string(),
-                id: endpoint_id.to_string(),
-            })
+            .ok_or(ForgeError::NotFound(format!(
+                "service_endpoint: {}",
+                endpoint_id
+            )))
     }
 
     /// Get a mutable endpoint
@@ -341,10 +336,10 @@ impl Service {
         self.endpoints
             .iter_mut()
             .find(|e| e.id == endpoint_id)
-            .ok_or(ForgeError::NotFoundError {
-                resource: "service_endpoint".to_string(),
-                id: endpoint_id.to_string(),
-            })
+            .ok_or(ForgeError::NotFound(format!(
+                "service_endpoint: {}",
+                endpoint_id
+            )))
     }
 
     /// Get healthy endpoints
@@ -357,9 +352,10 @@ impl Service {
         let healthy_endpoints = self.get_healthy_endpoints();
 
         if healthy_endpoints.is_empty() {
-            return Err(ForgeError::NoHealthyEndpointsError {
-                service: self.name.clone(),
-            });
+            return Err(ForgeError::InternalError(format!(
+                "No healthy endpoints for service: {}",
+                self.name
+            )));
         }
 
         // In a real implementation, we would use the load balancing algorithm to select an endpoint
@@ -494,18 +490,20 @@ impl MeshManager {
 
     /// Get the mesh configuration
     pub fn get_config(&self) -> Result<MeshConfig> {
-        let config = self.config.read().map_err(|_| ForgeError::LockError {
-            resource: "mesh_config".to_string(),
-        })?;
+        let config = self
+            .config
+            .read()
+            .map_err(|_| ForgeError::InternalError("mesh_config lock poisoned".to_string()))?;
 
         Ok(config.clone())
     }
 
     /// Update the mesh configuration
     pub fn update_config(&self, config: MeshConfig) -> Result<()> {
-        let mut current_config = self.config.write().map_err(|_| ForgeError::LockError {
-            resource: "mesh_config".to_string(),
-        })?;
+        let mut current_config = self
+            .config
+            .write()
+            .map_err(|_| ForgeError::InternalError("mesh_config lock poisoned".to_string()))?;
 
         *current_config = config;
 
@@ -522,14 +520,16 @@ impl MeshManager {
         let service = Service::new(name, namespace);
 
         // Add service to services map
-        let mut services = self.services.write().map_err(|_| ForgeError::LockError {
-            resource: "services".to_string(),
-        })?;
+        let mut services = self
+            .services
+            .write()
+            .map_err(|_| ForgeError::InternalError("services lock poisoned".to_string()))?;
 
         // Add service to service names map
-        let mut service_names = self.service_names.write().map_err(|_| ForgeError::LockError {
-            resource: "service_names".to_string(),
-        })?;
+        let mut service_names = self
+            .service_names
+            .write()
+            .map_err(|_| ForgeError::InternalError("service_names lock poisoned".to_string()))?;
 
         let key = format!("{}/{}", namespace, name);
         let service_ids = service_names.entry(key).or_insert_with(HashSet::new);
@@ -549,19 +549,16 @@ impl MeshManager {
 
     /// Get a service
     pub fn get_service(&self, service_id: &str) -> Result<Service> {
-        let span = ExecutionSpan::new(
-            "get_service",
-            common::identity::IdentityContext::system(),
-        );
+        let span = ExecutionSpan::new("get_service", common::identity::IdentityContext::system());
 
-        let services = self.services.read().map_err(|_| ForgeError::LockError {
-            resource: "services".to_string(),
-        })?;
+        let services = self
+            .services
+            .read()
+            .map_err(|_| ForgeError::InternalError("services lock poisoned".to_string()))?;
 
-        let service = services.get(service_id).ok_or(ForgeError::NotFoundError {
-            resource: "service".to_string(),
-            id: service_id.to_string(),
-        })?;
+        let service = services
+            .get(service_id)
+            .ok_or(ForgeError::NotFound(format!("service: {}", service_id)))?;
 
         Ok(service.clone())
     }
@@ -573,19 +570,20 @@ impl MeshManager {
             common::identity::IdentityContext::system(),
         );
 
-        let service_names = self.service_names.read().map_err(|_| ForgeError::LockError {
-            resource: "service_names".to_string(),
-        })?;
+        let service_names = self
+            .service_names
+            .read()
+            .map_err(|_| ForgeError::InternalError("service_names lock poisoned".to_string()))?;
 
         let key = format!("{}/{}", namespace, name);
-        let service_ids = service_names.get(&key).ok_or(ForgeError::NotFoundError {
-            resource: "service".to_string(),
-            id: key,
-        })?;
+        let service_ids = service_names
+            .get(&key)
+            .ok_or(ForgeError::NotFound(format!("service: {}", key)))?;
 
-        let services = self.services.read().map_err(|_| ForgeError::LockError {
-            resource: "services".to_string(),
-        })?;
+        let services = self
+            .services
+            .read()
+            .map_err(|_| ForgeError::InternalError("services lock poisoned".to_string()))?;
 
         let result = service_ids
             .iter()
@@ -602,15 +600,13 @@ impl MeshManager {
             common::identity::IdentityContext::system(),
         );
 
-        let mut services = self.services.write().map_err(|_| ForgeError::LockError {
-            resource: "services".to_string(),
-        })?;
+        let mut services = self
+            .services
+            .write()
+            .map_err(|_| ForgeError::InternalError("services lock poisoned".to_string()))?;
 
         if !services.contains_key(&service.id) {
-            return Err(ForgeError::NotFoundError {
-                resource: "service".to_string(),
-                id: service.id.clone(),
-            });
+            return Err(ForgeError::NotFound(format!("service: {}", service.id)));
         }
 
         services.insert(service.id.clone(), service);
@@ -629,16 +625,18 @@ impl MeshManager {
         let service = self.get_service(service_id)?;
 
         // Remove service from services map
-        let mut services = self.services.write().map_err(|_| ForgeError::LockError {
-            resource: "services".to_string(),
-        })?;
+        let mut services = self
+            .services
+            .write()
+            .map_err(|_| ForgeError::InternalError("services lock poisoned".to_string()))?;
 
         services.remove(service_id);
 
         // Remove service from service names map
-        let mut service_names = self.service_names.write().map_err(|_| ForgeError::LockError {
-            resource: "service_names".to_string(),
-        })?;
+        let mut service_names = self
+            .service_names
+            .write()
+            .map_err(|_| ForgeError::InternalError("service_names lock poisoned".to_string()))?;
 
         let key = format!("{}/{}", service.namespace, service.name);
         if let Some(service_ids) = service_names.get_mut(&key) {
@@ -650,10 +648,9 @@ impl MeshManager {
         }
 
         // Remove service from container services map
-        let mut container_services =
-            self.container_services.write().map_err(|_| ForgeError::LockError {
-                resource: "container_services".to_string(),
-            })?;
+        let mut container_services = self.container_services.write().map_err(|_| {
+            ForgeError::InternalError("container_services lock poisoned".to_string())
+        })?;
 
         for endpoint in &service.endpoints {
             if let Some(service_ids) = container_services.get_mut(&endpoint.container_id) {
@@ -670,14 +667,12 @@ impl MeshManager {
 
     /// List all services
     pub fn list_services(&self) -> Result<Vec<Service>> {
-        let span = ExecutionSpan::new(
-            "list_services",
-            common::identity::IdentityContext::system(),
-        );
+        let span = ExecutionSpan::new("list_services", common::identity::IdentityContext::system());
 
-        let services = self.services.read().map_err(|_| ForgeError::LockError {
-            resource: "services".to_string(),
-        })?;
+        let services = self
+            .services
+            .read()
+            .map_err(|_| ForgeError::InternalError("services lock poisoned".to_string()))?;
 
         Ok(services.values().cloned().collect())
     }
@@ -689,9 +684,10 @@ impl MeshManager {
             common::identity::IdentityContext::system(),
         );
 
-        let services = self.services.read().map_err(|_| ForgeError::LockError {
-            resource: "services".to_string(),
-        })?;
+        let services = self
+            .services
+            .read()
+            .map_err(|_| ForgeError::InternalError("services lock poisoned".to_string()))?;
 
         let result = services
             .values()
@@ -735,10 +731,9 @@ impl MeshManager {
         self.update_service(updated_service)?;
 
         // Update container services map
-        let mut container_services =
-            self.container_services.write().map_err(|_| ForgeError::LockError {
-                resource: "container_services".to_string(),
-            })?;
+        let mut container_services = self.container_services.write().map_err(|_| {
+            ForgeError::InternalError("container_services lock poisoned".to_string())
+        })?;
 
         let service_ids = container_services
             .entry(container_id.to_string())
@@ -771,13 +766,12 @@ impl MeshManager {
         self.update_service(updated_service)?;
 
         // Update container services map
-        let mut container_services =
-            self.container_services.write().map_err(|_| ForgeError::LockError {
-                resource: "container_services".to_string(),
-            })?;
+        let mut container_services = self.container_services.write().map_err(|_| {
+            ForgeError::InternalError("container_services lock poisoned".to_string())
+        })?;
 
         if let Some(service_ids) = container_services.get_mut(&container_id) {
-            if updated_service.endpoints.is_empty() {
+            if service.endpoints.is_empty() {
                 service_ids.remove(service_id);
 
                 if service_ids.is_empty() {
@@ -797,10 +791,9 @@ impl MeshManager {
         );
 
         // Get container services
-        let container_services =
-            self.container_services.read().map_err(|_| ForgeError::LockError {
-                resource: "container_services".to_string(),
-            })?;
+        let container_services = self.container_services.read().map_err(|_| {
+            ForgeError::InternalError("container_services lock poisoned".to_string())
+        })?;
 
         let service_ids = match container_services.get(container_id) {
             Some(ids) => ids.clone(),
@@ -829,10 +822,9 @@ impl MeshManager {
         }
 
         // Remove container from container services map
-        let mut container_services =
-            self.container_services.write().map_err(|_| ForgeError::LockError {
-                resource: "container_services".to_string(),
-            })?;
+        let mut container_services = self.container_services.write().map_err(|_| {
+            ForgeError::InternalError("container_services lock poisoned".to_string())
+        })?;
 
         container_services.remove(container_id);
 
@@ -850,10 +842,10 @@ impl MeshManager {
         let services = self.get_service_by_name(name, namespace)?;
 
         if services.is_empty() {
-            return Err(ForgeError::NotFoundError {
-                resource: "service".to_string(),
-                id: format!("{}/{}", namespace, name),
-            });
+            return Err(ForgeError::NotFound(format!(
+                "service: {}/{}",
+                namespace, name
+            )));
         }
 
         // In a real implementation, we might do more sophisticated service discovery
@@ -931,9 +923,9 @@ pub fn get_mesh_manager() -> Result<&'static MeshManager> {
     unsafe {
         match &MESH_MANAGER {
             Some(mesh_manager) => Ok(mesh_manager),
-            None => Err(ForgeError::UninitializedError {
-                component: "mesh_manager".to_string(),
-            }),
+            None => Err(ForgeError::InternalError(
+                "mesh_manager not initialized".to_string(),
+            )),
         }
     }
 }
@@ -1094,7 +1086,9 @@ mod tests {
         assert_eq!(retrieved_config.name, config.name);
 
         // Create service
-        let service = mesh_manager.create_service("test-service", "default").unwrap();
+        let service = mesh_manager
+            .create_service("test-service", "default")
+            .unwrap();
         assert_eq!(service.name, "test-service");
         assert_eq!(service.namespace, "default");
 

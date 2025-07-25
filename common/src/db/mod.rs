@@ -4,25 +4,25 @@
 //! It includes support for IndxDb (metadata, user access control), Redb (logs, blobs, events, snapshots),
 //! sharded local storage, immutable audit trails, stateful recovery, and more.
 
-pub mod redb;
-pub mod model;
 mod access;
-mod snapshot;
 mod crypto;
-mod schema;
-mod metrics;
 mod integrity;
+mod metrics;
+pub mod model;
 mod recovery;
+pub mod redb;
+mod schema;
+mod snapshot;
 
-pub use self::redb::*;
-pub use self::model::*;
 pub use self::access::*;
-pub use self::snapshot::*;
 pub use self::crypto::*;
-pub use self::schema::*;
-pub use self::metrics::*;
 pub use self::integrity::*;
+pub use self::metrics::*;
+pub use self::model::*;
 pub use self::recovery::*;
+pub use self::redb::*;
+pub use self::schema::*;
+pub use self::snapshot::*;
 
 /// Database initialization options
 pub struct DbOptions {
@@ -87,7 +87,7 @@ impl Default for DbOptions {
 pub fn init(options: DbOptions) -> crate::error::Result<()> {
     // Create base directory if it doesn't exist
     std::fs::create_dir_all(&options.base_dir)
-    .map_err(|e| crate::error::ForgeError::IoError { message: e.to_string(), source: None })?;
+        .map_err(|e| crate::error::ForgeError::IoError(e.to_string()))?;
     let redb_options = RedbOptions {
         base_dir: options.base_dir.clone(),
         encryption_enabled: options.encrypt,
@@ -96,28 +96,28 @@ pub fn init(options: DbOptions) -> crate::error::Result<()> {
         shard_count: options.shard_count.unwrap_or(1),
         checksum_verification: options.verify_checksums,
         auto_recovery: options.auto_recovery,
-        chunk_size: 4096, // or set a default/constant as needed
+        chunk_size: 4096,            // or set a default/constant as needed
         log_rotation_size: 10485760, // or set a default/constant as needed
         checkpoint_interval: options.checkpoint_interval_minutes,
         deduplication_enabled: true, // or map from options if available
-        dedup_cache_size: 10000, // or map from options if available
+        dedup_cache_size: 10000,     // or map from options if available
     };
     redb::init_redb(redb_options)?;
     snapshot::init_snapshot_system(&options)?; // TODO: Implement snapshot system initialization
-    
+
     // Initialize metrics system if enabled
-     if options.enable_metrics {
-         metrics::init_metrics_system(&options)?; // TODO: Implement metrics system initialization
-     }
-    
+    if options.enable_metrics {
+        metrics::init_metrics_system(&options)?; // TODO: Implement metrics system initialization
+    }
+
     // Initialize integrity checking system
-     integrity::init_integrity_system(&options)?; // TODO: Implement integrity system initialization
-    
+    integrity::init_integrity_system(&options)?; // TODO: Implement integrity system initialization
+
     // Initialize recovery system if auto-recovery is enabled
     if options.auto_recovery {
         recovery::init_recovery_system(&options)?; // TODO: Implement recovery system initialization
     }
-    
+
     Ok(())
 }
 
@@ -147,16 +147,16 @@ pub fn check_health() -> crate::error::Result<HealthStatus> {
 pub fn repair_if_needed() -> crate::error::Result<bool> {
     // Check health first
     let health = check_health()?;
-    
+
     match health {
         HealthStatus::Healthy => Ok(false), // No repair needed
         HealthStatus::Degraded | HealthStatus::Corrupted => {
             // Attempt repair
             // let indxdb_repaired = indxdb::repair()?; // TODO: Implement IndxDb repair
             // let redb_repaired = redb::repair()?; // TODO: Implement Redb repair
-            
+
             Ok(false)
-        },
+        }
         HealthStatus::Unrepairable => {
             // Cannot repair, restore from snapshot
             // recovery::restore_from_latest_snapshot()?; // TODO: Implement restore from latest snapshot

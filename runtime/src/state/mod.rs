@@ -3,8 +3,9 @@
 //! This module provides functionality for managing container state persistence,
 //! including checkpointing, restoration, and state synchronization.
 
-use crate::lifecycle::ContainerStatus;
+use crate::lifecycle::ContainerState;
 use crate::registry::ContainerRegistration;
+use common::crypto::generate_id;
 use common::error::{ForgeError, Result};
 use common::observer::trace::ExecutionSpan;
 use serde::{Deserialize, Serialize};
@@ -77,7 +78,7 @@ pub struct CheckpointMetadata {
     /// Checkpoint creation time in seconds since epoch
     pub created_at: u64,
     /// Container status at checkpoint time
-    pub container_status: ContainerStatus,
+    pub container_status: ContainerState,
     /// Whether the checkpoint includes container's filesystem
     pub includes_filesystem: bool,
     /// Whether the checkpoint includes container's network connections
@@ -105,7 +106,7 @@ impl Checkpoint {
         id: &str,
         container_id: &str,
         checkpoint_type: CheckpointType,
-        container_status: ContainerStatus,
+        container_status: ContainerState,
         includes_filesystem: bool,
         includes_network: bool,
         path: PathBuf,
@@ -135,7 +136,9 @@ impl Checkpoint {
 
     /// Add a label
     pub fn add_label(&mut self, key: &str, value: &str) {
-        self.metadata.labels.insert(key.to_string(), value.to_string());
+        self.metadata
+            .labels
+            .insert(key.to_string(), value.to_string());
     }
 
     /// Remove a label
@@ -182,10 +185,8 @@ impl StateManager {
     pub fn new(base_dir: PathBuf) -> Result<Self> {
         // Create base directory if it doesn't exist
         if !base_dir.exists() {
-            fs::create_dir_all(&base_dir).map_err(|e| ForgeError::IOError {
-                operation: "create_dir".to_string(),
-                path: base_dir.to_string_lossy().to_string(),
-                error: e.to_string(),
+            fs::create_dir_all(&base_dir).map_err(|e| {
+                ForgeError::IoError(format!("create_dir {}: {}", base_dir.to_string_lossy(), e))
             })?;
         }
 
@@ -218,15 +219,17 @@ impl StateManager {
                 .duration_since(UNIX_EPOCH)
                 .unwrap_or_default()
                 .as_secs(),
-            common::crypto::hash::generate_id(container_id, 8)
+            generate_id(container_id, 8)
         );
 
         // Create checkpoint directory
         let checkpoint_dir = self.base_dir.join(container_id).join(&checkpoint_id);
-        fs::create_dir_all(&checkpoint_dir).map_err(|e| ForgeError::IOError {
-            operation: "create_dir".to_string(),
-            path: checkpoint_dir.to_string_lossy().to_string(),
-            error: e.to_string(),
+        fs::create_dir_all(&checkpoint_dir).map_err(|e| {
+            ForgeError::IoError(format!(
+                "create_dir {}: {}",
+                checkpoint_dir.to_string_lossy(),
+                e
+            ))
         })?;
 
         // TODO: Implement actual checkpoint creation logic
@@ -234,10 +237,12 @@ impl StateManager {
 
         // For now, we'll just create a placeholder file
         let placeholder_file = checkpoint_dir.join("checkpoint.meta");
-        fs::write(&placeholder_file, "checkpoint placeholder").map_err(|e| ForgeError::IOError {
-            operation: "write".to_string(),
-            path: placeholder_file.to_string_lossy().to_string(),
-            error: e.to_string(),
+        fs::write(&placeholder_file, "checkpoint placeholder").map_err(|e| {
+            ForgeError::IoError(format!(
+                "write {}: {}",
+                placeholder_file.to_string_lossy(),
+                e
+            ))
         })?;
 
         // Get checkpoint size (in a real implementation, this would be the size of all checkpoint files)
@@ -257,9 +262,10 @@ impl StateManager {
         );
 
         // Add checkpoint to map
-        let mut checkpoints = self.checkpoints.write().map_err(|_| ForgeError::LockError {
-            resource: "checkpoints".to_string(),
-        })?;
+        let mut checkpoints = self
+            .checkpoints
+            .write()
+            .map_err(|_| ForgeError::InternalError("checkpoints lock poisoned".to_string()))?;
 
         let container_checkpoints = checkpoints
             .entry(container_id.to_string())
@@ -278,33 +284,35 @@ impl StateManager {
         );
 
         // Get checkpoints
-        let mut checkpoints = self.checkpoints.write().map_err(|_| ForgeError::LockError {
-            resource: "checkpoints".to_string(),
-        })?;
+        let mut checkpoints = self
+            .checkpoints
+            .write()
+            .map_err(|_| ForgeError::InternalError("checkpoints lock poisoned".to_string()))?;
 
-        let container_checkpoints = checkpoints.get_mut(container_id).ok_or(ForgeError::NotFoundError {
-            resource: "container".to_string(),
-            id: container_id.to_string(),
-        })?;
+        let container_checkpoints = checkpoints
+            .get_mut(container_id)
+            .ok_or(ForgeError::NotFound(format!("container: {}", container_id)))?;
 
         // Find checkpoint index
         let checkpoint_index = container_checkpoints
             .iter()
             .position(|cp| cp.metadata.id == checkpoint_id)
-            .ok_or(ForgeError::NotFoundError {
-                resource: "checkpoint".to_string(),
-                id: checkpoint_id.to_string(),
-            })?;
+            .ok_or(ForgeError::NotFound(format!(
+                "checkpoint: {}",
+                checkpoint_id
+            )))?;
 
         // Get checkpoint
         let checkpoint = container_checkpoints.remove(checkpoint_index);
 
         // Remove checkpoint directory
         if checkpoint.path.exists() {
-            fs::remove_dir_all(&checkpoint.path).map_err(|e| ForgeError::IOError {
-                operation: "remove_dir_all".to_string(),
-                path: checkpoint.path.to_string_lossy().to_string(),
-                error: e.to_string(),
+            fs::remove_dir_all(&checkpoint.path).map_err(|e| {
+                ForgeError::IoError(format!(
+                    "remove_dir_all {}: {}",
+                    checkpoint.path.to_string_lossy(),
+                    e
+                ))
             })?;
         }
 
@@ -324,23 +332,23 @@ impl StateManager {
         );
 
         // Get checkpoints
-        let checkpoints = self.checkpoints.read().map_err(|_| ForgeError::LockError {
-            resource: "checkpoints".to_string(),
-        })?;
+        let checkpoints = self
+            .checkpoints
+            .read()
+            .map_err(|_| ForgeError::InternalError("checkpoints lock poisoned".to_string()))?;
 
-        let container_checkpoints = checkpoints.get(container_id).ok_or(ForgeError::NotFoundError {
-            resource: "container".to_string(),
-            id: container_id.to_string(),
-        })?;
+        let container_checkpoints = checkpoints
+            .get(container_id)
+            .ok_or(ForgeError::NotFound(format!("container: {}", container_id)))?;
 
         // Find checkpoint
         let checkpoint = container_checkpoints
             .iter()
             .find(|cp| cp.metadata.id == checkpoint_id)
-            .ok_or(ForgeError::NotFoundError {
-                resource: "checkpoint".to_string(),
-                id: checkpoint_id.to_string(),
-            })?;
+            .ok_or(ForgeError::NotFound(format!(
+                "checkpoint: {}",
+                checkpoint_id
+            )))?;
 
         Ok(checkpoint.clone())
     }
@@ -353,14 +361,14 @@ impl StateManager {
         );
 
         // Get checkpoints
-        let checkpoints = self.checkpoints.read().map_err(|_| ForgeError::LockError {
-            resource: "checkpoints".to_string(),
-        })?;
+        let checkpoints = self
+            .checkpoints
+            .read()
+            .map_err(|_| ForgeError::InternalError("checkpoints lock poisoned".to_string()))?;
 
-        let container_checkpoints = checkpoints.get(container_id).ok_or(ForgeError::NotFoundError {
-            resource: "container".to_string(),
-            id: container_id.to_string(),
-        })?;
+        let container_checkpoints = checkpoints
+            .get(container_id)
+            .ok_or(ForgeError::NotFound(format!("container: {}", container_id)))?;
 
         Ok(container_checkpoints.clone())
     }
@@ -399,9 +407,10 @@ impl StateManager {
         );
 
         // Get checkpoints
-        let mut checkpoints = self.checkpoints.write().map_err(|_| ForgeError::LockError {
-            resource: "checkpoints".to_string(),
-        })?;
+        let mut checkpoints = self
+            .checkpoints
+            .write()
+            .map_err(|_| ForgeError::InternalError("checkpoints lock poisoned".to_string()))?;
 
         // Remove container from checkpoints
         if let Some(container_checkpoints) = checkpoints.remove(container_id) {
@@ -435,15 +444,19 @@ impl StateManager {
         }
 
         // Iterate over container directories
-        for container_entry in fs::read_dir(&self.base_dir).map_err(|e| ForgeError::IOError {
-            operation: "read_dir".to_string(),
-            path: self.base_dir.to_string_lossy().to_string(),
-            error: e.to_string(),
+        for container_entry in fs::read_dir(&self.base_dir).map_err(|e| {
+            ForgeError::IoError(format!(
+                "read_dir {}: {}",
+                self.base_dir.to_string_lossy(),
+                e
+            ))
         })? {
-            let container_entry = container_entry.map_err(|e| ForgeError::IOError {
-                operation: "read_dir_entry".to_string(),
-                path: self.base_dir.to_string_lossy().to_string(),
-                error: e.to_string(),
+            let container_entry = container_entry.map_err(|e| {
+                ForgeError::IoError(format!(
+                    "read_dir_entry {}: {}",
+                    self.base_dir.to_string_lossy(),
+                    e
+                ))
             })?;
 
             let container_path = container_entry.path();
@@ -454,24 +467,26 @@ impl StateManager {
             let container_id = container_path
                 .file_name()
                 .and_then(|name| name.to_str())
-                .ok_or(ForgeError::InvalidDataError {
-                    reason: format!(
-                        "Invalid container directory name: {}",
-                        container_path.display()
-                    ),
-                })?;
+                .ok_or(ForgeError::InternalError(format!(
+                    "Invalid container directory name: {}",
+                    container_path.display()
+                )))?;
 
             // Iterate over checkpoint directories
             let mut container_checkpoints = Vec::new();
-            for checkpoint_entry in fs::read_dir(&container_path).map_err(|e| ForgeError::IOError {
-                operation: "read_dir".to_string(),
-                path: container_path.to_string_lossy().to_string(),
-                error: e.to_string(),
+            for checkpoint_entry in fs::read_dir(&container_path).map_err(|e| {
+                ForgeError::IoError(format!(
+                    "read_dir {}: {}",
+                    container_path.to_string_lossy(),
+                    e
+                ))
             })? {
-                let checkpoint_entry = checkpoint_entry.map_err(|e| ForgeError::IOError {
-                    operation: "read_dir_entry".to_string(),
-                    path: container_path.to_string_lossy().to_string(),
-                    error: e.to_string(),
+                let checkpoint_entry = checkpoint_entry.map_err(|e| {
+                    ForgeError::IoError(format!(
+                        "read_dir_entry {}: {}",
+                        container_path.to_string_lossy(),
+                        e
+                    ))
                 })?;
 
                 let checkpoint_path = checkpoint_entry.path();
@@ -482,12 +497,10 @@ impl StateManager {
                 let checkpoint_id = checkpoint_path
                     .file_name()
                     .and_then(|name| name.to_str())
-                    .ok_or(ForgeError::InvalidDataError {
-                        reason: format!(
-                            "Invalid checkpoint directory name: {}",
-                            checkpoint_path.display()
-                        ),
-                    })?;
+                    .ok_or(ForgeError::InternalError(format!(
+                        "Invalid checkpoint directory name: {}",
+                        checkpoint_path.display()
+                    )))?;
 
                 // Load checkpoint metadata
                 let metadata_path = checkpoint_path.join("checkpoint.meta");
@@ -503,10 +516,10 @@ impl StateManager {
                     checkpoint_id,
                     container_id,
                     CheckpointType::Full,
-                    ContainerStatus::Stopped,
+                    ContainerState::Stopping,
                     true,
                     true,
-                    checkpoint_path,
+                    checkpoint_path.clone(),
                     1024, // Placeholder size
                     None,
                 );
@@ -516,8 +529,8 @@ impl StateManager {
 
             // Add container checkpoints to map
             if !container_checkpoints.is_empty() {
-                let mut checkpoints = self.checkpoints.write().map_err(|_| ForgeError::LockError {
-                    resource: "checkpoints".to_string(),
+                let mut checkpoints = self.checkpoints.write().map_err(|_| {
+                    ForgeError::InternalError("checkpoints lock poisoned".to_string())
                 })?;
 
                 checkpoints.insert(container_id.to_string(), container_checkpoints);
@@ -564,9 +577,9 @@ pub fn get_state_manager() -> Result<&'static StateManager> {
     unsafe {
         match &STATE_MANAGER {
             Some(manager) => Ok(manager),
-            None => Err(ForgeError::UninitializedError {
-                component: "state_manager".to_string(),
-            }),
+            None => Err(ForgeError::InternalError(
+                "state_manager not initialized".to_string(),
+            )),
         }
     }
 }

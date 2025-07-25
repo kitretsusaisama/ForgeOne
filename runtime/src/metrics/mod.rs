@@ -123,10 +123,14 @@ impl ContainerMetrics {
         // Update peak usage
         self.peak_usage.cpu_percentage = self.peak_usage.cpu_percentage.max(usage.cpu_percentage);
         self.peak_usage.memory_bytes = self.peak_usage.memory_bytes.max(usage.memory_bytes);
-        self.peak_usage.disk_read_bytes = self.peak_usage.disk_read_bytes.max(usage.disk_read_bytes);
-        self.peak_usage.disk_write_bytes = self.peak_usage.disk_write_bytes.max(usage.disk_write_bytes);
-        self.peak_usage.network_rx_bytes = self.peak_usage.network_rx_bytes.max(usage.network_rx_bytes);
-        self.peak_usage.network_tx_bytes = self.peak_usage.network_tx_bytes.max(usage.network_tx_bytes);
+        self.peak_usage.disk_read_bytes =
+            self.peak_usage.disk_read_bytes.max(usage.disk_read_bytes);
+        self.peak_usage.disk_write_bytes =
+            self.peak_usage.disk_write_bytes.max(usage.disk_write_bytes);
+        self.peak_usage.network_rx_bytes =
+            self.peak_usage.network_rx_bytes.max(usage.network_rx_bytes);
+        self.peak_usage.network_tx_bytes =
+            self.peak_usage.network_tx_bytes.max(usage.network_tx_bytes);
 
         // Update totals
         self.total_cpu_time_seconds += (usage.cpu_percentage / 100.0) as f64 * time_delta;
@@ -282,8 +286,8 @@ impl MetricsManager {
             common::identity::IdentityContext::system(),
         );
 
-        let mut container_metrics = self.container_metrics.write().map_err(|_| ForgeError::LockError {
-            resource: "container_metrics".to_string(),
+        let mut container_metrics = self.container_metrics.write().map_err(|_| {
+            ForgeError::InternalError("container_metrics lock poisoned".to_string())
         })?;
 
         // Check if container is already registered
@@ -299,9 +303,10 @@ impl MetricsManager {
         container_metrics.insert(container_id.to_string(), metrics);
 
         // Update runtime metrics
-        let mut runtime_metrics = self.runtime_metrics.write().map_err(|_| ForgeError::LockError {
-            resource: "runtime_metrics".to_string(),
-        })?;
+        let mut runtime_metrics = self
+            .runtime_metrics
+            .write()
+            .map_err(|_| ForgeError::InternalError("runtime_metrics lock poisoned".to_string()))?;
 
         runtime_metrics.container_count += 1;
 
@@ -315,25 +320,26 @@ impl MetricsManager {
             common::identity::IdentityContext::system(),
         );
 
-        let mut container_metrics = self.container_metrics.write().map_err(|_| ForgeError::LockError {
-            resource: "container_metrics".to_string(),
+        let mut container_metrics = self.container_metrics.write().map_err(|_| {
+            ForgeError::InternalError("container_metrics lock poisoned".to_string())
         })?;
 
         // Check if container is registered
         if !container_metrics.contains_key(container_id) {
-            return Err(ForgeError::NotFoundError {
-                resource: "container_metrics".to_string(),
-                id: container_id.to_string(),
-            });
+            return Err(ForgeError::NotFound(format!(
+                "container_metrics: {}",
+                container_id
+            )));
         }
 
         // Remove container metrics
         container_metrics.remove(container_id);
 
         // Update runtime metrics
-        let mut runtime_metrics = self.runtime_metrics.write().map_err(|_| ForgeError::LockError {
-            resource: "runtime_metrics".to_string(),
-        })?;
+        let mut runtime_metrics = self
+            .runtime_metrics
+            .write()
+            .map_err(|_| ForgeError::InternalError("runtime_metrics lock poisoned".to_string()))?;
 
         runtime_metrics.container_count -= 1;
 
@@ -341,25 +347,23 @@ impl MetricsManager {
     }
 
     /// Update container metrics
-    pub fn update_container_metrics(
-        &self,
-        container_id: &str,
-        usage: ResourceUsage,
-    ) -> Result<()> {
+    pub fn update_container_metrics(&self, container_id: &str, usage: ResourceUsage) -> Result<()> {
         let span = ExecutionSpan::new(
             "update_container_metrics",
             common::identity::IdentityContext::system(),
         );
 
-        let mut container_metrics = self.container_metrics.write().map_err(|_| ForgeError::LockError {
-            resource: "container_metrics".to_string(),
+        let mut container_metrics = self.container_metrics.write().map_err(|_| {
+            ForgeError::InternalError("container_metrics lock poisoned".to_string())
         })?;
 
         // Check if container is registered
-        let metrics = container_metrics.get_mut(container_id).ok_or(ForgeError::NotFoundError {
-            resource: "container_metrics".to_string(),
-            id: container_id.to_string(),
-        })?;
+        let metrics = container_metrics
+            .get_mut(container_id)
+            .ok_or(ForgeError::NotFound(format!(
+                "container_metrics: {}",
+                container_id
+            )))?;
 
         // Update container metrics
         metrics.update(usage.clone());
@@ -377,15 +381,17 @@ impl MetricsManager {
             common::identity::IdentityContext::system(),
         );
 
-        let container_metrics = self.container_metrics.read().map_err(|_| ForgeError::LockError {
-            resource: "container_metrics".to_string(),
+        let container_metrics = self.container_metrics.read().map_err(|_| {
+            ForgeError::InternalError("container_metrics lock poisoned".to_string())
         })?;
 
         // Check if container is registered
-        let metrics = container_metrics.get(container_id).ok_or(ForgeError::NotFoundError {
-            resource: "container_metrics".to_string(),
-            id: container_id.to_string(),
-        })?;
+        let metrics = container_metrics
+            .get(container_id)
+            .ok_or(ForgeError::NotFound(format!(
+                "container_metrics: {}",
+                container_id
+            )))?;
 
         Ok(metrics.clone())
     }
@@ -397,9 +403,10 @@ impl MetricsManager {
             common::identity::IdentityContext::system(),
         );
 
-        let runtime_metrics = self.runtime_metrics.read().map_err(|_| ForgeError::LockError {
-            resource: "runtime_metrics".to_string(),
-        })?;
+        let runtime_metrics = self
+            .runtime_metrics
+            .read()
+            .map_err(|_| ForgeError::InternalError("runtime_metrics lock poisoned".to_string()))?;
 
         Ok(runtime_metrics.clone())
     }
@@ -411,13 +418,14 @@ impl MetricsManager {
             common::identity::IdentityContext::system(),
         );
 
-        let container_metrics = self.container_metrics.read().map_err(|_| ForgeError::LockError {
-            resource: "container_metrics".to_string(),
+        let container_metrics = self.container_metrics.read().map_err(|_| {
+            ForgeError::InternalError("container_metrics lock poisoned".to_string())
         })?;
 
-        let mut runtime_metrics = self.runtime_metrics.write().map_err(|_| ForgeError::LockError {
-            resource: "runtime_metrics".to_string(),
-        })?;
+        let mut runtime_metrics = self
+            .runtime_metrics
+            .write()
+            .map_err(|_| ForgeError::InternalError("runtime_metrics lock poisoned".to_string()))?;
 
         // Update runtime metrics based on container metrics
         let mut total_cpu_percentage = 0.0;
@@ -486,9 +494,9 @@ pub fn get_metrics_manager() -> Result<&'static MetricsManager> {
     unsafe {
         match &METRICS_MANAGER {
             Some(manager) => Ok(manager),
-            None => Err(ForgeError::UninitializedError {
-                component: "metrics_manager".to_string(),
-            }),
+            None => Err(ForgeError::InternalError(
+                "metrics_manager not initialized".to_string(),
+            )),
         }
     }
 }

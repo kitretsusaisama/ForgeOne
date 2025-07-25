@@ -12,10 +12,10 @@
 - Self-healing: DSM, rollback, anomaly detection
 
 ## 3. Key Modules
-- cli, common, daemon, runtime, network, auth, vault, db, forgefile, plugins, observability, dsm, ui, apiserver, examples, docs, tests
+- microkernel, syscall-bridge, plugin-manager, runtime, common, cli, daemon, network, auth, vault, db, forgefile, plugins, observability, dsm, ui, apiserver, examples, docs, tests
 
 ## 4. Documentation
 - [High-Level Architecture](./hld.md)
 - [Low-Level Design](./lld.md)
 - [Security Model](./security-model.md)
-- [Threat Model](./security-threat-model.md) 
+- [Threat Model](./security-threat-model.md)

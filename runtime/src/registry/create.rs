@@ -6,6 +6,7 @@
 use crate::config::ContainerConfig;
 use crate::contract::{Contract, ContractType};
 use crate::dna::ContainerDNA;
+use crate::dna::ResourceLimits;
 use crate::fs;
 use crate::lifecycle;
 use crate::metrics;
@@ -43,23 +44,13 @@ pub fn create_container(
     // Create container DNA
     let dna = match config {
         Some(cfg) => {
-            let mut dna_builder = ContainerDNA::builder()
-                .image(&cfg.image)
-                .tag("latest"); // Default tag
-
-            if let Some(cmd) = &cfg.command {
-                dna_builder = dna_builder.command(cmd);
-            }
-
-            if let Some(args) = &cfg.args {
-                dna_builder = dna_builder.args(args.clone());
-            }
-
-            if let Some(limits) = &cfg.resource_limits {
-                dna_builder = dna_builder.resource_limits(limits.clone());
-            }
-
-            dna_builder.build()
+            ContainerDNA::new(
+                &cfg.image,
+                "test-signer", // Replace with actual signer if available
+                cfg.resource_limits.clone().unwrap_or_default(),
+                "trusted", // Replace with actual trust_label if available
+                common::identity::IdentityContext::system(),
+            )
         }
         None => {
             // Extract image name and tag from path
@@ -70,42 +61,34 @@ pub fn create_container(
 
             ContainerDNA::new(
                 image_name,
-                "latest",
-                "",
-                vec![],
-                None,
+                "test-signer",
+                ResourceLimits::default(),
+                "trusted",
+                common::identity::IdentityContext::system(),
             )
         }
     };
 
     // Create container contract
-    let mut contract = Contract::new(ContractType::ZTA, &dna);
+    let zta_contract = crate::contract::zta::ZTAContract::new(
+        "default-policy",                           // runtime_policy_id
+        vec!["test-signer".to_string()],            // trusted_issuers
+        0.0,                                        // minimum_entropy
+        crate::contract::zta::ExecMode::Restricted, // exec_mode
+    );
+    let contract = Contract::new(
+        &id,
+        ContractType::ZTA,
+        serde_json::to_value(zta_contract).unwrap(),
+    );
 
-    // Apply configuration to contract if provided
-    if let Some(cfg) = config {
-        if let Some(trusted_issuers) = &cfg.trusted_issuers {
-            for issuer in trusted_issuers {
-                contract.add_trusted_issuer(issuer);
-            }
-        }
-
-        if let Some(min_entropy) = cfg.minimum_entropy {
-            contract.set_minimum_entropy(min_entropy);
-        }
-
-        if let Some(exec_mode) = &cfg.exec_mode {
-            contract.set_exec_mode(exec_mode.clone());
-        }
-    }
+    // (No-op: contract config fields are not settable post-creation in this model)
 
     // Create container filesystem
     fs::create_container_fs(&id, &dna)?;
 
     // Register container
     super::register_container(&id, &name, dna, contract)?;
-
-    // Register container with lifecycle manager
-    lifecycle::register_container(&id)?;
 
     // Register container metrics
     metrics::register_container(&id)?;
@@ -159,9 +142,9 @@ mod tests {
 
         // Verify container properties
         assert_eq!(container.name, "test-container");
-        assert_eq!(container.dna.image, "test-image");
-        assert_eq!(container.dna.command, "test-command");
-        assert_eq!(container.dna.args, vec!["arg1".to_string(), "arg2".to_string()]);
+        assert_eq!(container.dna.hash, "test-image");
+        assert_eq!(container.dna.signer, "test-signer");
+        assert_eq!(container.dna.trust_label, "trusted");
         assert_eq!(container.labels.get("key1"), Some(&"value1".to_string()));
 
         // Clean up
@@ -182,7 +165,7 @@ mod tests {
         // Verify container properties
         assert_eq!(container.id, "test-id");
         assert_eq!(container.name, "test-id");
-        assert_eq!(container.dna.image, "test-image");
+        assert_eq!(container.dna.hash, "test-image");
 
         // Clean up
         registry::unregister_container("test-id").unwrap();

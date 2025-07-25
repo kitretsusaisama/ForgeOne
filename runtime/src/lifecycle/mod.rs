@@ -108,16 +108,11 @@ impl LifecycleManager {
 
     /// Get the container state
     pub fn get_state(&self, container_id: &str) -> Result<ContainerState> {
-        let states = self.states.read().map_err(|_| ForgeError::LockError {
-            resource: "container_states".to_string(),
-        })?;
+        let states = self.states.read().map_err(|_| ForgeError::InternalError("container_states lock poisoned".to_string()))?;
 
         match states.get(container_id) {
             Some(state) => Ok(*state),
-            None => Err(ForgeError::NotFoundError {
-                resource: "container".to_string(),
-                id: container_id.to_string(),
-            }),
+            None => Err(ForgeError::NotFound(format!("container: {}", container_id))),
         }
     }
 
@@ -128,9 +123,7 @@ impl LifecycleManager {
         state: ContainerState,
         reason: &str,
     ) -> Result<()> {
-        let mut states = self.states.write().map_err(|_| ForgeError::LockError {
-            resource: "container_states".to_string(),
-        })?;
+        let mut states = self.states.write().map_err(|_| ForgeError::InternalError("container_states lock poisoned".to_string()))?;
 
         let previous_state = states.get(container_id).copied().unwrap_or(ContainerState::Unknown);
         states.insert(container_id.to_string(), state);
@@ -139,9 +132,7 @@ impl LifecycleManager {
         let transition = StateTransition::new(container_id, previous_state, state, reason);
 
         // Store the transition
-        let mut transitions = self.transitions.write().map_err(|_| ForgeError::LockError {
-            resource: "container_transitions".to_string(),
-        })?;
+        let mut transitions = self.transitions.write().map_err(|_| ForgeError::InternalError("container_transitions lock poisoned".to_string()))?;
 
         let container_transitions = transitions
             .entry(container_id.to_string())
@@ -153,9 +144,7 @@ impl LifecycleManager {
 
     /// Get the container state transitions
     pub fn get_transitions(&self, container_id: &str) -> Result<Vec<StateTransition>> {
-        let transitions = self.transitions.read().map_err(|_| ForgeError::LockError {
-            resource: "container_transitions".to_string(),
-        })?;
+        let transitions = self.transitions.read().map_err(|_| ForgeError::InternalError("container_transitions lock poisoned".to_string()))?;
 
         match transitions.get(container_id) {
             Some(container_transitions) => Ok(container_transitions.clone()),
@@ -188,12 +177,12 @@ impl LifecycleManager {
                 // Already running
                 Ok(())
             }
-            _ => Err(ForgeError::InvalidStateError {
-                resource: "container".to_string(),
-                id: container_id.to_string(),
-                current_state: current_state.to_string(),
-                expected_states: vec!["Created".to_string(), "Paused".to_string()],
-            }),
+            _ => Err(ForgeError::InvalidState(format!(
+                "container: {} (current: {}, expected: {:?})",
+                container_id,
+                current_state,
+                vec!["Created", "Paused"]
+            ))),
         }
     }
 
@@ -213,12 +202,12 @@ impl LifecycleManager {
                 // Already terminated
                 Ok(())
             }
-            _ => Err(ForgeError::InvalidStateError {
-                resource: "container".to_string(),
-                id: container_id.to_string(),
-                current_state: current_state.to_string(),
-                expected_states: vec!["Running".to_string(), "Paused".to_string()],
-            }),
+            _ => Err(ForgeError::InvalidState(format!(
+                "container: {} (current: {}, expected: {:?})",
+                container_id,
+                current_state,
+                vec!["Running", "Paused"]
+            ))),
         }
     }
 
@@ -235,12 +224,12 @@ impl LifecycleManager {
                 // Already paused
                 Ok(())
             }
-            _ => Err(ForgeError::InvalidStateError {
-                resource: "container".to_string(),
-                id: container_id.to_string(),
-                current_state: current_state.to_string(),
-                expected_states: vec!["Running".to_string()],
-            }),
+            _ => Err(ForgeError::InvalidState(format!(
+                "container: {} (current: {}, expected: {:?})",
+                container_id,
+                current_state,
+                vec!["Running"]
+            ))),
         }
     }
 
@@ -257,12 +246,12 @@ impl LifecycleManager {
                 // Already running
                 Ok(())
             }
-            _ => Err(ForgeError::InvalidStateError {
-                resource: "container".to_string(),
-                id: container_id.to_string(),
-                current_state: current_state.to_string(),
-                expected_states: vec!["Paused".to_string()],
-            }),
+            _ => Err(ForgeError::InvalidState(format!(
+                "container: {} (current: {}, expected: {:?})",
+                container_id,
+                current_state,
+                vec!["Paused"]
+            ))),
         }
     }
 
@@ -273,23 +262,17 @@ impl LifecycleManager {
         match current_state {
             ContainerState::Created | ContainerState::Terminated | ContainerState::Failed => {
                 // Remove the container state
-                let mut states = self.states.write().map_err(|_| ForgeError::LockError {
-                    resource: "container_states".to_string(),
-                })?;
+                let mut states = self.states.write().map_err(|_| ForgeError::InternalError("container_states lock poisoned".to_string()))?;
                 states.remove(container_id);
 
                 Ok(())
             }
-            _ => Err(ForgeError::InvalidStateError {
-                resource: "container".to_string(),
-                id: container_id.to_string(),
-                current_state: current_state.to_string(),
-                expected_states: vec![
-                    "Created".to_string(),
-                    "Terminated".to_string(),
-                    "Failed".to_string(),
-                ],
-            }),
+            _ => Err(ForgeError::InvalidState(format!(
+                "container: {} (current: {}, expected: {:?})",
+                container_id,
+                current_state,
+                vec!["Created", "Terminated", "Failed"]
+            ))),
         }
     }
 }
@@ -312,9 +295,7 @@ pub fn get_lifecycle_manager() -> Result<&'static LifecycleManager> {
     unsafe {
         match &LIFECYCLE_MANAGER {
             Some(manager) => Ok(manager),
-            None => Err(ForgeError::UninitializedError {
-                component: "lifecycle_manager".to_string(),
-            }),
+            None => Err(ForgeError::InternalError("lifecycle_manager not initialized".to_string())),
         }
     }
 }
@@ -334,7 +315,9 @@ pub fn start_container(container_id: &str) -> Result<()> {
     if let ContractStatus::Invalid(reason) = contract.status {
         return Err(ForgeError::ValidationError {
             field: "contract".to_string(),
-            message: reason,
+            rule: "contract_status".to_string(),
+            value: reason,
+            suggestions: vec![],
         });
     }
 
