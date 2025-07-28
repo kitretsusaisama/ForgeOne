@@ -353,10 +353,16 @@ impl AuditSink for WriteAheadLogAuditSink {
             .create(true)
             .append(true)
             .open(&self.path)
-            .map_err(|e| ForgeError::IoError(e.to_string()))?;
+            .map_err(|e| ForgeError::IoError {
+                message: e.to_string(),
+                source: Some(Arc::new(e.into())),
+            })?;
         let json = serde_json::to_string(event)
             .map_err(|e| ForgeError::SerializationError(e.to_string()))?;
-        writeln!(file, "{}", json).map_err(|e| ForgeError::IoError(e.to_string()))?;
+        writeln!(file, "{}", json).map_err(|e| ForgeError::IoError {
+            message: e.to_string(),
+            source: Some(Arc::new(e.into())),
+        })?;
         self.inner.write(event)
     }
     fn flush(&self) -> Result<()> {
@@ -372,11 +378,17 @@ impl WriteAheadLogAuditSink {
     pub fn recover_events(&self) -> Result<Vec<AuditEvent>> {
         use std::fs::File;
         use std::io::{BufRead, BufReader};
-        let file = File::open(&self.path).map_err(|e| ForgeError::IoError(e.to_string()))?;
+        let file = File::open(&self.path).map_err(|e| ForgeError::IoError {
+            message: e.to_string(),
+            source: Some(Arc::new(e.into())),
+        })?;
         let reader = BufReader::new(file);
         let mut events = Vec::new();
         for line in reader.lines() {
-            let line = line.map_err(|e| ForgeError::IoError(e.to_string()))?;
+            let line = line.map_err(|e| ForgeError::IoError {
+                message: e.to_string(),
+                source: Some(Arc::new(e.into())),
+            })?;
             let event: AuditEvent = serde_json::from_str(&line)
                 .map_err(|e| ForgeError::SerializationError(e.to_string()))?;
             events.push(event);
@@ -445,7 +457,10 @@ impl AuditLog {
 
         // Create the directory if it doesn't exist
         if let Some(parent) = path.parent() {
-            std::fs::create_dir_all(parent).map_err(|e| ForgeError::IoError(e.to_string()))?;
+            std::fs::create_dir_all(parent).map_err(|e| ForgeError::IoError {
+                message: e.to_string(),
+                source: Some(Arc::new(e.into())),
+            })?;
         }
 
         // Open the file for appending
@@ -453,7 +468,10 @@ impl AuditLog {
             .create(true)
             .append(true)
             .open(path)
-            .map_err(|e| ForgeError::IoError(e.to_string()))?;
+            .map_err(|e| ForgeError::IoError {
+                message: e.to_string(),
+                source: Some(Arc::new(e.into())),
+            })?;
 
         self.file = Some(file);
         Ok(self)
@@ -489,7 +507,10 @@ impl AuditLog {
             .map_err(|e| ForgeError::SerializationError(e.to_string()))?;
         // Write the event to the file if available
         if let Some(file) = &mut self.file {
-            writeln!(file, "{}", json).map_err(|e| ForgeError::IoError(e.to_string()))?;
+            writeln!(file, "{}", json).map_err(|e| ForgeError::IoError {
+                message: e.to_string(),
+                source: Some(Arc::new(e.into())),
+            })?;
         }
         Ok(())
     }
@@ -709,7 +730,10 @@ impl FileAuditSink {
 
         // Create the directory if it doesn't exist
         if let Some(parent) = path.parent() {
-            std::fs::create_dir_all(parent).map_err(|e| ForgeError::IoError(e.to_string()))?;
+            std::fs::create_dir_all(parent).map_err(|e| ForgeError::IoError {
+                message: e.to_string(),
+                source: Some(Arc::new(e.into())),
+            })?;
         }
 
         // Open the file for appending
@@ -717,7 +741,10 @@ impl FileAuditSink {
             .create(true)
             .append(true)
             .open(path)
-            .map_err(|e| ForgeError::IoError(e.to_string()))?;
+            .map_err(|e| ForgeError::IoError {
+                message: e.to_string(),
+                source: Some(Arc::new(e.into())),
+            })?;
 
         Ok(Self {
             path: path_str,
@@ -788,15 +815,20 @@ impl AuditSink for FileAuditSink {
 
         // Write the event to the file
         let mut file = self.file.lock().unwrap();
-        writeln!(file, "{}", json).map_err(|e| ForgeError::IoError(e.to_string()))?;
+        writeln!(file, "{}", json).map_err(|e| ForgeError::IoError {
+            message: e.to_string(),
+            source: Some(Arc::new(e.into())),
+        })?;
 
         Ok(())
     }
 
     fn flush(&self) -> Result<()> {
         let mut file = self.file.lock().unwrap();
-        file.flush()
-            .map_err(|e| ForgeError::IoError(e.to_string()))?;
+        file.flush().map_err(|e| ForgeError::IoError {
+            message: e.to_string(),
+            source: Some(Arc::new(e.into())),
+        })?;
 
         Ok(())
     }
@@ -831,13 +863,18 @@ impl MemoryAuditSink {
         let events = self.events.lock().unwrap();
         let json = serde_json::to_string(&*events)
             .map_err(|e| ForgeError::SerializationError(e.to_string()))?;
-        std::fs::write(target_path, json).map_err(|e| ForgeError::IoError(e.to_string()))?;
+        std::fs::write(target_path, json).map_err(|e| ForgeError::IoError {
+            message: e.to_string(),
+            source: None,
+        })?;
         Ok(())
     }
     /// Restore the sink's events from a file
     pub fn restore(&self, backup_path: &str) -> Result<()> {
-        let json =
-            std::fs::read_to_string(backup_path).map_err(|e| ForgeError::IoError(e.to_string()))?;
+        let json = std::fs::read_to_string(backup_path).map_err(|e| ForgeError::IoError {
+            message: e.to_string(),
+            source: None,
+        })?;
         let events: Vec<AuditEvent> = serde_json::from_str(&json)
             .map_err(|e| ForgeError::SerializationError(e.to_string()))?;
         let mut store = self.events.lock().unwrap();
@@ -1326,13 +1363,19 @@ pub async fn export_audit_events(
 
     // Write events to file
     let path = path.into();
-    let mut file = File::create(&path).map_err(|e| ForgeError::IoError(e.to_string()))?;
+    let mut file = File::create(&path).map_err(|e| ForgeError::IoError {
+        message: e.to_string(),
+        source: Some(Arc::new(e.into())),
+    })?;
 
     for event in &events {
         let json = serde_json::to_string(event)
             .map_err(|e| ForgeError::SerializationError(e.to_string()))?;
 
-        writeln!(file, "{}", json).map_err(|e| ForgeError::IoError(e.to_string()))?;
+        writeln!(file, "{}", json).map_err(|e| ForgeError::IoError {
+            message: e.to_string(),
+            source: Some(Arc::new(e.into())),
+        })?;
     }
 
     Ok(events.len())
@@ -2115,13 +2158,18 @@ impl AuditEventStore for CloudAuditStore {
         let events = self.events.lock().unwrap();
         let json = serde_json::to_string(&*events)
             .map_err(|e| ForgeError::SerializationError(e.to_string()))?;
-        std::fs::write(target_path, json).map_err(|e| ForgeError::IoError(e.to_string()))?;
+        std::fs::write(target_path, json).map_err(|e| ForgeError::IoError {
+            message: e.to_string(),
+            source: None,
+        })?;
         Ok(())
     }
     /// Restore the audit store from a backup (deserialize events from file)
     fn restore(&self, backup_path: &str) -> Result<()> {
-        let json =
-            std::fs::read_to_string(backup_path).map_err(|e| ForgeError::IoError(e.to_string()))?;
+        let json = std::fs::read_to_string(backup_path).map_err(|e| ForgeError::IoError {
+            message: e.to_string(),
+            source: None,
+        })?;
         let events: Vec<AuditEvent> = serde_json::from_str(&json)
             .map_err(|e| ForgeError::SerializationError(e.to_string()))?;
         let mut store = self.events.lock().unwrap();
@@ -2500,12 +2548,17 @@ impl AuditEventStore for RedbAuditStoreTest {
         let events = self.events.lock().unwrap();
         let json = serde_json::to_string(&*events)
             .map_err(|e| ForgeError::SerializationError(e.to_string()))?;
-        std::fs::write(target_path, json).map_err(|e| ForgeError::IoError(e.to_string()))?;
+        std::fs::write(target_path, json).map_err(|e| ForgeError::IoError {
+            message: e.to_string(),
+            source: None,
+        })?;
         Ok(())
     }
     fn restore(&self, backup_path: &str) -> Result<()> {
-        let json =
-            std::fs::read_to_string(backup_path).map_err(|e| ForgeError::IoError(e.to_string()))?;
+        let json = std::fs::read_to_string(backup_path).map_err(|e| ForgeError::IoError {
+            message: e.to_string(),
+            source: None,
+        })?;
         let events: Vec<AuditEvent> = serde_json::from_str(&json)
             .map_err(|e| ForgeError::SerializationError(e.to_string()))?;
         let mut store = self.events.lock().unwrap();

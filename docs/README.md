@@ -7,10 +7,6 @@ This is the comprehensive documentation for the ForgeOne platform, a trust-aware
 
 ### Core Modules
 - [Common Module](./common/README.md) - The sentient core of ForgeOne
-- [Microkernel](./microkernel/README.md) - The secure foundation of the ForgeOne platform
-- [Runtime Module](./runtime/README.md) - Quantum-Grade HyperContainer Runtime
-- [Syscall Bridge](./syscall-bridge/README.md) - Secure syscall interface with zero-trust architecture
-- [Plugin Manager](./plugins/README.md) - Extensible plugin system for ForgeOne
 
 ### Architecture
 - [Architecture Documentation](./architecture/README.md) - High-level and low-level design documents

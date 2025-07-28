@@ -1,11 +1,7 @@
 # ForgeOne Microkernel Module Documentation
 
-*This document is production-ready, MNC-grade, and compliance-focused. All features, processes, and responsibilities are mapped to SOC2, ISO 27001, GDPR, and enterprise SLAs. Security, audit, and evidence generation are integral to every step.*
-
----
-
 ## Overview
-The Microkernel module is the sentient, reflexive, cryptographically sovereign execution brain of ForgeOne, providing a hyper-optimized foundation for secure container execution. This documentation covers all the components of the Microkernel module and their operational, compliance, and integration guarantees.
+The Microkernel module is the sentient, reflexive, cryptographically sovereign execution brain of ForgeOne, providing a hyper-optimized foundation for secure container execution. This documentation covers all the components of the Microkernel module.
 
 ## Core Principles
 Every function, type, and trace in the Microkernel module is:
@@ -96,26 +92,8 @@ let execution_dna = container.execution_dna();
 println!("Container integrity score: {}", execution_dna.integrity_score);
 ```
 
-## Operational & Compliance Guarantees
-- **All actions are logged, versioned, and exportable for audit and regulatory review.** [SOC2 CC7, ISO 27001 A.12, GDPR Art.30]
-- **All policy enforcement, trust anchor changes, and container launches are auditable and evidence-generating.**
-- **Security Note:** Never embed secrets or credentials in code or configuration. Use environment variables and secure storage only.
-- **Error Handling:** All API calls return detailed error types. All errors are logged and can be exported for audit.
-- **Integration:** The microkernel exposes a stable ABI and API for integration with external systems, plugins, and observability tools.
-- **Review:** All procedures and code are reviewed quarterly and after every major incident or regulatory change.
-
-## Troubleshooting
-- **Initialization Failure:** Ensure configuration files are present, valid, and signed if required. Check logs for error details.
-- **Syscall Denied:** Review ZTA policy graph and trust vector. All denials are logged with full context.
-- **Container Launch Failure:** Validate container configuration and trust anchor. All failures are logged and exportable.
-- **Audit/Compliance Issues:** Ensure all logs and evidence are retained and accessible for review.
-
 ## Related Documentation
 - [Common Module](../common/README.md)
 - [API Documentation](../api/README.md)
 - [Architecture Documentation](../architecture/README.md)
 - [Compliance Documentation](../compliance/README.md)
-
----
-
-*This document is reviewed quarterly and after every major incident or regulatory change. For questions, contact the ForgeOne compliance or platform engineering team.*

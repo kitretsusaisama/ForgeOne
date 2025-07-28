@@ -12,8 +12,6 @@ This high-level diagram shows the main modules of the ForgeOne system and their 
 **Key Components:**
 - Common Module (Identity, Policy, Error, Telemetry, Crypto, etc.)
 - Microkernel Modules (Core, Trust, Execution, Observer, etc.)
-- Syscall Bridge (ABI Translator, Syscall Router, Security Filter, etc.)
-- Plugin Manager (Registry, Lifecycle, Loader, etc.)
 - Application Layer (Container Workloads, WASM Modules)
 
 ### 2. Component Interaction Diagram
@@ -51,41 +49,7 @@ This sequence diagram shows the temporal flow of operations during a syscall eva
 - Execution (if allowed)
 - Observation and recording
 
-### 5. Syscall Bridge Architecture
-*File: [syscall-bridge/diagrams/syscall_bridge_architecture.svg](./syscall-bridge/diagrams/syscall_bridge_architecture.svg)*
-
-This diagram illustrates the layered architecture of the ForgeOne Syscall Bridge component, showing how it mediates between applications and system resources.
-
-**Key Components:**
-- Application Layer (WASM Modules, Native Plugins, Containers)
-- Syscall Bridge Layer (ABI Translator, Syscall Router, Security Filter)
-- Syscall Engine Layer (Process, Memory, I/O, Security Syscalls)
-- Security Layer (ZTA Policy, Syscall Enforcer, Redzone)
-
-### 6. Syscall Flow
-*File: [syscall-bridge/diagrams/syscall_flow.svg](./syscall-bridge/diagrams/syscall_flow.svg)*
-
-This diagram depicts the detailed flow of syscall operations through the ForgeOne system, including security checks and execution paths.
-
-**Key Processes:**
-- Syscall request processing
-- Security filtering
-- ZTA policy evaluation
-- Execution or denial paths
-- Audit logging
-
-### 7. Syscall Security Model
-*File: [syscall-bridge/diagrams/syscall_security_model.svg](./syscall-bridge/diagrams/syscall_security_model.svg)*
-
-This diagram illustrates the comprehensive security model implemented in the ForgeOne Syscall Bridge.
-
-**Key Layers:**
-- Prevention Layer (Static Analysis, Capability Model, Sandboxing, Attestation)
-- Detection Layer (Syscall Monitoring, Behavioral Analysis, Resource Monitoring)
-- Enforcement Layer (ZTA Policy Engine, Syscall Filtering, Redzone Protection)
-- Recovery Layer (Forensic Analysis, State Recovery, Incident Response)
-
-### 8. Policy Graph Diagram
+### 5. Policy Graph Diagram
 *File: [policy_graph_diagram.svg](./policy_graph_diagram.svg)*
 
 This diagram illustrates the structure of the ZTA policy graph, showing how policies are organized and evaluated to make security decisions.
