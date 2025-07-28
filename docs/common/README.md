@@ -1,11 +1,7 @@
 # ForgeOne Common Module Documentation
 
-*This document is production-ready, MNC-grade, and compliance-focused. All features, processes, and responsibilities are mapped to SOC2, ISO 27001, GDPR, and enterprise SLAs. Security, audit, and evidence generation are integral to every step.*
-
----
-
 ## Overview
-The Common module is the sentient core of ForgeOne, providing a trust-aware, AI-augmented, self-adaptive foundation for enterprise container intelligence. This documentation covers all the components of the Common module, with operational, compliance, and integration guarantees.
+The Common module is the sentient core of ForgeOne, providing a trust-aware, AI-augmented, self-adaptive foundation for enterprise container intelligence. This documentation covers all the components of the Common module.
 
 ## Core Principles
 Every function, type, and trace in the Common module is:
@@ -87,23 +83,7 @@ common::init_with_db("config.json")?;
 common::shutdown()?;
 ```
 
-## Operational & Compliance Guarantees
-- **All actions, configuration changes, and database operations are logged, versioned, and exportable for audit and regulatory review.**
-- **Security Note:** Never embed secrets or credentials in code or configuration. Use environment variables and secure storage only.
-- **Error Handling:** All API calls and module functions return detailed error types. All errors are logged and can be exported for audit.
-- **Integration:** The common module exposes a stable ABI and API for integration with external systems, plugins, and observability tools.
-- **Review:** All procedures and code are reviewed quarterly and after every major incident or regulatory change.
-
-## Troubleshooting
-- **Initialization Failure:** Ensure configuration files and database files are present and valid. Check logs for error details.
-- **Database Error:** Validate schema and file permissions. All errors are logged with full context.
-- **Audit/Compliance Issues:** Ensure all logs and evidence are retained and accessible for review.
-
 ## Related Documentation
 - [API Documentation](../api/README.md)
 - [Architecture Documentation](../architecture/README.md)
 - [Compliance Documentation](../compliance/README.md)
-
----
-
-*This document is reviewed quarterly and after every major incident or regulatory change. For questions, contact the ForgeOne compliance or platform engineering team.*

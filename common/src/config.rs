@@ -46,8 +46,6 @@ pub struct ForgeConfig {
     pub enable_crypto_verification: bool,
     /// The trusted public keys for verification
     pub trusted_public_keys: Vec<String>,
-    /// The plugin directory of this configuration
-    pub plugin_dir: String,
 }
 
 impl Default for ForgeConfig {
@@ -63,7 +61,6 @@ impl Default for ForgeConfig {
             enable_llm_tracing: false,
             enable_crypto_verification: false,
             trusted_public_keys: Vec::new(),
-            plugin_dir: "None".to_string(),
         }
     }
 }

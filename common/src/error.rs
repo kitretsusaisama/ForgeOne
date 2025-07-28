@@ -141,8 +141,13 @@ pub enum ForgeError {
     DatabaseAccessError(String),
     #[error("TELEMETRY_ERROR: {0}")]
     TelemetryError(String),
-    #[error("IO_ERROR: {0}")]
-    IoError(String),
+    #[error("IO_ERROR: {message}")]
+    IoError {
+        message: String,
+        #[source]
+        #[serde(skip)]
+        source: Option<Arc<anyhow::Error>>,
+    },
     #[error("INTEGRITY_BREACH: {0}")]
     IntegrityBreach(String),
     /// Invalid configuration
@@ -397,26 +402,6 @@ pub enum ForgeError {
 
     #[error("EXECUTION_ERROR: {0}")]
     Execution(String),
-    #[error("ALREADY_EXISTS: {0}")]
-    AlreadyExists(String),
-    #[error("NOT_FOUND: {0}")]
-    NotFound(String),
-    #[error("INTERNAL_ERROR: {0}")]
-    InternalError(String),
-    #[error("NOT_IMPLEMENTED: {0}")]
-    NotImplemented(String),
-    #[error("INVALID_STATE: {0}")]
-    InvalidState(String),
-    #[error("INVALID_INPUT: {0}")]
-    InvalidInput(String),
-    #[error("SECURITY_ERROR: {0}")]
-    SecurityError(String),
-    #[error("OTHER: {0}")]
-    Other(String),
-    #[error("PARSE_ERROR: {format} | Error: {error}")]
-    ParseError { format: String, error: String },
-    #[error("ALREADY_EXISTS_ERROR: {resource} | ID: {id}")]
-    AlreadyExistsError { resource: String, id: String },
 }
 
 /// Enhanced traceable error with enterprise features
@@ -1101,10 +1086,6 @@ impl TraceableError {
             ForgeError::CryptographicError { .. } => ErrorSeverity::Critical,
             ForgeError::ValidationError { .. } => ErrorSeverity::Info,
             ForgeError::DependencyError { .. } => ErrorSeverity::Warning,
-            ForgeError::AlreadyExists(_) => ErrorSeverity::Warning,
-            ForgeError::NotFound(_) => ErrorSeverity::Warning,
-            ForgeError::ParseError { .. } => ErrorSeverity::Error,
-            ForgeError::AlreadyExistsError { .. } => ErrorSeverity::Warning,
             _ => ErrorSeverity::Info,
         }
     }
