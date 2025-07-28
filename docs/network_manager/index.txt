@@ -1,0 +1,56 @@
+# Quantum-Network Fabric Layer Documentation
+
+## Overview
+
+The Quantum-Network Fabric Layer is a Zero Trust Network Manager for container networking. It provides a secure, scalable, and flexible networking solution for containerized applications with the following features:
+
+- **Zero Trust Architecture**: All network connections are authenticated, authorized, and encrypted by default.
+- **Container Networking Interface (CNI)**: Integration with container runtimes like Docker, Kubernetes, and containerd.
+- **Virtual Networks**: Create isolated virtual networks for containers with custom CIDR ranges and gateways.
+- **Network Policies**: Define fine-grained network policies for container-to-container communication.
+- **API**: REST and gRPC APIs for managing networks, containers, and policies.
+- **Metrics**: Prometheus metrics for monitoring network performance and security events.
+
+## Architecture
+
+The Quantum-Network Fabric Layer follows a modular architecture with the following components:
+
+- **Virtual Network Manager**: Creates and manages virtual networks for containers.
+- **CNI Module**: Implements the Container Networking Interface (CNI) specification.
+- **API Module**: Provides REST and gRPC interfaces for managing networks and containers.
+- **Firewall Module**: Implements Zero Trust network policies and security rules.
+- **Bridge Module**: Manages network bridges and virtual Ethernet (veth) pairs.
+- **DNS Module**: Provides DNS resolution and service discovery.
+- **NAT Module**: Implements Network Address Translation for container connectivity.
+
+## Module Documentation
+
+- [Virtual Network Manager](./vnet.md): Documentation for the Virtual Network Manager.
+- [CNI Module](./cni.md): Documentation for the Container Networking Interface (CNI) module.
+- [API Module](./api.md): Documentation for the REST and gRPC APIs.
+- [Firewall Module](./firewall.md): Documentation for the Zero Trust firewall.
+- [Bridge Module](./bridge.md): Documentation for network bridging.
+- [DNS Module](./dns.md): Documentation for DNS resolution and service discovery.
+- [NAT Module](./nat.md): Documentation for Network Address Translation.
+
+## Diagrams
+
+- [Architecture Diagram](./diagrams/architecture.svg): High-level architecture of the Quantum-Network Fabric Layer.
+- [Component Diagram](./diagrams/component.svg): Component diagram showing the relationships between modules.
+- [Sequence Diagram](./diagrams/sequence.svg): Sequence diagram showing the flow of operations.
+- [Network Diagram](./diagrams/network.svg): Network diagram showing the virtual network topology.
+- [Zero Trust Diagram](./diagrams/zero_trust.svg): Diagram showing the Zero Trust security model.
+
+## API Reference
+
+- [REST API](./api_rest.md): Documentation for the REST API endpoints.
+- [gRPC API](./api_grpc.md): Documentation for the gRPC API methods.
+
+## Guides
+
+- [Getting Started](./getting_started.md): Guide for getting started with the Quantum-Network Fabric Layer.
+- [Configuration](./configuration.md): Guide for configuring the Quantum-Network Fabric Layer.
+- [Network Creation](./network_creation.md): Guide for creating and managing virtual networks.
+- [Container Connectivity](./container_connectivity.md): Guide for connecting containers to networks.
+- [Security Policies](./security_policies.md): Guide for defining and enforcing security policies.
+- [Troubleshooting](./troubleshooting.md): Guide for troubleshooting common issues.

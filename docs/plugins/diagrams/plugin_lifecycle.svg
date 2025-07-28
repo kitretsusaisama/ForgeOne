@@ -1,0 +1,123 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1000" height="700" viewBox="0 0 1000 700">
+  <!-- Background and Title -->
+  <rect width="1000" height="700" fill="#f8f9fa" />
+  <text x="500" y="40" font-family="Arial" font-size="24" font-weight="bold" text-anchor="middle" fill="#333">ForgeOne Plugin Lifecycle</text>
+  
+  <!-- Main Container -->
+  <rect x="50" y="70" width="900" height="580" rx="10" ry="10" fill="#fff" stroke="#ddd" stroke-width="2" />
+  
+  <!-- Lifecycle States -->
+  <!-- Discovery -->
+  <circle cx="200" cy="150" r="60" fill="#e6f7ff" stroke="#1890ff" stroke-width="2" />
+  <text x="200" y="155" font-family="Arial" font-size="16" font-weight="bold" text-anchor="middle" fill="#333">Discovery</text>
+  
+  <!-- Validation -->
+  <circle cx="400" cy="150" r="60" fill="#f9f0ff" stroke="#722ed1" stroke-width="2" />
+  <text x="400" y="155" font-family="Arial" font-size="16" font-weight="bold" text-anchor="middle" fill="#333">Validation</text>
+  
+  <!-- Registration -->
+  <circle cx="600" cy="150" r="60" fill="#f6ffed" stroke="#52c41a" stroke-width="2" />
+  <text x="600" y="155" font-family="Arial" font-size="16" font-weight="bold" text-anchor="middle" fill="#333">Registration</text>
+  
+  <!-- Initialization -->
+  <circle cx="800" cy="150" r="60" fill="#fff7e6" stroke="#fa8c16" stroke-width="2" />
+  <text x="800" y="155" font-family="Arial" font-size="16" font-weight="bold" text-anchor="middle" fill="#333">Initialization</text>
+  
+  <!-- Execution -->
+  <circle cx="800" cy="350" r="60" fill="#fff0f6" stroke="#eb2f96" stroke-width="2" />
+  <text x="800" y="355" font-family="Arial" font-size="16" font-weight="bold" text-anchor="middle" fill="#333">Execution</text>
+  
+  <!-- Paused -->
+  <circle cx="600" cy="350" r="60" fill="#fcffe6" stroke="#a0d911" stroke-width="2" />
+  <text x="600" y="355" font-family="Arial" font-size="16" font-weight="bold" text-anchor="middle" fill="#333">Paused</text>
+  
+  <!-- Update -->
+  <circle cx="400" cy="350" r="60" fill="#e6fffb" stroke="#13c2c2" stroke-width="2" />
+  <text x="400" y="355" font-family="Arial" font-size="16" font-weight="bold" text-anchor="middle" fill="#333">Update</text>
+  
+  <!-- Unregistration -->
+  <circle cx="200" cy="350" r="60" fill="#fff2e8" stroke="#fa541c" stroke-width="2" />
+  <text x="200" y="355" font-family="Arial" font-size="16" font-weight="bold" text-anchor="middle" fill="#333">Unregistration</text>
+  
+  <!-- Termination -->
+  <circle cx="200" cy="550" r="60" fill="#fff1f0" stroke="#f5222d" stroke-width="2" />
+  <text x="200" y="555" font-family="Arial" font-size="16" font-weight="bold" text-anchor="middle" fill="#333">Termination</text>
+  
+  <!-- Arrows -->
+  <!-- Discovery to Validation -->
+  <path d="M 260 150 L 340 150" fill="none" stroke="#333" stroke-width="2" marker-end="url(#arrowhead)" />
+  <text x="300" y="140" font-family="Arial" font-size="12" text-anchor="middle" fill="#333">Verify</text>
+  
+  <!-- Validation to Registration -->
+  <path d="M 460 150 L 540 150" fill="none" stroke="#333" stroke-width="2" marker-end="url(#arrowhead)" />
+  <text x="500" y="140" font-family="Arial" font-size="12" text-anchor="middle" fill="#333">Register</text>
+  
+  <!-- Registration to Initialization -->
+  <path d="M 660 150 L 740 150" fill="none" stroke="#333" stroke-width="2" marker-end="url(#arrowhead)" />
+  <text x="700" y="140" font-family="Arial" font-size="12" text-anchor="middle" fill="#333">Initialize</text>
+  
+  <!-- Initialization to Execution -->
+  <path d="M 800 210 L 800 290" fill="none" stroke="#333" stroke-width="2" marker-end="url(#arrowhead)" />
+  <text x="820" y="250" font-family="Arial" font-size="12" text-anchor="middle" fill="#333">Start</text>
+  
+  <!-- Execution to Paused -->
+  <path d="M 740 350 L 660 350" fill="none" stroke="#333" stroke-width="2" marker-end="url(#arrowhead)" />
+  <text x="700" y="340" font-family="Arial" font-size="12" text-anchor="middle" fill="#333">Pause</text>
+  
+  <!-- Paused to Execution -->
+  <path d="M 660 330 L 740 330" fill="none" stroke="#333" stroke-width="2" marker-end="url(#arrowhead)" />
+  <text x="700" y="320" font-family="Arial" font-size="12" text-anchor="middle" fill="#333">Resume</text>
+  
+  <!-- Execution to Update -->
+  <path d="M 740 370 L 660 370 Q 600 370 540 370 L 460 370" fill="none" stroke="#333" stroke-width="2" marker-end="url(#arrowhead)" />
+  <text x="600" y="390" font-family="Arial" font-size="12" text-anchor="middle" fill="#333">Update Request</text>
+  
+  <!-- Update to Execution -->
+  <path d="M 460 330 L 540 330 Q 600 330 660 330 L 740 330" fill="none" stroke="#333" stroke-width="2" marker-end="url(#arrowhead)" />
+  <text x="600" y="310" font-family="Arial" font-size="12" text-anchor="middle" fill="#333">Resume After Update</text>
+  
+  <!-- Execution to Unregistration -->
+  <path d="M 740 350 L 660 350 Q 500 350 340 350 L 260 350" fill="none" stroke="#333" stroke-width="2" marker-end="url(#arrowhead)" />
+  <text x="500" y="330" font-family="Arial" font-size="12" text-anchor="middle" fill="#333">Unregister Request</text>
+  
+  <!-- Unregistration to Termination -->
+  <path d="M 200 410 L 200 490" fill="none" stroke="#333" stroke-width="2" marker-end="url(#arrowhead)" />
+  <text x="220" y="450" font-family="Arial" font-size="12" text-anchor="middle" fill="#333">Terminate</text>
+  
+  <!-- Validation Failure -->
+  <path d="M 370 200 Q 300 250 200 250 Q 100 250 100 350 Q 100 450 140 490" fill="none" stroke="#f5222d" stroke-width="2" stroke-dasharray="5,5" marker-end="url(#arrowhead)" />
+  <text x="100" y="300" font-family="Arial" font-size="12" text-anchor="middle" fill="#f5222d">Validation Failure</text>
+  
+  <!-- Initialization Failure -->
+  <path d="M 770 200 Q 700 250 600 250 Q 500 250 400 250 Q 300 250 200 250 Q 100 250 100 350 Q 100 450 140 490" fill="none" stroke="#f5222d" stroke-width="2" stroke-dasharray="5,5" marker-end="url(#arrowhead)" />
+  <text x="500" y="230" font-family="Arial" font-size="12" text-anchor="middle" fill="#f5222d">Initialization Failure</text>
+  
+  <!-- Execution Failure -->
+  <path d="M 770 400 Q 700 450 600 450 Q 500 450 400 450 Q 300 450 200 450 Q 150 450 150 500" fill="none" stroke="#f5222d" stroke-width="2" stroke-dasharray="5,5" marker-end="url(#arrowhead)" />
+  <text x="500" y="430" font-family="Arial" font-size="12" text-anchor="middle" fill="#f5222d">Execution Failure</text>
+  
+  <!-- Arrowhead Marker -->
+  <defs>
+    <marker id="arrowhead" markerWidth="10" markerHeight="7" refX="9" refY="3.5" orient="auto">
+      <polygon points="0 0, 10 3.5, 0 7" fill="#333" />
+    </marker>
+  </defs>
+  
+  <!-- Legend -->
+  <rect x="100" y="620" width="800" height="20" rx="5" ry="5" fill="none" />
+  <text x="500" y="635" font-family="Arial" font-size="14" text-anchor="middle" fill="#333">
+    Normal Flow | <tspan fill="#f5222d">Error Flow</tspan>
+  </text>
+  
+  <!-- Lifecycle Phases -->
+  <rect x="50" y="70" width="900" height="30" rx="5" ry="5" fill="none" />
+  <text x="100" y="90" font-family="Arial" font-size="14" font-weight="bold" fill="#333">Discovery Phase</text>
+  <text x="400" y="90" font-family="Arial" font-size="14" font-weight="bold" fill="#333">Activation Phase</text>
+  <text x="700" y="90" font-family="Arial" font-size="14" font-weight="bold" fill="#333">Runtime Phase</text>
+  <text x="900" y="90" font-family="Arial" font-size="14" font-weight="bold" fill="#333">Termination Phase</text>
+  
+  <!-- Phase Dividers -->
+  <line x1="250" y1="70" x2="250" y2="100" stroke="#ddd" stroke-width="1" stroke-dasharray="3,3" />
+  <line x1="550" y1="70" x2="550" y2="100" stroke="#ddd" stroke-width="1" stroke-dasharray="3,3" />
+  <line x1="850" y1="70" x2="850" y2="100" stroke="#ddd" stroke-width="1" stroke-dasharray="3,3" />
+</svg>

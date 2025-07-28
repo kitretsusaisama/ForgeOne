@@ -1,0 +1,113 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1000" height="800" viewBox="0 0 1000 800">
+  <!-- Background and Title -->
+  <rect width="1000" height="800" fill="#f8f9fa" />
+  <text x="500" y="40" font-family="Arial" font-size="24" font-weight="bold" text-anchor="middle" fill="#333">ForgeOne Microkernel Trust Architecture</text>
+  
+  <!-- Main Container -->
+  <rect x="50" y="70" width="900" height="680" rx="10" ry="10" fill="#fff" stroke="#ddd" stroke-width="2" />
+  
+  <!-- Trust Perimeter -->
+  <rect x="100" y="100" width="800" height="630" rx="5" ry="5" fill="none" stroke="#722ed1" stroke-width="3" stroke-dasharray="10,5" />
+  <text x="500" y="130" font-family="Arial" font-size="20" font-weight="bold" text-anchor="middle" fill="#722ed1">Zero Trust Architecture (ZTA)</text>
+  
+  <!-- Trust Components -->
+  <rect x="150" y="160" width="700" height="100" rx="5" ry="5" fill="#f9f0ff" stroke="#722ed1" stroke-width="2" />
+  <text x="500" y="185" font-family="Arial" font-size="18" font-weight="bold" text-anchor="middle" fill="#333">Trust Policy Engine</text>
+  
+  <rect x="180" y="200" width="200" height="40" rx="5" ry="5" fill="#efdbff" stroke="#722ed1" stroke-width="1" />
+  <text x="280" y="225" font-family="Arial" font-size="14" text-anchor="middle" fill="#333">ZTA Policy</text>
+  
+  <rect x="400" y="200" width="200" height="40" rx="5" ry="5" fill="#efdbff" stroke="#722ed1" stroke-width="1" />
+  <text x="500" y="225" font-family="Arial" font-size="14" text-anchor="middle" fill="#333">Trust Evaluation</text>
+  
+  <rect x="620" y="200" width="200" height="40" rx="5" ry="5" fill="#efdbff" stroke="#722ed1" stroke-width="1" />
+  <text x="720" y="225" font-family="Arial" font-size="14" text-anchor="middle" fill="#333">Policy Enforcement</text>
+  
+  <!-- Attestation Layer -->
+  <rect x="150" y="280" width="700" height="100" rx="5" ry="5" fill="#fff0f6" stroke="#eb2f96" stroke-width="2" />
+  <text x="500" y="305" font-family="Arial" font-size="18" font-weight="bold" text-anchor="middle" fill="#333">Attestation Layer</text>
+  
+  <rect x="180" y="320" width="200" height="40" rx="5" ry="5" fill="#ffd6e7" stroke="#eb2f96" stroke-width="1" />
+  <text x="280" y="345" font-family="Arial" font-size="14" text-anchor="middle" fill="#333">Code Attestation</text>
+  
+  <rect x="400" y="320" width="200" height="40" rx="5" ry="5" fill="#ffd6e7" stroke="#eb2f96" stroke-width="1" />
+  <text x="500" y="345" font-family="Arial" font-size="14" text-anchor="middle" fill="#333">Runtime Attestation</text>
+  
+  <rect x="620" y="320" width="200" height="40" rx="5" ry="5" fill="#ffd6e7" stroke="#eb2f96" stroke-width="1" />
+  <text x="720" y="345" font-family="Arial" font-size="14" text-anchor="middle" fill="#333">Identity Verification</text>
+  
+  <!-- Enforcement Layer -->
+  <rect x="150" y="400" width="700" height="100" rx="5" ry="5" fill="#fff7e6" stroke="#fa8c16" stroke-width="2" />
+  <text x="500" y="425" font-family="Arial" font-size="18" font-weight="bold" text-anchor="middle" fill="#333">Enforcement Layer</text>
+  
+  <rect x="180" y="440" width="200" height="40" rx="5" ry="5" fill="#ffe7ba" stroke="#fa8c16" stroke-width="1" />
+  <text x="280" y="465" font-family="Arial" font-size="14" text-anchor="middle" fill="#333">Syscall Enforcer</text>
+  
+  <rect x="400" y="440" width="200" height="40" rx="5" ry="5" fill="#ffe7ba" stroke="#fa8c16" stroke-width="1" />
+  <text x="500" y="465" font-family="Arial" font-size="14" text-anchor="middle" fill="#333">Redzone Protection</text>
+  
+  <rect x="620" y="440" width="200" height="40" rx="5" ry="5" fill="#ffe7ba" stroke="#fa8c16" stroke-width="1" />
+  <text x="720" y="465" font-family="Arial" font-size="14" text-anchor="middle" fill="#333">Memory Isolation</text>
+  
+  <!-- Audit Layer -->
+  <rect x="150" y="520" width="700" height="100" rx="5" ry="5" fill="#e6fffb" stroke="#13c2c2" stroke-width="2" />
+  <text x="500" y="545" font-family="Arial" font-size="18" font-weight="bold" text-anchor="middle" fill="#333">Audit Layer</text>
+  
+  <rect x="180" y="560" width="200" height="40" rx="5" ry="5" fill="#b5f5ec" stroke="#13c2c2" stroke-width="1" />
+  <text x="280" y="585" font-family="Arial" font-size="14" text-anchor="middle" fill="#333">Trust Logging</text>
+  
+  <rect x="400" y="560" width="200" height="40" rx="5" ry="5" fill="#b5f5ec" stroke="#13c2c2" stroke-width="1" />
+  <text x="500" y="585" font-family="Arial" font-size="14" text-anchor="middle" fill="#333">Forensic Analysis</text>
+  
+  <rect x="620" y="560" width="200" height="40" rx="5" ry="5" fill="#b5f5ec" stroke="#13c2c2" stroke-width="1" />
+  <text x="720" y="585" font-family="Arial" font-size="14" text-anchor="middle" fill="#333">Anomaly Detection</text>
+  
+  <!-- Integration Layer -->
+  <rect x="150" y="640" width="700" height="70" rx="5" ry="5" fill="#f6ffed" stroke="#52c41a" stroke-width="2" />
+  <text x="500" y="665" font-family="Arial" font-size="18" font-weight="bold" text-anchor="middle" fill="#333">Integration Layer</text>
+  
+  <rect x="180" y="680" width="200" height="30" rx="5" ry="5" fill="#d9f7be" stroke="#52c41a" stroke-width="1" />
+  <text x="280" y="700" font-family="Arial" font-size="14" text-anchor="middle" fill="#333">Common Trust Module</text>
+  
+  <rect x="400" y="680" width="200" height="30" rx="5" ry="5" fill="#d9f7be" stroke="#52c41a" stroke-width="1" />
+  <text x="500" y="700" font-family="Arial" font-size="14" text-anchor="middle" fill="#333">Crypto Services</text>
+  
+  <rect x="620" y="680" width="200" height="30" rx="5" ry="5" fill="#d9f7be" stroke="#52c41a" stroke-width="1" />
+  <text x="720" y="700" font-family="Arial" font-size="14" text-anchor="middle" fill="#333">External Trust Anchors</text>
+  
+  <!-- External Trust Boundaries -->
+  <rect x="50" y="70" width="900" height="680" rx="10" ry="10" fill="none" stroke="#f5222d" stroke-width="1" stroke-dasharray="5,5" />
+  <text x="500" y="90" font-family="Arial" font-size="16" font-style="italic" text-anchor="middle" fill="#f5222d">External Trust Boundary</text>
+  
+  <!-- Connecting Lines -->
+  <!-- Policy to Attestation -->
+  <line x1="500" y1="260" x2="500" y2="280" stroke="#333" stroke-width="2" />
+  
+  <!-- Attestation to Enforcement -->
+  <line x1="500" y1="380" x2="500" y2="400" stroke="#333" stroke-width="2" />
+  
+  <!-- Enforcement to Audit -->
+  <line x1="500" y1="500" x2="500" y2="520" stroke="#333" stroke-width="2" />
+  
+  <!-- Audit to Integration -->
+  <line x1="500" y1="620" x2="500" y2="640" stroke="#333" stroke-width="2" />
+  
+  <!-- Cross-connections -->
+  <path d="M 280 225 Q 280 275 280 320" fill="none" stroke="#333" stroke-width="1" stroke-dasharray="5,5" />
+  <path d="M 720 225 Q 720 275 720 320" fill="none" stroke="#333" stroke-width="1" stroke-dasharray="5,5" />
+  
+  <path d="M 280 345 Q 280 395 280 440" fill="none" stroke="#333" stroke-width="1" stroke-dasharray="5,5" />
+  <path d="M 720 345 Q 720 395 720 440" fill="none" stroke="#333" stroke-width="1" stroke-dasharray="5,5" />
+  
+  <path d="M 280 465 Q 280 515 280 560" fill="none" stroke="#333" stroke-width="1" stroke-dasharray="5,5" />
+  <path d="M 720 465 Q 720 515 720 560" fill="none" stroke="#333" stroke-width="1" stroke-dasharray="5,5" />
+  
+  <path d="M 280 585 Q 280 635 280 680" fill="none" stroke="#333" stroke-width="1" stroke-dasharray="5,5" />
+  <path d="M 720 585 Q 720 635 720 680" fill="none" stroke="#333" stroke-width="1" stroke-dasharray="5,5" />
+  
+  <!-- Key Features -->
+  <rect x="50" y="750" width="900" height="30" rx="5" ry="5" fill="none" />
+  <text x="500" y="770" font-family="Arial" font-size="14" text-anchor="middle" fill="#333">
+    Key Features: Zero-Trust Architecture | Quantum-Grade Attestation | Runtime Enforcement | Continuous Verification | Adaptive Trust
+  </text>
+</svg>

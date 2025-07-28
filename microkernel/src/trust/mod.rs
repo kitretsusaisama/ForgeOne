@@ -97,3 +97,9 @@ pub fn verify_attestation(claim_id: uuid::Uuid) -> Result<AttestationResult, Str
 pub fn evaluate_trust(context_id: uuid::Uuid) -> Result<TrustEvaluationResult, String> {
     evaluation::evaluate_trust(context_id)
 }
+
+// Add this near the top or where appropriate
+#[derive(Debug, Clone)]
+pub struct TrustContext {
+    // Add fields as needed, or leave empty for now
+}

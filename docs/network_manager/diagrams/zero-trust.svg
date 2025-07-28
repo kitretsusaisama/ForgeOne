@@ -1,0 +1,171 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" width="800" height="600" viewBox="0 0 800 600">
+  <!-- Styles -->
+  <defs>
+    <style type="text/css">
+      .container {
+        fill: #e3f2fd;
+        stroke: #1976d2;
+        stroke-width: 2;
+      }
+      .security {
+        fill: #ffebee;
+        stroke: #c62828;
+        stroke-width: 2;
+      }
+      .policy {
+        fill: #e8f5e9;
+        stroke: #388e3c;
+        stroke-width: 2;
+      }
+      .identity {
+        fill: #fff3e0;
+        stroke: #e65100;
+        stroke-width: 2;
+      }
+      .network {
+        fill: #f3e5f5;
+        stroke: #7b1fa2;
+        stroke-width: 2;
+      }
+      .connection {
+        stroke: #424242;
+        stroke-width: 1.5;
+      }
+      .secure {
+        stroke: #4caf50;
+        stroke-width: 2;
+      }
+      .insecure {
+        stroke: #f44336;
+        stroke-width: 2;
+        stroke-dasharray: 5, 3;
+      }
+      .verify {
+        stroke: #ff9800;
+        stroke-width: 1.5;
+        stroke-dasharray: 10, 5;
+      }
+      .label {
+        font-family: Arial, sans-serif;
+        font-size: 12px;
+        fill: #212121;
+      }
+      .title {
+        font-family: Arial, sans-serif;
+        font-size: 24px;
+        font-weight: bold;
+        fill: #212121;
+      }
+      .subtitle {
+        font-family: Arial, sans-serif;
+        font-size: 16px;
+        fill: #424242;
+      }
+      .small {
+        font-family: Arial, sans-serif;
+        font-size: 10px;
+        fill: #616161;
+      }
+    </style>
+    <marker id="arrowhead" markerWidth="10" markerHeight="7" refX="9" refY="3.5" orient="auto">
+      <polygon points="0 0, 10 3.5, 0 7" fill="#424242" />
+    </marker>
+    <marker id="greenarrow" markerWidth="10" markerHeight="7" refX="9" refY="3.5" orient="auto">
+      <polygon points="0 0, 10 3.5, 0 7" fill="#4caf50" />
+    </marker>
+    <marker id="redarrow" markerWidth="10" markerHeight="7" refX="9" refY="3.5" orient="auto">
+      <polygon points="0 0, 10 3.5, 0 7" fill="#f44336" />
+    </marker>
+    <marker id="orangearrow" markerWidth="10" markerHeight="7" refX="9" refY="3.5" orient="auto">
+      <polygon points="0 0, 10 3.5, 0 7" fill="#ff9800" />
+    </marker>
+  </defs>
+  
+  <!-- Title -->
+  <text x="400" y="40" class="title" text-anchor="middle">Quantum-Network Fabric Layer</text>
+  <text x="400" y="70" class="subtitle" text-anchor="middle">Zero Trust Security Model</text>
+  
+  <!-- Zero Trust Perimeter -->
+  <rect x="50" y="100" width="700" height="450" rx="10" ry="10" class="security" fill-opacity="0.2" />
+  <text x="400" y="125" class="label" text-anchor="middle" font-weight="bold">Zero Trust Security Perimeter</text>
+  
+  <!-- Policy Engine -->
+  <rect x="350" y="150" width="120" height="80" rx="5" ry="5" class="policy" />
+  <text x="410" y="190" class="label" text-anchor="middle" font-weight="bold">Policy Engine</text>
+  <text x="410" y="210" class="small" text-anchor="middle">ZTA Policy Graph</text>
+  
+  <!-- Identity Provider -->
+  <rect x="350" y="260" width="120" height="80" rx="5" ry="5" class="identity" />
+  <text x="410" y="300" class="label" text-anchor="middle" font-weight="bold">Identity Provider</text>
+  <text x="410" y="320" class="small" text-anchor="middle">Certificate Authority</text>
+  
+  <!-- Containers -->
+  <rect x="100" y="200" width="100" height="60" rx="5" ry="5" class="container" />
+  <text x="150" y="230" class="label" text-anchor="middle" font-weight="bold">Container A</text>
+  <text x="150" y="250" class="small" text-anchor="middle">Identity: A</text>
+  
+  <rect x="100" y="350" width="100" height="60" rx="5" ry="5" class="container" />
+  <text x="150" y="380" class="label" text-anchor="middle" font-weight="bold">Container B</text>
+  <text x="150" y="400" class="small" text-anchor="middle">Identity: B</text>
+  
+  <rect x="600" y="200" width="100" height="60" rx="5" ry="5" class="container" />
+  <text x="650" y="230" class="label" text-anchor="middle" font-weight="bold">Container C</text>
+  <text x="650" y="250" class="small" text-anchor="middle">Identity: C</text>
+  
+  <rect x="600" y="350" width="100" height="60" rx="5" ry="5" class="container" />
+  <text x="650" y="380" class="label" text-anchor="middle" font-weight="bold">Container D</text>
+  <text x="650" y="400" class="small" text-anchor="middle">Identity: D</text>
+  
+  <!-- Network -->
+  <rect x="250" y="400" width="300" height="80" rx="5" ry="5" class="network" />
+  <text x="400" y="440" class="label" text-anchor="middle" font-weight="bold">Virtual Network Manager</text>
+  <text x="400" y="460" class="small" text-anchor="middle">Encrypted Overlay Network</text>
+  
+  <!-- Firewall -->
+  <rect x="250" y="320" width="300" height="50" rx="5" ry="5" class="security" />
+  <text x="400" y="350" class="label" text-anchor="middle" font-weight="bold">Firewall Module (Policy Enforcement)</text>
+  
+  <!-- Connections -->
+  <!-- Identity verification -->
+  <line x1="150" y1="260" x2="350" y2="290" class="verify" marker-end="url(#orangearrow)" />
+  <line x1="650" y1="260" x2="470" y2="290" class="verify" marker-end="url(#orangearrow)" />
+  <line x1="150" y1="350" x2="350" y2="320" class="verify" marker-end="url(#orangearrow)" />
+  <line x1="650" y1="350" x2="470" y2="320" class="verify" marker-end="url(#orangearrow)" />
+  
+  <!-- Policy checks -->
+  <line x1="410" y1="230" x2="410" y2="260" class="connection" marker-end="url(#arrowhead)" />
+  <line x1="410" y1="340" x2="410" y2="320" class="connection" marker-end="url(#arrowhead)" />
+  
+  <!-- Network connections -->
+  <line x1="150" y1="410" x2="250" y2="440" class="secure" marker-end="url(#greenarrow)" />
+  <line x1="650" y1="410" x2="550" y2="440" class="secure" marker-end="url(#greenarrow)" />
+  
+  <!-- Allowed/Denied connections -->
+  <line x1="200" y1="230" x2="600" y2="230" class="secure" marker-end="url(#greenarrow)" />
+  <text x="400" y="220" class="small" text-anchor="middle">Allowed by policy</text>
+  
+  <line x1="200" y1="380" x2="600" y2="380" class="insecure" marker-end="url(#redarrow)" />
+  <text x="400" y="370" class="small" text-anchor="middle">Denied by policy</text>
+  
+  <!-- Legend -->
+  <rect x="100" y="500" width="120" height="20" rx="3" ry="3" class="container" />
+  <text x="160" y="515" class="label" text-anchor="middle">Container</text>
+  
+  <rect x="100" y="525" width="120" height="20" rx="3" ry="3" class="policy" />
+  <text x="160" y="540" class="label" text-anchor="middle">Policy Component</text>
+  
+  <rect x="250" y="500" width="120" height="20" rx="3" ry="3" class="security" />
+  <text x="310" y="515" class="label" text-anchor="middle">Security Component</text>
+  
+  <rect x="250" y="525" width="120" height="20" rx="3" ry="3" class="network" />
+  <text x="310" y="540" class="label" text-anchor="middle">Network Component</text>
+  
+  <line x1="400" y1="510" x2="450" y2="510" class="secure" marker-end="url(#greenarrow)" />
+  <text x="500" y="515" class="label" text-anchor="middle">Allowed Connection</text>
+  
+  <line x1="400" y1="535" x2="450" y2="535" class="insecure" marker-end="url(#redarrow)" />
+  <text x="500" y="540" class="label" text-anchor="middle">Denied Connection</text>
+  
+  <line x1="550" y1="510" x2="600" y2="510" class="verify" marker-end="url(#orangearrow)" />
+  <text x="650" y1="515" class="label" text-anchor="middle">Identity Verification</text>
+</svg>

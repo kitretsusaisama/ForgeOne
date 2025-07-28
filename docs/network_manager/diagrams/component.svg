@@ -1,0 +1,175 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" width="800" height="800" viewBox="0 0 800 800">
+  <!-- Styles -->
+  <defs>
+    <style type="text/css">
+      .component {
+        fill: #e1f5fe;
+        stroke: #0288d1;
+        stroke-width: 2;
+      }
+      .subcomponent {
+        fill: #bbdefb;
+        stroke: #1976d2;
+        stroke-width: 2;
+      }
+      .interface {
+        fill: #e8f5e9;
+        stroke: #388e3c;
+        stroke-width: 2;
+      }
+      .arrow {
+        stroke: #424242;
+        stroke-width: 2;
+        fill: none;
+        marker-end: url(#arrowhead);
+      }
+      .dependency {
+        stroke: #424242;
+        stroke-width: 2;
+        stroke-dasharray: 5, 5;
+        fill: none;
+        marker-end: url(#arrowhead);
+      }
+      .label {
+        font-family: Arial, sans-serif;
+        font-size: 14px;
+        fill: #212121;
+      }
+      .small-label {
+        font-family: Arial, sans-serif;
+        font-size: 12px;
+        fill: #424242;
+      }
+      .title {
+        font-family: Arial, sans-serif;
+        font-size: 24px;
+        font-weight: bold;
+        fill: #212121;
+      }
+      .subtitle {
+        font-family: Arial, sans-serif;
+        font-size: 16px;
+        fill: #424242;
+      }
+    </style>
+    <marker id="arrowhead" markerWidth="10" markerHeight="7" refX="9" refY="3.5" orient="auto">
+      <polygon points="0 0, 10 3.5, 0 7" fill="#424242" />
+    </marker>
+  </defs>
+  
+  <!-- Title -->
+  <text x="400" y="40" class="title" text-anchor="middle">Quantum-Network Fabric Layer</text>
+  <text x="400" y="70" class="subtitle" text-anchor="middle">Component Diagram</text>
+  
+  <!-- Core Components -->
+  <!-- API Module -->
+  <rect x="100" y="120" width="200" height="100" rx="5" ry="5" class="component" />
+  <text x="200" y="150" class="label" text-anchor="middle">API Module</text>
+  <rect x="120" y="160" width="75" height="40" rx="5" ry="5" class="subcomponent" />
+  <text x="157" y="185" class="small-label" text-anchor="middle">REST API</text>
+  <rect x="205" y="160" width="75" height="40" rx="5" ry="5" class="subcomponent" />
+  <text x="242" y="185" class="small-label" text-anchor="middle">gRPC API</text>
+  
+  <!-- CNI Module -->
+  <rect x="500" y="120" width="200" height="100" rx="5" ry="5" class="component" />
+  <text x="600" y="150" class="label" text-anchor="middle">CNI Module</text>
+  <rect x="520" y="160" width="75" height="40" rx="5" ry="5" class="subcomponent" />
+  <text x="557" y="185" class="small-label" text-anchor="middle">CNI Server</text>
+  <rect x="605" y="160" width="75" height="40" rx="5" ry="5" class="subcomponent" />
+  <text x="642" y="185" class="small-label" text-anchor="middle">CNI Plugin</text>
+  
+  <!-- Virtual Network Manager -->
+  <rect x="300" y="280" width="200" height="100" rx="5" ry="5" class="component" />
+  <text x="400" y="310" class="label" text-anchor="middle">Virtual Network Manager</text>
+  <rect x="320" y="320" width="75" height="40" rx="5" ry="5" class="subcomponent" />
+  <text x="357" y="345" class="small-label" text-anchor="middle">Network</text>
+  <rect x="405" y="320" width="75" height="40" rx="5" ry="5" class="subcomponent" />
+  <text x="442" y="345" class="small-label" text-anchor="middle">Endpoint</text>
+  
+  <!-- Bridge Module -->
+  <rect x="100" y="440" width="200" height="100" rx="5" ry="5" class="component" />
+  <text x="200" y="470" class="label" text-anchor="middle">Bridge Module</text>
+  <rect x="120" y="480" width="75" height="40" rx="5" ry="5" class="subcomponent" />
+  <text x="157" y="505" class="small-label" text-anchor="middle">Bridge</text>
+  <rect x="205" y="480" width="75" height="40" rx="5" ry="5" class="subcomponent" />
+  <text x="242" y="505" class="small-label" text-anchor="middle">Veth Pair</text>
+  
+  <!-- Firewall Module -->
+  <rect x="500" y="440" width="200" height="100" rx="5" ry="5" class="component" />
+  <text x="600" y="470" class="label" text-anchor="middle">Firewall Module</text>
+  <rect x="520" y="480" width="75" height="40" rx="5" ry="5" class="subcomponent" />
+  <text x="557" y="505" class="small-label" text-anchor="middle">Policy</text>
+  <rect x="605" y="480" width="75" height="40" rx="5" ry="5" class="subcomponent" />
+  <text x="642" y="505" class="small-label" text-anchor="middle">Rules</text>
+  
+  <!-- DNS Module -->
+  <rect x="100" y="600" width="200" height="100" rx="5" ry="5" class="component" />
+  <text x="200" y="630" class="label" text-anchor="middle">DNS Module</text>
+  <rect x="120" y="640" width="75" height="40" rx="5" ry="5" class="subcomponent" />
+  <text x="157" y="665" class="small-label" text-anchor="middle">Resolver</text>
+  <rect x="205" y="640" width="75" height="40" rx="5" ry="5" class="subcomponent" />
+  <text x="242" y="665" class="small-label" text-anchor="middle">Records</text>
+  
+  <!-- NAT Module -->
+  <rect x="500" y="600" width="200" height="100" rx="5" ry="5" class="component" />
+  <text x="600" y="630" class="label" text-anchor="middle">NAT Module</text>
+  <rect x="520" y="640" width="75" height="40" rx="5" ry="5" class="subcomponent" />
+  <text x="557" y="665" class="small-label" text-anchor="middle">SNAT</text>
+  <rect x="605" y="640" width="75" height="40" rx="5" ry="5" class="subcomponent" />
+  <text x="642" y="665" class="small-label" text-anchor="middle">DNAT</text>
+  
+  <!-- Interfaces -->
+  <rect x="350" y="150" width="100" height="40" rx="5" ry="5" class="interface" />
+  <text x="400" y="175" class="small-label" text-anchor="middle">API Interface</text>
+  
+  <rect x="350" y="400" width="100" height="40" rx="5" ry="5" class="interface" />
+  <text x="400" y="425" class="small-label" text-anchor="middle">Network Interface</text>
+  
+  <rect x="350" y="520" width="100" height="40" rx="5" ry="5" class="interface" />
+  <text x="400" y="545" class="small-label" text-anchor="middle">Security Interface</text>
+  
+  <!-- Connections -->
+  <!-- API to CNI -->
+  <path d="M 300 170 L 350 170" class="arrow" />
+  <path d="M 450 170 L 500 170" class="arrow" />
+  
+  <!-- API to VNet -->
+  <path d="M 200 220 L 200 330 L 300 330" class="arrow" />
+  
+  <!-- CNI to VNet -->
+  <path d="M 600 220 L 600 330 L 500 330" class="arrow" />
+  
+  <!-- VNet to Bridge -->
+  <path d="M 350 380 L 350 420 L 200 420 L 200 440" class="arrow" />
+  
+  <!-- VNet to Firewall -->
+  <path d="M 450 380 L 450 420 L 600 420 L 600 440" class="arrow" />
+  
+  <!-- Bridge to DNS -->
+  <path d="M 200 540 L 200 600" class="arrow" />
+  
+  <!-- Firewall to NAT -->
+  <path d="M 600 540 L 600 600" class="arrow" />
+  
+  <!-- Dependencies -->
+  <path d="M 200 540 L 200 570 L 400 570 L 400 520" class="dependency" />
+  <path d="M 600 540 L 600 570 L 400 570 L 400 520" class="dependency" />
+  <path d="M 300 490 L 350 490 L 350 520" class="dependency" />
+  <path d="M 500 490 L 450 490 L 450 520" class="dependency" />
+  
+  <!-- Legend -->
+  <rect x="50" y="740" width="20" height="20" class="component" />
+  <text x="80" y="755" class="label">Component</text>
+  
+  <rect x="200" y="740" width="20" height="20" class="subcomponent" />
+  <text x="230" y="755" class="label">Subcomponent</text>
+  
+  <rect x="350" y="740" width="20" height="20" class="interface" />
+  <text x="380" y="755" class="label">Interface</text>
+  
+  <line x1="500" y1="750" x2="550" y2="750" class="arrow" />
+  <text x="580" y="755" class="label">Dependency</text>
+  
+  <line x1="650" y1="750" x2="700" y2="750" class="dependency" />
+  <text x="730" y="755" class="label">Optional</text>
+</svg>

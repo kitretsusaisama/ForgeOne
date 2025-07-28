@@ -350,6 +350,48 @@ pub trait HealthChecker: Send + Sync {
     fn check(&self) -> Result<HealthCheckResult>;
 }
 
+/// Trait for telemetry
+pub trait Telemetry: Send + Sync {
+    fn record_plugin_health(
+        &self,
+        plugin_id: &str,
+        plugin_name: &str,
+        version: &str,
+        is_healthy: bool,
+    );
+    fn record_plugin_dependencies(
+        &self,
+        plugin_id: &str,
+        plugin_name: &str,
+        version: &str,
+        dependency_count: u64,
+    );
+    fn record_plugin_cpu_usage(
+        &self,
+        plugin_id: &str,
+        plugin_name: &str,
+        version: &str,
+        cpu_percent: f64,
+    );
+    fn record_security_event(
+        &self,
+        plugin_id: &str,
+        plugin_name: &str,
+        event_type: &str,
+        severity: &str,
+    );
+    fn record_marketplace_event(&self, plugin_id: &str, plugin_name: &str, event_type: &str);
+}
+
+pub struct NoopTelemetry;
+impl Telemetry for NoopTelemetry {
+    fn record_plugin_health(&self, _a: &str, _b: &str, _c: &str, _d: bool) {}
+    fn record_plugin_dependencies(&self, _a: &str, _b: &str, _c: &str, _d: u64) {}
+    fn record_plugin_cpu_usage(&self, _a: &str, _b: &str, _c: &str, _d: f64) {}
+    fn record_security_event(&self, _a: &str, _b: &str, _c: &str, _d: &str) {}
+    fn record_marketplace_event(&self, _a: &str, _b: &str, _c: &str) {}
+}
+
 /// Telemetry manager
 pub struct TelemetryManager {
     /// Telemetry configuration
@@ -368,6 +410,8 @@ pub struct TelemetryManager {
     active_spans: RwLock<HashMap<String, TelemetrySpan>>,
     /// Completed spans
     completed_spans: RwLock<Vec<TelemetrySpan>>,
+    /// Recorded events
+    events: RwLock<Vec<TelemetryEvent>>,
 }
 
 impl TelemetryManager {
@@ -395,6 +439,7 @@ impl TelemetryManager {
             }),
             active_spans: RwLock::new(HashMap::new()),
             completed_spans: RwLock::new(Vec::new()),
+            events: RwLock::new(Vec::new()),
         }
     }
 
@@ -585,6 +630,12 @@ impl TelemetryManager {
     pub fn clear_completed_spans(&self) {
         self.completed_spans.write().unwrap().clear();
     }
+
+    /// Record a telemetry event
+    pub fn record_event(&self, event: TelemetryEvent) {
+        let mut events = self.events.write().unwrap();
+        events.push(event);
+    }
 }
 
 /// System metrics collector
@@ -728,6 +779,11 @@ pub fn init_telemetry(config: Option<TelemetryConfig>) -> Result<()> {
 
 /// Initialize syscall metrics (for compatibility)
 pub fn init_syscall_metrics() -> crate::error::Result<()> {
+    init_telemetry(None)
+}
+
+/// Initialize plugin metrics (compatibility shim)
+pub fn init_plugin_metrics() -> crate::error::Result<()> {
     init_telemetry(None)
 }
 

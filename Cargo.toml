@@ -4,10 +4,20 @@ resolver = "2"
 members = [
     "common",
     "microkernel",
+    "plugin-manager",
+    "runtime",
+    "network-manager",
 ]
 
 [profile.dev]
 opt-level = 1
 
 [profile.release]
-opt-level = 3
+opt-level = "z"
+lto = true
+strip = "symbols"
+panic = "abort"
+codegen-units = 1
+overflow-checks = false
+debug = false
+incremental = false

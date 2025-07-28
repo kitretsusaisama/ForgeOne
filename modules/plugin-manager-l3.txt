@@ -228,7 +228,6 @@ pub fn start_bus() -> (Sender<Syscall>, Receiver<Syscall>) {
 
 ---
 
-# ✅ What’s Next?
 
 Now that you have:
 
@@ -245,8 +244,6 @@ Now that you have:
 
 ---
 
-Would you like:
-
-✅ The **actual file contents** (`mod.rs`, `plugin.rs`, etc.)
-✅ Integration with the next module?
-✅ Dev container + test harness for `plugin-manager`?
+* ✅ `common` module with traits, types, config, errors
+* ✅ One or more example plugin extensions
+* ✅ Ready-to-run `main.rs` for integration

@@ -1,0 +1,182 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="1600" viewBox="0 0 1200 1600">
+  <style>
+    .database { fill: #B0C4DE; stroke: #333; stroke-width: 2; }
+    .table { fill: #F0F8FF; stroke: #333; stroke-width: 2; }
+    .shard { fill: #E6E6FA; stroke: #333; stroke-width: 2; }
+    .field { fill: #FFFFFF; stroke: #333; stroke-width: 1; }
+    .pk { fill: #FFD700; stroke: #333; stroke-width: 1; }
+    .fk { fill: #98FB98; stroke: #333; stroke-width: 1; }
+    .text { font-family: Arial; font-size: 14px; }
+    .title { font-family: Arial; font-size: 24px; font-weight: bold; }
+    .subtitle { font-family: Arial; font-size: 18px; font-weight: bold; }
+    .description { font-family: Arial; font-size: 12px; fill: #555; }
+    .line { stroke: #333; stroke-width: 2; }
+    .arrow { stroke: #333; stroke-width: 2; marker-end: url(#arrowhead); }
+  </style>
+
+  <!-- Arrow marker definition -->
+  <defs>
+    <marker id="arrowhead" markerWidth="10" markerHeight="7" refX="9" refY="3.5" orient="auto">
+      <polygon points="0 0, 10 3.5, 0 7" fill="#333" />
+    </marker>
+  </defs>
+
+  <!-- Title -->
+  <text x="600" y="50" text-anchor="middle" class="title">ForgeOne Database Schema</text>
+  <text x="600" y="80" text-anchor="middle" class="subtitle">Redb, Atomic Storage-Manager, DMCOA</text>
+
+  <!-- System Database -->
+  <rect x="100" y="120" width="1000" height="80" rx="10" class="database" />
+  <text x="600" y="165" text-anchor="middle" class="subtitle">System Database (system.redb)</text>
+
+  <!-- System Tables -->
+  <rect x="120" y="220" width="220" height="160" rx="10" class="table" />
+  <text x="230" y="245" text-anchor="middle" class="text">metadata</text>
+  <line x1="120" y1="255" x2="340" y2="255" class="line" />
+  <text x="130" y="275" class="text">key (string)</text>
+  <text x="130" y="295" class="text">value (bytes)</text>
+  <text x="130" y="315" class="text">created_at (timestamp)</text>
+  <text x="130" y="335" class="text">updated_at (timestamp)</text>
+  <text x="130" y="355" class="text">checksum (string)</text>
+
+  <rect x="360" y="220" width="220" height="160" rx="10" class="table" />
+  <text x="470" y="245" text-anchor="middle" class="text">snapshots</text>
+  <line x1="360" y1="255" x2="580" y2="255" class="line" />
+  <text x="370" y="275" class="text">id (string)</text>
+  <text x="370" y="295" class="text">name (string)</text>
+  <text x="370" y="315" class="text">created_at (timestamp)</text>
+  <text x="370" y="335" class="text">size_bytes (u64)</text>
+  <text x="370" y="355" class="text">checksum (string)</text>
+
+  <rect x="600" y="220" width="220" height="160" rx="10" class="table" />
+  <text x="710" y="245" text-anchor="middle" class="text">metrics</text>
+  <line x1="600" y1="255" x2="820" y2="255" class="line" />
+  <text x="610" y="275" class="text">id (string)</text>
+  <text x="610" y="295" class="text">name (string)</text>
+  <text x="610" y="315" class="text">timestamp (timestamp)</text>
+  <text x="610" y="335" class="text">value (f64)</text>
+  <text x="610" y="355" class="text">labels (map)</text>
+
+  <rect x="840" y="220" width="220" height="160" rx="10" class="table" />
+  <text x="950" y="245" text-anchor="middle" class="text">settings</text>
+  <line x1="840" y1="255" x2="1060" y2="255" class="line" />
+  <text x="850" y="275" class="text">key (string)</text>
+  <text x="850" y="295" class="text">value (bytes)</text>
+  <text x="850" y="315" class="text">encrypted (bool)</text>
+  <text x="850" y="335" class="text">updated_at (timestamp)</text>
+  <text x="850" y="355" class="text">updated_by (string)</text>
+
+  <!-- Logs Database -->
+  <rect x="100" y="400" width="1000" height="80" rx="10" class="database" />
+  <text x="600" y="445" text-anchor="middle" class="subtitle">Logs Database (logs_shard_N.redb)</text>
+
+  <!-- Logs Tables -->
+  <rect x="120" y="500" width="300" height="200" rx="10" class="table" />
+  <text x="270" y="525" text-anchor="middle" class="text">logs</text>
+  <line x1="120" y1="535" x2="420" y2="535" class="line" />
+  <text x="130" y="555" class="text">id (string)</text>
+  <text x="130" y="575" class="text">topic (string)</text>
+  <text x="130" y="595" class="text">timestamp (timestamp)</text>
+  <text x="130" y="615" class="text">severity (enum)</text>
+  <text x="130" y="635" class="text">message (string)</text>
+  <text x="130" y="655" class="text">metadata (map)</text>
+  <text x="130" y="675" class="text">checkpoint_marker (bool)</text>
+  <text x="130" y="695" class="text">content_hash (string)</text>
+
+  <rect x="440" y="500" width="300" height="200" rx="10" class="table" />
+  <text x="590" y="525" text-anchor="middle" class="text">log_index</text>
+  <line x1="440" y1="535" x2="740" y2="535" class="line" />
+  <text x="450" y="555" class="text">topic (string)</text>
+  <text x="450" y="575" class="text">timestamp (timestamp)</text>
+  <text x="450" y="595" class="text">log_id (string)</text>
+  <text x="450" y="615" class="text">severity (enum)</text>
+
+  <rect x="760" y="500" width="300" height="200" rx="10" class="table" />
+  <text x="910" y="525" text-anchor="middle" class="text">checkpoints</text>
+  <line x1="760" y1="535" x2="1060" y2="535" class="line" />
+  <text x="770" y="555" class="text">id (string)</text>
+  <text x="770" y="575" class="text">timestamp (timestamp)</text>
+  <text x="770" y="595" class="text">topic (string)</text>
+  <text x="770" y="615" class="text">log_id (string)</text>
+  <text x="770" y="635" class="text">metadata (map)</text>
+
+  <!-- Blobs Database -->
+  <rect x="100" y="720" width="1000" height="80" rx="10" class="database" />
+  <text x="600" y="765" text-anchor="middle" class="subtitle">Blobs Database (blobs_shard_N.redb)</text>
+
+  <!-- Blobs Tables -->
+  <rect x="120" y="820" width="300" height="200" rx="10" class="table" />
+  <text x="270" y="845" text-anchor="middle" class="text">blob_metadata</text>
+  <line x1="120" y1="855" x2="420" y2="855" class="line" />
+  <text x="130" y="875" class="text">id (string)</text>
+  <text x="130" y="895" class="text">name (string)</text>
+  <text x="130" y="915" class="text">content_type (string)</text>
+  <text x="130" y="935" class="text">size (u64)</text>
+  <text x="130" y="955" class="text">created_at (timestamp)</text>
+  <text x="130" y="975" class="text">created_by (string)</text>
+  <text x="130" y="995" class="text">checksum (string)</text>
+  <text x="130" y="1015" class="text">encrypted (bool)</text>
+
+  <rect x="440" y="820" width="300" height="200" rx="10" class="table" />
+  <text x="590" y="845" text-anchor="middle" class="text">blob_chunks</text>
+  <line x1="440" y1="855" x2="740" y2="855" class="line" />
+  <text x="450" y="875" class="text">blob_id (string)</text>
+  <text x="450" y="895" class="text">chunk_index (u32)</text>
+  <text x="450" y="915" class="text">data (bytes)</text>
+  <text x="450" y="935" class="text">checksum (string)</text>
+
+  <rect x="760" y="820" width="300" height="200" rx="10" class="table" />
+  <text x="910" y="845" text-anchor="middle" class="text">blob_index</text>
+  <line x1="760" y1="855" x2="1060" y2="855" class="line" />
+  <text x="770" y="875" class="text">name (string)</text>
+  <text x="770" y="895" class="text">content_type (string)</text>
+  <text x="770" y="915" class="text">blob_id (string)</text>
+  <text x="770" y="935" class="text">created_at (timestamp)</text>
+
+  <!-- Events Database -->
+  <rect x="100" y="1040" width="1000" height="80" rx="10" class="database" />
+  <text x="600" y="1085" text-anchor="middle" class="subtitle">Events Database (events_shard_N.redb)</text>
+
+  <!-- Events Tables -->
+  <rect x="120" y="1140" width="300" height="200" rx="10" class="table" />
+  <text x="270" y="1165" text-anchor="middle" class="text">events</text>
+  <line x1="120" y1="1175" x2="420" y2="1175" class="line" />
+  <text x="130" y="1195" class="text">id (string)</text>
+  <text x="130" y="1215" class="text">topic (string)</text>
+  <text x="130" y="1235" class="text">timestamp (timestamp)</text>
+  <text x="130" y="1255" class="text">priority (u8)</text>
+  <text x="130" y="1275" class="text">payload (bytes)</text>
+  <text x="130" y="1295" class="text">metadata (map)</text>
+  <text x="130" y="1315" class="text">checkpoint_marker (bool)</text>
+
+  <rect x="440" y="1140" width="300" height="200" rx="10" class="table" />
+  <text x="590" y="1165" text-anchor="middle" class="text">event_index</text>
+  <line x1="440" y1="1175" x2="740" y2="1175" class="line" />
+  <text x="450" y="1195" class="text">topic (string)</text>
+  <text x="450" y="1215" class="text">timestamp (timestamp)</text>
+  <text x="450" y="1235" class="text">event_id (string)</text>
+  <text x="450" y="1255" class="text">priority (u8)</text>
+
+  <rect x="760" y="1140" width="300" height="200" rx="10" class="table" />
+  <text x="910" y="1165" text-anchor="middle" class="text">topics</text>
+  <line x1="760" y1="1175" x2="1060" y2="1175" class="line" />
+  <text x="770" y="1195" class="text">name (string)</text>
+  <text x="770" y="1215" class="text">description (string)</text>
+  <text x="770" y="1235" class="text">created_at (timestamp)</text>
+  <text x="770" y="1255" class="text">updated_at (timestamp)</text>
+  <text x="770" y="1275" class="text">metadata (map)</text>
+
+  <!-- Relationships -->
+  <line x1="270" y1="700" x2="590" y2="615" class="arrow" />
+  <line x1="270" y1="700" x2="910" y2="615" class="arrow" />
+  
+  <line x1="270" y1="1020" x2="590" y2="935" class="arrow" />
+  <line x1="270" y1="1020" x2="910" y2="935" class="arrow" />
+  
+  <line x1="270" y1="1340" x2="590" y2="1255" class="arrow" />
+  <line x1="270" y1="1340" x2="910" y2="1255" class="arrow" />
+
+  <!-- Footer -->
+  <text x="600" y="1370" text-anchor="middle" class="text">ForgeOne Database Schema - Redb, Atomic Storage-Manager</text>
+  <text x="600" y="1390" text-anchor="middle" class="description">Sharded, Encrypted, Compressed, Snapshot-capable, Audit-ready</text>
+</svg>

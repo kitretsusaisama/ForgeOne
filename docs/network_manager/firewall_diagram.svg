@@ -1,0 +1,76 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="800" height="600" viewBox="0 0 800 600">
+  <!-- Background -->
+  <rect width="800" height="600" fill="#f8f9fa" />
+  
+  <!-- Title -->
+  <text x="400" y="40" font-family="Arial" font-size="24" text-anchor="middle" font-weight="bold">Firewall Module Architecture</text>
+  
+  <!-- Firewall Manager Box -->
+  <rect x="300" y="80" width="200" height="80" rx="10" ry="10" fill="#4285f4" stroke="#2a56c6" stroke-width="2" />
+  <text x="400" y="120" font-family="Arial" font-size="18" text-anchor="middle" fill="white" font-weight="bold">Firewall Manager</text>
+  <text x="400" y="145" font-family="Arial" font-size="12" text-anchor="middle" fill="white">Main Controller</text>
+  
+  <!-- Component Boxes -->
+  <rect x="100" y="220" width="160" height="70" rx="10" ry="10" fill="#34a853" stroke="#1e8e3e" stroke-width="2" />
+  <text x="180" y="255" font-family="Arial" font-size="16" text-anchor="middle" fill="white" font-weight="bold">Policy Engine</text>
+  <text x="180" y="275" font-family="Arial" font-size="12" text-anchor="middle" fill="white">Zero Trust Integration</text>
+  
+  <rect x="320" y="220" width="160" height="70" rx="10" ry="10" fill="#34a853" stroke="#1e8e3e" stroke-width="2" />
+  <text x="400" y="255" font-family="Arial" font-size="16" text-anchor="middle" fill="white" font-weight="bold">Rule Manager</text>
+  <text x="400" y="275" font-family="Arial" font-size="12" text-anchor="middle" fill="white">Rule CRUD Operations</text>
+  
+  <rect x="540" y="220" width="160" height="70" rx="10" ry="10" fill="#34a853" stroke="#1e8e3e" stroke-width="2" />
+  <text x="620" y="255" font-family="Arial" font-size="16" text-anchor="middle" fill="white" font-weight="bold">Security Groups</text>
+  <text x="620" y="275" font-family="Arial" font-size="12" text-anchor="middle" fill="white">Container Grouping</text>
+  
+  <!-- Backend Providers -->
+  <rect x="150" y="350" width="200" height="60" rx="10" ry="10" fill="#fbbc05" stroke="#f29900" stroke-width="2" />
+  <text x="250" y="385" font-family="Arial" font-size="16" text-anchor="middle" fill="white" font-weight="bold">nftables Provider</text>
+  
+  <rect x="450" y="350" width="200" height="60" rx="10" ry="10" fill="#fbbc05" stroke="#f29900" stroke-width="2" />
+  <text x="550" y="385" font-family="Arial" font-size="16" text-anchor="middle" fill="white" font-weight="bold">iptables Provider</text>
+  
+  <!-- Linux Network Stack Box -->
+  <rect x="150" y="470" width="500" height="80" rx="10" ry="10" fill="#ea4335" stroke="#c5221f" stroke-width="2" />
+  <text x="400" y="510" font-family="Arial" font-size="18" text-anchor="middle" fill="white" font-weight="bold">Linux Network Stack</text>
+  <text x="400" y="535" font-family="Arial" font-size="12" text-anchor="middle" fill="white">Packet Filtering, Connection Tracking</text>
+  
+  <!-- Connection Lines -->
+  <!-- Firewall Manager to Components -->
+  <line x1="400" y1="160" x2="400" y2="220" stroke="#2a56c6" stroke-width="2" />
+  <line x1="400" y1="160" x2="180" y2="220" stroke="#2a56c6" stroke-width="2" />
+  <line x1="400" y1="160" x2="620" y2="220" stroke="#2a56c6" stroke-width="2" />
+  
+  <!-- Components to Backends -->
+  <line x1="180" y1="290" x2="250" y2="350" stroke="#1e8e3e" stroke-width="2" />
+  <line x1="400" y1="290" x2="250" y2="350" stroke="#1e8e3e" stroke-width="2" />
+  <line x1="400" y1="290" x2="550" y2="350" stroke="#1e8e3e" stroke-width="2" />
+  <line x1="620" y1="290" x2="550" y2="350" stroke="#1e8e3e" stroke-width="2" />
+  
+  <!-- Backends to Linux Network Stack -->
+  <line x1="250" y1="410" x2="400" y2="470" stroke="#f29900" stroke-width="2" />
+  <line x1="550" y1="410" x2="400" y2="470" stroke="#f29900" stroke-width="2" />
+  
+  <!-- Zero Trust Policy Graph -->
+  <rect x="50" y="120" width="180" height="60" rx="10" ry="10" fill="#673ab7" stroke="#4527a0" stroke-width="2" />
+  <text x="140" y="155" font-family="Arial" font-size="16" text-anchor="middle" fill="white" font-weight="bold">ZTA Policy Graph</text>
+  
+  <!-- Connection to Policy Engine -->
+  <line x1="140" y1="180" x2="180" y2="220" stroke="#4527a0" stroke-width="2" />
+  
+  <!-- Legend -->
+  <rect x="600" y="430" width="20" height="20" fill="#4285f4" stroke="#2a56c6" stroke-width="2" />
+  <text x="630" y="445" font-family="Arial" font-size="12" text-anchor="start">Controller</text>
+  
+  <rect x="600" y="460" width="20" height="20" fill="#34a853" stroke="#1e8e3e" stroke-width="2" />
+  <text x="630" y="475" font-family="Arial" font-size="12" text-anchor="start">Components</text>
+  
+  <rect x="600" y="490" width="20" height="20" fill="#fbbc05" stroke="#f29900" stroke-width="2" />
+  <text x="630" y="505" font-family="Arial" font-size="12" text-anchor="start">Backend Providers</text>
+  
+  <rect x="600" y="520" width="20" height="20" fill="#ea4335" stroke="#c5221f" stroke-width="2" />
+  <text x="630" y="535" font-family="Arial" font-size="12" text-anchor="start">System Layer</text>
+  
+  <rect x="600" y="550" width="20" height="20" fill="#673ab7" stroke="#4527a0" stroke-width="2" />
+  <text x="630" y="565" font-family="Arial" font-size="12" text-anchor="start">Zero Trust</text>
+</svg>

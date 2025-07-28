@@ -1,0 +1,100 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1000" height="1200" viewBox="0 0 1000 1200">
+  <!-- Background and Title -->
+  <rect width="1000" height="1200" fill="#f8f9fa" />
+  <text x="500" y="40" font-family="Arial" font-size="24" font-weight="bold" text-anchor="middle" fill="#333">ForgeOne Microkernel Folder Structure</text>
+  
+  <!-- Main Container -->
+  <rect x="50" y="70" width="900" height="1080" rx="10" ry="10" fill="#fff" stroke="#ddd" stroke-width="2" />
+  
+  <!-- Root Directory -->
+  <rect x="100" y="100" width="800" height="40" rx="5" ry="5" fill="#e6f7ff" stroke="#1890ff" stroke-width="2" />
+  <text x="120" y="125" font-family="Arial" font-size="16" font-weight="bold" fill="#333">microkernel/</text>
+  
+  <!-- First Level Directories -->
+  <rect x="150" y="160" width="700" height="40" rx="5" ry="5" fill="#f0f5ff" stroke="#2f54eb" stroke-width="1" />
+  <text x="170" y="185" font-family="Arial" font-size="14" fill="#333">Cargo.toml</text>
+  
+  <rect x="150" y="210" width="700" height="40" rx="5" ry="5" fill="#f0f5ff" stroke="#2f54eb" stroke-width="1" />
+  <text x="170" y="235" font-family="Arial" font-size="14" fill="#333">README.md</text>
+  
+  <!-- src Directory -->
+  <rect x="150" y="260" width="700" height="40" rx="5" ry="5" fill="#f6ffed" stroke="#52c41a" stroke-width="2" />
+  <text x="170" y="285" font-family="Arial" font-size="14" font-weight="bold" fill="#333">src/</text>
+  
+  <rect x="200" y="310" width="600" height="40" rx="5" ry="5" fill="#f6ffed" stroke="#52c41a" stroke-width="1" />
+  <text x="220" y="335" font-family="Arial" font-size="14" fill="#333">lib.rs</text>
+  
+  <!-- Core Module -->
+  <rect x="200" y="360" width="600" height="40" rx="5" ry="5" fill="#f9f0ff" stroke="#722ed1" stroke-width="2" />
+  <text x="220" y="385" font-family="Arial" font-size="14" font-weight="bold" fill="#333">core/</text>
+  
+  <rect x="250" y="410" width="500" height="30" rx="5" ry="5" fill="#f9f0ff" stroke="#722ed1" stroke-width="1" />
+  <text x="270" y="430" font-family="Arial" font-size="12" fill="#333">mod.rs</text>
+  
+  <rect x="250" y="450" width="500" height="30" rx="5" ry="5" fill="#f9f0ff" stroke="#722ed1" stroke-width="1" />
+  <text x="270" y="470" font-family="Arial" font-size="12" fill="#333">boot.rs</text>
+  
+  <rect x="250" y="490" width="500" height="30" rx="5" ry="5" fill="#f9f0ff" stroke="#722ed1" stroke-width="1" />
+  <text x="270" y="510" font-family="Arial" font-size="12" fill="#333">runtime.rs</text>
+  
+  <rect x="250" y="530" width="500" height="30" rx="5" ry="5" fill="#f9f0ff" stroke="#722ed1" stroke-width="1" />
+  <text x="270" y="550" font-family="Arial" font-size="12" fill="#333">scheduler.rs</text>
+  
+  <!-- Execution Module -->
+  <rect x="200" y="570" width="600" height="40" rx="5" ry="5" fill="#fff7e6" stroke="#fa8c16" stroke-width="2" />
+  <text x="220" y="595" font-family="Arial" font-size="14" font-weight="bold" fill="#333">execution/</text>
+  
+  <rect x="250" y="620" width="500" height="30" rx="5" ry="5" fill="#fff7e6" stroke="#fa8c16" stroke-width="1" />
+  <text x="270" y="640" font-family="Arial" font-size="12" fill="#333">mod.rs</text>
+  
+  <rect x="250" y="660" width="500" height="30" rx="5" ry="5" fill="#fff7e6" stroke="#fa8c16" stroke-width="1" />
+  <text x="270" y="680" font-family="Arial" font-size="12" fill="#333">wasm_host.rs</text>
+  
+  <rect x="250" y="700" width="500" height="30" rx="5" ry="5" fill="#fff7e6" stroke="#fa8c16" stroke-width="1" />
+  <text x="270" y="720" font-family="Arial" font-size="12" fill="#333">plugin_host.rs</text>
+  
+  <rect x="250" y="740" width="500" height="30" rx="5" ry="5" fill="#fff7e6" stroke="#fa8c16" stroke-width="1" />
+  <text x="270" y="760" font-family="Arial" font-size="12" fill="#333">syscall.rs</text>
+  
+  <!-- Trust Module (abbreviated) -->
+  <rect x="200" y="780" width="600" height="40" rx="5" ry="5" fill="#e6fffb" stroke="#13c2c2" stroke-width="2" />
+  <text x="220" y="805" font-family="Arial" font-size="14" font-weight="bold" fill="#333">trust/ (zta_policy.rs, syscall_enforcer.rs, redzone.rs)</text>
+  
+  <!-- Observer Module (abbreviated) -->
+  <rect x="200" y="830" width="600" height="40" rx="5" ry="5" fill="#fcffe6" stroke="#a0d911" stroke-width="2" />
+  <text x="220" y="855" font-family="Arial" font-size="14" font-weight="bold" fill="#333">observer/ (trace.rs, forensic.rs, snapshot.rs)</text>
+  
+  <!-- Crypto Module (abbreviated) -->
+  <rect x="200" y="880" width="600" height="40" rx="5" ry="5" fill="#fff0f6" stroke="#eb2f96" stroke-width="2" />
+  <text x="220" y="905" font-family="Arial" font-size="14" font-weight="bold" fill="#333">crypto/ (signature.rs, forgepkg.rs)</text>
+  
+  <!-- Diagnostics Module (abbreviated) -->
+  <rect x="200" y="930" width="600" height="40" rx="5" ry="5" fill="#f0f5ff" stroke="#2f54eb" stroke-width="2" />
+  <text x="220" y="955" font-family="Arial" font-size="14" font-weight="bold" fill="#333">diagnostics/ (self_test.rs, anomaly.rs)</text>
+  
+  <!-- Interface Module (abbreviated) -->
+  <rect x="200" y="980" width="600" height="40" rx="5" ry="5" fill="#fff7e6" stroke="#fa8c16" stroke-width="2" />
+  <text x="220" y="1005" font-family="Arial" font-size="14" font-weight="bold" fill="#333">interface/ (api.rs, prelude.rs)</text>
+  
+  <!-- Config Module (abbreviated) -->
+  <rect x="200" y="1030" width="600" height="40" rx="5" ry="5" fill="#f9f0ff" stroke="#722ed1" stroke-width="2" />
+  <text x="220" y="1055" font-family="Arial" font-size="14" font-weight="bold" fill="#333">config/ (runtime.rs)</text>
+  
+  <!-- tests Directory -->
+  <rect x="150" y="1080" width="700" height="40" rx="5" ry="5" fill="#fff0f6" stroke="#eb2f96" stroke-width="2" />
+  <text x="170" y="1105" font-family="Arial" font-size="14" font-weight="bold" fill="#333">tests/ (core/, execution/, trust/, observer/, crypto/, diagnostics/, interface/, config/)</text>
+  
+  <!-- examples Directory -->
+  <rect x="150" y="1130" width="700" height="40" rx="5" ry="5" fill="#e6f7ff" stroke="#1890ff" stroke-width="2" />
+  <text x="170" y="1155" font-family="Arial" font-size="14" font-weight="bold" fill="#333">examples/ (basic_init.rs, secure_syscall.rs, container_execution.rs)</text>
+  
+  <!-- benches Directory -->
+  <rect x="150" y="1180" width="700" height="40" rx="5" ry="5" fill="#fcffe6" stroke="#a0d911" stroke-width="2" />
+  <text x="170" y="1205" font-family="Arial" font-size="14" font-weight="bold" fill="#333">benches/ (syscall_performance.rs, container_startup.rs)</text>
+  
+  <!-- Legend -->
+  <rect x="100" y="1230" width="800" height="30" rx="5" ry="5" fill="none" />
+  <text x="500" y="1250" font-family="Arial" font-size="14" text-anchor="middle" fill="#333">
+    Color Legend: Directories | Files | Core Modules | Execution Modules | Trust Modules | Observer Modules | Crypto Modules | Diagnostics Modules
+  </text>
+</svg>
